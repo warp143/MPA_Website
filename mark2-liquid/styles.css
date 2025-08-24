@@ -352,6 +352,26 @@ body:not(.light-mode) .logo-light {
     opacity: 0;
 }
 
+/* News Source Styling */
+.news-source {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+.source-link {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.source-link:hover {
+    color: var(--accent-purple);
+    text-decoration: underline;
+}
+
 .theme-toggle:hover {
     background: var(--glass-border);
     transform: scale(1.1);
