@@ -335,6 +335,21 @@ body:not(.light-mode) .logo-light {
     flex-shrink: 0;
     min-width: 40px;
     min-height: 40px;
+    position: relative;
+}
+
+.auto-indicator {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 0.7rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.auto-indicator.hidden {
+    opacity: 0;
 }
 
 .theme-toggle:hover {

@@ -4,26 +4,71 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
 
-    // Theme Toggle Functionality
+    // Theme Toggle Functionality with Auto-Switching
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle?.querySelector('.theme-icon');
     const body = document.body;
     
     if (themeToggle && themeIcon) {
-        // Check for saved theme preference or default to dark mode
-        const savedTheme = localStorage.getItem('mpa-theme') || 'dark';
-        body.classList.toggle('light-mode', savedTheme === 'light');
-        updateThemeIcon(savedTheme);
+        // Auto theme switching function
+        function getAutoTheme() {
+            const now = new Date();
+            const hour = now.getHours();
+            // Light mode: 7am to 7pm (7-19)
+            // Dark mode: 7pm to 7am (19-7)
+            return (hour >= 7 && hour < 19) ? 'light' : 'dark';
+        }
+        
+        // Check for saved theme preference or use auto theme
+        const savedTheme = localStorage.getItem('mpa-theme');
+        const autoTheme = getAutoTheme();
+        
+        // If no saved preference, use auto theme
+        // If saved preference exists, use it (user can still override)
+        const currentTheme = savedTheme || autoTheme;
+        
+        body.classList.toggle('light-mode', currentTheme === 'light');
+        updateThemeIcon(currentTheme);
+        updateAutoIndicator(savedTheme);
+        
+        // Auto-switch theme based on time
+        function checkAndUpdateTheme() {
+            const newAutoTheme = getAutoTheme();
+            const savedTheme = localStorage.getItem('mpa-theme');
+            
+            // Only auto-switch if user hasn't set a manual preference
+            if (!savedTheme) {
+                const isCurrentlyLight = body.classList.contains('light-mode');
+                const shouldBeLight = newAutoTheme === 'light';
+                
+                if (isCurrentlyLight !== shouldBeLight) {
+                    body.classList.toggle('light-mode', shouldBeLight);
+                    updateThemeIcon(newAutoTheme);
+                    showNotification(`Auto-switched to ${newAutoTheme} mode`);
+                }
+            }
+        }
+        
+        // Check theme every minute
+        setInterval(checkAndUpdateTheme, 60000);
+        
+        // Also check when page becomes visible (user returns to tab)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                checkAndUpdateTheme();
+            }
+        });
         
         themeToggle.addEventListener('click', function() {
             const isLightMode = body.classList.toggle('light-mode');
             const theme = isLightMode ? 'light' : 'dark';
             
-            // Save theme preference
+            // Save theme preference (this will override auto-switching)
             localStorage.setItem('mpa-theme', theme);
             
-            // Update icon
+            // Update icon and auto indicator
             updateThemeIcon(theme);
+            updateAutoIndicator(theme);
             
             // Add transition effect
             body.style.transition = 'all 0.3s ease';
@@ -34,6 +79,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         function updateThemeIcon(theme) {
             themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+        
+        function updateAutoIndicator(savedTheme) {
+            const autoIndicator = document.getElementById('autoIndicator');
+            if (autoIndicator) {
+                // Show auto indicator only when no manual preference is saved
+                autoIndicator.classList.toggle('hidden', !!savedTheme);
+            }
         }
     }
 
