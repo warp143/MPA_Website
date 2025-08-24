@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Portal - Malaysia PropTech Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Liquid Background -->
+    <div class="liquid-background">
+        <div class="liquid-blob blob-1"></div>
+        <div class="liquid-blob blob-2"></div>
+        <div class="liquid-blob blob-3"></div>
+        <div class="liquid-blob blob-4"></div>
+    </div>
+
+    <!-- Glass Navigation -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+                        <a href="index.html" class="nav-logo">
+                <img class="preload-me logo-light" src="malaysiaproptech-logo.png" width="250" height="70" alt="Malaysia Proptech Association">
+                <img class="preload-me logo-dark" src="mpa-logo-white.png" width="176" height="58" alt="Malaysia Proptech Association">
+            </a>
+                                                  <div class="nav-menu">
+                       <div class="mobile-nav-section">
+                           <a href="about.html" class="nav-link">About</a>
+                           <a href="proptech-guide.html" class="nav-link">PropTech Guide</a>
+                           <a href="events.html" class="nav-link">Events</a>
+                           <a href="insights.html" class="nav-link">Insights</a>
+                       </div>
+                       <div class="mobile-nav-section">
+                           <a href="youth-hub.html" class="nav-link">Youth Hub</a>
+                           <a href="partner-hub.html" class="nav-link">Partner Hub</a>
+                           <a href="news.html" class="nav-link">News</a>
+                           <a href="contact.html" class="nav-link">Contact</a>
+                       </div>
+                       <div class="mobile-nav-action">
+                           <a href="membership.html" class="mobile-action-btn nav-link mobile-cta">Join MPA</a>
+                       </div>
+                   </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <a href="member-portal.html" class="btn-glass active">Sign In</a>
+                <a href="membership.html" class="btn-primary-liquid desktop-only">Join MPA</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Member Portal</h1>
+            <p>Access your personalized dashboard, manage your membership, and connect with the PropTech community</p>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section class="features-liquid">
+        <div class="container">
+            <div class="section-header">
+                <h2>Member Login</h2>
+                <p>Sign in to access your exclusive member benefits and resources</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="login-email">Email Address *</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password *</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="remember-me">
+                                <span>Remember me</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary-liquid">Sign In</button>
+                        <div class="form-links">
+                            <a href="#" class="text-link">Forgot Password?</a>
+                            <a href="#" class="text-link">Need Help?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview (Hidden until login) -->
+    <section class="features-liquid" id="dashboardSection" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Welcome Back, <span id="memberName">Member</span>!</h2>
+                <p>Here's what's happening with your membership</p>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>📅</span>
+                    </div>
+                    <h3>Upcoming Events</h3>
+                    <div class="feature-stats">
+                        <span>🎯 3 events this month</span>
+                        <span>✅ 2 RSVPs confirmed</span>
+                    </div>
+                    <button class="btn-primary-liquid">View Events</button>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>📚</span>
+                    </div>
+                    <h3>Resource Library</h3>
+                    <div class="feature-stats">
+                        <span>📄 50+ documents</span>
+                        <span>🎥 25+ videos</span>
+                    </div>
+                    <button class="btn-primary-liquid">Browse Resources</button>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>🤝</span>
+                    </div>
+                    <h3>Network Connections</h3>
+                    <div class="feature-stats">
+                        <span>👥 45 connections</span>
+                        <span>💬 12 unread messages</span>
+                    </div>
+                    <button class="btn-primary-liquid">View Network</button>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>💎</span>
+                    </div>
+                    <h3>Membership Status</h3>
+                    <div class="feature-stats">
+                        <span>✅ Active</span>
+                        <span>📅 Expires: Dec 2025</span>
+                    </div>
+                    <button class="btn-primary-liquid">Manage Membership</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event RSVPs -->
+    <section class="features-liquid" id="eventsSection" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Your Events</h2>
+                <p>Manage your event registrations and RSVPs</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>🎯</span>
+                    </div>
+                    <h3>PropTech Summit 2025</h3>
+                    <p>Three-day international summit bringing together PropTech leaders and innovators.</p>
+                    <div class="feature-stats">
+                        <span>📅 Jan 15-17, 2025</span>
+                        <span>📍 Marina Bay Sands</span>
+                        <span>✅ Confirmed</span>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="btn-primary-liquid">View Details</button>
+                        <button class="btn-glass">Add to Calendar</button>
+                    </div>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>🤝</span>
+                    </div>
+                    <h3>Monthly Networking Meetup</h3>
+                    <p>Connect with fellow PropTech professionals in a relaxed networking environment.</p>
+                    <div class="feature-stats">
+                        <span>📅 Jan 25, 2025</span>
+                        <span>📍 KLCC</span>
+                        <span>⏳ Pending</span>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="btn-primary-liquid">RSVP Now</button>
+                        <button class="btn-glass">View Details</button>
+                    </div>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>🎓</span>
+                    </div>
+                    <h3>PropTech Workshop Series</h3>
+                    <p>Hands-on workshops covering AI, sustainability, and digital transformation in PropTech.</p>
+                    <div class="feature-stats">
+                        <span>📅 Feb 5, 2025</span>
+                        <span>📍 MPA Training Center</span>
+                        <span>❌ Not Registered</span>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="btn-primary-liquid">Register Now</button>
+                        <button class="btn-glass">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resource Library -->
+    <section class="features-liquid" id="resourcesSection" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Resource Library</h2>
+                <p>Access exclusive member-only resources and content</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>📊</span>
+                    </div>
+                    <h3>Market Reports</h3>
+                    <p>Exclusive PropTech market analysis and industry reports.</p>
+                    <div class="feature-stats">
+                        <span>📄 15 reports</span>
+                        <span>📈 Updated monthly</span>
+                    </div>
+                    <button class="btn-primary-liquid">Browse Reports</button>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>🎥</span>
+                    </div>
+                    <h3>Webinar Recordings</h3>
+                    <p>Recorded webinars and expert presentations from industry leaders.</p>
+                    <div class="feature-stats">
+                        <span>📹 25+ recordings</span>
+                        <span>⏱️ 30-90 min each</span>
+                    </div>
+                    <button class="btn-primary-liquid">Watch Videos</button>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>📋</span>
+                    </div>
+                    <h3>Case Studies</h3>
+                    <p>Real-world PropTech implementation case studies and success stories.</p>
+                    <div class="feature-stats">
+                        <span>📄 20 case studies</span>
+                        <span>🏢 Various industries</span>
+                    </div>
+                    <button class="btn-primary-liquid">Read Cases</button>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>📚</span>
+                    </div>
+                    <h3>Best Practices</h3>
+                    <p>Guidelines and best practices for PropTech implementation and adoption.</p>
+                    <div class="feature-stats">
+                        <span>📄 30+ guides</span>
+                        <span>🎯 Practical tips</span>
+                    </div>
+                    <button class="btn-primary-liquid">View Guides</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Member Directory -->
+    <section class="features-liquid" id="directorySection" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Member Directory</h2>
+                <p>Connect with other MPA members and expand your network</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <div class="form-group">
+                        <label>Search Members</label>
+                        <input type="search" placeholder="Search by name, company, or expertise...">
+                    </div>
+                    <div class="form-group">
+                        <label>Filter by Category</label>
+                        <select>
+                            <option value="">All Categories</option>
+                            <option value="startup">Startup</option>
+                            <option value="corporate">Corporate</option>
+                            <option value="academic">Academic</option>
+                            <option value="individual">Individual</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary-liquid">Search</button>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>👨‍💼</span>
+                    </div>
+                    <h3>Dr. Daniele Gambero</h3>
+                    <p class="text-muted">President, MPA</p>
+                    <p>PropTech expert and industry leader with 20+ years of experience.</p>
+                    <div class="feature-stats">
+                        <span>🏢 Propenomy</span>
+                        <span>📍 Kuala Lumpur</span>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="btn-primary-liquid">Connect</button>
+                        <button class="btn-glass">View Profile</button>
+                    </div>
+                </div>
+
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>👩‍💼</span>
+                    </div>
+                    <h3>Angela Kew</h3>
+                    <p class="text-muted">VP Membership, MPA</p>
+                    <p>Passionate about building strong communities and member engagement.</p>
+                    <div class="feature-stats">
+                        <span>🏢 MPA</span>
+                        <span>📍 Selangor</span>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="btn-primary-liquid">Connect</button>
+                        <button class="btn-glass">View Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Messaging System -->
+    <section class="features-liquid" id="messagingSection" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Member Messaging</h2>
+                <p>Connect and communicate with other MPA members</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <h3>Recent Conversations</h3>
+                    <div class="message-list">
+                        <div class="message-item">
+                            <div class="message-avatar">👨‍💼</div>
+                            <div class="message-content">
+                                <h4>Dr. Daniele Gambero</h4>
+                                <p>Great to see you at the summit! Let's discuss...</p>
+                                <span class="message-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="message-item">
+                            <div class="message-avatar">👩‍💼</div>
+                            <div class="message-content">
+                                <h4>Sarah Lim</h4>
+                                <p>Thanks for the introduction to the startup...</p>
+                                <span class="message-time">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-primary-liquid">View All Messages</button>
+                </div>
+
+                <div class="feature-card-glass">
+                    <h3>Send New Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="message-recipient">To:</label>
+                            <select id="message-recipient" required>
+                                <option value="">Select Member</option>
+                                <option value="daniele">Dr. Daniele Gambero</option>
+                                <option value="angela">Angela Kew</option>
+                                <option value="jason">Jason Ding</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-subject">Subject:</label>
+                            <input type="text" id="message-subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-body">Message:</label>
+                            <textarea id="message-body" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary-liquid">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Management -->
+    <section class="features-liquid" id="membershipSection" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Membership Management</h2>
+                <p>Manage your membership details and preferences</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <h3>Profile Information</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="profile-name">Full Name</label>
+                            <input type="text" id="profile-name" value="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-email">Email Address</label>
+                            <input type="email" id="profile-email" value="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-company">Company</label>
+                            <input type="text" id="profile-company" value="TechCorp">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-position">Position</label>
+                            <input type="text" id="profile-position" value="CTO">
+                        </div>
+                        <button type="submit" class="btn-primary-liquid">Update Profile</button>
+                    </form>
+                </div>
+
+                <div class="feature-card-glass">
+                    <h3>Membership Details</h3>
+                    <div class="membership-info">
+                        <div class="info-item">
+                            <span class="label">Membership Type:</span>
+                            <span class="value">Corporate</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Member Since:</span>
+                            <span class="value">January 2023</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Expiry Date:</span>
+                            <span class="value">December 31, 2025</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Status:</span>
+                            <span class="value status-active">Active</span>
+                        </div>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="btn-primary-liquid">Renew Membership</button>
+                        <button class="btn-glass">Download Invoice</button>
+                    </div>
+                </div>
+
+                <div class="feature-card-glass">
+                    <h3>Preferences</h3>
+                    <form>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span>Receive event notifications</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span>Receive newsletter</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox">
+                                <span>Allow member messaging</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span>Show in member directory</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary-liquid">Save Preferences</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-liquid">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About MPA</h4>
+                    <p>Malaysia PropTech Association is committed to building a strong community with integrity, inclusivity, and equality of all PropTech Members.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="proptech-guide.html">PropTech Guide</a></li>
+                        <li><a href="membership.html">Membership</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>Email: info@proptech.org.my</li>
+                        <li>Address: 53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Malaysia PropTech Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Member Portal specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const dashboardSection = document.getElementById('dashboardSection');
+            const eventsSection = document.getElementById('eventsSection');
+            const resourcesSection = document.getElementById('resourcesSection');
+            const directorySection = document.getElementById('directorySection');
+            const messagingSection = document.getElementById('messagingSection');
+            const membershipSection = document.getElementById('membershipSection');
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simulate login
+                    const email = document.getElementById('login-email').value;
+                    const password = document.getElementById('login-password').value;
+                    
+                    if (email && password) {
+                        // Show dashboard sections
+                        dashboardSection.style.display = 'block';
+                        eventsSection.style.display = 'block';
+                        resourcesSection.style.display = 'block';
+                        directorySection.style.display = 'block';
+                        messagingSection.style.display = 'block';
+                        membershipSection.style.display = 'block';
+                        
+                        // Hide login form
+                        loginForm.parentElement.parentElement.style.display = 'none';
+                        
+                        // Update member name
+                        const memberName = document.getElementById('memberName');
+                        if (memberName) {
+                            memberName.textContent = email.split('@')[0];
+                        }
+                        
+                        showNotification('Successfully logged in!');
+                    } else {
+                        showNotification('Please enter valid credentials');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

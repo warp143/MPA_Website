@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPA | Malaysia PropTech Association - Haute Couture Edition</title>
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <span class="logo-letter">M</span>
+                <span class="logo-letter">P</span>
+                <span class="logo-letter">A</span>
+            </div>
+            <div class="loading-text">Malaysia PropTech Association</div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home" class="logo-link">
+                    <span class="logo-text">MPA</span>
+                    <span class="logo-subtitle">Malaysia PropTech Association</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link" data-text="Home">Home</a>
+                <a href="#about" class="nav-link" data-text="About">About</a>
+                <a href="#membership" class="nav-link" data-text="Membership">Membership</a>
+                <a href="#events" class="nav-link" data-text="Events">Events</a>
+                <a href="#committee" class="nav-link" data-text="Committee">Committee</a>
+                <a href="#insights" class="nav-link" data-text="Insights">Insights</a>
+                <a href="#contact" class="nav-link" data-text="Contact">Contact</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn btn-ghost">Sign In</button>
+                <button class="btn btn-primary">Join MPA</button>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-video">
+                <video autoplay muted loop playsinline>
+                    <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1a9e7c02d&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+                </video>
+            </div>
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="container">
+                <div class="hero-text" data-aos="fade-up" data-aos-duration="1500">
+                    <h1 class="hero-title">
+                        <span class="title-line">For The Future of</span>
+                        <span class="title-highlight">A Sustainable Property Market</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Leading The Digital Transformation of the Property Industry in Malaysia. 
+                        Building a strong community with integrity, inclusivity, and equality of all PropTech Members.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-large">
+                            <span>Join MPA</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="btn btn-outline btn-large">
+                            <span>Discover More</span>
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hero-stats" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1500">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="150">0</div>
+                        <div class="stat-label">Premium Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-label">Exclusive Events</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="25">0</div>
+                        <div class="stat-label">Innovation Startups</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="15">0</div>
+                        <div class="stat-label">Strategic Partners</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-text">Scroll to explore</div>
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">About MPA</h2>
+                <p class="section-subtitle">Crafting the future of property technology with elegance and innovation</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right" data-aos-duration="1000">
+                    <h3 class="about-heading">Word From The President</h3>
+                    <p class="about-description">
+                        Welcome to you, the visitor of the Malaysia PropTech Association website. Let me give you a very short introduction of what our association is and what is offering to all our members, associates, visitors, and more.
+                    </p>
+                    <p class="about-description">
+                        What we do is simple, we have been pulling together as many as possible of the Malaysian tech start-ups in property and construction with the aim of becoming a loud voice towards the implementation of digital transformation in the built environment.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Promote</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Inspire</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Events</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-handshake"></i>
+                            <span>Partnerships</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Employment</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-rocket"></i>
+                            <span>Innovation</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-visual" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="image-grid">
+                        <div class="image-item image-1">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Modern Architecture">
+                        </div>
+                        <div class="image-item image-2">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2066&q=80" alt="Innovation Hub">
+                        </div>
+                        <div class="image-item image-3">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Sustainable Development">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Section -->
+    <section id="membership" class="membership">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Exclusive Membership</h2>
+                <p class="section-subtitle">Join an elite community of innovators and industry leaders</p>
+            </div>
+            
+            <div class="membership-cards">
+                <div class="membership-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="card-title">Startup</h3>
+                        <div class="card-price">RM 500<span>/year</span></div>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Access to innovation network</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Event participation</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Resource library access</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Mentorship opportunities</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline btn-full">Join Now</button>
+                </div>
+                
+                <div class="membership-card featured" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-badge">Most Popular</div>
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3 class="card-title">Professional</h3>
+                        <div class="card-price">RM 1,200<span>/year</span></div>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>All Startup benefits</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Exclusive networking events</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Industry insights reports</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Direct partner introductions</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Priority event registration</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-full">Join Now</button>
+                </div>
+                
+                <div class="membership-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3 class="card-title">Enterprise</h3>
+                        <div class="card-price">RM 2,500<span>/year</span></div>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>All Professional benefits</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Custom research projects</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Board advisory access</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>International partnerships</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Dedicated relationship manager</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline btn-full">Join Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Upcoming Events</h2>
+                <p class="section-subtitle">Experience the future of PropTech at our exclusive gatherings</p>
+            </div>
+            
+            <div class="events-grid">
+                <div class="event-card featured" data-aos="fade-up" data-aos-delay="100">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="PropTech Summit">
+                        <div class="event-badge">Featured</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <span class="date-day">15</span>
+                            <span class="date-month">Dec</span>
+                        </div>
+                        <h3 class="event-title">PropTech Summit 2024</h3>
+                        <p class="event-description">
+                            Join industry leaders for the most anticipated PropTech event of the year. 
+                            Discover cutting-edge innovations and network with visionaries.
+                        </p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Kuala Lumpur Convention Centre</span>
+                            <span><i class="fas fa-clock"></i> 9:00 AM - 6:00 PM</span>
+                        </div>
+                        <button class="btn btn-primary">Register Now</button>
+                    </div>
+                </div>
+                
+                <div class="event-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" alt="Innovation Workshop">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <span class="date-day">22</span>
+                            <span class="date-month">Dec</span>
+                        </div>
+                        <h3 class="event-title">Innovation Workshop Series</h3>
+                        <p class="event-description">
+                            Hands-on workshops exploring the latest technologies in property development 
+                            and sustainable building practices.
+                        </p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> MPA Innovation Hub</span>
+                            <span><i class="fas fa-clock"></i> 2:00 PM - 5:00 PM</span>
+                        </div>
+                        <button class="btn btn-outline">Learn More</button>
+                    </div>
+                </div>
+                
+                <div class="event-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Networking Dinner">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <span class="date-day">30</span>
+                            <span class="date-month">Dec</span>
+                        </div>
+                        <h3 class="event-title">Exclusive Networking Dinner</h3>
+                        <p class="event-description">
+                            An intimate evening of networking with industry leaders and innovators 
+                            in an elegant setting.
+                        </p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> The Ritz-Carlton Kuala Lumpur</span>
+                            <span><i class="fas fa-clock"></i> 7:00 PM - 10:00 PM</span>
+                        </div>
+                        <button class="btn btn-outline">RSVP</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Committee Section -->
+    <section id="committee" class="committee">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Our Committee</h2>
+                <p class="section-subtitle">Meet the visionary leaders driving Malaysia's PropTech transformation</p>
+            </div>
+            
+            <div class="committee-grid">
+                <div class="committee-member" data-aos="fade-up" data-aos-delay="100">
+                    <div class="member-image">
+                        <img src="assets/Daniele-Gambero.webp" alt="Dr. Daniele Gambero">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Dr. Daniele Gambero</h3>
+                        <p class="member-position">President</p>
+                        <p class="member-description">
+                            Leading the digital transformation of Malaysia's property industry with visionary leadership and international expertise.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="committee-member" data-aos="fade-up" data-aos-delay="200">
+                    <div class="member-image">
+                        <img src="assets/jason-ding.webp" alt="Jason Ding">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Jason Ding</h3>
+                        <p class="member-position">Deputy President</p>
+                        <p class="member-description">
+                            Driving strategic initiatives and fostering partnerships to advance PropTech innovation across Malaysia.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="committee-member" data-aos="fade-up" data-aos-delay="300">
+                    <div class="member-image">
+                        <img src="assets/KW_Wong.png" alt="Wong Keh Wei">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Wong Keh Wei</h3>
+                        <p class="member-position">Secretary</p>
+                        <p class="member-description">
+                            Ensuring operational excellence and maintaining the highest standards of governance and transparency.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="committee-member" data-aos="fade-up" data-aos-delay="400">
+                    <div class="member-image">
+                        <img src="assets/Jacky-Chuah.webp" alt="Jacky Chuah">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Jacky Chuah</h3>
+                        <p class="member-position">Assistant Secretary</p>
+                        <p class="member-description">
+                            Supporting strategic initiatives and fostering collaboration among PropTech stakeholders.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="committee-member" data-aos="fade-up" data-aos-delay="500">
+                    <div class="member-image">
+                        <img src="assets/Liz-Ang.webp" alt="Liz Ang Gaik See">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Liz Ang Gaik See</h3>
+                        <p class="member-position">Treasurer</p>
+                        <p class="member-description">
+                            Managing financial stewardship and ensuring sustainable growth of the PropTech ecosystem.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="committee-member" data-aos="fade-up" data-aos-delay="600">
+                    <div class="member-image">
+                        <img src="assets/Angela_Kew.png" alt="Angela Kew Chui Teen">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Angela Kew Chui Teen</h3>
+                        <p class="member-position">VP Membership</p>
+                        <p class="member-description">
+                            Expanding our community and creating value for all PropTech members and stakeholders.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section id="insights" class="insights">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Latest Insights</h2>
+                <p class="section-subtitle">Stay ahead with our curated analysis and industry reports</p>
+            </div>
+            
+            <div class="insights-grid">
+                <article class="insight-card featured" data-aos="fade-up" data-aos-delay="100">
+                    <div class="insight-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="35 Years of Proptech">
+                        <div class="insight-category">News</div>
+                    </div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">35 Years of Proptech Fostering A Bright Start To Proptech 4.0</h3>
+                        <p class="insight-excerpt">
+                            We all know how good real estate is but not many have an idea of the size which this market has on a world scale. The latest report on "Real Estate Market Size 2019/2020" by MSCI, sizes it at USD 9.6 (RM38.4) trillion.
+                        </p>
+                        <div class="insight-meta">
+                            <span class="author">MPA News</span>
+                            <span class="date">December 10, 2024</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="insight-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="insight-image">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="ProperLy Asia">
+                        <div class="insight-category">Funding</div>
+                    </div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">ProperLy Asia Sdn Bhd - Equity Crowd Funding</h3>
+                        <p class="insight-excerpt">
+                            Exploring innovative funding opportunities and equity crowd funding solutions 
+                            for PropTech startups in the Asian market.
+                        </p>
+                        <div class="insight-meta">
+                            <span class="author">MPA News</span>
+                            <span class="date">December 8, 2024</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="insight-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="insight-image">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2111&q=80" alt="RE:Connect">
+                        <div class="insight-category">Events</div>
+                    </div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">Malaysia PropTech Association Members at RE:Connect September 2021</h3>
+                        <p class="insight-excerpt">
+                            MPA members actively participated in RE:Connect, showcasing Malaysia's 
+                            PropTech innovations and fostering international partnerships.
+                        </p>
+                        <div class="insight-meta">
+                            <span class="author">MPA News</span>
+                            <span class="date">December 5, 2024</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right" data-aos-duration="1000">
+                    <h2 class="contact-title">Get in Touch</h2>
+                    <p class="contact-subtitle">
+                        Ready to join the future of PropTech? Let's start a conversation 
+                        about how we can collaborate and innovate together.
+                    </p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p>info@proptech.org.my</p>
+                                <p>secretariat@proptech.org.my</p>
+                                <p>membership@proptech.org.my</p>
+                                <p>presidency@proptech.org.my</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <p>+60 11 322 44 56</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Address</h4>
+                                <p>PERSATUAN TEKNOLOGI HARTANAH MALAYSIA (MALAYSIA PROPTECH ASSOCIATION) (PPM-016-14-18052017)</p>
+                                <p>53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor Darul Ehsan, Malaysia.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form" data-aos="fade-left" data-aos-duration="1000">
+                    <form class="form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">Full Name</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">Email Address</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" id="company" name="company" required>
+                            <label for="company">Company</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <select id="subject" name="subject" required>
+                                <option value="">Select Subject</option>
+                                <option value="membership">Membership Inquiry</option>
+                                <option value="partnership">Partnership Opportunity</option>
+                                <option value="event">Event Information</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">Message</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span class="logo-text">MPA</span>
+                        <span class="logo-subtitle">Malaysia PropTech Association</span>
+                    </div>
+                    <p class="footer-description">
+                        Leading the digital transformation of the property industry in Malaysia 
+                        through innovation, collaboration, and sustainable development.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#membership">Membership</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#insights">Insights</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">PropTech Guide</a></li>
+                        <li><a href="#">Research Reports</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Newsletter</h4>
+                    <p class="footer-description">
+                        Stay updated with the latest PropTech news and insights.
+                    </p>
+                    <form class="newsletter-form">
+                        <div class="form-group">
+                            <input type="email" placeholder="Enter your email" required>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2024 Malaysia PropTech Association. All rights reserved.</p>
+                </div>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

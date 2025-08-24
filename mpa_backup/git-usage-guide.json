@@ -1,0 +1,149 @@
+{
+  "project_info": {
+    "name": "MPA_website",
+    "description": "Malaysia Proptech Association Website - WordPress with The7 Theme",
+    "server": "Azure",
+    "ip_address": "4.194.249.21",
+    "created_date": "2025-01-11",
+    "version": "1.0"
+  },
+  "git_repository": {
+    "repository_name": "MPA_website",
+    "bare_repository_location": "/home/azureuser/git-backups/MPA_website.git",
+    "working_directory": "/var/www/html",
+    "current_branch": "main",
+    "remote_name": "origin",
+    "initial_commit": "02871a78"
+  },
+  "setup_details": {
+    "git_config": {
+      "user_name": "MPA Website",
+      "user_email": "admin@proptech.org.my",
+      "default_branch": "main"
+    },
+    "gitignore": [
+      "*.log",
+      "wp-config.php",
+      "wp-content/cache/",
+      "wp-content/uploads/"
+    ]
+  },
+  "daily_workflow": {
+    "description": "Standard workflow for making changes to the website",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Make changes to files in /var/www/html",
+        "description": "Edit WordPress files, themes, plugins, or content"
+      },
+      {
+        "step": 2,
+        "action": "git add .",
+        "description": "Stage all changes for commit"
+      },
+      {
+        "step": 3,
+        "action": "git commit -m \"Description of changes\"",
+        "description": "Commit changes with a descriptive message"
+      },
+      {
+        "step": 4,
+        "action": "git push origin main",
+        "description": "Push changes to the backup repository"
+      }
+    ]
+  },
+  "useful_commands": {
+    "status": {
+      "command": "git status",
+      "description": "Check what files have been modified, added, or deleted"
+    },
+    "log": {
+      "command": "git log --oneline",
+      "description": "View commit history in a compact format"
+    },
+    "diff": {
+      "command": "git diff",
+      "description": "View changes in tracked files"
+    },
+    "branch": {
+      "command": "git branch",
+      "description": "List all branches"
+    },
+    "remote": {
+      "command": "git remote -v",
+      "description": "Show remote repository information"
+    }
+  },
+  "example_commit_messages": [
+    "Updated homepage content and layout",
+    "Added new member registration functionality",
+    "Fixed menu spacing and alignment issues",
+    "Updated theme colors and styling",
+    "Added new plugin and configured settings",
+    "Fixed responsive design issues",
+    "Updated contact form validation",
+    "Added new page templates",
+    "Optimized images and media files",
+    "Updated WordPress core files"
+  ],
+  "troubleshooting": {
+    "common_issues": [
+      {
+        "issue": "Permission denied errors",
+        "solution": "Use sudo for file operations or check file permissions"
+      },
+      {
+        "issue": "Git repository not found",
+        "solution": "Ensure you're in the correct directory (/var/www/html)"
+      },
+      {
+        "issue": "Push rejected",
+        "solution": "Pull latest changes first: git pull origin main"
+      },
+      {
+        "issue": "Large file uploads",
+        "solution": "Check .gitignore to exclude large media files"
+      }
+    ]
+  },
+  "backup_information": {
+    "backup_location": "/home/azureuser/git-backups/MPA_website.git",
+    "backup_type": "Bare Git repository",
+    "backup_frequency": "Every commit and push",
+    "restore_instructions": "Clone from backup location to restore website"
+  },
+  "wordpress_integration": {
+    "theme": "The7",
+    "plugins": [
+      "Simple Membership",
+      "Visual Composer (WPBakery)",
+      "Wordfence",
+      "UpdraftPlus",
+      "WPS Hide Login",
+      "Admin Custom Login"
+    ],
+    "database": "proptech_wp_qsvug",
+    "admin_url": "http://4.194.249.21/admpowerup/",
+    "admin_credentials": {
+      "username": "admin",
+      "password": "admin123"
+    }
+  },
+  "security_notes": {
+    "important": [
+      "wp-config.php is excluded from version control for security",
+      "Upload directories are excluded to prevent large file commits",
+      "Log files are excluded to keep repository clean",
+      "Always use descriptive commit messages for tracking changes"
+    ]
+  },
+  "maintenance": {
+    "regular_tasks": [
+      "Check git status before making changes",
+      "Commit changes frequently with clear messages",
+      "Keep commit history clean and organized",
+      "Backup database separately from file changes"
+    ]
+  }
+}

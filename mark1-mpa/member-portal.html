@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Portal - Malaysia PropTech Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="assets/malaysiaproptech-logo.png" alt="Malaysia PropTech Association" class="logo-img">
+                    </a>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="about.html">About MPA</a></li>
+                        <li><a href="proptech-guide.html">PropTech Guide</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="insights.html">Insights</a></li>
+                        <li><a href="youth-hub.html">Youth Hub</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <a href="member-portal.html" class="btn btn-outline">Member Login</a>
+                    <a href="membership.html" class="btn btn-primary">Join MPA</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Member Portal Section -->
+    <section class="member-portal-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Member Portal</h1>
+                <p>Access your member dashboard and exclusive resources</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Form -->
+    <section class="login-section">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-card">
+                    <h2>Member Login</h2>
+                    <form class="login-form" id="loginForm">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Login</button>
+                    </form>
+                    <div class="login-links">
+                        <a href="#" onclick="alert('Password reset functionality coming soon!')">Forgot Password?</a>
+                        <a href="membership.html">Not a member? Join MPA</a>
+                    </div>
+                </div>
+                
+                <!-- Member Dashboard Preview (Hidden by default) -->
+                <div class="dashboard-preview" id="dashboardPreview" style="display: none;">
+                    <h2>Welcome to Your Member Dashboard</h2>
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3>Upcoming Events</h3>
+                            <ul>
+                                <li>PropTech Summit 2025 - March 15</li>
+                                <li>Innovation Showcase - April 2</li>
+                                <li>Networking Night - April 20</li>
+                            </ul>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>Member Resources</h3>
+                            <ul>
+                                <li><a href="#">Industry Reports</a></li>
+                                <li><a href="#">Startup Directory</a></li>
+                                <li><a href="#">Webinar Recordings</a></li>
+                            </ul>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>Member Directory</h3>
+                            <p>Connect with 500+ PropTech professionals</p>
+                            <a href="#" class="btn btn-outline">Browse Directory</a>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>Quick Actions</h3>
+                            <a href="events.html" class="btn btn-primary">Register for Event</a>
+                            <a href="#" class="btn btn-outline">Update Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About MPA</h3>
+                    <p>Malaysia PropTech Association is committed to building a strong community with integrity, inclusivity, and equality of all PropTech Members.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About MPA</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="proptech-guide.html">PropTech Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>Email: info@proptech.org.my</li>
+                        <li>Address: 53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" target="_blank">Facebook</a>
+                        <a href="#" target="_blank">LinkedIn</a>
+                        <a href="#" target="_blank">Instagram</a>
+                        <a href="#" target="_blank">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Malaysia PropTech Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Simple login simulation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                // Hide login form and show dashboard
+                document.querySelector('.login-card').style.display = 'none';
+                document.getElementById('dashboardPreview').style.display = 'block';
+                
+                // Show success message
+                alert('Login successful! Welcome to your member dashboard.');
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+    </script>
+</body>
+</html>

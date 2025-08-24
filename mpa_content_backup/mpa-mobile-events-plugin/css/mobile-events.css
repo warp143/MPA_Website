@@ -1,0 +1,297 @@
+/* MPA Mobile Events Plugin - Complete Styling */
+
+/* Ensure background image shows on fancy header */
+.fancy-header {
+  background-image: url('https://proptech.org.my/wp-content/uploads/2021/08/MPA-Header-Events-01.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-color: #222222 !important;
+}
+
+.fancy-header-overlay {
+  background: rgba(0,0,0,0.3) !important;
+}
+
+/* FORCE Events text white - ULTRA AGGRESSIVE */
+.fancy-header .fancy-title,
+.fancy-header h1,
+.dt-fancy-title h1,
+.fancy-header .hgroup h1,
+.fancy-header .hgroup .fancy-title,
+#fancy-header h1,
+#fancy-header .fancy-title,
+body .fancy-header h1,
+body .fancy-header .fancy-title {
+  color: #ffffff !important;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.9) !important;
+  font-weight: bold !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+@media (max-width: 768px) {
+  /* ULTRA AGGRESSIVE - Target the actual background image container */
+  .page-title-bg-wrap,
+  .page-title-inner,
+  .fancy-header-image,
+  .page-header,
+  .masthead,
+  .page-title-wrap,
+  .dt-fancy-title,
+  .page-title-bg,
+  .fancy-header-bg,
+  .page-title,
+  .entry-header,
+  .hero-section,
+  .banner,
+  .header-image,
+  .page-banner,
+  .page-hero,
+  .title-area,
+  .header-content,
+  .page-title-area,
+  .fancy-title,
+  .dt-page-title,
+  .page-title-container,
+  .header-wrap,
+  .page-title-section,
+  .dt-fancy-header,
+  .page-header-bg,
+  .header-bg,
+  #main > .page-header,
+  body .page-header,
+  .content-wrap .page-header {
+    height: 120px !important;
+    min-height: 120px !important;
+    max-height: 120px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    overflow: hidden !important;
+  }
+  
+  /* Force any background/hero elements with more selectors */
+  div[style*="background-image"],
+  section[style*="background-image"],
+  .page-title-bg-wrap div,
+  .fancy-header-image div,
+  .page-header div,
+  .dt-fancy-title div,
+  [class*="bg-"],
+  [class*="header-"] {
+    height: 120px !important;
+    min-height: 120px !important;
+    max-height: 120px !important;
+  }
+  
+  /* Target any viewport height settings */
+  [style*="height: 100vh"],
+  [style*="height: 50vh"],
+  [style*="min-height: 100vh"],
+  [style*="min-height: 50vh"] {
+    height: 120px !important;
+    min-height: 120px !important;
+  }
+  
+  .page-title h1,
+  .page-title .entry-title,
+  .dt-fancy-title h1,
+  h1.entry-title,
+  .page-title-area h1 {
+    font-size: 1.4rem !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.2 !important;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+  }
+  
+  .page-title .page-subtitle,
+  .dt-fancy-title .page-subtitle,
+  .page-subtitle {
+    font-size: 0.9rem !important;
+    color: white !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+  }
+
+  .events-container {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    padding: 1rem !important;
+  }
+  
+  .events-main {
+    flex: none !important;
+  }
+  
+  .events-sidebar {
+    width: 100% !important;
+    order: -1;
+  }
+  
+  .event-card {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+  
+  .event-icon {
+    height: 60px !important;
+    width: 100% !important;
+    border-radius: 16px 16px 0 0 !important;
+    font-size: 1.5rem !important;
+  }
+  
+  .event-content {
+    padding: 1.25rem !important;
+  }
+  
+  .event-meta {
+    flex-direction: row !important;
+    gap: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .event-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .event-description {
+    font-size: 0.9rem !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .event-details {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  .past-events-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  
+  .calendar-container {
+    padding: 1.5rem !important;
+  }
+  
+  .calendar-iframe {
+    height: 400px !important;
+  }
+  
+  .calendar-buttons {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  
+  .calendar-buttons a {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  .section-title {
+    font-size: 1.5rem !important;
+  }
+  
+  /* HORIZONTAL SCROLLING SIDEBAR - COMPACT VERSION */
+  .sidebar-section {
+    margin-bottom: 1rem !important;
+    position: relative !important;
+  }
+  
+  .sidebar-title {
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+    color: #1a202c !important;
+  }
+  
+  .sidebar-list {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    overflow-x: auto !important;
+    gap: 0.4rem !important;
+    padding-bottom: 0.25rem !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  .sidebar-list::-webkit-scrollbar {
+    display: none !important;
+  }
+  
+  .sidebar-item {
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .sidebar-link {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    text-decoration: none !important;
+    color: #666 !important;
+    padding: 0.4rem 0.6rem !important;
+    transition: all 0.2s ease !important;
+    font-size: 0.7rem !important;
+    background: #f1f5f9 !important;
+    border-radius: 12px !important;
+    white-space: nowrap !important;
+    border: 1px solid #e2e8f0 !important;
+    min-width: fit-content !important;
+    font-weight: 500 !important;
+  }
+  
+  .sidebar-link:hover {
+    color: white !important;
+    background: #0978bd !important;
+    border-color: #0978bd !important;
+    transform: scale(1.02) !important;
+    box-shadow: 0 2px 6px rgba(9, 120, 189, 0.25) !important;
+  }
+  
+  .sidebar-badge {
+    background: #e2e8f0 !important;
+    color: #64748b !important;
+    padding: 0.1rem 0.3rem !important;
+    border-radius: 8px !important;
+    font-size: 0.6rem !important;
+    font-weight: 600 !important;
+    margin-left: 0.15rem !important;
+    line-height: 1 !important;
+  }
+  
+  .sidebar-link:hover .sidebar-badge {
+    background: rgba(255, 255, 255, 0.25) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .events-container {
+    padding: 0.75rem !important;
+    gap: 1rem !important;
+  }
+  
+  .event-content {
+    padding: 1rem !important;
+  }
+  
+  .event-title {
+    font-size: 1rem !important;
+  }
+  
+  .event-description {
+    font-size: 0.85rem !important;
+  }
+  
+  .calendar-container {
+    padding: 1rem !important;
+  }
+  
+  .calendar-iframe {
+    height: 350px !important;
+  }
+}

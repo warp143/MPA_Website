@@ -1,0 +1,7 @@
+{
+  "server": {
+    "ip": "4.194.249.21",
+    "username": "azureuser",
+    "key_path": "ssh/azure_key"
+  }
+}

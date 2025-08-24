@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Programs - Malaysia PropTech Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="assets/malaysiaproptech-logo.png" alt="Malaysia PropTech Association" class="logo-img">
+                    </a>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="about.html">About MPA</a></li>
+                        <li><a href="proptech-guide.html">PropTech Guide</a></li>
+                        <li><a href="events.html" class="active">Events</a></li>
+                        <li><a href="insights.html">Insights</a></li>
+                        <li><a href="youth-hub.html">Youth Hub</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <a href="member-portal.html" class="btn btn-outline">Member Login</a>
+                    <a href="membership.html" class="btn btn-primary">Join MPA</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Events & Programs</h1>
+            <p>Join us for networking, learning, and collaboration opportunities in Malaysia's PropTech ecosystem</p>
+        </div>
+    </section>
+
+    <!-- Event Filters -->
+    <section class="event-filters">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label>Event Type</label>
+                    <select id="event-type-filter">
+                        <option value="">All Events</option>
+                        <option value="meetup">Meetups</option>
+                        <option value="webinar">Webinars</option>
+                        <option value="summit">Summits</option>
+                        <option value="workshop">Workshops</option>
+                        <option value="pitch-night">Pitch Nights</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Date Range</label>
+                    <select id="date-filter">
+                        <option value="">All Dates</option>
+                        <option value="this-week">This Week</option>
+                        <option value="this-month">This Month</option>
+                        <option value="next-month">Next Month</option>
+                        <option value="past">Past Events</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Location</label>
+                    <select id="location-filter">
+                        <option value="">All Locations</option>
+                        <option value="kl">Kuala Lumpur</option>
+                        <option value="penang">Penang</option>
+                        <option value="johor">Johor</option>
+                        <option value="virtual">Virtual</option>
+                        <option value="hybrid">Hybrid</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Category</label>
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="ai-ml">AI & Machine Learning</option>
+                        <option value="sustainability">Sustainability</option>
+                        <option value="fintech">FinTech</option>
+                        <option value="smart-cities">Smart Cities</option>
+                        <option value="youth">Youth Programs</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar View -->
+    <section class="calendar-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Event Calendar</h2>
+                <p>Browse events by month</p>
+            </div>
+            
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="calendar-nav" id="prevMonth">
+                        <span>‹</span>
+                    </button>
+                    <h3 id="currentMonth">August 2025</h3>
+                    <button class="calendar-nav" id="nextMonth">
+                        <span>›</span>
+                    </button>
+                </div>
+                
+                <div class="calendar-grid">
+                    <div class="calendar-weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="calendar-days" id="calendarDays">
+                        <!-- Calendar days will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="calendar-events" id="calendarEvents">
+                    <h4>Events for <span id="selectedDate">August 25, 2025</span></h4>
+                    <div class="day-events" id="dayEvents">
+                        <!-- Events for selected date will be shown here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Events -->
+    <section class="featured-events">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Events</h2>
+                <p>Don't miss these upcoming highlights</p>
+            </div>
+            
+            <div class="featured-events-grid">
+                <div class="featured-event-card">
+                    <div class="event-image">
+                        <div class="event-badge">Featured</div>
+                        <div class="event-date-large">
+                            <span class="day">25</span>
+                            <span class="month">AUG</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <span class="event-type">Webinar</span>
+                            <span class="event-location">📍 Virtual</span>
+                        </div>
+                        <h3>Digital Transformation in PropTech</h3>
+                        <p>Join industry experts as they discuss the latest trends in digital transformation and how technology is reshaping the property sector.</p>
+                        <div class="event-details">
+                            <div class="detail-item">
+                                <span class="icon">🕐</span>
+                                <span>2:00 PM - 4:00 PM</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">👥</span>
+                                <span>150+ attendees</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">💰</span>
+                                <span>Free for members</span>
+                            </div>
+                        </div>
+                        <div class="event-actions">
+                            <button class="btn btn-primary">Register Now</button>
+                            <button class="btn btn-outline">Add to Calendar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-event-card">
+                    <div class="event-image">
+                        <div class="event-badge">New</div>
+                        <div class="event-date-large">
+                            <span class="day">15</span>
+                            <span class="month">SEP</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <span class="event-type">Workshop</span>
+                            <span class="event-location">📍 MPA Training Center</span>
+                        </div>
+                        <h3>Sustainable PropTech Workshop</h3>
+                        <p>Hands-on workshop exploring sustainable technologies and practices in property development and management.</p>
+                        <div class="event-details">
+                            <div class="detail-item">
+                                <span class="icon">🕐</span>
+                                <span>9:00 AM - 5:00 PM</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">👥</span>
+                                <span>50 participants</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">💰</span>
+                                <span>RM 200</span>
+                            </div>
+                        </div>
+                        <div class="event-actions">
+                            <button class="btn btn-primary">Register Now</button>
+                            <button class="btn btn-outline">Add to Calendar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="upcoming-events">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="list">List View</button>
+                    <button class="view-btn" data-view="calendar">Calendar View</button>
+                </div>
+            </div>
+            
+            <div class="events-list" id="events-container">
+                <div class="event-item" data-type="summit" data-date="2025-09-20" data-location="kl" data-category="ai-ml">
+                    <div class="event-date">
+                        <span class="day">20</span>
+                        <span class="month">SEP</span>
+                    </div>
+                    <div class="event-info">
+                        <div class="event-meta">
+                            <span class="event-type">Summit</span>
+                            <span class="event-location">📍 Marina Bay Sands</span>
+                        </div>
+                        <h3>Asia Pacific PropTech Summit 2025</h3>
+                        <p>Three-day international summit bringing together PropTech leaders, investors, and innovators from across the Asia Pacific region.</p>
+                        <div class="event-tags">
+                            <span class="tag">AI/ML</span>
+                            <span class="tag">International</span>
+                            <span class="tag">Networking</span>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Details</button>
+                    </div>
+                </div>
+
+                <div class="event-item" data-type="meetup" data-date="2025-08-30" data-location="kl" data-category="fintech">
+                    <div class="event-date">
+                        <span class="day">30</span>
+                        <span class="month">AUG</span>
+                    </div>
+                    <div class="event-info">
+                        <div class="event-meta">
+                            <span class="event-type">Meetup</span>
+                            <span class="event-location">📍 KLCC</span>
+                        </div>
+                        <h3>PropTech FinTech Meetup</h3>
+                        <p>Monthly networking meetup for professionals in PropTech and FinTech sectors. Share insights and build connections.</p>
+                        <div class="event-tags">
+                            <span class="tag">FinTech</span>
+                            <span class="tag">Networking</span>
+                            <span class="tag">Monthly</span>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Details</button>
+                    </div>
+                </div>
+
+                <div class="event-item" data-type="pitch-night" data-date="2025-09-10" data-location="penang" data-category="youth">
+                    <div class="event-date">
+                        <span class="day">10</span>
+                        <span class="month">SEP</span>
+                    </div>
+                    <div class="event-info">
+                        <div class="event-meta">
+                            <span class="event-type">Pitch Night</span>
+                            <span class="event-location">📍 Penang Tech Hub</span>
+                        </div>
+                        <h3>Youth PropTech Pitch Night</h3>
+                        <p>Young entrepreneurs pitch their PropTech innovations to investors and industry experts. Open to students and startups.</p>
+                        <div class="event-tags">
+                            <span class="tag">Youth</span>
+                            <span class="tag">Pitching</span>
+                            <span class="tag">Startups</span>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Details</button>
+                    </div>
+                </div>
+
+                <div class="event-item" data-type="webinar" data-date="2025-09-05" data-location="virtual" data-category="sustainability">
+                    <div class="event-date">
+                        <span class="day">05</span>
+                        <span class="month">SEP</span>
+                    </div>
+                    <div class="event-info">
+                        <div class="event-meta">
+                            <span class="event-type">Webinar</span>
+                            <span class="event-location">📍 Virtual</span>
+                        </div>
+                        <h3>Green Building Technologies</h3>
+                        <p>Explore the latest sustainable building technologies and their impact on property development and management.</p>
+                        <div class="event-tags">
+                            <span class="tag">Sustainability</span>
+                            <span class="tag">Green Tech</span>
+                            <span class="tag">Webinar</span>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="load-more">
+                <button class="btn btn-outline btn-large">Load More Events</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Events -->
+    <section class="past-events">
+        <div class="container">
+            <div class="section-header">
+                <h2>Past Events</h2>
+                <p>Relive the highlights from our previous events</p>
+            </div>
+            
+            <div class="past-events-grid">
+                <div class="past-event-card">
+                    <div class="event-image">
+                        <div class="event-date-overlay">
+                            <span class="day">15</span>
+                            <span class="month">JUL</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <h3>PropTech Innovation Showcase 2025</h3>
+                        <p>Showcased 20+ innovative PropTech solutions with 300+ attendees and 15 investor meetings.</p>
+                        <div class="event-stats">
+                            <span>📸 150+ photos</span>
+                            <span>🎥 8 videos</span>
+                            <span>📊 15 deals</span>
+                        </div>
+                        <button class="btn btn-outline">View Gallery</button>
+                    </div>
+                </div>
+
+                <div class="past-event-card">
+                    <div class="event-image">
+                        <div class="event-date-overlay">
+                            <span class="day">28</span>
+                            <span class="month">JUN</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <h3>AI in Property Management</h3>
+                        <p>Deep dive into AI applications in property management with case studies and live demonstrations.</p>
+                        <div class="event-stats">
+                            <span>📸 80+ photos</span>
+                            <span>🎥 4 videos</span>
+                            <span>📊 8 partnerships</span>
+                        </div>
+                        <button class="btn btn-outline">View Gallery</button>
+                    </div>
+                </div>
+
+                <div class="past-event-card">
+                    <div class="event-image">
+                        <div class="event-date-overlay">
+                            <span class="day">10</span>
+                            <span class="month">JUN</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Youth PropTech Bootcamp</h3>
+                        <p>Intensive 3-day bootcamp for young entrepreneurs to develop PropTech business ideas and pitch skills.</p>
+                        <div class="event-stats">
+                            <span>📸 120+ photos</span>
+                            <span>🎥 6 videos</span>
+                            <span>📊 12 startups</span>
+                        </div>
+                        <button class="btn btn-outline">View Gallery</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner With Us -->
+    <section class="partner-with-us">
+        <div class="container">
+            <div class="partner-content">
+                <div class="partner-info">
+                    <h2>Partner With Us</h2>
+                    <p>Interested in hosting an event or becoming a sponsor? Let's collaborate to create impactful experiences for the PropTech community.</p>
+                    <div class="partner-benefits">
+                        <h3>Partnership Benefits:</h3>
+                        <ul>
+                            <li>✓ Brand visibility to 500+ members</li>
+                            <li>✓ Access to industry leaders</li>
+                            <li>✓ Networking opportunities</li>
+                            <li>✓ Content marketing exposure</li>
+                            <li>✓ Lead generation potential</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="partner-form">
+                    <form id="partner-form">
+                        <div class="form-group">
+                            <label for="partner-name">Organization Name *</label>
+                            <input type="text" id="partner-name" name="partner-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="partner-type">Partnership Type *</label>
+                            <select id="partner-type" name="partner-type" required>
+                                <option value="">Select Type</option>
+                                <option value="event-sponsor">Event Sponsor</option>
+                                <option value="venue-partner">Venue Partner</option>
+                                <option value="content-partner">Content Partner</option>
+                                <option value="co-organizer">Co-Organizer</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="partner-event">Event of Interest</label>
+                            <select id="partner-event" name="partner-event">
+                                <option value="">Select Event</option>
+                                <option value="summit">Asia Pacific PropTech Summit</option>
+                                <option value="workshop">Sustainable PropTech Workshop</option>
+                                <option value="pitch-night">Youth PropTech Pitch Night</option>
+                                <option value="custom">Custom Event</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="partner-message">Message *</label>
+                            <textarea id="partner-message" name="partner-message" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="partner-email">Contact Email *</label>
+                            <input type="email" id="partner-email" name="partner-email" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-large">Submit Partnership Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About MPA</h3>
+                    <p>Malaysia PropTech Association is committed to building a strong community with integrity, inclusivity, and equality of all PropTech Members.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="proptech-guide.html">PropTech Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>Email: info@proptech.org.my</li>
+                        <li>Address: 53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" target="_blank">Facebook</a>
+                        <a href="#" target="_blank">LinkedIn</a>
+                        <a href="#" target="_blank">Instagram</a>
+                        <a href="#" target="_blank">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Malaysia PropTech Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

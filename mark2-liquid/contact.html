@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Connect - Malaysia PropTech Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Liquid Background -->
+    <div class="liquid-background">
+        <div class="liquid-blob blob-1"></div>
+        <div class="liquid-blob blob-2"></div>
+        <div class="liquid-blob blob-3"></div>
+        <div class="liquid-blob blob-4"></div>
+    </div>
+
+    <!-- Glass Navigation -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img class="preload-me logo-light" src="malaysiaproptech-logo.png" width="250" height="70" alt="Malaysia Proptech Association">
+                <img class="preload-me logo-dark" src="mpa-logo-white.png" width="176" height="58" alt="Malaysia Proptech Association">
+            </a>
+                               <div class="nav-menu">
+                       <div class="mobile-nav-section">
+                           <a href="about.html" class="nav-link">About</a>
+                           <a href="proptech-guide.html" class="nav-link">PropTech Guide</a>
+                           <a href="events.html" class="nav-link">Events</a>
+                           <a href="insights.html" class="nav-link">Insights</a>
+                       </div>
+                       <div class="mobile-nav-section">
+                           <a href="youth-hub.html" class="nav-link">Youth Hub</a>
+                           <a href="partner-hub.html" class="nav-link">Partner Hub</a>
+                           <a href="news.html" class="nav-link">News</a>
+                           <a href="contact.html" class="nav-link active">Contact</a>
+                       </div>
+                       <div class="mobile-nav-action">
+                           <a href="membership.html" class="mobile-action-btn nav-link mobile-cta">Join MPA</a>
+                       </div>
+                   </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <a href="member-portal.html" class="btn-glass">Sign In</a>
+                <a href="membership.html" class="btn-primary-liquid desktop-only">Join MPA</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact & Connect</h1>
+            <p>Get in touch with us for inquiries, partnerships, or to learn more about joining Malaysia's PropTech community</p>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="features-liquid">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>📧</span>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>info@proptech.org.my</p>
+                    <p>For general inquiries and information</p>
+                </div>
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>📍</span>
+                    </div>
+                    <h3>Visit Us</h3>
+                    <p>53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor</p>
+                    <p>Our office is open Monday to Friday, 9 AM - 6 PM</p>
+                </div>
+                <div class="feature-card-glass">
+                    <div class="feature-icon">
+                        <div class="icon-bg"></div>
+                        <span>📱</span>
+                    </div>
+                    <h3>Follow Us</h3>
+                    <p>Stay connected on social media for the latest updates</p>
+                    <div class="hero-actions">
+                        <a href="#" class="btn-glass">Facebook</a>
+                        <a href="#" class="btn-glass">LinkedIn</a>
+                        <a href="#" class="btn-glass">Instagram</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="features-liquid">
+        <div class="container">
+            <div class="section-header">
+                <h2>Send Us a Message</h2>
+                <p>Have a question or want to collaborate? We'd love to hear from you</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <form>
+                        <div class="form-group">
+                            <label for="contact-name">Full Name *</label>
+                            <input type="text" id="contact-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address *</label>
+                            <input type="email" id="contact-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-organization">Organization</label>
+                            <input type="text" id="contact-organization">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Subject *</label>
+                            <select id="contact-subject" required>
+                                <option value="">Select Subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="membership">Membership</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="events">Events</option>
+                                <option value="media">Media Inquiry</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message *</label>
+                            <textarea id="contact-message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary-liquid">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="features-liquid">
+        <div class="container">
+            <div class="section-header">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for the latest PropTech insights and updates</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card-glass">
+                    <form>
+                        <div class="form-group">
+                            <label for="newsletter-email">Email Address *</label>
+                            <input type="email" id="newsletter-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsletter-interests">Areas of Interest</label>
+                            <select id="newsletter-interests">
+                                <option value="">Select Interests</option>
+                                <option value="ai-ml">AI & Machine Learning</option>
+                                <option value="sustainability">Sustainability</option>
+                                <option value="fintech">FinTech</option>
+                                <option value="events">Events</option>
+                                <option value="startups">Startups</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary-liquid">Subscribe to Newsletter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-liquid">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About MPA</h4>
+                    <p>Malaysia PropTech Association is committed to building a strong community with integrity, inclusivity, and equality of all PropTech Members.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="proptech-guide.html">PropTech Guide</a></li>
+                        <li><a href="membership.html">Membership</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>Email: info@proptech.org.my</li>
+                        <li>Address: 53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Malaysia PropTech Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

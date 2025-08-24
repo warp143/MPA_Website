@@ -1,0 +1,304 @@
+<style>
+.blog-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 3rem;
+}
+
+.blog-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.blog-post {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.blog-post:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.blog-post-image {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.blog-post-content {
+    padding: 20px;
+}
+
+.blog-post-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #1a202c;
+}
+
+.blog-post-meta {
+    color: #0978bd;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.blog-post-excerpt {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.blog-post-link {
+    color: #0978bd;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.blog-post-link:hover {
+    color: #0693e3;
+}
+
+.featured-post {
+    grid-column: 1 / -1;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+}
+
+.featured-image {
+    width: 100%;
+    height: 300px;
+    background: url('http://4.194.249.21/wp-content/uploads/2021/10/35-Years-of-Proptech-Fostering-A-Bright-Start-To-Proptech-4.0.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.featured-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(9, 120, 189, 0.3), rgba(6, 147, 227, 0.3));
+}
+
+.featured-label {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #0978bd;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.featured-content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.featured-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1a202c;
+}
+
+.featured-excerpt {
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.featured-btn {
+    background: #0978bd;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s;
+    display: inline-block;
+}
+
+.featured-btn:hover {
+    transform: translateY(-2px);
+    background: #0693e3;
+}
+
+.sidebar {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.sidebar h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #1a202c;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.category-list li {
+    margin-bottom: 0.5rem;
+}
+
+.category-list a {
+    color: #0978bd;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-count {
+    background: #0978bd;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.recent-post {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.recent-post h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.recent-post h4 a {
+    color: #1a202c;
+    text-decoration: none;
+}
+
+.recent-post-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .blog-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 1rem;
+    }
+}
+</style>
+
+<div class="blog-container">
+    <article class="featured-post">
+        <div class="featured-image">
+            <div class="featured-label">Featured</div>
+        </div>
+        <div class="featured-content">
+            <h2 class="featured-title">35 Years of Proptech Fostering A Bright Start To Proptech 4.0</h2>
+            <p class="featured-excerpt">We all know how good real estate is but not many have an idea of the size which this market has on a world scale. The latest report on "Real Estate Market Size 2019/2020" by MSCI, sizes it at USD 9.6 (RM38.4) trillion, best is, this value refers to the professionally managed properties only.</p>
+            <a href="#" class="featured-btn">Read Full Article</a>
+        </div>
+    </article>
+
+    <div class="blog-posts">
+        <article class="blog-post">
+            <div class="blog-post-image" style="background-image: url('http://4.194.249.21/wp-content/uploads/2021/09/MPA-at-RE-Connect-Sep-2021.png');"></div>
+            <div class="blog-post-content">
+                <div class="blog-post-meta">News • September 22, 2021</div>
+                <h3 class="blog-post-title">Malaysia PropTech Association Members at RE:Connect September 2021</h3>
+                <p class="blog-post-excerpt">The Malaysia Proptech Association members are ready to share about #PropTech in the upcoming RE: Connect event on 29 September 2021 organized by Unissu.</p>
+                <a href="#" class="blog-post-link">Read More →</a>
+            </div>
+        </article>
+
+        <article class="blog-post">
+            <div class="blog-post-image" style="background-image: url('http://4.194.249.21/wp-content/uploads/2021/09/Singapore-Nightline-APPS2021.png');"></div>
+            <div class="blog-post-content">
+                <div class="blog-post-meta">News • September 10, 2021</div>
+                <h3 class="blog-post-title">PropTech is Shaping the Real Estate Industry in Asia</h3>
+                <p class="blog-post-excerpt">This is a good short video sharing how PropTech is shaping the real estate industry in Asia. MPA is organizing the Asia Pacific PropTech Summit in November 2021.</p>
+                <a href="#" class="blog-post-link">Read More →</a>
+            </div>
+        </article>
+
+        <article class="blog-post">
+            <div class="blog-post-image" style="background-image: url('http://4.194.249.21/wp-content/uploads/2021/07/MPA-Committee-Members-2021-2023.png');"></div>
+            <div class="blog-post-content">
+                <div class="blog-post-meta">Press Release • July 11, 2021</div>
+                <h3 class="blog-post-title">MPA New Committee Members 2021-2023</h3>
+                <p class="blog-post-excerpt">The Malaysian PropTech Association voted in a new and extended committee to lead the organization for the 2021-2023 tenure.</p>
+                <a href="#" class="blog-post-link">Read More →</a>
+            </div>
+        </article>
+    </div>
+
+    <aside class="sidebar">
+        <div class="search-box">
+            <input type="text" placeholder="Search articles...">
+        </div>
+
+        <div class="categories">
+            <h3>Categories</h3>
+            <ul class="category-list">
+                <li><a href="#">News <span class="category-count">4</span></a></li>
+                <li><a href="#">Press Release <span class="category-count">1</span></a></li>
+                <li><a href="#">RE.Connect <span class="category-count">1</span></a></li>
+                <li><a href="#">Equity Crowd Funding <span class="category-count">1</span></a></li>
+                <li><a href="#">Technology <span class="category-count">5</span></a></li>
+            </ul>
+        </div>
+
+        <div class="recent-posts">
+            <h3>Recent Posts</h3>
+            <div class="recent-post">
+                <h4><a href="#">35 Years of Proptech Fostering A Bright Start To Proptech 4.0</a></h4>
+                <div class="recent-post-date">November 14, 2021</div>
+            </div>
+            <div class="recent-post">
+                <h4><a href="#">ProperLy Asia Sdn Bhd</a></h4>
+                <div class="recent-post-date">October 20, 2021</div>
+            </div>
+            <div class="recent-post">
+                <h4><a href="#">Malaysia PropTech Association Members at RE:Connect September 2021</a></h4>
+                <div class="recent-post-date">September 22, 2021</div>
+            </div>
+        </div>
+    </aside>
+</div>

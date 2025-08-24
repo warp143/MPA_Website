@@ -1,0 +1,6 @@
+Backup created: 2025-08-22 02:15:16
+Source server: 4.194.249.21
+WordPress path: /var/www/html
+Directory size: 4.5G
+Backup method: Direct file download (rsync)
+Local backup path: /Users/amk/Website/mpa_backup

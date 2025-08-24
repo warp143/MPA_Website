@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropTech Malaysia Guide - Malaysia PropTech Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                                                       <div class="logo">
+                    <a href="index.html">
+                        <img src="assets/malaysiaproptech-logo.png" alt="Malaysia PropTech Association" class="logo-img">
+                    </a>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="about.html">About MPA</a></li>
+                        <li><a href="proptech-guide.html" class="active">PropTech Guide</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="insights.html">Insights</a></li>
+                        <li><a href="youth-hub.html">Youth Hub</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <a href="member-portal.html" class="btn btn-outline">Member Login</a>
+                    <a href="membership.html" class="btn btn-primary">Join MPA</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>PropTech Malaysia Guide</h1>
+            <p>Discover innovative startups, scale-ups, and solutions transforming Malaysia's property sector</p>
+        </div>
+    </section>
+
+    <!-- Search & Filters -->
+    <section class="search-filters">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="startup-search" placeholder="Search startups, technologies, or solutions...">
+                    <button class="search-btn">🔍</button>
+                </div>
+            </div>
+            
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label>Category</label>
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="proptech">PropTech</option>
+                        <option value="contech">ConTech</option>
+                        <option value="fintech">FinTech</option>
+                        <option value="proptech">PropTech</option>
+                        <option value="smart-cities">Smart Cities</option>
+                        <option value="sustainability">Sustainability</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Region</label>
+                    <select id="region-filter">
+                        <option value="">All Regions</option>
+                        <option value="kl">Kuala Lumpur</option>
+                        <option value="penang">Penang</option>
+                        <option value="johor">Johor</option>
+                        <option value="sabah">Sabah</option>
+                        <option value="sarawak">Sarawak</option>
+                        <option value="remote">Remote</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>SDG Impact</label>
+                    <select id="sdg-filter">
+                        <option value="">All SDGs</option>
+                        <option value="5">SDG 5 - Gender Equality</option>
+                        <option value="9">SDG 9 - Industry & Innovation</option>
+                        <option value="11">SDG 11 - Sustainable Cities</option>
+                        <option value="13">SDG 13 - Climate Action</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Funding Stage</label>
+                    <select id="funding-filter">
+                        <option value="">All Stages</option>
+                        <option value="seed">Seed</option>
+                        <option value="series-a">Series A</option>
+                        <option value="series-b">Series B</option>
+                        <option value="series-c">Series C</option>
+                        <option value="ipo">IPO</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Technology</label>
+                    <select id="tech-filter">
+                        <option value="">All Technologies</option>
+                        <option value="ai-ml">AI/ML</option>
+                        <option value="iot">IoT</option>
+                        <option value="blockchain">Blockchain</option>
+                        <option value="ar-vr">AR/VR</option>
+                        <option value="big-data">Big Data</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="grid">Grid View</button>
+                <button class="view-btn" data-view="list">List View</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Startup Directory -->
+    <section class="startup-directory">
+        <div class="container">
+            <div class="directory-header">
+                <h2>Startup Directory</h2>
+                <div class="directory-stats">
+                    <span id="startup-count">25 startups found</span>
+                    <a href="#submit-startup" class="btn btn-primary">Submit Your Startup</a>
+                </div>
+            </div>
+            
+            <div class="startups-grid" id="startups-container">
+                <!-- Startup Card 1 -->
+                <div class="startup-card" data-category="proptech" data-region="kl" data-sdg="9" data-funding="series-a" data-tech="ai-ml">
+                    <div class="startup-header">
+                                                       <div class="startup-logo">
+                                   <img src="assets/startup-logo-1.svg" alt="SmartBuild Solutions">
+                               </div>
+                        <div class="startup-meta">
+                            <span class="funding-stage">Series A</span>
+                            <span class="location">📍 Kuala Lumpur</span>
+                        </div>
+                    </div>
+                    <div class="startup-content">
+                        <h3>SmartBuild Solutions</h3>
+                        <p>AI-powered construction management platform reducing project delays by 40% through predictive analytics and real-time monitoring.</p>
+                        <div class="startup-tags">
+                            <span class="tag">AI/ML</span>
+                            <span class="tag">Construction</span>
+                            <span class="tag">SDG 9</span>
+                        </div>
+                    </div>
+                    <div class="startup-footer">
+                        <div class="startup-links">
+                            <a href="#" class="startup-link">🌐 Website</a>
+                            <a href="#" class="startup-link">💼 LinkedIn</a>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+
+                <!-- Startup Card 2 -->
+                <div class="startup-card" data-category="fintech" data-region="penang" data-sdg="5" data-funding="seed" data-tech="blockchain">
+                    <div class="startup-header">
+                                                       <div class="startup-logo">
+                                   <img src="assets/startup-logo-2.svg" alt="PropFinance">
+                               </div>
+                        <div class="startup-meta">
+                            <span class="funding-stage">Seed</span>
+                            <span class="location">📍 Penang</span>
+                        </div>
+                    </div>
+                    <div class="startup-content">
+                        <h3>PropFinance</h3>
+                        <p>Blockchain-based property financing platform enabling fractional ownership and democratizing real estate investment.</p>
+                        <div class="startup-tags">
+                            <span class="tag">Blockchain</span>
+                            <span class="tag">FinTech</span>
+                            <span class="tag">SDG 5</span>
+                        </div>
+                    </div>
+                    <div class="startup-footer">
+                        <div class="startup-links">
+                            <a href="#" class="startup-link">🌐 Website</a>
+                            <a href="#" class="startup-link">💼 LinkedIn</a>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+
+                <!-- Startup Card 3 -->
+                <div class="startup-card" data-category="smart-cities" data-region="johor" data-sdg="11" data-funding="series-b" data-tech="iot">
+                    <div class="startup-header">
+                                                       <div class="startup-logo">
+                                   <img src="assets/startup-logo-3.svg" alt="CitySense">
+                               </div>
+                        <div class="startup-meta">
+                            <span class="funding-stage">Series B</span>
+                            <span class="location">📍 Johor</span>
+                        </div>
+                    </div>
+                    <div class="startup-content">
+                        <h3>CitySense</h3>
+                        <p>IoT-powered smart city solutions for urban planning, traffic management, and environmental monitoring.</p>
+                        <div class="startup-tags">
+                            <span class="tag">IoT</span>
+                            <span class="tag">Smart Cities</span>
+                            <span class="tag">SDG 11</span>
+                        </div>
+                    </div>
+                    <div class="startup-footer">
+                        <div class="startup-links">
+                            <a href="#" class="startup-link">🌐 Website</a>
+                            <a href="#" class="startup-link">💼 LinkedIn</a>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+
+                <!-- Startup Card 4 -->
+                <div class="startup-card" data-category="sustainability" data-region="kl" data-sdg="13" data-funding="seed" data-tech="big-data">
+                    <div class="startup-header">
+                                                       <div class="startup-logo">
+                                   <img src="assets/startup-logo-4.svg" alt="GreenProp">
+                               </div>
+                        <div class="startup-meta">
+                            <span class="funding-stage">Seed</span>
+                            <span class="location">📍 Kuala Lumpur</span>
+                        </div>
+                    </div>
+                    <div class="startup-content">
+                        <h3>GreenProp</h3>
+                        <p>Sustainability analytics platform helping property developers and investors measure and improve environmental impact.</p>
+                        <div class="startup-tags">
+                            <span class="tag">Big Data</span>
+                            <span class="tag">Sustainability</span>
+                            <span class="tag">SDG 13</span>
+                        </div>
+                    </div>
+                    <div class="startup-footer">
+                        <div class="startup-links">
+                            <a href="#" class="startup-link">🌐 Website</a>
+                            <a href="#" class="startup-link">💼 LinkedIn</a>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+
+                <!-- Startup Card 5 -->
+                <div class="startup-card" data-category="proptech" data-region="remote" data-sdg="9" data-funding="series-a" data-tech="ar-vr">
+                    <div class="startup-header">
+                                                       <div class="startup-logo">
+                                   <img src="assets/startup-logo-5.svg" alt="VirtualView">
+                               </div>
+                        <div class="startup-meta">
+                            <span class="funding-stage">Series A</span>
+                            <span class="location">📍 Remote</span>
+                        </div>
+                    </div>
+                    <div class="startup-content">
+                        <h3>VirtualView</h3>
+                        <p>AR/VR property viewing platform enabling immersive virtual tours and remote property inspections.</p>
+                        <div class="startup-tags">
+                            <span class="tag">AR/VR</span>
+                            <span class="tag">PropTech</span>
+                            <span class="tag">SDG 9</span>
+                        </div>
+                    </div>
+                    <div class="startup-footer">
+                        <div class="startup-links">
+                            <a href="#" class="startup-link">🌐 Website</a>
+                            <a href="#" class="startup-link">💼 LinkedIn</a>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+
+                <!-- Startup Card 6 -->
+                <div class="startup-card" data-category="contech" data-region="sabah" data-sdg="11" data-funding="seed" data-tech="ai-ml">
+                    <div class="startup-header">
+                                                       <div class="startup-logo">
+                                   <img src="assets/startup-logo-6.svg" alt="BuildAI">
+                               </div>
+                        <div class="startup-meta">
+                            <span class="funding-stage">Seed</span>
+                            <span class="location">📍 Sabah</span>
+                        </div>
+                    </div>
+                    <div class="startup-content">
+                        <h3>BuildAI</h3>
+                        <p>AI-powered construction quality control system using computer vision to detect defects and ensure safety standards.</p>
+                        <div class="startup-tags">
+                            <span class="tag">AI/ML</span>
+                            <span class="tag">ConTech</span>
+                            <span class="tag">SDG 11</span>
+                        </div>
+                    </div>
+                    <div class="startup-footer">
+                        <div class="startup-links">
+                            <a href="#" class="startup-link">🌐 Website</a>
+                            <a href="#" class="startup-link">💼 LinkedIn</a>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="load-more">
+                <button class="btn btn-outline btn-large">Load More Startups</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submit Startup -->
+    <section class="submit-startup" id="submit-startup">
+        <div class="container">
+            <div class="submit-content">
+                <div class="submit-info">
+                    <h2>Submit Your Startup</h2>
+                    <p>Join Malaysia's premier PropTech directory and connect with investors, partners, and customers. Get featured in our ecosystem and grow your business.</p>
+                    <div class="submit-benefits">
+                        <h3>Benefits of Listing:</h3>
+                        <ul>
+                            <li>✓ Visibility to investors and partners</li>
+                            <li>✓ Networking opportunities</li>
+                            <li>✓ Access to MPA resources</li>
+                            <li>✓ Featured in our newsletter</li>
+                            <li>✓ Invitation to exclusive events</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="submit-form">
+                    <form id="startup-form">
+                        <div class="form-group">
+                            <label for="startup-name">Startup Name *</label>
+                            <input type="text" id="startup-name" name="startup-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="startup-description">Description *</label>
+                            <textarea id="startup-description" name="startup-description" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="startup-category">Category *</label>
+                                <select id="startup-category" name="startup-category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="proptech">PropTech</option>
+                                    <option value="contech">ConTech</option>
+                                    <option value="fintech">FinTech</option>
+                                    <option value="smart-cities">Smart Cities</option>
+                                    <option value="sustainability">Sustainability</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="startup-region">Region *</label>
+                                <select id="startup-region" name="startup-region" required>
+                                    <option value="">Select Region</option>
+                                    <option value="kl">Kuala Lumpur</option>
+                                    <option value="penang">Penang</option>
+                                    <option value="johor">Johor</option>
+                                    <option value="sabah">Sabah</option>
+                                    <option value="sarawak">Sarawak</option>
+                                    <option value="remote">Remote</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="startup-funding">Funding Stage</label>
+                                <select id="startup-funding" name="startup-funding">
+                                    <option value="">Select Stage</option>
+                                    <option value="seed">Seed</option>
+                                    <option value="series-a">Series A</option>
+                                    <option value="series-b">Series B</option>
+                                    <option value="series-c">Series C</option>
+                                    <option value="ipo">IPO</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="startup-tech">Primary Technology</label>
+                                <select id="startup-tech" name="startup-tech">
+                                    <option value="">Select Technology</option>
+                                    <option value="ai-ml">AI/ML</option>
+                                    <option value="iot">IoT</option>
+                                    <option value="blockchain">Blockchain</option>
+                                    <option value="ar-vr">AR/VR</option>
+                                    <option value="big-data">Big Data</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="startup-website">Website</label>
+                            <input type="url" id="startup-website" name="startup-website">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="startup-email">Contact Email *</label>
+                            <input type="email" id="startup-email" name="startup-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="startup-linkedin">LinkedIn</label>
+                            <input type="url" id="startup-linkedin" name="startup-linkedin">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-large">Submit Startup</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About MPA</h3>
+                    <p>Malaysia PropTech Association is committed to building a strong community with integrity, inclusivity, and equality of all PropTech Members.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="proptech-guide.html">PropTech Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>Email: info@proptech.org.my</li>
+                        <li>Address: 53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" target="_blank">Facebook</a>
+                        <a href="#" target="_blank">LinkedIn</a>
+                        <a href="#" target="_blank">Instagram</a>
+                        <a href="#" target="_blank">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Malaysia PropTech Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
