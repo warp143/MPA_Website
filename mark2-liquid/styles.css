@@ -332,6 +332,9 @@ body:not(.light-mode) .logo-light {
     justify-content: center;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    flex-shrink: 0;
+    min-width: 40px;
+    min-height: 40px;
 }
 
 .theme-toggle:hover {
@@ -822,6 +825,8 @@ body:not(.light-mode) .logo-light {
 .hero-visual {
     position: relative;
     height: 500px;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .floating-cards {
@@ -843,20 +848,20 @@ body:not(.light-mode) .logo-light {
 }
 
 .card-glass:nth-child(1) {
-    top: 10%;
-    left: 10%;
+    top: 5%;
+    left: 5%;
     animation-delay: 0s;
 }
 
 .card-glass:nth-child(2) {
-    top: 60%;
-    right: 20%;
+    top: 45%;
+    right: 10%;
     animation-delay: -2s;
 }
 
 .card-glass:nth-child(3) {
-    bottom: 20%;
-    left: 30%;
+    bottom: 10%;
+    left: 15%;
     animation-delay: -4s;
 }
 
@@ -882,10 +887,12 @@ body:not(.light-mode) .logo-light {
 
 /* Features Section */
 .features-liquid {
-    padding: 6rem 0;
+    padding: 0.5rem 0 6rem 0;
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     transition: background 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
 .section-header {
@@ -1363,12 +1370,42 @@ body:not(.light-mode) .logo-light {
     }
     
     .hero-visual {
-        height: 300px;
+        height: 600px;
         margin-top: 2rem;
+        margin-bottom: 3rem;
     }
     
+    /* Mobile-specific positioning for floating cards */
     .floating-cards {
-        transform: scale(0.8);
+        position: relative !important;
+        height: 600px !important;
+        padding: 1rem !important;
+        overflow: visible !important;
+    }
+    
+    .floating-cards .card-glass {
+        position: absolute !important;
+        width: 60% !important;
+        max-width: 200px !important;
+        animation: float-card 6s ease-in-out infinite !important;
+    }
+    
+    .floating-cards .card-glass:nth-child(1) {
+        top: 8% !important;
+        left: 8% !important;
+        animation-delay: 0s !important;
+    }
+    
+    .floating-cards .card-glass:nth-child(2) {
+        top: 35% !important;
+        right: 8% !important;
+        animation-delay: -2s !important;
+    }
+    
+    .floating-cards .card-glass:nth-child(3) {
+        top: 62% !important;
+        left: 12% !important;
+        animation-delay: -4s !important;
     }
     
     .features-grid {
