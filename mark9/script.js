@@ -1,6 +1,9 @@
 // Airbnb-Inspired MPA Website JavaScript
 
+console.log('Script.js loaded!');
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded!');
     // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -295,31 +298,197 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Calendar Navigation
+    // Calendar Navigation and Grid
     const prevMonthBtn = document.getElementById('prevMonth');
     const nextMonthBtn = document.getElementById('nextMonth');
     const currentMonthEl = document.getElementById('currentMonth');
+    const calendarGrid = document.getElementById('calendarGrid');
     
-    if (prevMonthBtn && nextMonthBtn && currentMonthEl) {
-        let currentDate = new Date();
+    console.log('Calendar elements found:', {
+        prevMonthBtn: !!prevMonthBtn,
+        nextMonthBtn: !!nextMonthBtn,
+        currentMonthEl: !!currentMonthEl,
+        calendarGrid: !!calendarGrid
+    });
+    
+    if (prevMonthBtn && nextMonthBtn && currentMonthEl && calendarGrid) {
+            // Force current date - August 2025
+            const today = new Date(2025, 7, 25); // August 25, 2025
+            let currentDate = new Date(2025, 7, 1); // August 1, 2025
+            
+            // Debug: Log the current date to console
+            console.log('Calendar initialized with:', currentDate.toDateString());
+            console.log('Today is:', today.toDateString());
         
-        function updateCalendar() {
+        // Sample events data
+        const events = [
+            { date: '2025-08-15', title: 'PropTech Summit 2025', type: 'summit' },
+            { date: '2025-08-20', title: 'AI in Real Estate Webinar', type: 'webinar' },
+            { date: '2025-08-25', title: 'Startup Pitch Competition', type: 'competition' },
+            { date: '2025-09-10', title: 'Blockchain Workshop', type: 'workshop' },
+            { date: '2025-09-25', title: 'PropTech Investment Forum', type: 'forum' },
+            { date: '2025-10-15', title: 'Smart Cities Conference', type: 'conference' },
+            { date: '2025-11-05', title: 'Sustainability in PropTech', type: 'seminar' },
+            { date: '2025-12-12', title: 'Digital Transformation Summit', type: 'summit' }
+        ];
+        
+        function renderCalendar() {
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                                'July', 'August', 'September', 'October', 'November', 'December'];
+            
             currentMonthEl.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+            
+            // Debug: Log what month/year is being rendered
+            console.log('Rendering calendar for:', currentMonthEl.textContent);
+            
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            // Debug: Log the first day calculation
+            console.log(`First day of ${monthNames[month]} ${year}:`, firstDay.toDateString());
+            console.log(`Starting day index:`, startingDay, `(0=Sunday, 1=Monday, etc.)`);
+            console.log(`Days in month:`, daysInMonth);
+            
+            // Adjust starting day for Monday-first week
+            // JavaScript getDay(): 0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday
+            // Our Monday-first order: 0=Monday, 1=Tuesday, 2=Wednesday, 3=Thursday, 4=Friday, 5=Saturday, 6=Sunday
+            let adjustedStartingDay;
+            if (startingDay === 0) { // Sunday
+                adjustedStartingDay = 6; // Sunday becomes last column
+            } else {
+                adjustedStartingDay = startingDay - 1; // Monday=1 becomes 0, Tuesday=2 becomes 1, etc.
+            }
+            
+            console.log(`Adjusted starting day:`, adjustedStartingDay, `(0=Monday, 1=Tuesday, etc.)`);
+            
+            // Create calendar grid with weekday headers as the first row
+            let calendarHTML = `
+                <div class="calendar-days">
+                    <div class="calendar-day weekday-header">Mon</div>
+                    <div class="calendar-day weekday-header">Tue</div>
+                    <div class="calendar-day weekday-header">Wed</div>
+                    <div class="calendar-day weekday-header">Thu</div>
+                    <div class="calendar-day weekday-header">Fri</div>
+                    <div class="calendar-day weekday-header">Sat</div>
+                    <div class="calendar-day weekday-header">Sun</div>
+            `;
+            
+
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < adjustedStartingDay; i++) {
+                calendarHTML += '<div class="calendar-day empty"></div>';
+            }
+            
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayEvents = events.filter(event => event.date === dateString);
+                const isToday = today.toDateString() === new Date(year, month, day).toDateString();
+                const isPast = new Date(year, month, day) < new Date().setHours(0, 0, 0, 0);
+                
+                let dayClass = 'calendar-day';
+                if (isToday) dayClass += ' today';
+                if (isPast) dayClass += ' past';
+                if (dayEvents.length > 0) dayClass += ' has-event';
+                
+                calendarHTML += `
+                    <div class="${dayClass}" data-date="${dateString}">
+                        <span class="day-number">${day}</span>
+                        ${dayEvents.length > 0 ? `<div class="event-indicator" title="${dayEvents.map(e => e.title).join(', ')}"></div>` : ''}
+                    </div>
+                `;
+            }
+            
+            calendarHTML += '</div>';
+            calendarGrid.innerHTML = calendarHTML;
+            
+            // Add click handlers for days with events
+            const eventDays = calendarGrid.querySelectorAll('.calendar-day.has-event');
+            eventDays.forEach(day => {
+                day.addEventListener('click', function() {
+                    const date = this.dataset.date;
+                    const dayEvents = events.filter(event => event.date === date);
+                    showEventDetails(dayEvents, date);
+                });
+            });
+        }
+        
+        function showEventDetails(dayEvents, date) {
+            const eventList = dayEvents.map(event => `
+                <div class="calendar-event-item">
+                    <div class="event-type ${event.type}"></div>
+                    <div class="event-info">
+                        <h4>${event.title}</h4>
+                        <p>${new Date(date).toLocaleDateString('en-US', { 
+                            weekday: 'long', 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        })}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            const modal = document.createElement('div');
+            modal.className = 'calendar-modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Events on ${new Date(date).toLocaleDateString('en-US', { 
+                            weekday: 'long', 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        })}</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        ${eventList}
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Close modal functionality
+            modal.querySelector('.modal-close').addEventListener('click', () => {
+                modal.remove();
+            });
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
         }
         
         prevMonthBtn.addEventListener('click', function() {
             currentDate.setMonth(currentDate.getMonth() - 1);
-            updateCalendar();
+            renderCalendar();
         });
         
         nextMonthBtn.addEventListener('click', function() {
             currentDate.setMonth(currentDate.getMonth() + 1);
-            updateCalendar();
+            renderCalendar();
         });
         
-        updateCalendar();
+        // Force initial render with a small delay to ensure DOM is ready
+        setTimeout(() => {
+            renderCalendar();
+            // Debug: Force show current date info
+            console.log('Current date:', new Date().toDateString());
+            console.log('Calendar date:', currentDate.toDateString());
+            console.log('Today is:', new Date().getDay()); // 0 = Sunday, 1 = Monday, etc.
+        }, 100);
+    } else {
+        console.error('Calendar elements not found! Check if events.html has the correct IDs.');
     }
 
     // Simple image error handling with placeholders

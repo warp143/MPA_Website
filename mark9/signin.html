@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Malaysia Proptech Association</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Circular:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .signin-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--airbnb-red) 0%, var(--airbnb-dark-red) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-lg);
+        }
+
+        .signin-container {
+            background: var(--airbnb-white);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-xxl);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .back-link {
+            position: absolute;
+            top: var(--spacing-lg);
+            left: var(--spacing-lg);
+            color: var(--airbnb-gray);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: var(--transition-normal);
+        }
+
+        .back-link:hover {
+            color: var(--airbnb-red);
+        }
+
+        .signin-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .signin-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--airbnb-red);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .signin-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--airbnb-black);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .signin-subtitle {
+            color: var(--airbnb-gray);
+            font-size: 1rem;
+        }
+
+        .signin-form {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 500;
+            color: var(--airbnb-black);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--airbnb-light-gray);
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+            transition: var(--transition-normal);
+            background: var(--airbnb-white);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--airbnb-red);
+            box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.1);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--airbnb-red);
+        }
+
+        .form-checkbox label {
+            color: var(--airbnb-dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .signin-btn {
+            width: 100%;
+            padding: var(--spacing-md);
+            background: var(--airbnb-red);
+            color: var(--airbnb-white);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .signin-btn:hover {
+            background: var(--airbnb-dark-red);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .signin-links {
+            text-align: center;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--airbnb-light-gray);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .signin-links p {
+            color: var(--airbnb-gray);
+            margin-bottom: var(--spacing-md);
+            font-size: 0.9rem;
+        }
+
+        .signin-links a {
+            color: var(--airbnb-red);
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 var(--spacing-md);
+            transition: var(--transition-normal);
+        }
+
+        .signin-links a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-section {
+            text-align: center;
+            padding: var(--spacing-xl);
+            background: var(--airbnb-bg-light);
+            border-radius: var(--border-radius-lg);
+        }
+
+        .signup-section h3 {
+            margin-bottom: var(--spacing-md);
+            color: var(--airbnb-black);
+        }
+
+        .signup-section p {
+            color: var(--airbnb-gray);
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.9rem;
+        }
+
+        .signup-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            background: var(--airbnb-white);
+            color: var(--airbnb-red);
+            text-decoration: none;
+            border: 2px solid var(--airbnb-red);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            transition: var(--transition-normal);
+        }
+
+        .signup-btn:hover {
+            background: var(--airbnb-red);
+            color: var(--airbnb-white);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        @media (max-width: 768px) {
+            .signin-container {
+                padding: var(--spacing-xl);
+                margin: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-page">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+        
+        <div class="signin-container">
+            <div class="signin-header">
+                <div class="signin-logo">MPA</div>
+                <h1 class="signin-title">Welcome Back</h1>
+                <p class="signin-subtitle">Sign in to access your member dashboard</p>
+            </div>
+            
+            <form class="signin-form" id="signinForm">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-input" required>
+                </div>
+                
+                <div class="form-checkbox">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Keep me signed in</label>
+                </div>
+                
+                <button type="submit" class="signin-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="signin-links">
+                <p>Need help?</p>
+                <a href="contact.html">Contact Support</a>
+                <a href="#forgot">Forgot Password?</a>
+            </div>
+            
+            <div class="signup-section">
+                <h3>Not a Member Yet?</h3>
+                <p>Join the Malaysia PropTech Association to access exclusive resources, networking opportunities, and industry insights.</p>
+                <a href="membership.html" class="signup-btn">
+                    <i class="fas fa-user-plus"></i>
+                    Join MPA Today
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signinForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                // Demo functionality - show success message
+                alert('Demo: Sign in successful! Welcome to MPA.');
+                // In a real app, this would redirect to dashboard
+                // window.location.href = 'dashboard.html';
+            } else {
+                alert('Please enter both email and password.');
+            }
+        });
+    </script>
+</body>
+</html>

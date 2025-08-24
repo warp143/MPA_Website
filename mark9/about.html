@@ -14,10 +14,11 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>MPA</h2>
+                <a href="index.html">
+                    <img src="assets/mpa-logo-red.png" alt="Malaysia Proptech Association" class="logo-img">
+                </a>
             </div>
             <div class="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
                 <a href="about.html" class="nav-link active">About</a>
                 <a href="membership.html" class="nav-link">Membership</a>
                 <a href="events.html" class="nav-link">Events</a>
@@ -84,6 +85,31 @@
                     <h3>People</h3>
                     <p>People shall be the main focus of our association and all our members. When addressing pain points and problem statements from the property industry stakeholders people should always be the main beneficiary of our members' digital solutions.</p>
                     <p>We respect and are committed in helping the growth of everyone notwithstanding disabilities, sex, race or religion and there shall never be a compromise on this. In our association woman will always be given the same opportunities as man and the association is strongly committed towards the achievement of Goal: 5 of SDG-2030 "Gender Equality".</p>
+                    
+                    <h3>MPA Mandates</h3>
+                    <div class="mandates-grid">
+                        <div class="mandate-card">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Trust</h4>
+                            <p>Trust, which is one of the pillars of a successful digital transformation, should not be traded, ever.</p>
+                        </div>
+                        <div class="mandate-card">
+                            <i class="fas fa-balance-scale"></i>
+                            <h4>Truth</h4>
+                            <p>To promote truth, in both our internal and external communication truth shall always prevail and be the engine of the trust building process.</p>
+                        </div>
+                        <div class="mandate-card">
+                            <i class="fas fa-user-graduate"></i>
+                            <h4>Talent</h4>
+                            <p>To nurture talents leveraging on a preferential relationship with local and international universities and attract them towards our association to contribute to their and our members wellbeing.</p>
+                        </div>
+                        <div class="mandate-card">
+                            <i class="fas fa-microchip"></i>
+                            <h4>Technology</h4>
+                            <p>To nurture and stimulate the research for new innovative technologies to help the built environment ecosystem to become more resilient, user friendly and solution providing to all parties.</p>
+                        </div>
+                    </div>
+                    
                     <a href="#" class="btn-primary">Read Full Mission & Vision</a>
                 </div>
                 <div class="mission-image">
@@ -95,43 +121,8 @@
 
     <!-- MPA Pillars -->
     <section class="mpa-pillars">
-        <div class="container">
-            <div class="section-header">
-                <h2>MPA's Pillars</h2>
-                <p>MPA is committed to building a strong community on its pillars with integrity, inclusivity, and equality of all PropTech Members.</p>
-            </div>
-            <div class="pillars-grid">
-                <div class="pillar-card">
-                    <i class="fas fa-bullhorn"></i>
-                    <h3>Promote</h3>
-                    <p>MPA will promote all members, stakeholders, and strategic partners.</p>
-                </div>
-                <div class="pillar-card">
-                    <i class="fas fa-lightbulb"></i>
-                    <h3>Inspire</h3>
-                    <p>MPA is here to inspire its members, students, fresh grads, and the property industry at large.</p>
-                </div>
-                <div class="pillar-card">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h3>Events</h3>
-                    <p>MPA members organize and participate in global events.</p>
-                </div>
-                <div class="pillar-card">
-                    <i class="fas fa-handshake"></i>
-                    <h3>Partnerships</h3>
-                    <p>MPA actively seeks for partnerships in Malaysia & abroad.</p>
-                </div>
-                <div class="pillar-card">
-                    <i class="fas fa-briefcase"></i>
-                    <h3>Employment</h3>
-                    <p>MPA believes in education and deployment within the PropTech industry.</p>
-                </div>
-                <div class="pillar-card">
-                    <i class="fas fa-rocket"></i>
-                    <h3>Innovation</h3>
-                    <p>MPA helps to drive the PropTech Industry towards higher levels of innovation and technology.</p>
-                </div>
-            </div>
+        <div class="container" id="mpa-pillars-component">
+            <!-- Component will be loaded here -->
         </div>
     </section>
 
@@ -254,5 +245,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="js/components.js"></script>
 </body>
 </html>
