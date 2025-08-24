@@ -1091,7 +1091,6 @@ img.loading {
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
     box-shadow: var(--shadow-md);
-    text-align: center;
 }
 
 .calendar-header {
@@ -1743,6 +1742,12 @@ img.loading {
     border-radius: var(--border-radius-sm);
     box-shadow: var(--shadow-sm);
     cursor: default;
+}
+
+.calendar-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .calendar-days {
