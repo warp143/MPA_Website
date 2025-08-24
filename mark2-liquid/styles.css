@@ -802,8 +802,7 @@ body:not(.light-mode) .logo-light {
 }
 
 .hero-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     gap: 2rem;
 }
 
@@ -1364,6 +1363,7 @@ body:not(.light-mode) .logo-light {
     
     .hero-stats {
         justify-content: center;
+        display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
     }
