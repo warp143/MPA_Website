@@ -1,5 +1,175 @@
 // Creative Interactive JavaScript
 
+// Liquid Display Effects
+document.addEventListener('DOMContentLoaded', function() {
+    // Create dynamic liquid blobs
+    createLiquidBlobs();
+    
+    // Add liquid effects to scroll
+    addLiquidScrollEffects();
+    
+    // Add liquid hover effects
+    addLiquidHoverEffects();
+    
+    // Add liquid mouse tracking
+    addLiquidMouseTracking();
+});
+
+// Create dynamic liquid blobs
+function createLiquidBlobs() {
+    const liquidBg = document.querySelector('.liquid-bg');
+    if (!liquidBg) return;
+    
+    // Create additional dynamic blobs
+    for (let i = 0; i < 3; i++) {
+        const blob = document.createElement('div');
+        blob.className = 'liquid-blob dynamic-blob';
+        blob.style.cssText = `
+            width: ${Math.random() * 150 + 100}px;
+            height: ${Math.random() * 150 + 100}px;
+            top: ${Math.random() * 80 + 10}%;
+            left: ${Math.random() * 80 + 10}%;
+            animation-delay: ${Math.random() * 8}s;
+            animation-duration: ${Math.random() * 4 + 6}s;
+            background: ${i % 2 === 0 ? 'var(--liquid-secondary)' : 'var(--liquid-accent)'};
+        `;
+        liquidBg.appendChild(blob);
+    }
+}
+
+// Add liquid scroll effects
+function addLiquidScrollEffects() {
+    const liquidBlobs = document.querySelectorAll('.liquid-blob');
+    
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        
+        liquidBlobs.forEach((blob, index) => {
+            const speed = (index + 1) * 0.1;
+            blob.style.transform = `translateY(${rate * speed}px) rotate(${scrolled * 0.1}deg)`;
+        });
+    });
+}
+
+// Add liquid hover effects
+function addLiquidHoverEffects() {
+    const liquidCards = document.querySelectorAll('.liquid-card');
+    
+    liquidCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+            this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
+            
+            // Create ripple effect
+            createRippleEffect(this, event);
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+        });
+    });
+}
+
+// Create ripple effect
+function createRippleEffect(element, event) {
+    const ripple = document.createElement('div');
+    ripple.className = 'liquid-ripple';
+    ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+        top: ${event.offsetY}px;
+        left: ${event.offsetX}px;
+        width: 20px;
+        height: 20px;
+    `;
+    
+    element.appendChild(ripple);
+    
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+}
+
+// Add liquid mouse tracking
+function addLiquidMouseTracking() {
+    const liquidBlobs = document.querySelectorAll('.liquid-blob');
+    
+    document.addEventListener('mousemove', function(event) {
+        const mouseX = event.clientX / window.innerWidth;
+        const mouseY = event.clientY / window.innerHeight;
+        
+        liquidBlobs.forEach((blob, index) => {
+            const speed = (index + 1) * 0.02;
+            const x = (mouseX - 0.5) * 50 * speed;
+            const y = (mouseY - 0.5) * 50 * speed;
+            
+            blob.style.transform += ` translate(${x}px, ${y}px)`;
+        });
+    });
+}
+
+// Add liquid text animation
+function addLiquidTextAnimation() {
+    const liquidTexts = document.querySelectorAll('.liquid-text');
+    
+    liquidTexts.forEach(text => {
+        text.addEventListener('mouseenter', function() {
+            this.style.animationPlayState = 'running';
+            this.style.animationDuration = '2s';
+        });
+        
+        text.addEventListener('mouseleave', function() {
+            this.style.animationPlayState = 'paused';
+        });
+    });
+}
+
+// Liquid loading animation
+function showLiquidLoader(container) {
+    const loader = document.createElement('div');
+    loader.className = 'liquid-loader';
+    container.appendChild(loader);
+    
+    return loader;
+}
+
+function hideLiquidLoader(loader) {
+    if (loader && loader.parentNode) {
+        loader.parentNode.removeChild(loader);
+    }
+}
+
+// Liquid navigation effects
+function addLiquidNavigationEffects() {
+    const navItems = document.querySelectorAll('.nav-item.liquid-nav');
+    
+    navItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.color = 'var(--accent-primary)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            if (!this.classList.contains('active')) {
+                this.style.color = 'var(--text-secondary)';
+            }
+        });
+    });
+}
+
+// Initialize all liquid effects
+document.addEventListener('DOMContentLoaded', function() {
+    addLiquidTextAnimation();
+    addLiquidNavigationEffects();
+});
+
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const mobileToggle = document.querySelector('.mobile-toggle');
