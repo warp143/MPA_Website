@@ -802,7 +802,8 @@ body:not(.light-mode) .logo-light {
 }
 
 .hero-stats {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
 }
 
@@ -824,9 +825,10 @@ body:not(.light-mode) .logo-light {
 
 .hero-visual {
     position: relative;
-    height: 500px;
+    height: 600px;
     overflow: hidden;
     z-index: 1;
+    padding: 2rem;
 }
 
 .floating-cards {
@@ -860,7 +862,7 @@ body:not(.light-mode) .logo-light {
 }
 
 .card-glass:nth-child(3) {
-    bottom: 10%;
+    bottom: -6%;
     left: 15%;
     animation-delay: -4s;
 }
@@ -1362,6 +1364,8 @@ body:not(.light-mode) .logo-light {
     
     .hero-stats {
         justify-content: center;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
     }
     
     .hero-actions {
@@ -1370,9 +1374,10 @@ body:not(.light-mode) .logo-light {
     }
     
     .hero-visual {
-        height: 600px;
+        height: 700px;
         margin-top: 2rem;
         margin-bottom: 3rem;
+        padding: 2rem;
     }
     
     /* Mobile-specific positioning for floating cards */
@@ -1450,7 +1455,7 @@ body:not(.light-mode) .logo-light {
     }
     
     .hero-stats {
-        flex-direction: column;
+        grid-template-columns: 1fr 1fr;
         gap: 1rem;
     }
     
