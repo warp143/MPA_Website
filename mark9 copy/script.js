@@ -1,142 +1,9 @@
-// Modern Liquid MPA Website JavaScript
+// Airbnb-Inspired MPA Website JavaScript
 
 console.log('Script.js loaded!');
 
-// Theme Management
-let currentTheme = localStorage.getItem('theme') || 'auto';
-let isAutoMode = currentTheme === 'auto';
-
-function getAutoTheme() {
-    const now = new Date();
-    const hour = now.getHours();
-    // Auto switch: dark mode from 6 PM to 6 AM, light mode from 6 AM to 6 PM
-    return (hour >= 18 || hour < 6) ? 'dark' : 'light';
-}
-
-function applyTheme(theme) {
-    const body = document.body;
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle?.querySelector('.theme-icon');
-    const autoIndicator = document.getElementById('autoIndicator');
-    
-    if (theme === 'light') {
-        body.classList.add('light-mode');
-        if (themeIcon) themeIcon.textContent = '☀️';
-    } else {
-        body.classList.remove('light-mode');
-        if (themeIcon) themeIcon.textContent = '🌙';
-    }
-    
-    // Show/hide auto indicator
-    if (autoIndicator) {
-        if (isAutoMode) {
-            autoIndicator.classList.remove('hidden');
-        } else {
-            autoIndicator.classList.add('hidden');
-        }
-    }
-    
-    // Update logo based on theme
-    updateLogoForTheme(theme);
-}
-
-function updateLogoForTheme(theme) {
-    const logoImg = document.querySelector('.logo-img');
-    if (logoImg) {
-        if (theme === 'light') {
-            logoImg.src = 'assets/mpa-logo.png';
-        } else {
-            logoImg.src = 'assets/MPA-logo-white-transparent-res.png';
-        }
-    }
-}
-
-function checkAndUpdateTheme() {
-    if (isAutoMode) {
-        const autoTheme = getAutoTheme();
-        applyTheme(autoTheme);
-    } else {
-        applyTheme(currentTheme);
-    }
-}
-
-function setTheme(theme) {
-    currentTheme = theme;
-    isAutoMode = theme === 'auto';
-    localStorage.setItem('theme', theme);
-    checkAndUpdateTheme();
-}
-
-function cycleTheme() {
-    const themes = ['auto', 'light', 'dark'];
-    const currentIndex = themes.indexOf(currentTheme);
-    const nextIndex = (currentIndex + 1) % themes.length;
-    setTheme(themes[nextIndex]);
-}
-
-function updateThemeIcon(theme) {
-    const themeIcon = document.querySelector('.theme-icon');
-    if (themeIcon) {
-        if (theme === 'light') {
-            themeIcon.textContent = '☀️';
-        } else {
-            themeIcon.textContent = '🌙';
-        }
-    }
-}
-
-function updateAutoIndicator(savedTheme) {
-    const autoIndicator = document.getElementById('autoIndicator');
-    if (autoIndicator) {
-        if (savedTheme === 'auto') {
-            autoIndicator.classList.remove('hidden');
-        } else {
-            autoIndicator.classList.add('hidden');
-        }
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded!');
-    console.log('Current page:', window.location.pathname);
-    
-    // Debug: Check if all required elements exist
-    const requiredElements = [
-        'themeToggle',
-        'autoIndicator',
-        'hamburger',
-        'nav-menu'
-    ];
-    
-    requiredElements.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) {
-            console.log(`✓ Element found: ${id}`);
-        } else {
-            console.warn(`⚠ Element missing: ${id}`);
-        }
-    });
-    
-    // Initialize theme
-    checkAndUpdateTheme();
-    
-    // Theme toggle functionality
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            cycleTheme();
-        });
-    }
-    
-    // Check for system theme changes
-    if (window.matchMedia) {
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        mediaQuery.addListener(function(e) {
-            if (isAutoMode) {
-                checkAndUpdateTheme();
-            }
-        });
-    }
     // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -624,13 +491,11 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Calendar elements not found! Check if events.html has the correct IDs.');
     }
 
-    // Enhanced image error handling with placeholders
+    // Simple image error handling with placeholders
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         // Handle image load error
         img.addEventListener('error', function() {
-            console.log('Image failed to load:', this.src);
-            
             // Determine the type of image based on context and use appropriate placeholder
             const parent = this.closest('.event-image, .news-image, .featured-image');
             const memberCard = this.closest('.member-card, .committee-member');
@@ -653,17 +518,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRkZGRkZGIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBhdmFpbGFibGU8L3RleHQ+PC9zdmc+';
             }
         });
-        
-        // Add loading state
-        img.addEventListener('load', function() {
-            this.classList.add('loaded');
-        });
-    });
-    
-    // Page load completion indicator
-    window.addEventListener('load', function() {
-        console.log('Page fully loaded');
-        document.body.classList.add('page-loaded');
     });
 });
 
@@ -671,15 +525,8 @@ document.addEventListener('DOMContentLoaded', function() {
 const style = document.createElement('style');
 style.textContent = `
     .navbar.scrolled {
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--glass-border);
-        box-shadow: var(--shadow-md);
-    }
-    
-    body.light-mode .navbar.scrolled {
-        background: var(--glass-bg-light);
-        border-bottom: 1px solid var(--glass-border-light);
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
     }
     
     .nav-menu.active {

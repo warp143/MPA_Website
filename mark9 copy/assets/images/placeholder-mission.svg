@@ -1,0 +1,15 @@
+<svg width="500" height="400" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF385C;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#E31C5F;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+  <rect width="500" height="400" fill="url(#grad4)"/>
+  <rect x="30" y="30" width="440" height="340" fill="white" opacity="0.9" rx="12"/>
+  <circle cx="250" cy="150" r="50" fill="#FF385C" opacity="0.8"/>
+  <text x="250" y="165" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="white">🎯</text>
+  <text x="250" y="220" font-family="Arial, sans-serif" font-size="24" font-weight="600" text-anchor="middle" fill="#222222">Mission & Vision</text>
+  <text x="250" y="245" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#767676">Driving Innovation Forward</text>
+  <text x="250" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#767676">Building the Future of PropTech</text>
+</svg>
