@@ -5,36 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Malaysia Proptech Association</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.3">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .signin-page {
             min-height: 100vh;
-            background: var(--bg-primary-dark);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: var(--spacing-lg);
         }
 
-        .signin-container {
-            background: var(--bg-secondary-dark);
-            border: 1px solid var(--glass-border-dark);
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            padding: 48px;
-            width: 100%;
-            max-width: 450px;
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
+                    .signin-container {
+                background: var(--bg-secondary);
+                border: 1px solid var(--glass-border);
+                border-radius: 16px;
+                box-shadow: var(--shadow-lg);
+                padding: 48px;
+                width: 100%;
+                max-width: 450px;
+                position: relative;
+            }
 
         /* Desktop Layout */
         @media (min-width: 1024px) {
             .signin-page {
                 padding: 0;
-                background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+                background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
                 min-height: calc(100vh - 80px); /* Account for navbar height */
                 margin-top: 80px; /* Push content below navbar */
             }
@@ -53,24 +52,24 @@
             }
 
             .signin-left {
-                background: var(--bg-secondary-dark);
+                background: var(--bg-secondary);
                 padding: 80px 60px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: flex-start;
-                border-right: 1px solid var(--glass-border-dark);
+                border-right: 1px solid var(--glass-border);
             }
 
             .signin-right {
-                background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+                background: var(--bg-secondary);
                 padding: 80px 60px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 text-align: center;
-                color: var(--text-primary-dark);
+                color: var(--text-primary);
             }
 
             .signin-header {
@@ -88,7 +87,7 @@
             .signin-subtitle {
                 font-size: 1.2rem;
                 line-height: 1.6;
-                color: var(--text-secondary-dark);
+                color: #666666;
             }
 
             .signin-form {
@@ -104,7 +103,7 @@
                 font-size: 1.1rem;
                 margin-bottom: 12px;
                 font-weight: 600;
-                color: var(--text-primary-dark);
+                color: var(--text-primary);
             }
 
             .form-input {
@@ -166,17 +165,17 @@
             .signin-right .signup-section {
                 margin-top: 40px;
                 padding-top: 40px;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
             }
 
             .signin-right .signup-section h3 {
-                color: var(--text-primary-dark);
+                color: var(--text-primary-light);
                 font-size: 1.8rem;
                 margin-bottom: 20px;
             }
 
             .signin-right .signup-section p {
-                color: var(--text-secondary-dark);
+                color: var(--text-secondary-light);
                 font-size: 1.1rem;
                 margin-bottom: 30px;
                 max-width: 400px;
@@ -184,17 +183,29 @@
                 margin-right: auto;
             }
 
+            /* Dark mode signup section */
+            body:not(.light-mode) .signin-right .signup-section {
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            body:not(.light-mode) .signin-right .signup-section h3 {
+                color: #ffffff;
+            }
+
+            body:not(.light-mode) .signin-right .signup-section p {
+                color: rgba(255, 255, 255, 0.9);
+            }
+
             .signin-right .signup-btn {
-                background: var(--glass-bg-dark);
-                color: var(--text-primary-dark);
-                border: 2px solid var(--glass-border-dark);
-                backdrop-filter: blur(10px);
+                background: transparent;
+                color: var(--accent-blue);
+                border: 2px solid var(--accent-blue);
                 transition: all 0.3s ease;
             }
 
             .signin-right .signup-btn:hover {
-                background: rgba(255, 255, 255, 0.2);
-                border-color: var(--accent-blue);
+                background: var(--accent-blue);
+                color: #ffffff !important;
                 transform: translateY(-2px);
                 box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
             }
@@ -205,20 +216,31 @@
             }
 
             .desktop-features h3 {
-                font-size: 2.5rem;
-                margin-bottom: 24px;
+                font-size: 2rem;
+                margin-bottom: 20px;
                 font-weight: 700;
                 line-height: 1.2;
+                color: var(--text-primary-light);
             }
 
             .desktop-features p {
-                font-size: 1.2rem;
+                font-size: 1rem;
                 line-height: 1.6;
-                margin-bottom: 40px;
+                margin-bottom: 30px;
                 opacity: 0.95;
                 max-width: 400px;
                 margin-left: auto;
                 margin-right: auto;
+                color: var(--text-secondary-light);
+            }
+
+            /* Dark mode text colors */
+            body:not(.light-mode) .desktop-features h3 {
+                color: #ffffff;
+            }
+
+            body:not(.light-mode) .desktop-features p {
+                color: rgba(255, 255, 255, 0.9);
             }
 
             .feature-list {
@@ -231,13 +253,13 @@
             }
 
             .feature-list li {
-                padding: 16px 0;
-                font-size: 1.2rem;
+                padding: 14px 0;
+                font-size: 1rem;
                 display: flex;
                 align-items: center;
                 gap: 20px;
-                border-bottom: 1px solid var(--glass-border-dark);
-                color: var(--text-primary-dark);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                color: var(--text-primary-light);
             }
 
             .feature-list li:last-child {
@@ -245,17 +267,27 @@
             }
 
             .feature-list li i {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
                 color: var(--accent-blue);
                 width: 24px;
                 text-align: center;
+            }
+
+            /* Dark mode feature list */
+            body:not(.light-mode) .feature-list li {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                color: #ffffff;
+            }
+
+            body:not(.light-mode) .feature-list li i {
+                color: rgba(255, 255, 255, 0.9);
             }
 
             .desktop-cta {
                 margin-top: auto;
                 width: 100%;
                 padding-top: 40px;
-                border-top: 1px solid var(--glass-border-dark);
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
             }
 
             .desktop-cta h4 {
@@ -263,6 +295,7 @@
                 margin-bottom: 20px;
                 font-weight: 600;
                 line-height: 1.3;
+                color: var(--text-primary-light);
             }
 
             .desktop-cta p {
@@ -273,6 +306,20 @@
                 max-width: 400px;
                 margin-left: auto;
                 margin-right: auto;
+                color: var(--text-secondary-light);
+            }
+
+            /* Dark mode CTA */
+            body:not(.light-mode) .desktop-cta {
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            body:not(.light-mode) .desktop-cta h4 {
+                color: #ffffff;
+            }
+
+            body:not(.light-mode) .desktop-cta p {
+                color: rgba(255, 255, 255, 0.9);
             }
 
             .desktop-cta-btn {
@@ -280,20 +327,19 @@
                 align-items: center;
                 gap: 12px;
                 padding: 20px 40px;
-                background: var(--glass-bg-dark);
-                color: var(--text-primary-dark);
+                background: var(--accent-blue);
+                color: #ffffff !important;
                 text-decoration: none;
-                border: 2px solid var(--glass-border-dark);
+                border: 2px solid var(--accent-blue);
                 border-radius: 12px;
                 font-weight: 600;
                 font-size: 1.2rem;
                 transition: all 0.3s ease;
-                backdrop-filter: blur(10px);
             }
 
             .desktop-cta-btn:hover {
-                background: rgba(255, 255, 255, 0.2);
-                border-color: var(--accent-blue);
+                background: var(--accent-purple);
+                border-color: var(--accent-purple);
                 transform: translateY(-3px);
                 box-shadow: 0 12px 30px rgba(0, 122, 255, 0.3);
             }
@@ -314,12 +360,12 @@
         .signin-title {
             font-size: 1.75rem;
             font-weight: 600;
-            color: var(--text-primary-dark);
+            color: var(--text-primary);
             margin-bottom: 8px;
         }
 
         .signin-subtitle {
-            color: var(--text-secondary-dark);
+            color: var(--text-secondary);
             font-size: 1rem;
         }
 
@@ -335,18 +381,18 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: var(--text-primary-dark);
+            color: var(--text-primary);
         }
 
         .form-input {
             width: 100%;
             padding: 16px;
-            border: 2px solid var(--glass-border-dark);
+            border: 2px solid var(--glass-border);
             border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: var(--bg-primary-dark);
-            color: var(--text-primary-dark);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
         }
 
         .form-input:focus {
@@ -369,7 +415,7 @@
         }
 
         .form-checkbox label {
-            color: var(--text-secondary-dark);
+            color: #666666;
             font-size: 0.9rem;
         }
 
@@ -377,7 +423,7 @@
             width: 100%;
             padding: 16px;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: var(--text-primary-dark);
+            color: #ffffff !important;
             border: none;
             border-radius: 8px;
             font-size: 1rem;
@@ -398,12 +444,12 @@
         .signin-links {
             text-align: center;
             padding-top: 24px;
-            border-top: 1px solid var(--glass-border-dark);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             margin-bottom: 32px;
         }
 
         .signin-links p {
-            color: var(--text-secondary-dark);
+            color: var(--text-secondary);
             margin-bottom: 16px;
             font-size: 0.9rem;
         }
@@ -423,18 +469,18 @@
         .signup-section {
             text-align: center;
             padding: 32px;
-            background: var(--bg-secondary-dark);
-            border: 1px solid var(--glass-border-dark);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--glass-border);
             border-radius: 12px;
         }
 
         .signup-section h3 {
             margin-bottom: 16px;
-            color: var(--text-primary-dark);
+            color: var(--text-primary);
         }
 
         .signup-section p {
-            color: var(--text-secondary-dark);
+            color: var(--text-secondary);
             margin-bottom: 24px;
             font-size: 0.9rem;
         }
@@ -455,7 +501,7 @@
 
         .signup-btn:hover {
             background: var(--accent-blue);
-            color: var(--text-primary-dark);
+            color: #ffffff !important;
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
         }
@@ -604,7 +650,7 @@
                 <div class="signin-links">
                     <p>Need help?</p>
                     <a href="contact.html">Contact Support</a>
-                    <a href="#forgot">Forgot Password?</a>
+                    <a href="forgot-password.html">Forgot Password?</a>
                 </div>
                 
 
@@ -644,14 +690,7 @@
                     </ul>
                 </div>
 
-                <div class="desktop-cta">
-                    <h4>Ready to Transform Real Estate?</h4>
-                    <p>Join thousands of professionals driving innovation in Malaysia's property technology sector.</p>
-                    <a href="membership.html" class="desktop-cta-btn">
-                        <i class="fas fa-rocket"></i>
-                        Start Your Journey
-                    </a>
-                </div>
+
 
                 <div class="signup-section">
                     <h3>Not a Member Yet?</h3>
@@ -703,7 +742,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=1.1"></script>
     <script>
         document.getElementById('signinForm').addEventListener('submit', function(e) {
             e.preventDefault();
