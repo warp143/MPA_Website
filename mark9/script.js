@@ -14,6 +14,7 @@ function getAutoTheme() {
 }
 
 function applyTheme(theme) {
+    console.log('applyTheme called with theme:', theme);
     const body = document.body;
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle?.querySelector('.theme-icon');
@@ -22,9 +23,11 @@ function applyTheme(theme) {
     if (theme === 'light') {
         body.classList.add('light-mode');
         if (themeIcon) themeIcon.textContent = '☀️';
+        console.log('Applied light theme');
     } else {
         body.classList.remove('light-mode');
         if (themeIcon) themeIcon.textContent = '🌙';
+        console.log('Applied dark theme');
     }
     
     // Show/hide auto indicator
@@ -65,13 +68,17 @@ function setTheme(theme) {
     isAutoMode = theme === 'auto';
     localStorage.setItem('theme', theme);
     checkAndUpdateTheme();
+    updateAutoIndicator(theme);
 }
 
 function cycleTheme() {
+    console.log('cycleTheme called, current theme:', currentTheme);
     const themes = ['auto', 'light', 'dark'];
     const currentIndex = themes.indexOf(currentTheme);
     const nextIndex = (currentIndex + 1) % themes.length;
-    setTheme(themes[nextIndex]);
+    const newTheme = themes[nextIndex];
+    console.log('Switching to theme:', newTheme);
+    setTheme(newTheme);
 }
 
 function updateThemeIcon(theme) {
@@ -87,11 +94,14 @@ function updateThemeIcon(theme) {
 
 function updateAutoIndicator(savedTheme) {
     const autoIndicator = document.getElementById('autoIndicator');
-    if (autoIndicator) {
+    const themeToggle = document.getElementById('themeToggle');
+    if (autoIndicator && themeToggle) {
         if (savedTheme === 'auto') {
             autoIndicator.classList.remove('hidden');
+            themeToggle.classList.remove('auto-hidden');
         } else {
             autoIndicator.classList.add('hidden');
+            themeToggle.classList.add('auto-hidden');
         }
     }
 }
@@ -120,12 +130,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize theme
     checkAndUpdateTheme();
     
-    // Theme toggle functionality
+    // Set initial auto-hidden class if needed
     const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle && currentTheme !== 'auto') {
+        themeToggle.classList.add('auto-hidden');
+    }
+    
+    // Theme toggle functionality
     if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
+        console.log('Theme toggle found, adding click listener');
+        themeToggle.addEventListener('click', function(e) {
+            console.log('Theme toggle clicked!');
+            e.preventDefault();
+            e.stopPropagation();
+            alert('Theme toggle clicked! Current theme: ' + currentTheme);
             cycleTheme();
         });
+        
+        // Also add mousedown for testing
+        themeToggle.addEventListener('mousedown', function(e) {
+            console.log('Theme toggle mousedown!');
+        });
+    } else {
+        console.error('Theme toggle not found!');
     }
     
     // Check for system theme changes
@@ -137,16 +164,109 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    // Mobile Navigation Toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
+    // Mobile Menu Management
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
+
+    function toggleMobileMenu() {
+        const isActive = mobileDropdownMenu.classList.contains('active');
+        
+        if (isActive) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    }
+
+    function openMobileMenu() {
+        mobileDropdownMenu.classList.add('active');
+        mobileMenuToggle.classList.add('active');
+        
+        // Add entrance animation to menu items
+        const menuItems = mobileDropdownMenu.querySelectorAll('.mobile-dropdown-link');
+        menuItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-10px)';
+            setTimeout(() => {
+                item.style.transition = 'all 0.2s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 50 + (index * 30));
         });
     }
+
+    function closeMobileMenu() {
+        mobileDropdownMenu.classList.remove('active');
+        mobileMenuToggle.classList.remove('active');
+        
+        // Reset menu items
+        const menuItems = mobileDropdownMenu.querySelectorAll('.mobile-dropdown-link');
+        menuItems.forEach(item => {
+            item.style.opacity = '';
+            item.style.transform = '';
+            item.style.transition = '';
+        });
+    }
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    }
+
+    // Language Dropdown Management
+    const languageToggle = document.getElementById('languageToggle');
+    const languageMenu = document.getElementById('languageMenu');
+    const languageDropdown = document.querySelector('.language-dropdown');
+    const currentLanguage = document.querySelector('.current-language');
+
+    function toggleLanguageMenu() {
+        languageDropdown.classList.toggle('active');
+    }
+
+    function selectLanguage(lang) {
+        // Update current language display
+        currentLanguage.textContent = lang.toUpperCase();
+        
+        // Update active states
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.classList.remove('active');
+        });
+        document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+        
+        // Update mobile language options
+        document.querySelectorAll('.mobile-language-option').forEach(option => {
+            option.classList.remove('active');
+        });
+        document.querySelector(`.mobile-language-option[data-lang="${lang}"]`).classList.add('active');
+        
+        // Close dropdown
+        languageDropdown.classList.remove('active');
+        
+        // Store language preference
+        localStorage.setItem('selectedLanguage', lang);
+        
+        // Here you would typically trigger language change
+        console.log(`Language changed to: ${lang}`);
+    }
+
+    if (languageToggle) {
+        languageToggle.addEventListener('click', toggleLanguageMenu);
+    }
+
+    // Language option click handlers
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            selectLanguage(lang);
+        });
+    });
+
+    // Mobile language option click handlers
+    document.querySelectorAll('.mobile-language-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            selectLanguage(lang);
+        });
+    });
 
     // Smooth Scrolling for Navigation Links (only for same-page links)
     const navLinks = document.querySelectorAll('.nav-link');
@@ -169,14 +289,33 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     
                     // Close mobile menu if open
-                    if (navMenu && navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        hamburger.classList.remove('active');
+                    if (mobileDropdownMenu && mobileDropdownMenu.classList.contains('active')) {
+                        closeMobileMenu();
                     }
                 }
             }
             // For external page links (like about.html, events.html), let them work normally
         });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (mobileDropdownMenu.classList.contains('active') && 
+            !mobileDropdownMenu.contains(e.target) && 
+            !mobileMenuToggle.contains(e.target)) {
+            closeMobileMenu();
+        }
+        
+        if (languageDropdown && !languageDropdown.contains(e.target)) {
+            languageDropdown.classList.remove('active');
+        }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileDropdownMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
     });
 
     // Navbar Background on Scroll
