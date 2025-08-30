@@ -18,7 +18,7 @@
     --accent-purple: #5856D6;
     --accent-green: #34C759;
     --accent-orange: #FF9500;
-    --accent-red: #FF3B30;
+    --accent-red: var(--accent-blue);
     
     /* Light Mode Colors */
     --bg-primary-light: #ffffff;
@@ -136,7 +136,7 @@ a:hover {
 .blob-3 {
     width: 200px;
     height: 200px;
-    background: linear-gradient(45deg, var(--accent-orange), var(--accent-red));
+    background: linear-gradient(45deg, var(--accent-orange), var(--accent-blue));
     bottom: 20%;
     left: 20%;
     animation-delay: -10s;

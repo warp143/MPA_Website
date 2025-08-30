@@ -3,31 +3,35 @@
 /* CSS Variables - Modern Dark/Light Theme */
 :root {
     /* Dark Mode Colors */
-    --bg-primary-dark: #000000;
+    --bg-primary-dark: #0a0a0a;
     --bg-secondary-dark: #1a1a1a;
+    --bg-tertiary-dark: #2a2a2a;
     --text-primary-dark: #ffffff;
-    --text-secondary-dark: rgba(255, 255, 255, 0.8);
+    --text-secondary-dark: rgba(255, 255, 255, 0.85);
     --text-muted-dark: rgba(255, 255, 255, 0.6);
-    --glass-bg-dark: rgba(255, 255, 255, 0.1);
-    --glass-border-dark: rgba(255, 255, 255, 0.2);
+    --glass-bg-dark: rgba(255, 255, 255, 0.08);
+    --glass-border-dark: rgba(255, 255, 255, 0.15);
     --accent-blue: #007AFF;
     --accent-purple: #5856D6;
     --accent-green: #34C759;
     --accent-orange: #FF9500;
-    --accent-red: #FF3B30;
+    --accent-red: var(--accent-blue);
+    --accent-pink: #FF2D92;
     
     /* Light Mode Colors */
     --bg-primary-light: #ffffff;
     --bg-secondary-light: #f8f9fa;
+    --bg-tertiary-light: #f1f3f4;
     --text-primary-light: #1d1d1f;
     --text-secondary-light: rgba(29, 29, 31, 0.8);
     --text-muted-light: rgba(29, 29, 31, 0.6);
-    --glass-bg-light: rgba(255, 255, 255, 0.8);
+    --glass-bg-light: rgba(255, 255, 255, 0.9);
     --glass-border-light: rgba(0, 0, 0, 0.1);
     
     /* Default to dark mode */
     --bg-primary: var(--bg-primary-dark);
     --bg-secondary: var(--bg-secondary-dark);
+    --bg-tertiary: var(--bg-tertiary-dark);
     --text-primary: var(--text-primary-dark);
     --text-secondary: var(--text-secondary-dark);
     --text-muted: var(--text-muted-dark);
@@ -55,6 +59,7 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.12);
     --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.16);
+    --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.3);
     
     /* Transitions */
     --transition-fast: 0.15s ease;
@@ -79,6 +84,15 @@ body {
     min-height: 100vh;
 }
 
+/* Enhanced body background for dark mode */
+body:not(.light-mode) {
+    background: linear-gradient(135deg, var(--bg-primary-dark) 0%, var(--bg-secondary-dark) 100%);
+}
+
+body.light-mode {
+    background: linear-gradient(135deg, var(--bg-primary-light) 0%, var(--bg-secondary-light) 100%);
+}
+
 /* Page loading states */
 body.page-loaded {
     opacity: 1;
@@ -92,6 +106,7 @@ body:not(.page-loaded) {
 body.light-mode {
     --bg-primary: var(--bg-primary-light);
     --bg-secondary: var(--bg-secondary-light);
+    --bg-tertiary: var(--bg-tertiary-light);
     --text-primary: var(--text-primary-light);
     --text-secondary: var(--text-secondary-light);
     --text-muted: var(--text-muted-light);
@@ -312,6 +327,19 @@ body.light-mode .full-page-ripple {
     transition: var(--transition-normal);
 }
 
+/* Enhanced dark mode navbar */
+body:not(.light-mode) .navbar {
+    background: rgba(10, 10, 10, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-dark);
+}
+
+body.light-mode .navbar {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
+}
+
 .nav-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -447,6 +475,8 @@ body:not(.light-mode) .logo-img {
     backdrop-filter: blur(10px);
     color: var(--text-primary);
     font-size: 1rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .theme-toggle:hover {
@@ -454,6 +484,31 @@ body:not(.light-mode) .logo-img {
     border-color: var(--accent-blue);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
+}
+
+/* Enhanced dark mode theme toggle */
+body:not(.light-mode) .theme-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+body:not(.light-mode) .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-blue);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+body.light-mode .theme-toggle {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: var(--text-primary-light);
+}
+
+body.light-mode .theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--accent-blue);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
 }
 
 .theme-icon {
@@ -471,15 +526,62 @@ body:not(.light-mode) .logo-img {
     display: none;
 }
 
-/* Light mode specific styles */
-body.light-mode .theme-toggle {
-    background: var(--glass-bg-light);
-    border-color: var(--glass-border-light);
-    color: var(--text-primary-light);
+/* Enhanced card styling for dark mode */
+.category-card,
+.event-card,
+.membership-card,
+.news-card,
+.committee-member,
+.partner-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition-normal);
 }
 
-body.light-mode .theme-toggle:hover {
+body:not(.light-mode) .category-card,
+body:not(.light-mode) .event-card,
+body:not(.light-mode) .membership-card,
+body:not(.light-mode) .news-card,
+body:not(.light-mode) .committee-member,
+body:not(.light-mode) .partner-card {
+    background: var(--bg-tertiary);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-dark);
+}
+
+body:not(.light-mode) .category-card:hover,
+body:not(.light-mode) .event-card:hover,
+body:not(.light-mode) .membership-card:hover,
+body:not(.light-mode) .news-card:hover,
+body:not(.light-mode) .committee-member:hover,
+body:not(.light-mode) .partner-card:hover {
+    background: var(--bg-secondary);
     border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.15);
+}
+
+body.light-mode .category-card,
+body.light-mode .event-card,
+body.light-mode .membership-card,
+body.light-mode .news-card,
+body.light-mode .committee-member,
+body.light-mode .partner-card {
+    background: var(--bg-primary-light);
+    border-color: var(--glass-border-light);
+    box-shadow: var(--shadow-sm);
+}
+
+body.light-mode .category-card:hover,
+body.light-mode .event-card:hover,
+body.light-mode .membership-card:hover,
+body.light-mode .news-card:hover,
+body.light-mode .committee-member:hover,
+body.light-mode .partner-card:hover {
+    background: var(--bg-secondary-light);
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
 /* Hero Section */
@@ -937,6 +1039,7 @@ img.loading {
     text-align: center;
     position: relative;
     overflow: hidden;
+    transition: var(--transition-normal);
 }
 
 .newsletter::before {
@@ -949,6 +1052,20 @@ img.loading {
     background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
     pointer-events: none;
+}
+
+/* Enhanced dark mode newsletter */
+body:not(.light-mode) .newsletter {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+body:not(.light-mode) .newsletter::before {
+    background: radial-gradient(circle at 20% 50%, rgba(0, 122, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(88, 86, 214, 0.2) 0%, transparent 50%);
+}
+
+body.light-mode .newsletter {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
 }
 
 .newsletter h2 {
@@ -995,6 +1112,18 @@ img.loading {
     color: var(--text-primary);
     padding: var(--spacing-xxl) 0 var(--spacing-lg);
     border-top: 1px solid var(--glass-border);
+    transition: var(--transition-normal);
+}
+
+/* Enhanced dark mode footer */
+body:not(.light-mode) .footer {
+    background: linear-gradient(135deg, var(--bg-primary-dark) 0%, var(--bg-secondary-dark) 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.light-mode .footer {
+    background: linear-gradient(135deg, var(--bg-secondary-light) 0%, var(--bg-primary-light) 100%);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .footer-content {
@@ -1065,6 +1194,30 @@ img.loading {
     padding: 120px 0 var(--spacing-xxl);
     background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
     color: var(--text-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(0, 122, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(88, 86, 214, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Dark mode specific hero styling */
+body:not(.light-mode) .page-hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+body:not(.light-mode) .page-hero::before {
+    background: radial-gradient(circle at 30% 20%, rgba(0, 122, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(88, 86, 214, 0.2) 0%, transparent 50%);
 }
 
 .page-hero .container {
@@ -1117,6 +1270,50 @@ img.loading {
     }
 }
 
+/* Enhanced section backgrounds for dark mode */
+.president-message,
+.mission-vision,
+.mpa-pillars,
+.committee,
+.proptech-intro,
+.proptech-categories,
+.mpa-role,
+.proptech-trends,
+.member-stats,
+.member-categories,
+.featured-members,
+.member-directory,
+.partnership-overview,
+.partner-categories,
+.featured-partners,
+.partnership-benefits,
+.partnership-programs,
+.partner-testimonials {
+    background-color: var(--bg-primary);
+    transition: var(--transition-normal);
+}
+
+body:not(.light-mode) .president-message,
+body:not(.light-mode) .mission-vision,
+body:not(.light-mode) .mpa-pillars,
+body:not(.light-mode) .committee,
+body:not(.light-mode) .proptech-intro,
+body:not(.light-mode) .proptech-categories,
+body:not(.light-mode) .mpa-role,
+body:not(.light-mode) .proptech-trends,
+body:not(.light-mode) .member-stats,
+body:not(.light-mode) .member-categories,
+body:not(.light-mode) .featured-members,
+body:not(.light-mode) .member-directory,
+body:not(.light-mode) .partnership-overview,
+body:not(.light-mode) .partner-categories,
+body:not(.light-mode) .featured-partners,
+body:not(.light-mode) .partnership-benefits,
+body:not(.light-mode) .partnership-programs,
+body:not(.light-mode) .partner-testimonials {
+    background: linear-gradient(135deg, var(--bg-primary-dark) 0%, var(--bg-secondary-dark) 100%);
+}
+
 /* President's Message */
 .president-message {
     padding: var(--spacing-xxl) 0;
@@ -1142,7 +1339,7 @@ img.loading {
 }
 
 .message-text h3 {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-md);
 }
 
@@ -1166,7 +1363,7 @@ img.loading {
 
 .goals li:before {
     content: "•";
-    color: var(--accent-red);
+    color: var(--accent-blue);
     font-weight: bold;
     position: absolute;
     left: 0;
@@ -1212,12 +1409,12 @@ img.loading {
 .mandate-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
-    border-color: var(--accent-red);
+    border-color: var(--accent-blue);
 }
 
 .mandate-card i {
     font-size: 2.5rem;
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-md);
 }
 
@@ -1262,7 +1459,7 @@ img.loading {
 
 .pillar-card i {
     font-size: 3rem;
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -1310,7 +1507,7 @@ img.loading {
 }
 
 .position {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     font-weight: 500;
 }
 
@@ -1356,9 +1553,9 @@ img.loading {
 
 .filter-tab.active,
 .filter-tab:hover {
-    background-color: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     color: var(--glass-bg);
-    border-color: var(--accent-red);
+    border-color: var(--accent-blue);
 }
 
 /* Events Page */
@@ -1383,7 +1580,7 @@ img.loading {
     display: block;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--accent-red);
+    color: var(--accent-blue);
 }
 
 .event-date-badge .month {
@@ -1477,7 +1674,7 @@ img.loading {
 }
 
 .calendar-nav:hover {
-    color: var(--accent-red);
+    color: var(--accent-blue);
 }
 
 .calendar-grid {
@@ -1513,7 +1710,7 @@ img.loading {
     position: absolute;
     top: var(--spacing-md);
     left: var(--spacing-md);
-    background-color: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     color: var(--glass-bg);
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--border-radius-sm);
@@ -1534,7 +1731,7 @@ img.loading {
 }
 
 .category {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     font-weight: 500;
 }
 
@@ -1582,7 +1779,7 @@ img.loading {
 }
 
 .read-more {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     text-decoration: none;
     font-weight: 500;
     display: inline-flex;
@@ -1597,7 +1794,7 @@ img.loading {
 
 .newsletter-section {
     padding: var(--spacing-xxl) 0;
-    background-color: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     color: var(--glass-bg);
     text-align: center;
 }
@@ -1630,7 +1827,7 @@ img.loading {
 
 .benefit-card i {
     font-size: 3rem;
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -1666,7 +1863,7 @@ img.loading {
 }
 
 .tier-card.featured {
-    border-color: var(--accent-red);
+    border-color: var(--accent-blue);
     transform: scale(1.05);
 }
 
@@ -1697,7 +1894,7 @@ img.loading {
 }
 
 .tier-benefits i {
-    color: var(--accent-red);
+    color: var(--accent-blue);
 }
 
 /* Member Directory */
@@ -1764,7 +1961,7 @@ img.loading {
 .step-number {
     width: 60px;
     height: 60px;
-    background-color: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     color: var(--glass-bg);
     border-radius: 50%;
     display: flex;
@@ -1811,7 +2008,7 @@ img.loading {
 
 .contact-item i {
     font-size: 2rem;
-    color: var(--accent-red);
+    color: var(--accent-blue);
 }
 
 .contact-item h4 {
@@ -1846,7 +2043,7 @@ img.loading {
 
 .contact-card i {
     font-size: 3rem;
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -1914,14 +2111,49 @@ img.loading {
     border-radius: var(--border-radius-md);
     font-size: 1rem;
     transition: var(--transition-fast);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--accent-red);
-    box-shadow: 0 0 0 2px rgba(255, 56, 92, 0.1);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+/* Enhanced dark mode form styling */
+body:not(.light-mode) .form-group input,
+body:not(.light-mode) .form-group select,
+body:not(.light-mode) .form-group textarea {
+    background: var(--bg-tertiary);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary-dark);
+}
+
+body:not(.light-mode) .form-group input:focus,
+body:not(.light-mode) .form-group select:focus,
+body:not(.light-mode) .form-group textarea:focus {
+    background: var(--bg-secondary);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+
+body.light-mode .form-group input,
+body.light-mode .form-group select,
+body.light-mode .form-group textarea {
+    background: var(--bg-primary-light);
+    border-color: var(--glass-border-light);
+    color: var(--text-primary-light);
+}
+
+body.light-mode .form-group input:focus,
+body.light-mode .form-group select:focus,
+body.light-mode .form-group textarea:focus {
+    background: var(--bg-secondary-light);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
 }
 
 .checkbox-label {
@@ -1998,7 +2230,7 @@ img.loading {
 
 .social-card i {
     font-size: 3rem;
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -2037,7 +2269,7 @@ img.loading {
 }
 
 .faq-question:hover h3 {
-    color: var(--accent-red);
+    color: var(--accent-blue);
 }
 
 .faq-question h3 {
@@ -2074,7 +2306,7 @@ img.loading {
 }
 
 .calendar-nav {
-    background: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     color: var(--glass-bg);
     border: none;
     border-radius: var(--border-radius-md);
@@ -2084,7 +2316,7 @@ img.loading {
 }
 
 .calendar-nav:hover {
-    background: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     transform: scale(1.05);
 }
 
@@ -2099,7 +2331,7 @@ img.loading {
     text-align: center;
     font-weight: 600;
     color: var(--glass-bg);
-    background: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     padding: var(--spacing-xs);
     font-size: 0.8rem;
     display: flex;
@@ -2152,7 +2384,7 @@ img.loading {
 }
 
 .calendar-day.today {
-    background: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     color: var(--glass-bg);
     font-weight: 600;
 }
@@ -2163,12 +2395,12 @@ img.loading {
 
 .calendar-day.has-event {
     background: var(--glass-bg);
-    border: 2px solid var(--accent-red);
+    border: 2px solid var(--accent-blue);
     font-weight: 600;
 }
 
 .calendar-day.has-event:hover {
-    background: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     color: var(--glass-bg);
 }
 
@@ -2182,12 +2414,12 @@ img.loading {
     bottom: 4px;
     width: 6px;
     height: 6px;
-    background: var(--accent-red);
+    background: var(--accent-blue);
     border-radius: 50%;
 }
 
 .calendar-day.has-event .event-indicator {
-    background: var(--accent-red);
+    background: var(--accent-blue);
 }
 
 .calendar-day.has-event:hover .event-indicator {
@@ -2272,7 +2504,7 @@ img.loading {
     flex-shrink: 0;
 }
 
-.event-type.summit { background: var(--accent-red); }
+.event-type.summit { background: var(--accent-blue); }
 .event-type.webinar { background: #4CAF50; }
 .event-type.competition { background: #FF9800; }
 .event-type.workshop { background: #2196F3; }
@@ -2454,7 +2686,7 @@ img.loading {
 }
 
 .intro-text h2 {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -2496,7 +2728,7 @@ img.loading {
 
 .category-card i {
     font-size: 2.5rem;
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-md);
 }
 
@@ -2525,7 +2757,7 @@ img.loading {
 
 .category-card li:before {
     content: "•";
-    color: var(--accent-red);
+    color: var(--accent-blue);
     position: absolute;
     left: 0;
 }
@@ -2543,7 +2775,7 @@ img.loading {
 }
 
 .role-text h2 {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -2566,7 +2798,7 @@ img.loading {
 
 .highlight i {
     font-size: 2rem;
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-sm);
 }
 
@@ -2616,7 +2848,7 @@ img.loading {
 .trend-icon {
     width: 80px;
     height: 80px;
-    background: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2641,7 +2873,7 @@ img.loading {
 
 .proptech-cta {
     padding: var(--spacing-xxl) 0;
-    background: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     color: white;
     text-align: center;
 }
@@ -2688,7 +2920,7 @@ img.loading {
 .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-xs);
 }
 
@@ -2706,7 +2938,7 @@ img.loading {
 }
 
 .category-count {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     font-weight: 600;
     margin-top: var(--spacing-sm);
 }
@@ -2940,7 +3172,7 @@ img.loading {
 }
 
 .overview-text h2 {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -3009,7 +3241,7 @@ img.loading {
 }
 
 .partner-category {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     font-weight: 600;
     margin-bottom: var(--spacing-sm);
 }
@@ -3059,7 +3291,7 @@ img.loading {
 .program-icon {
     width: 60px;
     height: 60px;
-    background: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -3097,7 +3329,7 @@ img.loading {
 
 .program-card li:before {
     content: "✓";
-    color: var(--accent-red);
+    color: var(--accent-blue);
     position: absolute;
     left: 0;
     font-weight: bold;
@@ -3105,7 +3337,7 @@ img.loading {
 
 .become-partner {
     padding: var(--spacing-xxl) 0;
-    background: var(--accent-red);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     color: white;
     text-align: center;
 }

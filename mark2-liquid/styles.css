@@ -18,7 +18,7 @@
     --accent-purple: #5856D6;
     --accent-green: #34C759;
     --accent-orange: #FF9500;
-    --accent-red: #FF3B30;
+    --accent-red: var(--accent-blue);
     
     /* Light Mode Colors */
     --bg-primary-light: #ffffff;
@@ -136,7 +136,7 @@ a:hover {
 .blob-3 {
     width: 200px;
     height: 200px;
-    background: linear-gradient(45deg, var(--accent-orange), var(--accent-red));
+    background: linear-gradient(45deg, var(--accent-orange), var(--accent-blue));
     bottom: 20%;
     left: 20%;
     animation-delay: -10s;
@@ -785,9 +785,9 @@ body:not(.light-mode) .logo-light {
 }
 
 .filter-clear {
-    background: rgba(255, 59, 48, 0.1);
-    border: 1px solid rgba(255, 59, 48, 0.3);
-    color: #ff3b30;
+    background: rgba(0, 122, 255, 0.1);
+    border: 1px solid rgba(0, 122, 255, 0.3);
+    color: var(--accent-blue);
     padding: 0.75rem;
     border-radius: 8px;
     cursor: pointer;
@@ -797,7 +797,7 @@ body:not(.light-mode) .logo-light {
 }
 
 .filter-clear:hover {
-    background: rgba(255, 59, 48, 0.2);
+    background: rgba(0, 122, 255, 0.2);
     transform: translateY(-2px);
 }
 
