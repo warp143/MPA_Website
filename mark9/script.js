@@ -646,10 +646,10 @@ document.addEventListener('DOMContentLoaded', function() {
         calendarGrid: !!calendarGrid
     });
     
-    if (prevMonthBtn && nextMonthBtn && currentMonthEl && calendarGrid) {
-            // Force current date - August 2025
-            const today = new Date(2025, 7, 25); // August 25, 2025
-            let currentDate = new Date(2025, 7, 1); // August 1, 2025
+            if (prevMonthBtn && nextMonthBtn && currentMonthEl && calendarGrid) {
+            // Set to current date in 2025
+            const today = new Date(2025, 8, 25); // September 25, 2025
+            let currentDate = new Date(2025, 8, 1); // September 1, 2025
             
             // Debug: Log the current date to console
             console.log('Calendar initialized with:', currentDate.toDateString());
