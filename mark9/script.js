@@ -504,15 +504,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('loaded');
     });
 
-    // Parallax effect for hero section
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            hero.style.transform = `translateY(${rate}px)`;
-        });
-    }
+    // Parallax effect for hero section - REMOVED to prevent expanding behavior
 
     // Add hover effects for cards
     const cards = document.querySelectorAll('.event-card, .membership-card');
