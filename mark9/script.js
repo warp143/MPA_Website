@@ -143,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Theme toggle clicked!');
             e.preventDefault();
             e.stopPropagation();
-            alert('Theme toggle clicked! Current theme: ' + currentTheme);
             cycleTheme();
         });
         

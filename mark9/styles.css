@@ -16,7 +16,8 @@
     --accent-green: #34C759;
     --accent-orange: #FF9500;
     --accent-red: var(--accent-blue);
-    --accent-pink: #FF2D92;
+    --accent-pink: var(--accent-purple);
+    --primary-color: var(--accent-blue);
     
     /* Light Mode Colors */
     --bg-primary-light: #ffffff;
@@ -166,6 +167,34 @@ body.light-mode {
     --text-muted: var(--text-muted-light);
     --glass-bg: var(--glass-bg-light);
     --glass-border: var(--glass-border-light);
+    background: linear-gradient(135deg, var(--bg-primary-light) 0%, var(--bg-secondary-light) 100%);
+}
+
+/* Force text colors in light mode */
+body.light-mode * {
+    color: inherit;
+}
+
+body.light-mode h1, 
+body.light-mode h2, 
+body.light-mode h3, 
+body.light-mode h4, 
+body.light-mode h5, 
+body.light-mode h6 {
+    color: var(--text-primary-light) !important;
+}
+
+body.light-mode p {
+    color: var(--text-secondary-light) !important;
+}
+
+body.light-mode .nav-link {
+    color: var(--text-secondary-light) !important;
+}
+
+body.light-mode .nav-link:hover,
+body.light-mode .nav-link.active {
+    color: var(--primary-color) !important;
 }
 
 .container {
@@ -228,8 +257,13 @@ p {
 
 .btn-primary {
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    color: var(--text-primary);
+    color: #ffffff;
     box-shadow: var(--shadow-md);
+}
+
+/* Light mode button adjustments */
+body.light-mode .btn-primary {
+    color: #ffffff !important;
 }
 
 .btn-primary:hover {
@@ -247,6 +281,33 @@ p {
 .btn-secondary:hover {
     background-color: var(--glass-bg);
     border-color: var(--accent-blue);
+}
+
+/* Enhanced button visibility */
+body:not(.light-mode) .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body:not(.light-mode) .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+body.light-mode .btn-secondary {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #333333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
 }
 
 .btn-outline {
@@ -383,14 +444,14 @@ body.light-mode .full-page-ripple {
 
 /* Enhanced dark mode navbar */
 body:not(.light-mode) .navbar {
-    background: rgba(10, 10, 10, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(10, 10, 10, 0.98);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: var(--shadow-dark);
 }
 
 body.light-mode .navbar {
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.98);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     box-shadow: var(--shadow-md);
 }
 
@@ -444,6 +505,11 @@ body:not(.light-mode) .logo-img {
     margin: 0;
 }
 
+/* Ensure logo text is visible in light mode */
+body.light-mode .nav-logo h2 {
+    color: var(--accent-blue) !important;
+}
+
 .nav-menu {
     display: flex;
     justify-content: space-between;
@@ -459,11 +525,35 @@ body:not(.light-mode) .logo-img {
     font-weight: 500;
     transition: var(--transition-fast);
     position: relative;
+    padding: 8px 12px;
+    border-radius: 6px;
 }
 
 .nav-link:hover,
 .nav-link.active {
     color: var(--accent-blue);
+    background: rgba(255, 56, 92, 0.1);
+}
+
+/* Enhanced visibility for nav links */
+body:not(.light-mode) .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+body:not(.light-mode) .nav-link:hover,
+body:not(.light-mode) .nav-link.active {
+    color: #ffffff;
+    background: rgba(0, 122, 255, 0.2);
+}
+
+body.light-mode .nav-link {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+body.light-mode .nav-link:hover,
+body.light-mode .nav-link.active {
+    color: var(--primary-color);
+    background: rgba(0, 122, 255, 0.1);
 }
 
 .nav-link::after {
@@ -558,9 +648,36 @@ body:not(.light-mode) .logo-img {
 
 .language-toggle:hover {
     background: var(--glass-bg);
-    border-color: var(--accent-blue);
+    border-color: var(--primary-color);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
+}
+
+/* Enhanced visibility for language toggle */
+body:not(.light-mode) .language-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body:not(.light-mode) .language-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+body.light-mode .language-toggle {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #333333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .language-toggle:hover {
+    background: rgba(0, 0, 0, 0.12);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
 }
 
 .language-menu {
@@ -759,27 +876,31 @@ body:not(.light-mode) .logo-img {
 
 /* Enhanced dark mode theme toggle */
 body:not(.light-mode) .theme-toggle {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
     color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 body:not(.light-mode) .theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: var(--primary-color);
     box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 body.light-mode .theme-toggle {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.1);
-    color: var(--text-primary-light);
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #333333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 body.light-mode .theme-toggle:hover {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: var(--accent-blue);
+    background: rgba(0, 0, 0, 0.12);
+    border-color: var(--primary-color);
     box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .theme-icon {
