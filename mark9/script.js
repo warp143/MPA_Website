@@ -647,9 +647,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
             if (prevMonthBtn && nextMonthBtn && currentMonthEl && calendarGrid) {
-            // Set to current date in 2025
-            const today = new Date(2025, 8, 25); // September 25, 2025
-            let currentDate = new Date(2025, 8, 1); // September 1, 2025
+            // Use actual current date
+            const today = new Date();
+            let currentDate = new Date(today.getFullYear(), today.getMonth(), 1); // First day of current month
             
             // Debug: Log the current date to console
             console.log('Calendar initialized with:', currentDate.toDateString());
@@ -666,6 +666,127 @@ document.addEventListener('DOMContentLoaded', function() {
             { date: '2025-11-05', title: 'Sustainability in PropTech', type: 'seminar' },
             { date: '2025-12-12', title: 'Digital Transformation Summit', type: 'summit' }
         ];
+        
+        function getISOWeekNumber(date) {
+            const d = new Date(date);
+            d.setHours(0, 0, 0, 0);
+            // Thursday in current week decides the year
+            d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+            // January 4 is always in week 1
+            const week1 = new Date(d.getFullYear(), 0, 4);
+            // Adjust to Thursday in week 1 and count number of weeks from date to week1
+            return 1 + Math.round(((d.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+        }
+        
+        async function getPublicHolidays(year, month) {
+            try {
+                const response = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/MY`);
+                const allHolidays = await response.json();
+                
+                // Filter holidays for current month
+                const monthHolidays = allHolidays.filter(holiday => {
+                    const holidayDate = new Date(holiday.date);
+                    return holidayDate.getMonth() === month;
+                });
+                
+                return monthHolidays.map(holiday => {
+                    const date = new Date(holiday.date);
+                    const dateString = date.toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+                    return {
+                        date: dateString,
+                        name: holiday.localName || holiday.name
+                    };
+                });
+            } catch (error) {
+                console.error('Error fetching holidays:', error);
+                // Fallback to static data if API fails
+                return getStaticHolidays(year, month);
+            }
+        }
+        
+        function getStaticHolidays(year, month) {
+            const holidays = [];
+            
+            // Malaysia Public Holidays 2025 (fallback data)
+            const allHolidays = [
+                { month: 0, day: 1, name: "New Year's Day" },
+                { month: 1, day: 1, name: "Chinese New Year" },
+                { month: 1, day: 2, name: "Chinese New Year Holiday" },
+                { month: 4, day: 1, name: "Labour Day" },
+                { month: 4, day: 22, name: "Hari Raya Aidilfitri" },
+                { month: 4, day: 23, name: "Hari Raya Aidilfitri Holiday" },
+                { month: 5, day: 7, name: "Wesak Day" },
+                { month: 6, day: 28, name: "Hari Raya Haji" },
+                { month: 7, day: 31, name: "National Day" },
+                { month: 8, day: 16, name: "Malaysia Day" },
+                { month: 9, day: 6, name: "Prophet Muhammad's Birthday" },
+                { month: 10, day: 5, name: "Deepavali" },
+                { month: 11, day: 25, name: "Christmas Day" }
+            ];
+            
+            // Filter holidays for current month
+            const monthHolidays = allHolidays.filter(holiday => holiday.month === month);
+            
+            monthHolidays.forEach(holiday => {
+                const date = new Date(year, month, holiday.day);
+                const dateString = date.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+                holidays.push({
+                    date: dateString,
+                    name: holiday.name
+                });
+            });
+            
+            return holidays;
+        }
+        
+        async function loadPublicHolidays(year, month) {
+            const holidaysContainer = document.getElementById('publicHolidays');
+            if (!holidaysContainer) return;
+            
+            try {
+                const holidays = await getPublicHolidays(year, month);
+                
+                if (holidays.length > 0) {
+                    holidaysContainer.innerHTML = holidays.map(holiday => `
+                        <div class="public-holiday">
+                            <span class="date">${holiday.date}</span>
+                            <span class="holiday-name">${holiday.name}</span>
+                        </div>
+                    `).join('');
+                    
+                    // Mark holidays on calendar with red dots
+                    holidays.forEach(holiday => {
+                        const dateParts = holiday.date.split(' ');
+                        const monthName = dateParts[0];
+                        const day = parseInt(dateParts[1]);
+                        
+                        // Convert month name to number
+                        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                        const monthIndex = monthNames.indexOf(monthName);
+                        
+                        if (monthIndex === month) {
+                            const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                            const holidayIndicator = document.getElementById(`holiday-${dateString}`);
+                            if (holidayIndicator) {
+                                holidayIndicator.style.display = 'block';
+                                holidayIndicator.title = holiday.name;
+                            }
+                        }
+                    });
+                } else {
+                    holidaysContainer.innerHTML = '<div class="no-holidays">No public holidays this month</div>';
+                }
+            } catch (error) {
+                console.error('Error loading holidays:', error);
+                holidaysContainer.innerHTML = '<div class="error">Unable to load holidays</div>';
+            }
+        }
         
         function renderCalendar() {
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -705,6 +826,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create calendar grid with weekday headers as the first row
             let calendarHTML = `
                 <div class="calendar-days">
+                    <div class="calendar-day weekday-header">W</div>
                     <div class="calendar-day weekday-header">Mon</div>
                     <div class="calendar-day weekday-header">Tue</div>
                     <div class="calendar-day weekday-header">Wed</div>
@@ -714,7 +836,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="calendar-day weekday-header">Sun</div>
             `;
             
-
+            // Add week number for first week
+            let weekNumber = getISOWeekNumber(new Date(year, month, 1));
+            calendarHTML += `<div class="calendar-day week-number">W${String(weekNumber).padStart(2, '0')}</div>`;
             
             // Add empty cells for days before the first day of the month
             for (let i = 0; i < adjustedStartingDay; i++) {
@@ -737,12 +861,34 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="${dayClass}" data-date="${dateString}">
                         <span class="day-number">${day}</span>
                         ${dayEvents.length > 0 ? `<div class="event-indicator" title="${dayEvents.map(e => e.title).join(', ')}"></div>` : ''}
+                        <div class="holiday-indicator" id="holiday-${dateString}"></div>
                     </div>
                 `;
+                
+                // Add week number for new weeks (after Sunday)
+                const currentDate = new Date(year, month, day);
+                if (currentDate.getDay() === 0 && day < daysInMonth) {
+                    const nextWeekNumber = getISOWeekNumber(new Date(year, month, day + 1));
+                    calendarHTML += `<div class="calendar-day week-number">W${String(nextWeekNumber).padStart(2, '0')}</div>`;
+                }
             }
             
             calendarHTML += '</div>';
+            
+            // Add public holidays section
+            calendarHTML += `
+                <div class="calendar-footer" id="calendarFooter">
+                    <h4>🇲🇾 Public Holidays</h4>
+                    <div class="public-holidays" id="publicHolidays">
+                        <div class="loading">Loading holidays...</div>
+                    </div>
+                </div>
+            `;
+            
             calendarGrid.innerHTML = calendarHTML;
+            
+            // Load public holidays asynchronously
+            loadPublicHolidays(year, month);
             
             // Add click handlers for days with events
             const eventDays = calendarGrid.querySelectorAll('.calendar-day.has-event');
