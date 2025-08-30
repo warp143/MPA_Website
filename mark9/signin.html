@@ -11,7 +11,7 @@
     <style>
         .signin-page {
             min-height: 100vh;
-            background: linear-gradient(135deg, var(--airbnb-red) 0%, var(--airbnb-dark-red) 100%);
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -19,7 +19,9 @@
         }
 
         .signin-container {
-            background: var(--airbnb-white);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: var(--border-radius-xl);
             box-shadow: var(--shadow-lg);
             padding: var(--spacing-xxl);
@@ -32,7 +34,7 @@
             position: absolute;
             top: var(--spacing-lg);
             left: var(--spacing-lg);
-            color: var(--airbnb-gray);
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
             display: flex;
@@ -42,7 +44,7 @@
         }
 
         .back-link:hover {
-            color: var(--airbnb-red);
+            color: var(--accent-blue);
         }
 
         .signin-header {
@@ -53,19 +55,19 @@
         .signin-logo {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--airbnb-red);
+            color: var(--accent-blue);
             margin-bottom: var(--spacing-md);
         }
 
         .signin-title {
             font-size: 1.75rem;
             font-weight: 600;
-            color: var(--airbnb-black);
+            color: var(--text-primary);
             margin-bottom: var(--spacing-sm);
         }
 
         .signin-subtitle {
-            color: var(--airbnb-gray);
+            color: var(--text-secondary);
             font-size: 1rem;
         }
 
@@ -81,23 +83,24 @@
             display: block;
             margin-bottom: var(--spacing-sm);
             font-weight: 500;
-            color: var(--airbnb-black);
+            color: var(--text-primary);
         }
 
         .form-input {
             width: 100%;
             padding: var(--spacing-md);
-            border: 2px solid var(--airbnb-light-gray);
+            border: 2px solid var(--glass-border);
             border-radius: var(--border-radius-md);
             font-size: 1rem;
             transition: var(--transition-normal);
-            background: var(--airbnb-white);
+            background: var(--glass-bg);
+            color: var(--text-primary);
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--airbnb-red);
-            box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.1);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
         }
 
         .form-checkbox {
@@ -110,19 +113,19 @@
         .form-checkbox input[type="checkbox"] {
             width: 18px;
             height: 18px;
-            accent-color: var(--airbnb-red);
+            accent-color: var(--accent-blue);
         }
 
         .form-checkbox label {
-            color: var(--airbnb-dark-gray);
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
         .signin-btn {
             width: 100%;
             padding: var(--spacing-md);
-            background: var(--airbnb-red);
-            color: var(--airbnb-white);
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
             border: none;
             border-radius: var(--border-radius-md);
             font-size: 1rem;
@@ -136,26 +139,26 @@
         }
 
         .signin-btn:hover {
-            background: var(--airbnb-dark-red);
             transform: translateY(-1px);
             box-shadow: var(--shadow-md);
+            filter: brightness(1.1);
         }
 
         .signin-links {
             text-align: center;
             padding-top: var(--spacing-lg);
-            border-top: 1px solid var(--airbnb-light-gray);
+            border-top: 1px solid var(--glass-border);
             margin-bottom: var(--spacing-xl);
         }
 
         .signin-links p {
-            color: var(--airbnb-gray);
+            color: var(--text-secondary);
             margin-bottom: var(--spacing-md);
             font-size: 0.9rem;
         }
 
         .signin-links a {
-            color: var(--airbnb-red);
+            color: var(--accent-blue);
             text-decoration: none;
             font-weight: 500;
             margin: 0 var(--spacing-md);
@@ -169,17 +172,18 @@
         .signup-section {
             text-align: center;
             padding: var(--spacing-xl);
-            background: var(--airbnb-bg-light);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
             border-radius: var(--border-radius-lg);
         }
 
         .signup-section h3 {
             margin-bottom: var(--spacing-md);
-            color: var(--airbnb-black);
+            color: var(--text-primary);
         }
 
         .signup-section p {
-            color: var(--airbnb-gray);
+            color: var(--text-secondary);
             margin-bottom: var(--spacing-lg);
             font-size: 0.9rem;
         }
@@ -189,18 +193,18 @@
             align-items: center;
             gap: var(--spacing-sm);
             padding: var(--spacing-md) var(--spacing-xl);
-            background: var(--airbnb-white);
-            color: var(--airbnb-red);
+            background: transparent;
+            color: var(--accent-blue);
             text-decoration: none;
-            border: 2px solid var(--airbnb-red);
+            border: 2px solid var(--accent-blue);
             border-radius: var(--border-radius-md);
             font-weight: 600;
             transition: var(--transition-normal);
         }
 
         .signup-btn:hover {
-            background: var(--airbnb-red);
-            color: var(--airbnb-white);
+            background: var(--accent-blue);
+            color: white;
             transform: translateY(-1px);
             box-shadow: var(--shadow-md);
         }
@@ -211,10 +215,36 @@
                 margin: var(--spacing-lg);
             }
         }
+        
+        /* Light mode specific styles for signin page */
+        body.light-mode .signin-page {
+            background: linear-gradient(135deg, var(--accent-blue-light) 0%, var(--accent-purple-light) 100%);
+        }
+        
+        body.light-mode .signin-container {
+            background: var(--glass-bg-light);
+            border-color: var(--glass-border-light);
+        }
+        
+        body.light-mode .form-input {
+            background: var(--glass-bg-light);
+            border-color: var(--glass-border-light);
+            color: var(--text-primary-light);
+        }
+        
+        body.light-mode .signup-section {
+            background: var(--glass-bg-light);
+            border-color: var(--glass-border-light);
+        }
     </style>
 </head>
 <body>
     <div class="signin-page">
+        <button class="theme-toggle" id="themeToggle" style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+            <span class="theme-icon">🌙</span>
+            <span class="auto-indicator" id="autoIndicator" title="Auto mode active">🔄</span>
+        </button>
+        
         <a href="index.html" class="back-link">
             <i class="fas fa-arrow-left"></i>
             Back to Home
@@ -266,6 +296,7 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
     <script>
         document.getElementById('signinForm').addEventListener('submit', function(e) {
             e.preventDefault();

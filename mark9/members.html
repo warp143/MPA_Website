@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members - Malaysia Proptech Association</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/mpa-logo.png" alt="Malaysia Proptech Association" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="proptech.html" class="nav-link">Property Technology</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="members.html" class="nav-link active">Members</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="news.html" class="nav-link">News & Resource</a>
+                <a href="partners.html" class="nav-link">Partners</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                    <span class="auto-indicator" id="autoIndicator" title="Auto mode active">🔄</span>
+                </button>
+                <a href="signin.html" class="btn-secondary">Sign In</a>
+                <button class="btn-primary">Join MPA</button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Our Members</h1>
+                <p>Meet the innovative companies and professionals driving Malaysia's PropTech ecosystem</p>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?w=600&h=400&fit=crop&crop=center" alt="MPA Members">
+            </div>
+        </div>
+    </section>
+
+    <!-- Member Statistics -->
+    <section class="member-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">PropTech Startups</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Technology Companies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Real Estate Companies</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Member Categories -->
+    <section class="member-categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Member Categories</h2>
+                <p>Diverse representation across the PropTech ecosystem</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>PropTech Startups</h3>
+                    <p>Innovative startups developing cutting-edge solutions for the real estate industry.</p>
+                    <div class="category-count">20+ Members</div>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-building"></i>
+                    <h3>Real Estate Companies</h3>
+                    <p>Established real estate developers, agencies, and property management companies.</p>
+                    <div class="category-count">10+ Members</div>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Technology Providers</h3>
+                    <p>Software companies, IT service providers, and technology consultants.</p>
+                    <div class="category-count">15+ Members</div>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Financial Services</h3>
+                    <p>Fintech companies, crowdfunding platforms, and financial service providers.</p>
+                    <div class="category-count">5+ Members</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Members -->
+    <section class="featured-members">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Members</h2>
+                <p>Showcasing some of our most innovative and active members</p>
+            </div>
+            <div class="members-grid">
+                <div class="member-card">
+                    <div class="member-logo">
+                        <img src="assets/members/pitchin-logo.png" alt="pitchIN">
+                    </div>
+                    <h3>pitchIN</h3>
+                    <p class="member-category">Crowdfunding, Fintech</p>
+                    <p class="member-description">pitchIN provides crowdfunding platform for users. pitchIN believe in the democratisation of fundraising and investing.</p>
+                    <div class="member-tags">
+                        <span class="tag">Crowdfunding</span>
+                        <span class="tag">Fintech</span>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-logo">
+                        <img src="assets/members/homii-logo.png" alt="HOMII Management">
+                    </div>
+                    <h3>HOMII Management Sdn Bhd</h3>
+                    <p class="member-category">Rental Marketplace</p>
+                    <p class="member-description">HOMII supply the market with its signature room rental service inspired by co-living concept.</p>
+                    <div class="member-tags">
+                        <span class="tag">Rental</span>
+                        <span class="tag">Co-living</span>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-logo">
+                        <img src="assets/members/speedbrick-logo.png" alt="Speedbrick">
+                    </div>
+                    <h3>Speedbrick Sdn Bhd</h3>
+                    <p class="member-category">ConTech</p>
+                    <p class="member-description">Nuveq Mobile Access allows you to use your own smartphone as a key to access doors, facilities, and more.</p>
+                    <div class="member-tags">
+                        <span class="tag">ConTech</span>
+                        <span class="tag">IoT</span>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-logo">
+                        <img src="assets/members/axai-logo.png" alt="Axai Digital">
+                    </div>
+                    <h3>Axai Digital Sdn Bhd</h3>
+                    <p class="member-category">Fintech</p>
+                    <p class="member-description">Axaipay is the digital payments and fintech business offering smarter, faster and safer payment gateway solutions.</p>
+                    <div class="member-tags">
+                        <span class="tag">Fintech</span>
+                        <span class="tag">Payments</span>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-logo">
+                        <img src="assets/members/icares-logo.png" alt="iCares Technology">
+                    </div>
+                    <h3>iCares Technology Sdn Bhd</h3>
+                    <p class="member-category">IoT</p>
+                    <p class="member-description">iCares Technology is Malaysia's first most innovative property management platform with Smart IoT technology.</p>
+                    <div class="member-tags">
+                        <span class="tag">IoT</span>
+                        <span class="tag">Property Management</span>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-logo">
+                        <img src="assets/members/nuveq-logo.png" alt="Nuveq">
+                    </div>
+                    <h3>Nuveq Sdn Bhd</h3>
+                    <p class="member-category">IoT</p>
+                    <p class="member-description">Nuveq Mobile Access allows you to use your own smartphone as a key to access doors, facilities, and more.</p>
+                    <div class="member-tags">
+                        <span class="tag">IoT</span>
+                        <span class="tag">Smart Access</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Member Benefits -->
+    <section class="member-benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Member Benefits</h2>
+                <p>Exclusive advantages for MPA members</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Event Access</h3>
+                    <p>Priority registration and discounted rates for all MPA events, workshops, and conferences.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Networking</h3>
+                    <p>Connect with industry leaders, investors, and fellow PropTech professionals through our exclusive networking events.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Innovation Showcase</h3>
+                    <p>Opportunities to showcase your products and innovations to the Malaysian PropTech community.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Education & Training</h3>
+                    <p>Access to educational resources, training programs, and industry insights to stay ahead of the curve.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Partnership Opportunities</h3>
+                    <p>Connect with potential partners, clients, and collaborators within the MPA ecosystem.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>Advocacy & Representation</h3>
+                    <p>Your voice represented in industry discussions and policy-making processes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Member Directory -->
+    <section class="member-directory">
+        <div class="container">
+            <div class="section-header">
+                <h2>Member Directory</h2>
+                <p>Search and connect with our diverse member network</p>
+            </div>
+            <div class="directory-search">
+                <div class="search-container">
+                    <input type="text" placeholder="Search members by name, category, or technology...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-options">
+                    <select class="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="ai">AI, DL & ML</option>
+                        <option value="ar-vr">AR & VR</option>
+                        <option value="big-data">Big Data</option>
+                        <option value="blockchain">Blockchain</option>
+                        <option value="contech">ConTech</option>
+                        <option value="crowdfunding">Crowdfunding</option>
+                        <option value="fintech">Fintech</option>
+                        <option value="iot">IoT</option>
+                        <option value="legal-tech">Legal Tech</option>
+                        <option value="mapping">Mapping</option>
+                        <option value="mortgages">Mortgages</option>
+                        <option value="property-community">Property Community</option>
+                        <option value="property-development">Property Development</option>
+                        <option value="property-management">Property Management</option>
+                        <option value="property-marketplace">Property Marketplace</option>
+                        <option value="rental-marketplace">Rental Marketplace</option>
+                        <option value="renovation-tech">Renovation Tech</option>
+                        <option value="sales-booking">Sales & Booking Management</option>
+                        <option value="smart-cities">Smart Cities</option>
+                        <option value="smart-homes">Smart Homes</option>
+                        <option value="tenant-management">Tenant Management</option>
+                    </select>
+                    <select class="technology-filter">
+                        <option value="">All Technologies</option>
+                        <option value="ai">Artificial Intelligence</option>
+                        <option value="blockchain">Blockchain</option>
+                        <option value="iot">IoT</option>
+                        <option value="vr-ar">VR/AR</option>
+                        <option value="analytics">Analytics</option>
+                        <option value="sustainability">Sustainability</option>
+                    </select>
+                </div>
+            </div>
+            <div class="directory-grid">
+                <div class="directory-item" data-categories="crowdfunding fintech">
+                    <div class="member-logo">
+                        <img src="assets/members/pitchin-logo.png" alt="pitchIN">
+                    </div>
+                    <div class="member-info">
+                        <h3>pitchIN</h3>
+                        <p class="member-category">Crowdfunding, Fintech</p>
+                        <p class="member-description">Crowdfunding platform for democratisation of fundraising and investing</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="rental-marketplace">
+                    <div class="member-logo">
+                        <img src="assets/members/homii-logo.png" alt="HOMII Management">
+                    </div>
+                    <div class="member-info">
+                        <h3>HOMII Management Sdn Bhd</h3>
+                        <p class="member-category">Rental Marketplace</p>
+                        <p class="member-description">Room rental service inspired by co-living concept</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="contech">
+                    <div class="member-logo">
+                        <img src="assets/members/speedbrick-logo.png" alt="Speedbrick">
+                    </div>
+                    <div class="member-info">
+                        <h3>Speedbrick Sdn Bhd</h3>
+                        <p class="member-category">ConTech</p>
+                        <p class="member-description">Mobile access solutions for doors and facilities</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="fintech">
+                    <div class="member-logo">
+                        <img src="assets/members/axai-logo.png" alt="Axai Digital">
+                    </div>
+                    <div class="member-info">
+                        <h3>Axai Digital Sdn Bhd</h3>
+                        <p class="member-category">Fintech</p>
+                        <p class="member-description">Digital payments and fintech business solutions</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="iot property-management">
+                    <div class="member-logo">
+                        <img src="assets/members/icares-logo.png" alt="iCares Technology">
+                    </div>
+                    <div class="member-info">
+                        <h3>iCares Technology Sdn Bhd</h3>
+                        <p class="member-category">IoT</p>
+                        <p class="member-description">Innovative property management platform with Smart IoT technology</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="iot">
+                    <div class="member-logo">
+                        <img src="assets/members/nuveq-logo.png" alt="Nuveq">
+                    </div>
+                    <div class="member-info">
+                        <h3>Nuveq Sdn Bhd</h3>
+                        <p class="member-category">IoT</p>
+                        <p class="member-description">Mobile access solutions for smart buildings</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-development">
+                    <div class="member-logo">
+                        <img src="assets/members/hck-logo.png" alt="HCK Properties">
+                    </div>
+                    <div class="member-info">
+                        <h3>HCK Properties Sdn. Bhd.</h3>
+                        <p class="member-category">Property Development</p>
+                        <p class="member-description">Property developer part of HCK Capital Group Bhd</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="big-data contech smart-cities">
+                    <div class="member-logo">
+                        <img src="assets/members/generic-logo-1.png" alt="SoftwareONE Experts">
+                    </div>
+                    <div class="member-info">
+                        <h3>SoftwareONE Experts</h3>
+                        <p class="member-category">Big Data, ConTech, Smart Cities</p>
+                        <p class="member-description">Empowering Companies to Transform</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="big-data iot property-management">
+                    <div class="member-logo">
+                        <img src="assets/members/mandarin-fox-logo.png" alt="Mandarin Fox">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mandarin Fox Sdn Bhd</h3>
+                        <p class="member-category">Big Data, BMI, IoT, Property Management</p>
+                        <p class="member-description">Building Maintenance Reimagined</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="big-data">
+                    <div class="member-logo">
+                        <img src="assets/members/generic-logo-1.png" alt="Alphacore Technology">
+                    </div>
+                    <div class="member-info">
+                        <h3>Alphacore Technology</h3>
+                        <p class="member-category">Big Data, Marketing</p>
+                        <p class="member-description">Bring Your Vision to Life with Technology</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ar-vr mapping">
+                    <div class="member-logo">
+                        <img src="assets/members/generic-logo-2.png" alt="Novo Reperio">
+                    </div>
+                    <div class="member-info">
+                        <h3>Novo Reperio</h3>
+                        <p class="member-category">AR & VR, Mapping</p>
+                        <p class="member-description">Your Space, Indestructible Virtually</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-community sales-booking">
+                    <div class="member-logo">
+                        <img src="assets/members/fusionqb-logo.png" alt="FusionQB">
+                    </div>
+                    <div class="member-info">
+                        <h3>FusionQB</h3>
+                        <p class="member-category">Property Community, Sales & Booking Management</p>
+                        <p class="member-description">Data-driven platform for better customer experience</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ai">
+                    <div class="member-logo">
+                        <img src="assets/members/nextsix-logo.png" alt="Nextsix Property">
+                    </div>
+                    <div class="member-info">
+                        <h3>Nextsix Property</h3>
+                        <p class="member-category">AI, DL & ML</p>
+                        <p class="member-description">One-stop property platform with GPS search engine</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ai">
+                    <div class="member-logo">
+                        <img src="assets/members/isolutions-logo.png" alt="iSolutions">
+                    </div>
+                    <div class="member-info">
+                        <h3>iSolutions</h3>
+                        <p class="member-category">AI, DL & ML</p>
+                        <p class="member-description">China Mobile International Limited subsidiary</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ai property-community property-management property-marketplace rental-marketplace tenant-management">
+                    <div class="member-logo">
+                        <img src="assets/members/squarefeet-pro-logo.png" alt="Squarefeet Pro">
+                    </div>
+                    <div class="member-info">
+                        <h3>Squarefeet Pro</h3>
+                        <p class="member-category">AI, DL & ML, Property Community, Property Management, Property Marketplace, Rental Marketplace, Tenant Management</p>
+                        <p class="member-description">Premier student accommodation provider since 1992</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ai big-data fintech legal-tech mortgages property-marketplace renovation-tech sales-booking tenant-management">
+                    <div class="member-logo">
+                        <img src="assets/members/heyprop-logo.png" alt="HeyProp">
+                    </div>
+                    <div class="member-info">
+                        <h3>HeyProp</h3>
+                        <p class="member-category">AI, DL & ML, Big Data, Fintech, Legal Tech, Mortgages, Property Marketplace, Renovation Tech, Sales & Booking Management, Tenant Management</p>
+                        <p class="member-description">First tech-enabled real estate platform to digitalize the entire process</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-community property-management smart-cities smart-homes">
+                    <div class="member-logo">
+                        <img src="assets/members/ineighbour-logo.png" alt="iNeighbour">
+                    </div>
+                    <div class="member-info">
+                        <h3>iNeighbour</h3>
+                        <p class="member-category">Property Community, Property Management, Smart Cities, Smart Homes</p>
+                        <p class="member-description">Property Management System</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ai property-community property-management property-marketplace rental-marketplace tenant-management">
+                    <div class="member-logo">
+                        <img src="assets/members/vendfun-logo.png" alt="Vendfun">
+                    </div>
+                    <div class="member-info">
+                        <h3>Vendfun Sdn Bhd</h3>
+                        <p class="member-category">AI, DL & ML, Property Community, Property Management, Property Marketplace, Rental Marketplace, Tenant Management</p>
+                        <p class="member-description">Industry's First Hybrid Kiosk for hospitality operators</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-management renovation-tech rental-marketplace tenant-management">
+                    <div class="member-logo">
+                        <img src="assets/members/cozyhomes-logo.png" alt="CozyHomes">
+                    </div>
+                    <div class="member-info">
+                        <h3>CozyHomes</h3>
+                        <p class="member-category">Property Management, Renovation Tech, Rental Marketplace, Tenant Management</p>
+                        <p class="member-description">Property solution company providing tenancy management service</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ar-vr property-management property-marketplace rental-marketplace smart-cities">
+                    <div class="member-logo">
+                        <img src="assets/members/smplrspace-logo.png" alt="Smplrspace">
+                    </div>
+                    <div class="member-info">
+                        <h3>Smplrspace</h3>
+                        <p class="member-category">AR & VR, Property Management, Property Marketplace, Rental Marketplace, Smart Cities</p>
+                        <p class="member-description">Floor plan platform for interactive 2D & 3D floor plans</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-management rental-marketplace tenant-management">
+                    <div class="member-logo">
+                        <img src="assets/members/widebed-logo.png" alt="Widebed">
+                    </div>
+                    <div class="member-info">
+                        <h3>Widebed</h3>
+                        <p class="member-category">Property Management, Rental Marketplace, Tenant Management</p>
+                        <p class="member-description">Malaysia's Pioneer Rental Property Management Services Platform since 2011</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ai property-management property-marketplace tenant-management">
+                    <div class="member-logo">
+                        <img src="assets/members/salescandy-logo.png" alt="SalesCandy">
+                    </div>
+                    <div class="member-info">
+                        <h3>SalesCandy</h3>
+                        <p class="member-category">AI, DL & ML, Property Management, Property Marketplace, Tenant Management, Web Development</p>
+                        <p class="member-description">Help enforce contact strategy and trace every sale</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="big-data property-management rental-marketplace tenant-management">
+                    <div class="member-info">
+                        <h3>HostPlatform</h3>
+                        <p class="member-category">Big Data, Property Management, Rental Marketplace, Tenant Management</p>
+                        <p class="member-description">Team of enthusiastic young blood with mission to create positive impact</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-community">
+                    <div class="member-info">
+                        <h3>1Balcony</h3>
+                        <p class="member-category">Property Community</p>
+                        <p class="member-description">News & Articles, Online Investment Education, Online TV, Property Market Place</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-management property-marketplace tenant-management">
+                    <div class="member-info">
+                        <h3>Tplus</h3>
+                        <p class="member-category">Property Management, Property Marketplace, Tenant Management, Web Development</p>
+                        <p class="member-description">Leading tenancy operating system in Malaysia providing end-to-end solution</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="iot property-management tenant-management">
+                    <div class="member-info">
+                        <h3>ServeDeck</h3>
+                        <p class="member-category">IoT, Property Management, Tenant Management</p>
+                        <p class="member-description">Smart facility operation and management platform as subscription cloud-based solution</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="rental-marketplace">
+                    <div class="member-logo">
+                        <img src="assets/members/rentlab-logo.png" alt="Rentlab">
+                    </div>
+                    <div class="member-info">
+                        <h3>Rentlab</h3>
+                        <p class="member-category">Rental Marketplace</p>
+                        <p class="member-description">Advocating Trust & Transparency in Property Rental</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="renovation-tech">
+                    <div class="member-logo">
+                        <img src="assets/members/rekatone-logo.png" alt="Rekatone">
+                    </div>
+                    <div class="member-info">
+                        <h3>Rekatone</h3>
+                        <p class="member-category">Renovation Tech</p>
+                        <p class="member-description">Match, design & bid your property renovation via trusted and transparent platform</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="big-data contech sales-booking">
+                    <div class="member-logo">
+                        <img src="assets/members/prosales-logo.png" alt="ProSales">
+                    </div>
+                    <div class="member-info">
+                        <h3>ProSales</h3>
+                        <p class="member-category">Big Data, ConTech, Sales & Booking Management</p>
+                        <p class="member-description">Digital Solutions for Construction Communication and Defect Management</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-marketplace rental-marketplace">
+                    <div class="member-logo">
+                        <img src="assets/members/property-hunter-logo.png" alt="Property Hunter">
+                    </div>
+                    <div class="member-info">
+                        <h3>Property Hunter</h3>
+                        <p class="member-category">Property Marketplace, Rental Marketplace</p>
+                        <p class="member-description">Always ask ourselves "Have we done our best?"</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-community property-management">
+                    <div class="member-info">
+                        <h3>ProperLy</h3>
+                        <p class="member-category">Property Community, Property Management</p>
+                        <p class="member-description">Resident Satisfaction Empowers Communities</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="big-data">
+                    <div class="member-info">
+                        <h3>Propenomy</h3>
+                        <p class="member-category">Big Data</p>
+                        <p class="member-description">Connecting Data, Property, People & Digital Transformation</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ai big-data property-community property-management smart-cities">
+                    <div class="member-info">
+                        <h3>myliving.mylife</h3>
+                        <p class="member-category">AI, DL & ML, Big Data, Property Community, Property Management, Smart Cities</p>
+                        <p class="member-description">We believe everyone deserves a better lifestyle</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="fintech legal-tech mortgages property-community property-management property-marketplace sales-booking">
+                    <div class="member-info">
+                        <h3>MHub</h3>
+                        <p class="member-category">AR & VR, Fintech, Legal Tech, Mortgages, Property Community, Property Management, Property Marketplace, Sales & Booking Management</p>
+                        <p class="member-description">People Powered Property Platform</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="iot property-community property-management property-marketplace smart-homes">
+                    <div class="member-info">
+                        <h3>LinkZZapp PRO</h3>
+                        <p class="member-category">IoT, Property Community, Property Management, Property Marketplace, Smart Homes</p>
+                        <p class="member-description">Comprehensive end-to-end software & mobile APP for property industry</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-marketplace rental-marketplace">
+                    <div class="member-logo">
+                        <img src="assets/members/estate123-logo.png" alt="Estate123">
+                    </div>
+                    <div class="member-info">
+                        <h3>Estate123</h3>
+                        <p class="member-category">Property Marketplace, Rental Marketplace</p>
+                        <p class="member-description">Focus on Growth Rather Than Perfection</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="property-management">
+                    <div class="member-info">
+                        <h3>DAX</h3>
+                        <p class="member-category">Property Management</p>
+                        <p class="member-description">Best-in-class asset lifecycle technology and integrated solutions</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="iot smart-cities smart-homes">
+                    <div class="member-info">
+                        <h3>bWave</h3>
+                        <p class="member-category">IoT, Smart Cities, Smart Homes</p>
+                        <p class="member-description">Unlock & Accelerate Connected Opportunities Together</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+                <div class="directory-item" data-categories="ai ar-vr big-data blockchain">
+                    <div class="member-info">
+                        <h3>Briq Bloq</h3>
+                        <p class="member-category">AI, DL & ML, AR & VR, Big Data, Blockchain</p>
+                        <p class="member-description">Accurately Delivering Critical and Transparent Information to Commercial Real Estate</p>
+                    </div>
+                    <div class="member-actions">
+                        <a href="#" class="btn-outline">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            <div class="directory-pagination">
+                <button class="btn-outline">Load More Members</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Become a Member -->
+    <section class="become-member">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join Our Community</h2>
+                <p>Become part of Malaysia's fastest-growing PropTech ecosystem. Connect with innovators, access exclusive resources, and contribute to the digital transformation of the property industry.</p>
+                <div class="cta-buttons">
+                    <a href="membership.html" class="btn-primary">Become a Member</a>
+                    <a href="contact.html" class="btn-outline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MPA</h3>
+                    <p>Malaysia's leading PropTech community driving innovation in real estate technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="membership.html">Membership</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="news.html">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@proptech.org.my</li>
+                        <li><i class="fas fa-phone"></i> +60 11 322 44 56</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Malaysia Proptech Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Member directory search and filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.querySelector('.directory-search input');
+            const categoryFilter = document.querySelector('.category-filter');
+            const technologyFilter = document.querySelector('.technology-filter');
+            const directoryItems = document.querySelectorAll('.directory-item');
+
+            function filterMembers() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedCategory = categoryFilter.value;
+                const selectedTechnology = technologyFilter.value;
+
+                directoryItems.forEach(item => {
+                    const memberName = item.querySelector('h3').textContent.toLowerCase();
+                    const memberCategory = item.querySelector('.member-category').textContent.toLowerCase();
+                    const memberDescription = item.querySelector('.member-description').textContent.toLowerCase();
+                    const memberCategories = item.dataset.categories || '';
+
+                    const matchesSearch = memberName.includes(searchTerm) || 
+                                        memberCategory.includes(searchTerm) || 
+                                        memberDescription.includes(searchTerm);
+                    
+                    const matchesCategory = !selectedCategory || memberCategories.includes(selectedCategory);
+                    const matchesTechnology = !selectedTechnology || memberCategories.includes(selectedTechnology);
+
+                    if (matchesSearch && matchesCategory && matchesTechnology) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+
+            searchInput.addEventListener('input', filterMembers);
+            categoryFilter.addEventListener('change', filterMembers);
+            technologyFilter.addEventListener('change', filterMembers);
+        });
+    </script>
+</body>
+</html>

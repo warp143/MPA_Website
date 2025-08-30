@@ -9,8 +9,8 @@ let isAutoMode = currentTheme === 'auto';
 function getAutoTheme() {
     const now = new Date();
     const hour = now.getHours();
-    // Auto switch: dark mode from 6 PM to 6 AM, light mode from 6 AM to 6 PM
-    return (hour >= 18 || hour < 6) ? 'dark' : 'light';
+    // Auto switch: dark mode from 7 PM to 7 AM, light mode from 7 AM to 7 PM
+    return (hour >= 19 || hour < 7) ? 'dark' : 'light';
 }
 
 function applyTheme(theme) {
@@ -258,12 +258,84 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Navigation Join MPA Buttons
     const navJoinButtons = document.querySelectorAll('.nav-actions .btn-primary');
-    
+
     navJoinButtons.forEach(button => {
         button.addEventListener('click', function() {
             window.location.href = 'membership.html';
         });
     });
+
+    // Click Ripple Effect for all buttons
+    const allButtons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-outline, .signin-btn, .signup-btn, .search-btn');
+    console.log('Found buttons for ripple effect:', allButtons.length);
+
+    allButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            console.log('Full-page flower ripple effect triggered on button:', this.className);
+
+            // Create multiple concentric ripples for flower-like effect
+            const rippleCount = 3;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const maxSize = Math.max(viewportWidth, viewportHeight) * 2;
+
+            // Get click position relative to viewport
+            const centerX = e.clientX;
+            const centerY = e.clientY;
+
+            for (let i = 0; i < rippleCount; i++) {
+                setTimeout(() => {
+                    createFlowerRipple(centerX, centerY, maxSize, this, i);
+                }, i * 380); // More pronounced stagger for enhanced visibility
+            }
+        });
+    });
+
+    function createFlowerRipple(centerX, centerY, maxSize, button, index) {
+        const ripple = document.createElement('div');
+
+        // Vary the size slightly for each ripple
+        const sizeVariation = 0.8 + (index * 0.2);
+        const rippleSize = maxSize * sizeVariation;
+
+        const x = centerX - rippleSize / 2;
+        const y = centerY - rippleSize / 2;
+
+        ripple.style.width = ripple.style.height = rippleSize + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('full-page-ripple');
+
+        // Create subtle colors for each ripple (background-appropriate)
+        let colors;
+        if (document.body.classList.contains('light-mode')) {
+            // Light mode - subtle dark ripples
+            colors = [
+                ['rgba(0, 0, 0, 0.06)', 'rgba(0, 0, 0, 0.04)'],
+                ['rgba(0, 0, 0, 0.04)', 'rgba(0, 0, 0, 0.03)'],
+                ['rgba(0, 0, 0, 0.03)', 'rgba(0, 0, 0, 0.02)']
+            ];
+        } else {
+            // Dark mode - subtle light ripples
+            colors = [
+                ['rgba(255, 255, 255, 0.12)', 'rgba(255, 255, 255, 0.08)'],
+                ['rgba(255, 255, 255, 0.08)', 'rgba(255, 255, 255, 0.06)'],
+                ['rgba(255, 255, 255, 0.06)', 'rgba(255, 255, 255, 0.04)']
+            ];
+        }
+
+        ripple.style.background = colors[index][0];
+        ripple.style.boxShadow = `0 0 0 0 ${colors[index][1]}`;
+
+        // Add to body for full-page effect
+        document.body.appendChild(ripple);
+        console.log(`Flower ripple ${index + 1} created and appended`);
+
+        setTimeout(() => {
+            ripple.remove();
+            console.log(`Flower ripple ${index + 1} effect completed`);
+        }, 2800 + (index * 200)); // Staggered cleanup for slower animation
+    }
 
     // Intersection Observer for Animations
     const observerOptions = {
