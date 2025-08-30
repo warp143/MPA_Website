@@ -2741,13 +2741,19 @@ img.loading {
     width: 80px;
     height: 80px;
     margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    background: var(--light-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .member-logo img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: var(--border-radius-md);
+    object-fit: contain;
+    padding: var(--spacing-sm);
 }
 
 .member-card h3 {
@@ -2756,7 +2762,7 @@ img.loading {
 }
 
 .member-category {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     font-weight: 600;
     margin-bottom: var(--spacing-sm);
 }
@@ -2802,7 +2808,7 @@ img.loading {
 
 .directory-search .search-btn {
     padding: var(--spacing-md) var(--spacing-lg);
-    background: var(--accent-red);
+    background: var(--accent-blue);
     color: white;
     border: none;
     border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
@@ -2811,7 +2817,7 @@ img.loading {
 }
 
 .directory-search .search-btn:hover {
-    background: var(--dark-red);
+    background: var(--dark-blue);
 }
 
 .filter-options {
@@ -2839,8 +2845,8 @@ img.loading {
     padding: var(--spacing-lg);
     border-radius: var(--border-radius-lg);
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: var(--spacing-md);
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--glass-border);
     transition: var(--transition);
@@ -2850,19 +2856,52 @@ img.loading {
     box-shadow: var(--shadow-md);
 }
 
+.directory-item .member-logo {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    background: var(--light-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.directory-item .member-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: var(--spacing-sm);
+}
+
+.directory-item .member-info {
+    flex: 1;
+    min-width: 0;
+}
+
 .member-info h3 {
     color: var(--text-primary);
     margin-bottom: var(--spacing-xs);
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .member-info .member-category {
-    color: var(--accent-red);
+    color: var(--accent-blue);
     font-weight: 600;
     margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
 }
 
 .member-info .member-description {
     color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.directory-item .member-actions {
+    flex-shrink: 0;
 }
 
 .directory-pagination {
@@ -2871,7 +2910,7 @@ img.loading {
 
 .become-member {
     padding: var(--spacing-xxl) 0;
-    background: var(--accent-red);
+    background: var(--accent-blue);
     color: white;
     text-align: center;
 }
