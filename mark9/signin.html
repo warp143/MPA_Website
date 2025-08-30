@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Malaysia Proptech Association</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="styles.css?v=1.3">
+    <link rel="stylesheet" href="styles.css?v=1.4">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -161,54 +161,9 @@
                 margin: 0 auto;
             }
 
-            /* Right column specific styles for signup section */
-            .signin-right .signup-section {
-                margin-top: 40px;
-                padding-top: 40px;
-                border-top: 1px solid rgba(0, 0, 0, 0.1);
-            }
 
-            .signin-right .signup-section h3 {
-                color: var(--text-primary-light);
-                font-size: 1.8rem;
-                margin-bottom: 20px;
-            }
 
-            .signin-right .signup-section p {
-                color: var(--text-secondary-light);
-                font-size: 1.1rem;
-                margin-bottom: 30px;
-                max-width: 400px;
-                margin-left: auto;
-                margin-right: auto;
-            }
 
-            /* Dark mode signup section */
-            body:not(.light-mode) .signin-right .signup-section {
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
-            }
-
-            body:not(.light-mode) .signin-right .signup-section h3 {
-                color: #ffffff;
-            }
-
-            body:not(.light-mode) .signin-right .signup-section p {
-                color: rgba(255, 255, 255, 0.9);
-            }
-
-            .signin-right .signup-btn {
-                background: transparent;
-                color: var(--accent-blue);
-                border: 2px solid var(--accent-blue);
-                transition: all 0.3s ease;
-            }
-
-            .signin-right .signup-btn:hover {
-                background: var(--accent-blue);
-                color: #ffffff !important;
-                transform: translateY(-2px);
-                box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
-            }
 
             .desktop-features {
                 margin-bottom: 60px;
@@ -216,17 +171,17 @@
             }
 
             .desktop-features h3 {
-                font-size: 2rem;
-                margin-bottom: 20px;
+                font-size: 2.5rem;
+                margin-bottom: 24px;
                 font-weight: 700;
                 line-height: 1.2;
                 color: var(--text-primary-light);
             }
 
             .desktop-features p {
-                font-size: 1rem;
+                font-size: 1.2rem;
                 line-height: 1.6;
-                margin-bottom: 30px;
+                margin-bottom: 35px;
                 opacity: 0.95;
                 max-width: 400px;
                 margin-left: auto;
@@ -253,8 +208,8 @@
             }
 
             .feature-list li {
-                padding: 14px 0;
-                font-size: 1rem;
+                padding: 16px 0;
+                font-size: 1.2rem;
                 display: flex;
                 align-items: center;
                 gap: 20px;
@@ -267,7 +222,7 @@
             }
 
             .feature-list li i {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 color: var(--accent-blue);
                 width: 24px;
                 text-align: center;
@@ -358,7 +313,7 @@
         }
 
         .signin-title {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 8px;
@@ -366,7 +321,7 @@
 
         .signin-subtitle {
             color: var(--text-secondary);
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .signin-form {
@@ -382,14 +337,15 @@
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--text-primary);
+            font-size: 0.9rem;
         }
 
         .form-input {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: 2px solid var(--glass-border);
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             background: var(--bg-tertiary);
             color: var(--text-primary);
@@ -421,12 +377,12 @@
 
         .signin-btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
             color: #ffffff !important;
             border: none;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -451,7 +407,7 @@
         .signin-links p {
             color: var(--text-secondary);
             margin-bottom: 16px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .signin-links a {
@@ -652,7 +608,15 @@
                     <a href="contact.html">Contact Support</a>
                     <a href="forgot-password.html">Forgot Password?</a>
                 </div>
-                
+
+                <div class="signup-section">
+                    <h3>Not a Member Yet?</h3>
+                    <p>Join the Malaysia PropTech Association to access exclusive resources, networking opportunities, and industry insights.</p>
+                    <a href="membership.html" class="signup-btn">
+                        <i class="fas fa-user-plus"></i>
+                        Join MPA Today
+                    </a>
+                </div>
 
             </div>
 
@@ -688,17 +652,6 @@
                             <span>Global Network Access</span>
                         </li>
                     </ul>
-                </div>
-
-
-
-                <div class="signup-section">
-                    <h3>Not a Member Yet?</h3>
-                    <p>Join the Malaysia PropTech Association to access exclusive resources, networking opportunities, and industry insights.</p>
-                    <a href="membership.html" class="signup-btn">
-                        <i class="fas fa-user-plus"></i>
-                        Join MPA Today
-                    </a>
                 </div>
             </div>
         </div>
