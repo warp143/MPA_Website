@@ -512,11 +512,24 @@ body.light-mode .nav-logo h2 {
 
 .nav-menu {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+    gap: 0;
+}
+
+.nav-menu .nav-link:first-child {
+    margin-right: auto;
+}
+
+.nav-menu .nav-link:last-child {
+    margin-left: auto;
+}
+
+.nav-menu .nav-link:not(:first-child):not(:last-child) {
+    flex: 1;
+    text-align: center;
 }
 
 .nav-link {
