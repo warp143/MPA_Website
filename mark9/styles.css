@@ -4151,6 +4151,10 @@ body.light-mode .form-group textarea:focus {
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
     border: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
 }
 
 .member-card:hover {
@@ -4179,26 +4183,28 @@ body.light-mode .form-group textarea:focus {
 
 .member-card h3 {
     color: var(--text-primary);
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 0;
 }
 
 .member-categories {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-xs);
-    margin-bottom: var(--spacing-sm);
+    gap: 0.25rem;
+    margin: 0.25rem 0 0.75rem 0;
+    padding: 0;
 }
 
 .member-category {
     background: rgba(0, 122, 255, 0.1);
-    color: var(--accent-blue);
-    padding: var(--spacing-xs) var(--spacing-sm);
+    color: #333333;
+    padding: 0.25rem 0.5rem;
     border-radius: var(--border-radius-sm);
     font-size: 0.8rem;
     font-weight: 500;
     border: 1px solid rgba(0, 122, 255, 0.2);
     display: inline-block;
-    transition: var(--transition-fast);
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
 }
 
 .member-category:hover {
@@ -4209,8 +4215,29 @@ body.light-mode .form-group textarea:focus {
 
 .member-description {
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-md);
-    line-height: 1.6;
+    margin-bottom: 0;
+    line-height: 1.2;
+    flex-grow: 1;
+}
+
+.member-actions {
+    margin-top: var(--spacing-md);
+    flex-shrink: 0;
+}
+
+.featured-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--accent-blue);
+    color: #ffffff !important;
+    padding: 4px 8px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .member-tags {
@@ -4276,17 +4303,17 @@ body.light-mode .form-group textarea:focus {
 
 .directory-grid {
     display: grid;
-    gap: var(--spacing-md);
+    gap: 0.75rem;
     margin-bottom: var(--spacing-lg);
 }
 
 .directory-item {
     background: var(--glass-bg);
-    padding: var(--spacing-lg);
+    padding: 0.5rem;
     border-radius: var(--border-radius-lg);
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: 0.5rem;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--glass-border);
     transition: var(--transition);
@@ -4298,8 +4325,8 @@ body.light-mode .form-group textarea:focus {
 
 .directory-item .member-logo {
     flex-shrink: 0;
-    width: 240px;
-    height: 120px;
+    width: 200px;
+    height: 100px;
     border-radius: var(--border-radius-md);
     overflow: hidden;
     background: var(--light-bg);
@@ -4312,32 +4339,42 @@ body.light-mode .form-group textarea:focus {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    padding: 2px;
+    padding: 0;
 }
 
 .directory-item .member-info {
     flex: 1;
     min-width: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
 }
 
 .member-info h3 {
     color: var(--text-primary);
-    margin-bottom: var(--spacing-xs);
-    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
 }
 
 .member-info .member-category {
-    color: var(--accent-blue);
+    color: #333333;
     font-weight: 600;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 0;
     font-size: 0.9rem;
+    background: rgba(0, 122, 255, 0.1);
+    border: 1px solid rgba(0, 122, 255, 0.2);
 }
 
 .member-info .member-description {
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.85rem;
+    line-height: 1.3;
+    margin-bottom: 0.125rem;
 }
 
 .directory-item .member-actions {
@@ -4861,7 +4898,7 @@ body.light-mode .form-group textarea:focus {
         font-size: 0.8rem !important;
         padding: 4px 8px !important;
         background: rgba(0, 122, 255, 0.1) !important;
-        color: var(--accent-blue) !important;
+        color: #333333 !important;
         border: 1px solid rgba(0, 122, 255, 0.2) !important;
         border-radius: var(--border-radius-sm) !important;
         font-weight: 500 !important;
