@@ -4107,6 +4107,31 @@ body.light-mode .form-group textarea:focus {
     margin-top: var(--spacing-sm);
 }
 
+/* Subcategories styling */
+.subcategories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+.subcategory {
+    background: rgba(0, 122, 255, 0.1);
+    color: var(--accent-blue);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(0, 122, 255, 0.2);
+    transition: var(--transition-fast);
+}
+
+.subcategory:hover {
+    background: rgba(0, 122, 255, 0.15);
+    border-color: var(--accent-blue);
+    transform: translateY(-1px);
+}
+
 .featured-members {
     padding: var(--spacing-xxl) 0;
     background: var(--bg-secondary);
