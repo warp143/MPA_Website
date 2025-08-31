@@ -496,10 +496,27 @@ document.addEventListener('DOMContentLoaded', function() {
         // Store language preference
         localStorage.setItem('selectedLanguage', lang);
         
-        // Apply translations
-        applyTranslations(lang);
+        // Apply translations with retry mechanism
+        applyTranslationsWithRetry(lang);
         
         console.log(`Language changed to: ${lang}`);
+    }
+
+    function applyTranslationsWithRetry(lang, retryCount = 0) {
+        const maxRetries = 3;
+        
+        try {
+            applyTranslations(lang);
+        } catch (error) {
+            console.log(`Translation attempt ${retryCount + 1} failed, retrying...`);
+            if (retryCount < maxRetries) {
+                setTimeout(() => {
+                    applyTranslationsWithRetry(lang, retryCount + 1);
+                }, 200);
+            } else {
+                console.error('Failed to apply translations after maximum retries');
+            }
+        }
     }
 
     function applyTranslations(lang) {
@@ -533,11 +550,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Button translations
-        const signInBtn = document.querySelector('.btn-secondary');
-        const joinBtn = document.querySelector('.btn-primary');
-        if (signInBtn && signInBtn.textContent.includes('Sign In')) signInBtn.textContent = t['btn-signin'];
-        if (joinBtn && joinBtn.textContent.includes('Join MPA')) joinBtn.textContent = t['btn-join'];
+        // Navigation buttons translations - use data attributes for reliable translation
+        const signInBtns = document.querySelectorAll('[data-translate="btn-signin"]');
+        const joinBtns = document.querySelectorAll('[data-translate="btn-join"]');
+        
+        console.log(`Found ${signInBtns.length} Sign In buttons and ${joinBtns.length} Join MPA buttons`);
+        
+        // Update all Sign In buttons
+        signInBtns.forEach(btn => {
+            btn.textContent = t['btn-signin'];
+        });
+        
+        // Update all Join MPA buttons
+        joinBtns.forEach(btn => {
+            btn.textContent = t['btn-join'];
+        });
 
         // Hero section translations
         const heroTitle = document.querySelector('.hero-title');
@@ -1536,8 +1563,11 @@ if (document.querySelector('.year-tabs')) {
     initYearTabs();
 }
 
-// Initialize language on page load
+// Initialize language on page load with delay to ensure DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
-    selectLanguage(savedLanguage);
+    // Add a small delay to ensure all DOM elements are fully loaded
+    setTimeout(() => {
+        selectLanguage(savedLanguage);
+    }, 100);
 });
