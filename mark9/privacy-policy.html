@@ -126,16 +126,14 @@
     <section class="privacy-content">
 
 
-        <!-- PDF Display -->
+        <!-- PDF Display using Browser Built-in Viewer -->
         <div class="pdf-container">
-            <iframe 
+            <embed 
                 id="pdfViewer"
-                src="pdfjs/web/viewer.html?file=/mark9/MPA%20-%20Privacy%20Policy%20-%20English.pdf" 
+                src="MPA%20-%20Privacy%20Policy%20-%20English.pdf" 
+                type="application/pdf"
                 width="100%" 
-                height="800px" 
-                frameborder="0"
-                title="Privacy Policy">
-            </iframe>
+                height="800px">
         </div>
 
         <!-- Download Section -->
@@ -215,7 +213,7 @@
 
     <script src="script.js"></script>
     <script src="js/components.js"></script>
-    <script>
+            <script>
         // Privacy Policy specific functionality
         document.addEventListener('DOMContentLoaded', function() {
             const pdfViewer = document.getElementById('pdfViewer');
@@ -233,17 +231,10 @@
                     pdfFile = 'MPA%20-%20Privacy%20Policy%20-%20English.pdf';
                 }
                 
-                // Update PDF viewer with PDF.js - use absolute URL from root and force reload
-                const timestamp = new Date().getTime(); // Add timestamp to prevent caching
-                const newSrc = `pdfjs/web/viewer.html?file=/mark9/${pdfFile}&t=${timestamp}`;
+                // Update PDF viewer with browser built-in viewer
+                pdfViewer.src = pdfFile;
                 
-                console.log('Loading PDF:', newSrc); // Debug
-                
-                // Force reload by setting src to empty first
-                pdfViewer.src = '';
-                setTimeout(() => {
-                    pdfViewer.src = newSrc;
-                }, 100);
+                console.log('Loading PDF:', pdfFile); // Debug
             };
 
             // Override the default language selection for privacy policy page
@@ -258,7 +249,7 @@
                 updatePrivacyPolicyPDF(lang);
             };
 
-            // Initialize with current language (no notice)
+            // Initialize with current language
             const currentLang = localStorage.getItem('selectedLanguage') || 'en';
             updatePrivacyPolicyPDF(currentLang);
 
