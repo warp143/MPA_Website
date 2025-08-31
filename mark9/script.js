@@ -291,6 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'privacy-title': 'Privacy Policy',
             'privacy-subtitle': 'Protecting your personal data and ensuring transparency in how we handle your information',
             'download-policy': 'Download Privacy Policy',
+            'download-description': 'Download the privacy policy in your preferred language',
             'download-english': 'English PDF',
             'download-bahasa': 'Bahasa Malaysia PDF',
             'privacy-intro-title': 'Introduction',
@@ -421,6 +422,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'privacy-title': 'Dasar Privasi',
             'privacy-subtitle': 'Melindungi data peribadi anda dan memastikan ketelusan dalam cara kami mengendalikan maklumat anda',
             'download-policy': 'Muat Turun Dasar Privasi',
+            'download-description': 'Muat turun dasar privasi dalam bahasa pilihan anda',
             'download-english': 'PDF Bahasa Inggeris',
             'download-bahasa': 'PDF Bahasa Malaysia',
             'privacy-intro-title': 'Pengenalan',
@@ -545,7 +547,22 @@ document.addEventListener('DOMContentLoaded', function() {
             'footer-events': '活动',
             'footer-news': '新闻',
             'footer-contact': '联系我们',
-            'footer-copyright': '© 2025 马来西亚房地产科技协会。保留所有权利。'
+            'footer-copyright': '© 2025 马来西亚房地产科技协会。保留所有权利。',
+            
+            // Privacy Policy
+            'privacy-title': '隐私政策',
+            'privacy-subtitle': '保护您的个人数据并确保我们处理您信息的透明度',
+            'download-policy': '下载隐私政策',
+            'download-description': '下载您首选语言的隐私政策',
+            'download-english': '英文PDF',
+            'download-bahasa': '马来文PDF',
+            
+            // Cookie Banner
+            'cookie-title': 'Cookie和隐私通知',
+            'cookie-text': '我们使用cookie和类似技术来增强您的浏览体验、分析网站流量并个性化内容。继续使用我们的网站即表示您同意我们根据隐私政策使用cookie。',
+            'accept-cookies': '全部接受',
+            'reject-cookies': '拒绝',
+            'learn-more': '了解更多'
         }
     };
 
@@ -571,21 +588,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Store language preference
         localStorage.setItem('selectedLanguage', lang);
         
-        // Redirect to appropriate privacy policy page if on privacy policy page
-        if (window.location.pathname.includes('privacy-policy')) {
-            if (lang === 'bm') {
-                window.location.href = 'privacy-policy-bm.html';
-            } else {
-                // For 'en' and 'cn', both load English PDF
-                window.location.href = 'privacy-policy.html';
-            }
-            return; // Don't apply translations since we're redirecting
-        }
-        
         // Apply translations with retry mechanism
         applyTranslationsWithRetry(lang);
         
-
+        // Update PDF on privacy policy page
+        console.log('selectLanguage called with lang:', lang, 'pathname:', window.location.pathname); // Debug
+        if ((window.location.pathname.includes('privacy-policy') || window.location.href.includes('privacy-policy')) && typeof updatePrivacyPolicyPDF === 'function') {
+            console.log('Calling updatePrivacyPolicyPDF with lang:', lang); // Debug
+            updatePrivacyPolicyPDF(lang);
+        } else {
+            console.log('Not calling updatePrivacyPolicyPDF - condition not met'); // Debug
+        }
     }
 
     function applyTranslationsWithRetry(lang, retryCount = 0) {
@@ -795,12 +808,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const privacyTitle = document.querySelector('[data-translate="privacy-title"]');
         const privacySubtitle = document.querySelector('[data-translate="privacy-subtitle"]');
         const downloadPolicy = document.querySelector('[data-translate="download-policy"]');
+        const downloadDescription = document.querySelector('[data-translate="download-description"]');
         const downloadEnglish = document.querySelector('[data-translate="download-english"]');
         const downloadBahasa = document.querySelector('[data-translate="download-bahasa"]');
         
         if (privacyTitle) privacyTitle.textContent = t['privacy-title'];
         if (privacySubtitle) privacySubtitle.textContent = t['privacy-subtitle'];
         if (downloadPolicy) downloadPolicy.textContent = t['download-policy'];
+        if (downloadDescription) downloadDescription.textContent = t['download-description'];
         if (downloadEnglish) downloadEnglish.textContent = t['download-english'];
         if (downloadBahasa) downloadBahasa.textContent = t['download-bahasa'];
 
@@ -910,6 +925,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.language-option').forEach(option => {
         option.addEventListener('click', function() {
             const lang = this.getAttribute('data-lang');
+            console.log('Language option clicked:', lang); // Debug
             selectLanguage(lang);
         });
     });

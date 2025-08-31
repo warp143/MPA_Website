@@ -5938,3 +5938,62 @@ body.light-mode .form-group textarea:focus {
         font-size: 0.9rem;
     }
 }
+
+/* Language Notice Styles */
+.language-notice {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    margin: 2rem auto;
+    max-width: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+.language-notice .notice-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.language-notice i {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.language-notice span {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Responsive design for language notice */
+@media (max-width: 768px) {
+    .language-notice {
+        margin: 1rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    .language-notice .notice-content {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .language-notice span {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .language-notice {
+        margin: 0.5rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .language-notice span {
+        font-size: 0.85rem;
+    }
+}

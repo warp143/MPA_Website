@@ -124,14 +124,17 @@
 
     <!-- Privacy Policy Content -->
     <section class="privacy-content">
+
+
         <!-- PDF Display -->
         <div class="pdf-container">
             <iframe 
+                id="pdfViewer"
                 src="pdfjs/web/viewer.html?file=http://localhost:1739/MPA%20-%20Privacy%20Policy%20-%20English.pdf" 
                 width="100%" 
                 height="800px" 
                 frameborder="0"
-                title="Privacy Policy - English">
+                title="Privacy Policy">
             </iframe>
         </div>
 
@@ -139,6 +142,7 @@
         <div class="container">
             <div class="download-section">
                 <h3 data-translate="download-policy">Download Privacy Policy</h3>
+                <p data-translate="download-description">Download the privacy policy in your preferred language</p>
                 <div class="download-buttons">
                     <a href="MPA%20-%20Privacy%20Policy%20-%20English.pdf" class="btn-outline" download>
                         <i class="fas fa-download"></i>
@@ -212,8 +216,52 @@
     <script src="script.js"></script>
     <script src="js/components.js"></script>
     <script>
-        // Cookie Banner
+        // Privacy Policy specific functionality
         document.addEventListener('DOMContentLoaded', function() {
+            const pdfViewer = document.getElementById('pdfViewer');
+
+            // Function to update PDF based on language
+            window.updatePrivacyPolicyPDF = function(lang) {
+                console.log('updatePrivacyPolicyPDF called with lang:', lang); // Debug
+                
+                let pdfFile;
+                
+                if (lang === 'bm') {
+                    pdfFile = 'MPA%20-%20Privacy%20Policy%20-%20Bahasa.pdf';
+                } else {
+                    // Default to English for 'en' and 'cn'
+                    pdfFile = 'MPA%20-%20Privacy%20Policy%20-%20English.pdf';
+                }
+                
+                // Update PDF viewer with PDF.js - use absolute URL and force reload
+                const baseUrl = window.location.origin;
+                const timestamp = new Date().getTime(); // Add timestamp to prevent caching
+                const newSrc = `pdfjs/web/viewer.html?file=${baseUrl}/${pdfFile}&t=${timestamp}`;
+                
+                console.log('Loading PDF:', newSrc); // Debug
+                
+                // Force reload by setting src to empty first
+                pdfViewer.src = '';
+                setTimeout(() => {
+                    pdfViewer.src = newSrc;
+                }, 100);
+            };
+
+            // Override the default language selection for privacy policy page
+            const originalSelectLanguage = window.selectLanguage;
+            window.selectLanguage = function(lang) {
+                // Call original function for navigation and other translations
+                if (originalSelectLanguage) {
+                    originalSelectLanguage(lang);
+                }
+                
+                // Update PDF for privacy policy page
+                updatePrivacyPolicyPDF(lang);
+            };
+
+            // Initialize with current language (no notice)
+            const currentLang = localStorage.getItem('selectedLanguage') || 'en';
+            updatePrivacyPolicyPDF(currentLang);
 
             // Cookie Banner
             const cookieBanner = document.getElementById('cookieBanner');
