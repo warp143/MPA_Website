@@ -8,7 +8,7 @@ import sys
 import subprocess
 import json
 
-def load_azure_config(config_file="ssh/azure2.json"):
+def load_azure_config(config_file="ssh/azure.json"):
     """Load Azure server configuration"""
     try:
         with open(config_file, 'r') as f:

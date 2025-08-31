@@ -285,7 +285,54 @@ document.addEventListener('DOMContentLoaded', function() {
             'footer-events': 'Events',
             'footer-news': 'News',
             'footer-contact': 'Contact',
-            'footer-copyright': '© 2025 Malaysia Proptech Association. All rights reserved.'
+            'footer-copyright': '© 2025 Malaysia Proptech Association. All rights reserved.',
+            
+            // Privacy Policy
+            'privacy-title': 'Privacy Policy',
+            'privacy-subtitle': 'Protecting your personal data and ensuring transparency in how we handle your information',
+            'download-policy': 'Download Privacy Policy',
+            'download-english': 'English PDF',
+            'download-bahasa': 'Bahasa Malaysia PDF',
+            'privacy-intro-title': 'Introduction',
+            'privacy-intro-text': 'Malaysia PropTech Association ("MPA", "we", "us", "our") is committed to protecting your personal data in accordance with the Personal Data Protection Act 2010 [Act 709], as amended by the Personal Data Protection (Amendment) Act 2024. This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal data when you interact with us via our website, membership portal, events, or other services.',
+            'privacy-data-title': 'Types of Personal Data Collected',
+            'privacy-data-intro': 'We may collect and process the following categories of personal data:',
+            'privacy-identity': 'Identity data:',
+            'privacy-identity-details': 'Full Name, NRIC / Passport Number, Date of Birth',
+            'privacy-contact': 'Contact data:',
+            'privacy-contact-details': 'Email Address, Phone Number, Mailing Address',
+            'privacy-professional': 'Professional data:',
+            'privacy-professional-details': 'Company Name, Job Title, Industry Affiliation',
+            'privacy-membership': 'Membership data:',
+            'privacy-membership-details': 'Membership Type, Application History, Participation in events',
+            'privacy-technical': 'Technical data:',
+            'privacy-technical-details': 'IP Address, Browser Type, Device Information, Cookies',
+            'privacy-purpose-title': 'Purpose of Collection',
+            'privacy-purpose-intro': 'Your personal data is collected for the following purposes:',
+            'privacy-purpose-1': 'To process membership applications and renewals',
+            'privacy-purpose-2': 'To manage member profiles and provide member-exclusive content',
+            'privacy-purpose-3': 'To send newsletters, updates, and event invitations',
+            'privacy-purpose-4': 'To facilitate participation in competitions, workshops, and forums',
+            'privacy-purpose-5': 'To comply with legal and regulatory obligations',
+            'privacy-consent-title': 'Consent and Access',
+            'privacy-consent-text': 'By submitting your personal data to us, you consent to its processing for the purposes stated above. You may withdraw consent or request access, correction, or deletion of your data by contacting our Data Protection Officer (DPO) at:',
+            'privacy-dpo-name': 'Name:',
+            'privacy-dpo-email': 'Email:',
+            'privacy-dpo-contact': 'Contact:',
+            'privacy-rights-title': 'Your Rights',
+            'privacy-rights-intro': 'Under PDPA, you have the right to:',
+            'privacy-rights-1': 'Access and correct your personal data',
+            'privacy-rights-2': 'Withdraw consent at any time',
+            'privacy-rights-3': 'Lodge a complaint with the Department of Personal Data Protection (JPDP)',
+            'privacy-updates-title': 'Updates to This Policy',
+            'privacy-updates-text': 'We may update this Privacy Policy from time to time. Any changes will be posted on our website with the effective date clearly indicated.',
+            
+            // Cookie Banner
+            'cookie-title': 'Cookie & Privacy Notice',
+            'cookie-text': 'We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, and personalize content. By continuing to use our website, you consent to our use of cookies in accordance with our Privacy Policy.',
+            'accept-cookies': 'Accept All',
+            'reject-cookies': 'Reject',
+            'learn-more': 'Learn More'
         },
         bm: {
             // Navigation
@@ -368,7 +415,54 @@ document.addEventListener('DOMContentLoaded', function() {
             'footer-events': 'Acara',
             'footer-news': 'Berita',
             'footer-contact': 'Hubungi',
-            'footer-copyright': '© 2025 Persatuan Teknologi Hartanah Malaysia. Hak cipta terpelihara.'
+            'footer-copyright': '© 2025 Persatuan Teknologi Hartanah Malaysia. Hak cipta terpelihara.',
+            
+            // Privacy Policy
+            'privacy-title': 'Dasar Privasi',
+            'privacy-subtitle': 'Melindungi data peribadi anda dan memastikan ketelusan dalam cara kami mengendalikan maklumat anda',
+            'download-policy': 'Muat Turun Dasar Privasi',
+            'download-english': 'PDF Bahasa Inggeris',
+            'download-bahasa': 'PDF Bahasa Malaysia',
+            'privacy-intro-title': 'Pengenalan',
+            'privacy-intro-text': 'Persatuan Teknologi Hartanah Malaysia ("MPA", "kami") komited untuk melindungi data peribadi anda selaras dengan Akta Perlindungan Data Peribadi 2010 ("PDPA") dan pindaan 2024. Dasar ini menerangkan bagaimana kami mengumpul, menggunakan, mendedahkan dan melindungi data peribadi anda apabila anda berinteraksi dengan laman web, portal keahlian, acara, atau perkhidmatan kami.',
+            'privacy-data-title': 'Jenis Data Peribadi yang Dikumpul',
+            'privacy-data-intro': 'Kami mungkin mengumpul dan memproses kategori data berikut:',
+            'privacy-identity': 'Data Identiti:',
+            'privacy-identity-details': 'Nama Penuh, Nombor NRIC / Pasport, Tarikh Lahir',
+            'privacy-contact': 'Data Hubungan:',
+            'privacy-contact-details': 'Alamat Emel, Nombor Telefon, Alamat Surat-Menyurat',
+            'privacy-professional': 'Data Profesional:',
+            'privacy-professional-details': 'Nama Syarikat, Jawatan, Sektor Industri',
+            'privacy-membership': 'Data Keahlian:',
+            'privacy-membership-details': 'Jenis Keahlian, Sejarah Permohonan, Penyertaan Acara',
+            'privacy-technical': 'Data Teknikal:',
+            'privacy-technical-details': 'Alamat IP, Jenis Pelayar, Maklumat Peranti, Kuki',
+            'privacy-purpose-title': 'Tujuan Pengumpulan',
+            'privacy-purpose-intro': 'Data peribadi anda dikumpul untuk tujuan berikut:',
+            'privacy-purpose-1': 'Memproses permohonan dan pembaharuan keahlian',
+            'privacy-purpose-2': 'Mengurus profil ahli dan menyediakan kandungan eksklusif',
+            'privacy-purpose-3': 'Menghantar buletin, kemas kini dan jemputan acara',
+            'privacy-purpose-4': 'Memudahkan penyertaan dalam pertandingan, bengkel dan forum',
+            'privacy-purpose-5': 'Mematuhi keperluan undang-undang dan peraturan',
+            'privacy-consent-title': 'Persetujuan dan Akses',
+            'privacy-consent-text': 'Dengan menyerahkan data peribadi anda, anda memberikan persetujuan untuk pemprosesan bagi tujuan yang dinyatakan. Anda boleh menarik balik persetujuan atau meminta akses, pembetulan, atau pemadaman data dengan menghubungi Pegawai Perlindungan Data (DPO) kami di:',
+            'privacy-dpo-name': 'Nama:',
+            'privacy-dpo-email': 'Emel:',
+            'privacy-dpo-contact': 'Hubungi:',
+            'privacy-rights-title': 'Hak Anda',
+            'privacy-rights-intro': 'Di bawah PDPA, anda berhak untuk:',
+            'privacy-rights-1': 'Mengakses dan membetulkan data peribadi anda',
+            'privacy-rights-2': 'Menarik balik persetujuan bila-bila masa',
+            'privacy-rights-3': 'Membuat aduan kepada Jabatan Perlindungan Data Peribadi (JPDP)',
+            'privacy-updates-title': 'Kemas Kini Dasar',
+            'privacy-updates-text': 'Dasar ini mungkin dikemas kini dari semasa ke semasa. Sebarang perubahan akan dipaparkan di laman web kami dengan tarikh berkuat kuasa yang jelas.',
+            
+            // Cookie Banner
+            'cookie-title': 'Notis Kuki & Privasi',
+            'cookie-text': 'Kami menggunakan kuki dan teknologi serupa untuk meningkatkan pengalaman melayari anda, menganalisis trafik laman web, dan menyesuaikan kandungan. Dengan terus menggunakan laman web kami, anda bersetuju dengan penggunaan kuki kami mengikut Dasar Privasi kami.',
+            'accept-cookies': 'Terima Semua',
+            'reject-cookies': 'Tolak',
+            'learn-more': 'Ketahui Lebih Lanjut'
         },
         cn: {
             // Navigation
@@ -476,6 +570,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Store language preference
         localStorage.setItem('selectedLanguage', lang);
+        
+        // Redirect to appropriate privacy policy page if on privacy policy page
+        if (window.location.pathname.includes('privacy-policy')) {
+            if (lang === 'bm') {
+                window.location.href = 'privacy-policy-bm.html';
+            } else {
+                // For 'en' and 'cn', both load English PDF
+                window.location.href = 'privacy-policy.html';
+            }
+            return; // Don't apply translations since we're redirecting
+        }
         
         // Apply translations with retry mechanism
         applyTranslationsWithRetry(lang);
@@ -685,6 +790,116 @@ document.addEventListener('DOMContentLoaded', function() {
         const footerCopyright = document.querySelector('.footer-bottom p');
         if (footerDesc) footerDesc.textContent = t['footer-mpa-desc'];
         if (footerCopyright) footerCopyright.textContent = t['footer-copyright'];
+
+        // Privacy Policy translations
+        const privacyTitle = document.querySelector('[data-translate="privacy-title"]');
+        const privacySubtitle = document.querySelector('[data-translate="privacy-subtitle"]');
+        const downloadPolicy = document.querySelector('[data-translate="download-policy"]');
+        const downloadEnglish = document.querySelector('[data-translate="download-english"]');
+        const downloadBahasa = document.querySelector('[data-translate="download-bahasa"]');
+        
+        if (privacyTitle) privacyTitle.textContent = t['privacy-title'];
+        if (privacySubtitle) privacySubtitle.textContent = t['privacy-subtitle'];
+        if (downloadPolicy) downloadPolicy.textContent = t['download-policy'];
+        if (downloadEnglish) downloadEnglish.textContent = t['download-english'];
+        if (downloadBahasa) downloadBahasa.textContent = t['download-bahasa'];
+
+        // Privacy Policy content translations
+        const privacyIntroTitle = document.querySelector('[data-translate="privacy-intro-title"]');
+        const privacyIntroText = document.querySelector('[data-translate="privacy-intro-text"]');
+        const privacyDataTitle = document.querySelector('[data-translate="privacy-data-title"]');
+        const privacyDataIntro = document.querySelector('[data-translate="privacy-data-intro"]');
+        
+        if (privacyIntroTitle) privacyIntroTitle.textContent = t['privacy-intro-title'];
+        if (privacyIntroText) privacyIntroText.textContent = t['privacy-intro-text'];
+        if (privacyDataTitle) privacyDataTitle.textContent = t['privacy-data-title'];
+        if (privacyDataIntro) privacyDataIntro.textContent = t['privacy-data-intro'];
+
+        // Privacy Policy data types
+        const privacyIdentity = document.querySelector('[data-translate="privacy-identity"]');
+        const privacyIdentityDetails = document.querySelector('[data-translate="privacy-identity-details"]');
+        const privacyContact = document.querySelector('[data-translate="privacy-contact"]');
+        const privacyContactDetails = document.querySelector('[data-translate="privacy-contact-details"]');
+        const privacyProfessional = document.querySelector('[data-translate="privacy-professional"]');
+        const privacyProfessionalDetails = document.querySelector('[data-translate="privacy-professional-details"]');
+        const privacyMembership = document.querySelector('[data-translate="privacy-membership"]');
+        const privacyMembershipDetails = document.querySelector('[data-translate="privacy-membership-details"]');
+        const privacyTechnical = document.querySelector('[data-translate="privacy-technical"]');
+        const privacyTechnicalDetails = document.querySelector('[data-translate="privacy-technical-details"]');
+        
+        if (privacyIdentity) privacyIdentity.textContent = t['privacy-identity'];
+        if (privacyIdentityDetails) privacyIdentityDetails.textContent = t['privacy-identity-details'];
+        if (privacyContact) privacyContact.textContent = t['privacy-contact'];
+        if (privacyContactDetails) privacyContactDetails.textContent = t['privacy-contact-details'];
+        if (privacyProfessional) privacyProfessional.textContent = t['privacy-professional'];
+        if (privacyProfessionalDetails) privacyProfessionalDetails.textContent = t['privacy-professional-details'];
+        if (privacyMembership) privacyMembership.textContent = t['privacy-membership'];
+        if (privacyMembershipDetails) privacyMembershipDetails.textContent = t['privacy-membership-details'];
+        if (privacyTechnical) privacyTechnical.textContent = t['privacy-technical'];
+        if (privacyTechnicalDetails) privacyTechnicalDetails.textContent = t['privacy-technical-details'];
+
+        // Privacy Policy purpose section
+        const privacyPurposeTitle = document.querySelector('[data-translate="privacy-purpose-title"]');
+        const privacyPurposeIntro = document.querySelector('[data-translate="privacy-purpose-intro"]');
+        const privacyPurpose1 = document.querySelector('[data-translate="privacy-purpose-1"]');
+        const privacyPurpose2 = document.querySelector('[data-translate="privacy-purpose-2"]');
+        const privacyPurpose3 = document.querySelector('[data-translate="privacy-purpose-3"]');
+        const privacyPurpose4 = document.querySelector('[data-translate="privacy-purpose-4"]');
+        const privacyPurpose5 = document.querySelector('[data-translate="privacy-purpose-5"]');
+        
+        if (privacyPurposeTitle) privacyPurposeTitle.textContent = t['privacy-purpose-title'];
+        if (privacyPurposeIntro) privacyPurposeIntro.textContent = t['privacy-purpose-intro'];
+        if (privacyPurpose1) privacyPurpose1.textContent = t['privacy-purpose-1'];
+        if (privacyPurpose2) privacyPurpose2.textContent = t['privacy-purpose-2'];
+        if (privacyPurpose3) privacyPurpose3.textContent = t['privacy-purpose-3'];
+        if (privacyPurpose4) privacyPurpose4.textContent = t['privacy-purpose-4'];
+        if (privacyPurpose5) privacyPurpose5.textContent = t['privacy-purpose-5'];
+
+        // Privacy Policy consent section
+        const privacyConsentTitle = document.querySelector('[data-translate="privacy-consent-title"]');
+        const privacyConsentText = document.querySelector('[data-translate="privacy-consent-text"]');
+        const privacyDpoName = document.querySelector('[data-translate="privacy-dpo-name"]');
+        const privacyDpoEmail = document.querySelector('[data-translate="privacy-dpo-email"]');
+        const privacyDpoContact = document.querySelector('[data-translate="privacy-dpo-contact"]');
+        
+        if (privacyConsentTitle) privacyConsentTitle.textContent = t['privacy-consent-title'];
+        if (privacyConsentText) privacyConsentText.textContent = t['privacy-consent-text'];
+        if (privacyDpoName) privacyDpoName.textContent = t['privacy-dpo-name'];
+        if (privacyDpoEmail) privacyDpoEmail.textContent = t['privacy-dpo-email'];
+        if (privacyDpoContact) privacyDpoContact.textContent = t['privacy-dpo-contact'];
+
+        // Privacy Policy rights section
+        const privacyRightsTitle = document.querySelector('[data-translate="privacy-rights-title"]');
+        const privacyRightsIntro = document.querySelector('[data-translate="privacy-rights-intro"]');
+        const privacyRights1 = document.querySelector('[data-translate="privacy-rights-1"]');
+        const privacyRights2 = document.querySelector('[data-translate="privacy-rights-2"]');
+        const privacyRights3 = document.querySelector('[data-translate="privacy-rights-3"]');
+        
+        if (privacyRightsTitle) privacyRightsTitle.textContent = t['privacy-rights-title'];
+        if (privacyRightsIntro) privacyRightsIntro.textContent = t['privacy-rights-intro'];
+        if (privacyRights1) privacyRights1.textContent = t['privacy-rights-1'];
+        if (privacyRights2) privacyRights2.textContent = t['privacy-rights-2'];
+        if (privacyRights3) privacyRights3.textContent = t['privacy-rights-3'];
+
+        // Privacy Policy updates section
+        const privacyUpdatesTitle = document.querySelector('[data-translate="privacy-updates-title"]');
+        const privacyUpdatesText = document.querySelector('[data-translate="privacy-updates-text"]');
+        
+        if (privacyUpdatesTitle) privacyUpdatesTitle.textContent = t['privacy-updates-title'];
+        if (privacyUpdatesText) privacyUpdatesText.textContent = t['privacy-updates-text'];
+
+        // Cookie Banner translations
+        const cookieTitle = document.querySelector('[data-translate="cookie-title"]');
+        const cookieText = document.querySelector('[data-translate="cookie-text"]');
+        const acceptCookies = document.querySelector('[data-translate="accept-cookies"]');
+        const rejectCookies = document.querySelector('[data-translate="reject-cookies"]');
+        const learnMore = document.querySelector('[data-translate="learn-more"]');
+        
+        if (cookieTitle) cookieTitle.textContent = t['cookie-title'];
+        if (cookieText) cookieText.textContent = t['cookie-text'];
+        if (acceptCookies) acceptCookies.textContent = t['accept-cookies'];
+        if (rejectCookies) rejectCookies.textContent = t['reject-cookies'];
+        if (learnMore) learnMore.textContent = t['learn-more'];
     }
 
     if (languageToggle) {

@@ -406,6 +406,23 @@
         </div>
     </section>
 
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="container">
+            <div class="cookie-content">
+                <div class="cookie-text">
+                    <h4>Cookie & Privacy Notice</h4>
+                    <p>We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, and personalize content. By continuing to use our website, you consent to our use of cookies in accordance with our Privacy Policy.</p>
+                </div>
+                <div class="cookie-actions">
+                    <button class="btn-primary" id="acceptCookies">Accept All</button>
+                    <button class="btn-outline" id="rejectCookies">Reject</button>
+                    <a href="privacy-policy.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -427,6 +444,7 @@
                         <li><a href="membership.html">Membership</a></li>
                         <li><a href="events.html">Events</a></li>
                         <li><a href="news.html">News</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -446,5 +464,31 @@
 
     <script src="script.js"></script>
     <script src="js/components.js"></script>
+    <script>
+        // Cookie Banner
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieBanner = document.getElementById('cookieBanner');
+            const acceptCookies = document.getElementById('acceptCookies');
+            const rejectCookies = document.getElementById('rejectCookies');
+
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('cookieChoice');
+            if (cookieChoice) {
+                cookieBanner.style.display = 'none';
+            }
+
+            acceptCookies.addEventListener('click', function() {
+                localStorage.setItem('cookieChoice', 'accepted');
+                cookieBanner.style.display = 'none';
+                showNotification('Cookie preferences saved. Thank you!', 'success');
+            });
+
+            rejectCookies.addEventListener('click', function() {
+                localStorage.setItem('cookieChoice', 'rejected');
+                cookieBanner.style.display = 'none';
+                showNotification('Cookie preferences saved. Some features may be limited.', 'info');
+            });
+        });
+    </script>
 </body>
 </html>
