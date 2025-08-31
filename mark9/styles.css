@@ -517,14 +517,17 @@ body.light-mode .nav-logo h2 {
     max-width: 800px;
     margin: 0 auto;
     gap: 0;
+    justify-content: space-between;
 }
 
 .nav-menu .nav-link:first-child {
     margin-right: auto;
+    flex: 1;
 }
 
 .nav-menu .nav-link:last-child {
     margin-left: auto;
+    flex: 1;
 }
 
 .nav-menu .nav-link:not(:first-child):not(:last-child) {
