@@ -29,6 +29,10 @@ def run_command(command, description):
         print(f"   Command: {command}")
         print(f"   Error: {e.stderr}")
         return None
+    except Exception as e:
+        print(f"❌ {description} failed with unexpected error:")
+        print(f"   Error: {str(e)}")
+        return None
 
 def deploy_mark9():
     """Deploy mark9 using rsync"""
@@ -38,6 +42,11 @@ def deploy_mark9():
     server_ip = config["server"]["ip"]
     username = config["server"]["username"]
     key_path = config["server"]["key_path"]
+    
+    # Create backup before deployment
+    ssh_cmd = f"ssh -i {key_path} -o StrictHostKeyChecking=no {username}@{server_ip}"
+    backup_cmd = f"{ssh_cmd} 'sudo cp -r /var/www/html/mark9 /var/www/html/mark9.backup.$(date +%Y%m%d_%H%M%S) 2>/dev/null || true'"
+    run_command(backup_cmd, "Creating backup of existing deployment")
     
     print(f"🚀 Deploying mark9 to Azure server")
     print(f"📍 Server: {server_ip}")
@@ -55,7 +64,6 @@ def deploy_mark9():
     run_command(f"chmod 600 {key_path}", "Setting SSH key permissions")
     
     # Remove existing directory and create fresh
-    ssh_cmd = f"ssh -i {key_path} -o StrictHostKeyChecking=no {username}@{server_ip}"
     remove_cmd = f"{ssh_cmd} 'sudo rm -rf /var/www/html/mark9'"
     run_command(remove_cmd, "Removing old directory")
     
@@ -67,8 +75,8 @@ def deploy_mark9():
     if not run_command(rsync_cmd, "Copying files to server"):
         return False
     
-    # Set proper permissions
-    chmod_cmd = f"{ssh_cmd} 'sudo chown -R www-data:www-data /var/www/html/mark9/ && sudo chmod -R 644 /var/www/html/mark9/* && sudo chmod 755 /var/www/html/mark9/ && sudo chmod 755 /var/www/html/mark9/assets/'"
+    # Set proper permissions - directories need 755, files need 644
+    chmod_cmd = f"{ssh_cmd} 'sudo chown -R www-data:www-data /var/www/html/mark9/ && sudo find /var/www/html/mark9/ -type d -exec chmod 755 {{}} \\; && sudo find /var/www/html/mark9/ -type f -exec chmod 644 {{}} \\;'"
     run_command(chmod_cmd, "Setting file permissions")
     
     # Verify deployment
@@ -84,6 +92,29 @@ def deploy_mark9():
         print(f"📧 Contact page: http://{server_ip}/mark9/contact.html")
         return True
     
+    return False
+
+def rollback_deployment():
+    """Rollback to the most recent backup"""
+    config = load_azure_config()
+    server_ip = config["server"]["ip"]
+    username = config["server"]["username"]
+    key_path = config["server"]["key_path"]
+    
+    ssh_cmd = f"ssh -i {key_path} -o StrictHostKeyChecking=no {username}@{server_ip}"
+    
+    # Find the most recent backup
+    find_backup_cmd = f"{ssh_cmd} 'ls -t /var/www/html/mark9.backup.* 2>/dev/null | head -1'"
+    backup_path = run_command(find_backup_cmd, "Finding most recent backup")
+    
+    if backup_path and backup_path.strip():
+        backup_path = backup_path.strip()
+        restore_cmd = f"{ssh_cmd} 'sudo rm -rf /var/www/html/mark9 && sudo cp -r {backup_path} /var/www/html/mark9'"
+        if run_command(restore_cmd, "Restoring from backup"):
+            print("✅ Rollback completed successfully")
+            return True
+    
+    print("❌ No backup found or rollback failed")
     return False
 
 def main():

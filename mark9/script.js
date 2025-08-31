@@ -1,7 +1,5 @@
 // Modern Liquid MPA Website JavaScript
 
-console.log('Script.js loaded!');
-
 // Theme Management
 let currentTheme = localStorage.getItem('theme') || 'auto';
 let isAutoMode = currentTheme === 'auto';
@@ -14,7 +12,6 @@ function getAutoTheme() {
 }
 
 function applyTheme(theme) {
-    console.log('applyTheme called with theme:', theme);
     const body = document.body;
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle?.querySelector('.theme-icon');
@@ -23,11 +20,9 @@ function applyTheme(theme) {
     if (theme === 'light') {
         body.classList.add('light-mode');
         if (themeIcon) themeIcon.textContent = '☀️';
-        console.log('Applied light theme');
     } else {
         body.classList.remove('light-mode');
         if (themeIcon) themeIcon.textContent = '🌙';
-        console.log('Applied dark theme');
     }
     
     // Show/hide auto indicator
@@ -72,12 +67,10 @@ function setTheme(theme) {
 }
 
 function cycleTheme() {
-    console.log('cycleTheme called, current theme:', currentTheme);
     const themes = ['auto', 'light', 'dark'];
     const currentIndex = themes.indexOf(currentTheme);
     const nextIndex = (currentIndex + 1) % themes.length;
     const newTheme = themes[nextIndex];
-    console.log('Switching to theme:', newTheme);
     setTheme(newTheme);
 }
 
@@ -107,10 +100,7 @@ function updateAutoIndicator(savedTheme) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM Content Loaded!');
-    console.log('Current page:', window.location.pathname);
-    
-    // Debug: Check if all required elements exist
+    // Check if all required elements exist
     const requiredElements = [
         'themeToggle',
         'autoIndicator',
@@ -120,10 +110,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     requiredElements.forEach(id => {
         const element = document.getElementById(id);
-        if (element) {
-            console.log(`✓ Element found: ${id}`);
-        } else {
-            console.warn(`⚠ Element missing: ${id}`);
+        if (!element) {
+            console.warn(`Element missing: ${id}`);
         }
     });
     
@@ -138,20 +126,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Theme toggle functionality
     if (themeToggle) {
-        console.log('Theme toggle found, adding click listener');
         themeToggle.addEventListener('click', function(e) {
-            console.log('Theme toggle clicked!');
             e.preventDefault();
             e.stopPropagation();
             cycleTheme();
         });
-        
-        // Also add mousedown for testing
-        themeToggle.addEventListener('mousedown', function(e) {
-            console.log('Theme toggle mousedown!');
-        });
     } else {
-        console.error('Theme toggle not found!');
+        console.warn('Theme toggle not found - theme switching disabled');
     }
     
     // Check for system theme changes
@@ -499,7 +480,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply translations with retry mechanism
         applyTranslationsWithRetry(lang);
         
-        console.log(`Language changed to: ${lang}`);
+
     }
 
     function applyTranslationsWithRetry(lang, retryCount = 0) {
@@ -508,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             applyTranslations(lang);
         } catch (error) {
-            console.log(`Translation attempt ${retryCount + 1} failed, retrying...`);
+    
             if (retryCount < maxRetries) {
                 setTimeout(() => {
                     applyTranslationsWithRetry(lang, retryCount + 1);
@@ -554,7 +535,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const signInBtns = document.querySelectorAll('[data-translate="btn-signin"]');
         const joinBtns = document.querySelectorAll('[data-translate="btn-join"]');
         
-        console.log(`Found ${signInBtns.length} Sign In buttons and ${joinBtns.length} Join MPA buttons`);
+
         
         // Update all Sign In buttons
         signInBtns.forEach(btn => {
@@ -802,7 +783,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = newsletterInput.value.trim();
             if (email && isValidEmail(email)) {
                 // Implement newsletter subscription here
-                console.log('Newsletter subscription:', email);
+        
                 showNotification('Thank you for subscribing to our newsletter!', 'success');
                 newsletterInput.value = '';
             } else {
@@ -818,7 +799,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const eventTitle = this.closest('.event-card').querySelector('.event-title').textContent;
             // Implement event registration here
-            console.log('Registering for event:', eventTitle);
+    
             showNotification(`Registration for "${eventTitle}" will be implemented here.`, 'info');
         });
     });
@@ -837,11 +818,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Click Ripple Effect for all buttons
     const allButtons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-outline, .signin-btn, .signup-btn, .search-btn');
-    console.log('Found buttons for ripple effect:', allButtons.length);
+    
 
     allButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            console.log('Full-page flower ripple effect triggered on button:', this.className);
+    
 
             // Create multiple concentric ripples for flower-like effect
             const rippleCount = 3;
@@ -899,11 +880,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Add to body for full-page effect
         document.body.appendChild(ripple);
-        console.log(`Flower ripple ${index + 1} created and appended`);
+
 
         setTimeout(() => {
             ripple.remove();
-            console.log(`Flower ripple ${index + 1} effect completed`);
+    
         }, 2800 + (index * 200)); // Staggered cleanup for slower animation
     }
 
@@ -1071,21 +1052,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentMonthEl = document.getElementById('currentMonth');
     const calendarGrid = document.getElementById('calendarGrid');
     
-    console.log('Calendar elements found:', {
-        prevMonthBtn: !!prevMonthBtn,
-        nextMonthBtn: !!nextMonthBtn,
-        currentMonthEl: !!currentMonthEl,
-        calendarGrid: !!calendarGrid
-    });
-    
-            if (prevMonthBtn && nextMonthBtn && currentMonthEl && calendarGrid) {
+    if (prevMonthBtn && nextMonthBtn && currentMonthEl && calendarGrid) {
             // Use actual current date
             const today = new Date();
             let currentDate = new Date(today.getFullYear(), today.getMonth(), 1); // First day of current month
             
             // Debug: Log the current date to console
-            console.log('Calendar initialized with:', currentDate.toDateString());
-            console.log('Today is:', today.toDateString());
+            
         
         // Sample events data
         const events = [
@@ -1227,7 +1200,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentMonthEl.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
             
             // Debug: Log what month/year is being rendered
-            console.log('Rendering calendar for:', currentMonthEl.textContent);
+    
             
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
@@ -1239,9 +1212,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const startingDay = firstDay.getDay();
             
             // Debug: Log the first day calculation
-            console.log(`First day of ${monthNames[month]} ${year}:`, firstDay.toDateString());
-            console.log(`Starting day index:`, startingDay, `(0=Sunday, 1=Monday, etc.)`);
-            console.log(`Days in month:`, daysInMonth);
+            
             
             // Adjust starting day for Monday-first week
             // JavaScript getDay(): 0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday
@@ -1253,7 +1224,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 adjustedStartingDay = startingDay - 1; // Monday=1 becomes 0, Tuesday=2 becomes 1, etc.
             }
             
-            console.log(`Adjusted starting day:`, adjustedStartingDay, `(0=Monday, 1=Tuesday, etc.)`);
+    
             
             // Create calendar grid with weekday headers as the first row
             let calendarHTML = `
@@ -1396,12 +1367,10 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             renderCalendar();
             // Debug: Force show current date info
-            console.log('Current date:', new Date().toDateString());
-            console.log('Calendar date:', currentDate.toDateString());
-            console.log('Today is:', new Date().getDay()); // 0 = Sunday, 1 = Monday, etc.
+            
         }, 100);
     } else {
-        console.error('Calendar elements not found! Check if events.html has the correct IDs.');
+        console.warn('Calendar elements not found - calendar functionality disabled');
     }
 
     // Enhanced image error handling with placeholders
@@ -1409,7 +1378,6 @@ document.addEventListener('DOMContentLoaded', function() {
     images.forEach(img => {
         // Handle image load error
         img.addEventListener('error', function() {
-            console.log('Image failed to load:', this.src);
             
             // Determine the type of image based on context and use appropriate placeholder
             const parent = this.closest('.event-image, .news-image, .featured-image');
@@ -1442,7 +1410,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Page load completion indicator
     window.addEventListener('load', function() {
-        console.log('Page fully loaded');
         document.body.classList.add('page-loaded');
     });
 });

@@ -15,8 +15,8 @@
     --accent-purple: #5856D6;
     --accent-green: #34C759;
     --accent-orange: #FF9500;
-    --accent-red: var(--accent-blue);
-    --accent-pink: var(--accent-purple);
+    --accent-red: #FF3B30;
+    --accent-pink: #FF2D92;
     --primary-color: var(--accent-blue);
     
     /* Light Mode Colors */
