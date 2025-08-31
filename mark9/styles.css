@@ -4841,6 +4841,11 @@ body.light-mode .form-group textarea:focus {
     .subcategory {
         font-size: 0.8rem !important;
         padding: 4px 8px !important;
+        background: rgba(0, 122, 255, 0.1) !important;
+        color: var(--accent-blue) !important;
+        border: 1px solid rgba(0, 122, 255, 0.2) !important;
+        border-radius: var(--border-radius-sm) !important;
+        font-weight: 500 !important;
     }
     
     .members-grid {
