@@ -4183,9 +4183,22 @@ body.light-mode .form-group textarea:focus {
 }
 
 .member-category {
+    background: rgba(0, 122, 255, 0.1);
     color: var(--accent-blue);
-    font-weight: 600;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(0, 122, 255, 0.2);
+    display: inline-block;
     margin-bottom: var(--spacing-sm);
+    transition: var(--transition-fast);
+}
+
+.member-category:hover {
+    background: rgba(0, 122, 255, 0.15);
+    border-color: var(--accent-blue);
+    transform: translateY(-1px);
 }
 
 .member-description {
