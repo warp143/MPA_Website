@@ -705,13 +705,44 @@
             
             if (email && password) {
                 // Demo functionality - show success message
-                alert('Demo: Sign in successful! Welcome to MPA.');
+                showNotification('Demo: Sign in successful! Welcome to MPA.', 'success');
                 // In a real app, this would redirect to dashboard
                 // window.location.href = 'dashboard.html';
             } else {
-                alert('Please enter both email and password.');
+                showNotification('Please enter both email and password.', 'warning');
             }
         });
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--accent-green)' : type === 'error' ? 'var(--accent-red)' : type === 'warning' ? 'var(--accent-orange)' : 'var(--accent-blue)'};
+                color: white;
+                padding: var(--spacing-md);
+                border-radius: var(--border-radius-md);
+                box-shadow: var(--shadow-md);
+                z-index: 1000;
+                font-weight: 500;
+                animation: slideIn 0.3s ease;
+                max-width: 300px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>

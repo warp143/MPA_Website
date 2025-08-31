@@ -1108,7 +1108,7 @@ body.light-mode .partner-card:hover {
 
 .search-btn {
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    color: var(--text-primary);
+    color: white !important;
     border: none;
     padding: var(--spacing-md) var(--spacing-lg);
     font-weight: 500;
@@ -3681,7 +3681,7 @@ body.light-mode .form-group textarea:focus {
     .tiers-grid,
     .members-grid,
     .partners-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-lg);
     }
     
@@ -4594,7 +4594,7 @@ body.light-mode .form-group textarea:focus {
 
 .partners-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--spacing-lg);
     margin-top: var(--spacing-xl);
 }
@@ -4796,6 +4796,13 @@ body.light-mode .form-group textarea:focus {
 }
 
 /* Responsive Design for New Pages */
+@media (max-width: 1024px) {
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+}
+
 @media (max-width: 768px) {
     .intro-content,
     .role-content,

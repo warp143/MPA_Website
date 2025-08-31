@@ -787,26 +787,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Search Functionality
-    const searchInput = document.querySelector('.search-input input');
-    const searchBtn = document.querySelector('.search-btn');
-    
-    if (searchInput && searchBtn) {
-        searchBtn.addEventListener('click', function() {
-            const query = searchInput.value.trim();
-            if (query) {
-                // Implement search functionality here
-                console.log('Searching for:', query);
-                alert(`Searching for: ${query}`);
-            }
-        });
-        
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchBtn.click();
-            }
-        });
-    }
+    // Search Functionality - Now handled by individual page scripts
+    // Removed to prevent conflicts with new search implementation
 
     // Newsletter Subscription
     const newsletterForm = document.querySelector('.newsletter-form');
@@ -821,10 +803,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (email && isValidEmail(email)) {
                 // Implement newsletter subscription here
                 console.log('Newsletter subscription:', email);
-                alert('Thank you for subscribing to our newsletter!');
+                showNotification('Thank you for subscribing to our newsletter!', 'success');
                 newsletterInput.value = '';
             } else {
-                alert('Please enter a valid email address.');
+                showNotification('Please enter a valid email address.', 'warning');
             }
         });
     }
@@ -837,7 +819,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const eventTitle = this.closest('.event-card').querySelector('.event-title').textContent;
             // Implement event registration here
             console.log('Registering for event:', eventTitle);
-            alert(`Registration for "${eventTitle}" will be implemented here.`);
+            showNotification(`Registration for "${eventTitle}" will be implemented here.`, 'info');
         });
     });
 
@@ -989,10 +971,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (isValid) {
                 // Form is valid, implement submission here
-                alert('Form submitted successfully!');
+                showNotification('Form submitted successfully!', 'success');
                 this.reset();
             } else {
-                alert('Please fill in all required fields.');
+                showNotification('Please fill in all required fields.', 'warning');
             }
         });
     });
@@ -1068,17 +1050,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const message = document.getElementById('message').value.trim();
             
             if (!firstName || !lastName || !email || !subject || !message) {
-                alert('Please fill in all required fields.');
+                showNotification('Please fill in all required fields.', 'warning');
                 return;
             }
             
             if (!isValidEmail(email)) {
-                alert('Please enter a valid email address.');
+                showNotification('Please enter a valid email address.', 'warning');
                 return;
             }
             
             // Simulate form submission
-            alert('Thank you for your message! We will get back to you soon.');
+            showNotification('Thank you for your message! We will get back to you soon.', 'success');
             contactForm.reset();
         });
     }
@@ -1571,3 +1553,35 @@ document.addEventListener('DOMContentLoaded', function() {
         selectLanguage(savedLanguage);
     }, 100);
 });
+
+// Global notification function
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? 'var(--accent-green)' : type === 'error' ? 'var(--accent-red)' : type === 'warning' ? 'var(--accent-orange)' : 'var(--accent-blue)'};
+        color: white;
+        padding: var(--spacing-md);
+        border-radius: var(--border-radius-md);
+        box-shadow: var(--shadow-md);
+        z-index: 1000;
+        font-weight: 500;
+        animation: slideIn 0.3s ease;
+        max-width: 300px;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}

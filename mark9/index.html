@@ -121,9 +121,9 @@
                     <div class="search-container">
                         <div class="search-input">
                             <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Find events, members, or resources...">
+                            <input type="text" id="searchInput" placeholder="Find events, members, or resources...">
                         </div>
-                        <button class="search-btn">Search</button>
+                        <button class="search-btn" id="searchBtn">Search</button>
                     </div>
                 </div>
                 <div class="hero-stats">
@@ -307,6 +307,7 @@
         // Populate homepage events from events page data
         document.addEventListener('DOMContentLoaded', function() {
             populateHomepageEvents();
+            initSearchFunctionality();
             
             function populateHomepageEvents() {
                 // Define the same events data as used in events.html
@@ -373,6 +374,132 @@
                 `;
                 
                 return card;
+            }
+            
+            function initSearchFunctionality() {
+                const searchInput = document.getElementById('searchInput');
+                const searchBtn = document.getElementById('searchBtn');
+                
+                if (searchInput && searchBtn) {
+                    // Handle search button click
+                    searchBtn.addEventListener('click', function() {
+                        performSearch();
+                    });
+                    
+                    // Handle Enter key press
+                    searchInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            performSearch();
+                        }
+                    });
+                }
+                
+                function performSearch() {
+                    const query = searchInput.value.trim().toLowerCase();
+                    
+                    if (query === '') {
+                        showSearchNotification('Please enter a search term', 'warning');
+                        return;
+                    }
+                    
+                    // Define searchable content
+                    const searchableContent = {
+                        events: [
+                            'startup pitch competition',
+                            'sustainability in proptech',
+                            'blockchain in real estate',
+                            'proptech investment forum',
+                            'summit',
+                            'webinar',
+                            'workshop'
+                        ],
+                        members: [
+                            'pitchin',
+                            'omeshwer',
+                            'proptech',
+                            'startup',
+                            'technology',
+                            'real estate'
+                        ],
+                        resources: [
+                            'news',
+                            'articles',
+                            'reports',
+                            'guides',
+                            'research',
+                            'insights'
+                        ]
+                    };
+                    
+                    // Search through content
+                    let results = [];
+                    
+                    // Search events
+                    if (searchableContent.events.some(event => event.includes(query))) {
+                        results.push('events');
+                    }
+                    
+                    // Search members
+                    if (searchableContent.members.some(member => member.includes(query))) {
+                        results.push('members');
+                    }
+                    
+                    // Search resources
+                    if (searchableContent.resources.some(resource => resource.includes(query))) {
+                        results.push('resources');
+                    }
+                    
+                    // Handle search results
+                    if (results.length > 0) {
+                        showSearchNotification(`Found ${results.length} result(s) for "${query}"`, 'success');
+                        
+                        // Navigate to appropriate page based on results
+                        setTimeout(() => {
+                            if (results.includes('events')) {
+                                window.location.href = 'events.html';
+                            } else if (results.includes('members')) {
+                                window.location.href = 'members.html';
+                            } else if (results.includes('resources')) {
+                                window.location.href = 'news.html';
+                            }
+                        }, 1500);
+                    } else {
+                        showSearchNotification(`No results found for "${query}"`, 'error');
+                    }
+                }
+                
+                function showSearchNotification(message, type = 'info') {
+                    // Create notification element
+                    const notification = document.createElement('div');
+                    notification.className = `search-notification ${type}`;
+                    notification.textContent = message;
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: ${type === 'success' ? 'var(--accent-green)' : type === 'error' ? 'var(--accent-red)' : type === 'warning' ? 'var(--accent-orange)' : 'var(--accent-blue)'};
+                        color: white;
+                        padding: var(--spacing-md);
+                        border-radius: var(--border-radius-md);
+                        box-shadow: var(--shadow-md);
+                        z-index: 1000;
+                        font-weight: 500;
+                        animation: slideIn 0.3s ease;
+                        max-width: 300px;
+                    `;
+                    
+                    document.body.appendChild(notification);
+                    
+                    // Remove after 3 seconds
+                    setTimeout(() => {
+                        notification.style.animation = 'slideOut 0.3s ease';
+                        setTimeout(() => {
+                            if (notification.parentNode) {
+                                notification.parentNode.removeChild(notification);
+                            }
+                        }, 300);
+                    }, 3000);
+                }
             }
         });
     </script>
