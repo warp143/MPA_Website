@@ -1347,6 +1347,61 @@ img.loading {
     align-items: center;
 }
 
+.event-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.btn-calendar {
+    background: var(--accent-green);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    text-decoration: none;
+}
+
+.btn-calendar:hover {
+    background: #2db84d;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-calendar i {
+    font-size: 0.875rem;
+}
+
+/* Notification animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
 .event-price {
     font-weight: 600;
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
@@ -2284,6 +2339,67 @@ body:not(.light-mode) .partner-testimonials {
     font-weight: 600;
     font-size: 0.8rem;
     border-right: 2px solid var(--glass-border);
+}
+
+/* Calendar Subscription Styles */
+.calendar-subscription {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+}
+
+.btn-subscribe-calendar {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: white !important;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+}
+
+.btn-subscribe-calendar:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, #0056cc, #4a4ac4);
+}
+
+.btn-subscribe-calendar i {
+    font-size: 1.1rem;
+}
+
+.subscription-info {
+    font-size: 0.875rem;
+    color: white !important;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* View All Events Link */
+.view-all-events {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+}
+
+.view-all-events:hover {
+    color: var(--accent-purple);
+    transform: translateX(4px);
 }
 
 .featured-events-section {
