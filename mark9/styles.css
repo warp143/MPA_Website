@@ -1945,10 +1945,141 @@ body:not(.light-mode) .partner-testimonials {
 .position {
     color: var(--accent-blue);
     font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+}
+
+.position-description {
+    margin-bottom: var(--spacing-md);
+    text-align: left;
+}
+
+.position-description p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.4;
 }
 
 .text-center {
     text-align: center;
+}
+
+/* Year Navigation for Old Members */
+.year-navigation {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.year-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.year-tab {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 2px solid var(--glass-border);
+    background-color: var(--glass-bg);
+    border-radius: var(--border-radius-lg);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    min-width: 120px;
+    text-align: center;
+}
+
+.year-tab.active,
+.year-tab:hover {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: white;
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.committee-year {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.committee-year.active {
+    display: block;
+}
+
+.committee-year h3 {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Member Contact Links */
+.member-contact {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.contact-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm);
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: var(--transition-normal);
+    width: 40px;
+    height: 40px;
+}
+
+.contact-link:hover {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: white;
+    border-color: var(--accent-blue);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.contact-link i {
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments for contact links */
+@media (max-width: 768px) {
+    .member-contact {
+        gap: var(--spacing-xs);
+    }
+    
+    .contact-link {
+        padding: var(--spacing-xs);
+        font-size: 0.9rem;
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Event Filters */
@@ -3864,9 +3995,68 @@ body.light-mode .form-group textarea:focus {
 
 .cta-buttons {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
     justify-content: center;
     flex-wrap: wrap;
+}
+
+/* Enhanced CTA Buttons */
+.cta-btn-primary {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important;
+    color: #ffffff !important;
+    border: 2px solid #1a1a1a !important;
+    padding: var(--spacing-lg) var(--spacing-xl) !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    border-radius: var(--border-radius-lg) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: var(--spacing-sm) !important;
+    min-width: 200px !important;
+    justify-content: center !important;
+}
+
+.cta-btn-primary:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4) !important;
+    background: linear-gradient(135deg, #000000, #1a1a1a) !important;
+    color: #ffffff !important;
+}
+
+.cta-btn-primary i {
+    font-size: 1.2rem !important;
+    color: #ffffff !important;
+}
+
+.cta-btn-secondary {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important;
+    color: #ffffff !important;
+    border: 2px solid #1a1a1a !important;
+    padding: var(--spacing-lg) var(--spacing-xl) !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    border-radius: var(--border-radius-lg) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: var(--spacing-sm) !important;
+    min-width: 200px !important;
+    justify-content: center !important;
+}
+
+.cta-btn-secondary:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4) !important;
+    background: linear-gradient(135deg, #000000, #1a1a1a) !important;
+    color: #ffffff !important;
+}
+
+.cta-btn-secondary i {
+    font-size: 1.2rem !important;
+    color: #ffffff !important;
 }
 
 /* Members Page Styles */
@@ -3944,8 +4134,8 @@ body.light-mode .form-group textarea:focus {
 }
 
 .member-logo {
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    height: 120px;
     margin-bottom: var(--spacing-md);
     border-radius: var(--border-radius-md);
     overflow: hidden;
@@ -4243,7 +4433,7 @@ body.light-mode .form-group textarea:focus {
 
 .programs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--spacing-lg);
     margin-top: var(--spacing-xl);
 }
@@ -4749,7 +4939,7 @@ body.light-mode .form-group textarea:focus {
         text-align: center !important;
     }
     
-    .partnership-programs {
+    .partnership-programs .programs-grid {
         grid-template-columns: 1fr !important;
         gap: var(--spacing-md) !important;
     }
@@ -4840,6 +5030,290 @@ body.light-mode .form-group textarea:focus {
     }
     
     .directory-actions .btn-outline {
+        width: 100% !important;
+    }
+}
+
+/* Join Form Styles */
+.join-form-section {
+    padding: var(--spacing-xxl) 0;
+    background: var(--bg-secondary);
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--glass-bg);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xxl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--glass-border);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xxl);
+}
+
+.form-header h2 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.form-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.form-section {
+    margin-bottom: var(--spacing-xxl);
+}
+
+.form-section h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.form-section h3 i {
+    color: var(--accent-blue);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: var(--spacing-md);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: var(--transition-normal);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Membership Options */
+.membership-options {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.membership-option {
+    flex: 1;
+    min-width: 250px;
+}
+
+.membership-option input[type="radio"] {
+    display: none;
+}
+
+.membership-label {
+    display: block;
+    padding: var(--spacing-lg);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    background: var(--bg-primary);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    height: 100%;
+}
+
+.membership-label:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.membership-option input[type="radio"]:checked + .membership-label {
+    border-color: var(--accent-blue);
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.05), rgba(138, 43, 226, 0.05));
+    box-shadow: var(--shadow-lg);
+}
+
+.membership-label.featured {
+    border-color: var(--accent-purple);
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(138, 43, 226, 0.1));
+}
+
+.tier-info {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.tier-info h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.3rem;
+}
+
+.tier-info .price {
+    color: var(--accent-blue);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+}
+
+.tier-info .price span {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.tier-info p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.tier-benefits ul {
+    list-style: none;
+    padding: 0;
+}
+
+.tier-benefits li {
+    color: var(--text-secondary);
+    padding: var(--spacing-xs) 0;
+    font-size: 0.9rem;
+    position: relative;
+    padding-left: var(--spacing-md);
+}
+
+.tier-benefits li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-blue);
+    font-weight: bold;
+}
+
+/* Checkbox Groups */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-top: 4px;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.checkbox-group a {
+    color: var(--accent-blue);
+    text-decoration: none;
+}
+
+.checkbox-group a:hover {
+    text-decoration: underline;
+}
+
+/* Form Actions */
+.form-actions {
+    text-align: center;
+    margin-top: var(--spacing-xxl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--glass-border);
+}
+
+.form-actions .btn-primary {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.form-note {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: var(--spacing-md);
+}
+
+/* Join Form Mobile Optimization */
+    .join-form-section {
+        padding: var(--spacing-lg) 0 !important;
+    }
+    
+    .form-container {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .membership-options {
+        flex-direction: column !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .membership-option {
+        width: 100% !important;
+    }
+    
+    .membership-label {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .tier-info h4 {
+        font-size: 1.2rem !important;
+    }
+    
+    .tier-info .price {
+        font-size: 1.5rem !important;
+    }
+    
+    .tier-benefits ul {
+        font-size: 0.9rem !important;
+    }
+    
+    .form-actions {
+        text-align: center !important;
+    }
+    
+    .form-actions .btn-primary {
         width: 100% !important;
     }
 }

@@ -221,6 +221,259 @@ document.addEventListener('DOMContentLoaded', function() {
         languageDropdown.classList.toggle('active');
     }
 
+    // Translation data
+    const translations = {
+        en: {
+            // Navigation
+            'nav-proptech': 'Property Technology',
+            'nav-about': 'About',
+            'nav-members': 'Members',
+            'nav-events': 'Events',
+            'nav-news': 'News & Resource',
+            'nav-partners': 'Partners',
+            'nav-contact': 'Contact',
+            'btn-signin': 'Sign In',
+            'btn-join': 'Join MPA',
+            
+            // Hero Section
+            'hero-title': 'For The Future of A Sustainable Property Market',
+            'hero-subtitle': 'Malaysia Proptech Association - Leading The Digital Transformation of the Property Industry in Malaysia through innovation, collaboration, and sustainable growth. Building a strong community with integrity, inclusivity, and equality.',
+            'search-placeholder': 'Find events, members, or resources...',
+            'search-btn': 'Search',
+            'stat-members': 'Members',
+            'stat-events': 'Events',
+            'stat-startups': 'Startups',
+            'stat-partners': 'Partners',
+            
+            // Events Section
+            'events-title': 'Upcoming Events',
+            'view-all-events': 'View all events',
+            'event-featured': 'Featured',
+            'event-free': 'Free for Members',
+            'btn-register': 'Register',
+            'event-summit-title': 'PropTech Summit 2024',
+            'event-summit-desc': 'Join industry leaders for the biggest PropTech event in Malaysia. Featuring keynote speakers, panel discussions, and networking opportunities.',
+            'event-ai-title': 'AI in Real Estate Webinar',
+            'event-ai-desc': 'Exploring the future of AI applications in property technology and how it\'s transforming the industry.',
+            'event-pitch-title': 'Startup Pitch Competition',
+            'event-pitch-desc': 'Showcase your PropTech innovation to investors and mentors. Win funding and mentorship opportunities.',
+            
+            // About Section
+            'about-title': 'About MPA',
+            'about-text-1': 'The Malaysia Proptech Association (MPA) is the leading organization driving innovation in Malaysia\'s property technology sector. We bring together startups, established companies, investors, and government agencies to accelerate the digital transformation of real estate.',
+            'about-text-2': 'Our mission is to foster a sustainable property market through technology innovation, collaboration, and community building. We believe in integrity, inclusivity, and equality for all our members.',
+            'feature-community': 'Community',
+            'feature-community-desc': 'Connect with 150+ PropTech professionals',
+            'feature-innovation': 'Innovation',
+            'feature-innovation-desc': 'Drive cutting-edge PropTech solutions',
+            'feature-global': 'Global Network',
+            'feature-global-desc': 'Access international PropTech ecosystem',
+            
+            // Membership Section
+            'membership-title': 'Join Our Community',
+            'membership-subtitle': 'Choose the membership that fits your needs',
+            'membership-startup': 'Startup',
+            'membership-professional': 'Professional',
+            'membership-enterprise': 'Enterprise',
+            'membership-year': '/year',
+            'benefit-events': 'Access to all events',
+            'benefit-directory': 'Member directory',
+            'benefit-newsletter': 'Newsletter subscription',
+            'benefit-resources': 'Resource library',
+            'benefit-priority': 'Priority event registration',
+            'benefit-networking': 'Networking opportunities',
+            'benefit-mentorship': 'Mentorship program',
+            'benefit-speaking': 'Speaking opportunities',
+            'benefit-workshops': 'Custom workshops',
+            'benefit-advisory': 'Board advisory',
+            'benefit-all-startup': 'All Startup benefits',
+            'benefit-all-professional': 'All Professional benefits',
+            'btn-join-now': 'Join Now',
+            
+            // Newsletter Section
+            'newsletter-title': 'Stay Updated',
+            'newsletter-subtitle': 'Get the latest PropTech news, events, and insights delivered to your inbox',
+            'newsletter-placeholder': 'Enter your email address',
+            'btn-subscribe': 'Subscribe',
+            
+            // Footer
+            'footer-mpa-desc': 'Malaysia\'s leading PropTech community driving innovation in real estate technology.',
+            'footer-quick-links': 'Quick Links',
+            'footer-about': 'About Us',
+            'footer-membership': 'Membership',
+            'footer-events': 'Events',
+            'footer-news': 'News',
+            'footer-contact': 'Contact',
+            'footer-copyright': '© 2025 Malaysia Proptech Association. All rights reserved.'
+        },
+        bm: {
+            // Navigation
+            'nav-proptech': 'Teknologi Hartanah',
+            'nav-about': 'Tentang Kami',
+            'nav-members': 'Ahli',
+            'nav-events': 'Acara',
+            'nav-news': 'Berita & Sumber',
+            'nav-partners': 'Rakan Kongsi',
+            'nav-contact': 'Hubungi',
+            'btn-signin': 'Daftar Masuk',
+            'btn-join': 'Sertai MPA',
+            
+            // Hero Section
+            'hero-title': 'Untuk Masa Depan Pasaran Hartanah yang Mampan',
+            'hero-subtitle': 'Persatuan Teknologi Hartanah Malaysia - Memimpin Transformasi Digital Industri Hartanah di Malaysia melalui inovasi, kerjasama, dan pertumbuhan mampan. Membina komuniti yang kuat dengan integriti, inklusiviti, dan kesaksamaan.',
+            'search-placeholder': 'Cari acara, ahli, atau sumber...',
+            'search-btn': 'Cari',
+            'stat-members': 'Ahli',
+            'stat-events': 'Acara',
+            'stat-startups': 'Syarikat Permulaan',
+            'stat-partners': 'Rakan Kongsi',
+            
+            // Events Section
+            'events-title': 'Acara Akan Datang',
+            'view-all-events': 'Lihat semua acara',
+            'event-featured': 'Terserlah',
+            'event-free': 'Percuma untuk Ahli',
+            'btn-register': 'Daftar',
+            'event-summit-title': 'PropTech Summit 2024',
+            'event-summit-desc': 'Sertai pemimpin industri untuk acara PropTech terbesar di Malaysia. Menampilkan pembicara utama, perbincangan panel, dan peluang rangkaian.',
+            'event-ai-title': 'Webinar AI dalam Hartanah',
+            'event-ai-desc': 'Meneroka masa depan aplikasi AI dalam teknologi hartanah dan bagaimana ia mengubah industri.',
+            'event-pitch-title': 'Pertandingan Pitch Syarikat Permulaan',
+            'event-pitch-desc': 'Tunjukkan inovasi PropTech anda kepada pelabur dan mentor. Menangi peluang pembiayaan dan mentor.',
+            
+            // About Section
+            'about-title': 'Tentang MPA',
+            'about-text-1': 'Persatuan Teknologi Hartanah Malaysia (MPA) adalah organisasi terkemuka yang memacu inovasi dalam sektor teknologi hartanah Malaysia. Kami menghimpunkan syarikat permulaan, syarikat yang mantap, pelabur, dan agensi kerajaan untuk mempercepatkan transformasi digital hartanah.',
+            'about-text-2': 'Misi kami adalah untuk memupuk pasaran hartanah yang mampan melalui inovasi teknologi, kerjasama, dan pembinaan komuniti. Kami percaya kepada integriti, inklusiviti, dan kesaksamaan untuk semua ahli kami.',
+            'feature-community': 'Komuniti',
+            'feature-community-desc': 'Berhubung dengan 150+ profesional PropTech',
+            'feature-innovation': 'Inovasi',
+            'feature-innovation-desc': 'Memacu penyelesaian PropTech terkini',
+            'feature-global': 'Rangkaian Global',
+            'feature-global-desc': 'Akses ekosistem PropTech antarabangsa',
+            
+            // Membership Section
+            'membership-title': 'Sertai Komuniti Kami',
+            'membership-subtitle': 'Pilih keahlian yang sesuai dengan keperluan anda',
+            'membership-startup': 'Syarikat Permulaan',
+            'membership-professional': 'Profesional',
+            'membership-enterprise': 'Syarikat',
+            'membership-year': '/tahun',
+            'benefit-events': 'Akses kepada semua acara',
+            'benefit-directory': 'Direktori ahli',
+            'benefit-newsletter': 'Langganan surat berita',
+            'benefit-resources': 'Perpustakaan sumber',
+            'benefit-priority': 'Pendaftaran acara keutamaan',
+            'benefit-networking': 'Peluang rangkaian',
+            'benefit-mentorship': 'Program mentor',
+            'benefit-speaking': 'Peluang bercakap',
+            'benefit-workshops': 'Bengkel tersuai',
+            'benefit-advisory': 'Nasihat lembaga',
+            'benefit-all-startup': 'Semua faedah Syarikat Permulaan',
+            'benefit-all-professional': 'Semua faedah Profesional',
+            'btn-join-now': 'Sertai Sekarang',
+            
+            // Newsletter Section
+            'newsletter-title': 'Kekal Dikemas Kini',
+            'newsletter-subtitle': 'Dapatkan berita PropTech terkini, acara, dan pandangan yang dihantar ke peti mel anda',
+            'newsletter-placeholder': 'Masukkan alamat e-mel anda',
+            'btn-subscribe': 'Langgan',
+            
+            // Footer
+            'footer-mpa-desc': 'Komuniti PropTech terkemuka Malaysia yang memacu inovasi dalam teknologi hartanah.',
+            'footer-quick-links': 'Pautan Pantas',
+            'footer-about': 'Tentang Kami',
+            'footer-membership': 'Keahlian',
+            'footer-events': 'Acara',
+            'footer-news': 'Berita',
+            'footer-contact': 'Hubungi',
+            'footer-copyright': '© 2025 Persatuan Teknologi Hartanah Malaysia. Hak cipta terpelihara.'
+        },
+        cn: {
+            // Navigation
+            'nav-proptech': '房地产科技',
+            'nav-about': '关于我们',
+            'nav-members': '会员',
+            'nav-events': '活动',
+            'nav-news': '新闻与资源',
+            'nav-partners': '合作伙伴',
+            'nav-contact': '联系我们',
+            'btn-signin': '登录',
+            'btn-join': '加入MPA',
+            
+            // Hero Section
+            'hero-title': '为可持续房地产市场的未来',
+            'hero-subtitle': '马来西亚房地产科技协会 - 通过创新、协作和可持续增长，引领马来西亚房地产行业的数字化转型。以诚信、包容性和平等性建立强大社区。',
+            'search-placeholder': '查找活动、会员或资源...',
+            'search-btn': '搜索',
+            'stat-members': '会员',
+            'stat-events': '活动',
+            'stat-startups': '初创企业',
+            'stat-partners': '合作伙伴',
+            
+            // Events Section
+            'events-title': '即将举行的活动',
+            'view-all-events': '查看所有活动',
+            'event-featured': '精选',
+            'event-free': '会员免费',
+            'btn-register': '注册',
+            'event-summit-title': 'PropTech峰会2024',
+            'event-summit-desc': '加入行业领袖，参加马来西亚最大的PropTech活动。包括主题演讲、小组讨论和网络机会。',
+            'event-ai-title': '房地产AI网络研讨会',
+            'event-ai-desc': '探索AI在房地产技术中的未来应用以及它如何改变行业。',
+            'event-pitch-title': '初创企业路演比赛',
+            'event-pitch-desc': '向投资者和导师展示您的PropTech创新。赢得资金和指导机会。',
+            
+            // About Section
+            'about-title': '关于MPA',
+            'about-text-1': '马来西亚房地产科技协会（MPA）是推动马来西亚房地产科技领域创新的领先组织。我们汇集初创企业、成熟公司、投资者和政府机构，加速房地产的数字化转型。',
+            'about-text-2': '我们的使命是通过技术创新、协作和社区建设来培育可持续的房地产市场。我们相信所有会员的诚信、包容性和平等性。',
+            'feature-community': '社区',
+            'feature-community-desc': '与150+房地产科技专业人士联系',
+            'feature-innovation': '创新',
+            'feature-innovation-desc': '推动尖端房地产科技解决方案',
+            'feature-global': '全球网络',
+            'feature-global-desc': '访问国际房地产科技生态系统',
+            
+            // Membership Section
+            'membership-title': '加入我们的社区',
+            'membership-subtitle': '选择适合您需求的会员资格',
+            'membership-startup': '初创企业',
+            'membership-professional': '专业',
+            'membership-enterprise': '企业',
+            'membership-year': '/年',
+            'benefit-events': '参加所有活动',
+            'benefit-directory': '会员目录',
+            'benefit-newsletter': '订阅通讯',
+            'benefit-resources': '资源库',
+            'benefit-priority': '优先活动注册',
+            'benefit-networking': '网络机会',
+            'benefit-mentorship': '导师计划',
+            'benefit-speaking': '演讲机会',
+            'benefit-workshops': '定制工作坊',
+            'benefit-advisory': '董事会咨询',
+            'benefit-all-startup': '所有初创企业福利',
+            'benefit-all-professional': '所有专业会员福利',
+            'btn-join-now': '立即加入',
+            
+            // Newsletter Section
+            'newsletter-title': '保持更新',
+            'newsletter-subtitle': '获取最新的房地产科技新闻、活动和见解，直接发送到您的收件箱',
+            'newsletter-placeholder': '输入您的电子邮件地址',
+            'btn-subscribe': '订阅',
+            
+            // Footer
+            'footer-mpa-desc': '马来西亚领先的房地产科技社区，推动房地产技术创新。',
+            'footer-quick-links': '快速链接',
+            'footer-about': '关于我们',
+            'footer-membership': '会员资格',
+            'footer-events': '活动',
+            'footer-news': '新闻',
+            'footer-contact': '联系我们',
+            'footer-copyright': '© 2025 马来西亚房地产科技协会。保留所有权利。'
+        }
+    };
+
     function selectLanguage(lang) {
         // Update current language display
         currentLanguage.textContent = lang.toUpperCase();
@@ -243,8 +496,187 @@ document.addEventListener('DOMContentLoaded', function() {
         // Store language preference
         localStorage.setItem('selectedLanguage', lang);
         
-        // Here you would typically trigger language change
+        // Apply translations
+        applyTranslations(lang);
+        
         console.log(`Language changed to: ${lang}`);
+    }
+
+    function applyTranslations(lang) {
+        const t = translations[lang];
+        if (!t) return;
+
+        // Navigation translations
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === 'proptech.html') link.textContent = t['nav-proptech'];
+            else if (href === 'about.html') link.textContent = t['nav-about'];
+            else if (href === 'members.html') link.textContent = t['nav-members'];
+            else if (href === 'events.html') link.textContent = t['nav-events'];
+            else if (href === 'news.html') link.textContent = t['nav-news'];
+            else if (href === 'partners.html') link.textContent = t['nav-partners'];
+            else if (href === 'contact.html') link.textContent = t['nav-contact'];
+        });
+
+        // Mobile navigation translations
+        document.querySelectorAll('.mobile-dropdown-link').forEach(link => {
+            const href = link.getAttribute('href');
+            const span = link.querySelector('span');
+            if (span) {
+                if (href === 'proptech.html') span.textContent = t['nav-proptech'];
+                else if (href === 'about.html') span.textContent = t['nav-about'];
+                else if (href === 'members.html') span.textContent = t['nav-members'];
+                else if (href === 'events.html') span.textContent = t['nav-events'];
+                else if (href === 'news.html') span.textContent = t['nav-news'];
+                else if (href === 'partners.html') span.textContent = t['nav-partners'];
+                else if (href === 'contact.html') span.textContent = t['nav-contact'];
+            }
+        });
+
+        // Button translations
+        const signInBtn = document.querySelector('.btn-secondary');
+        const joinBtn = document.querySelector('.btn-primary');
+        if (signInBtn && signInBtn.textContent.includes('Sign In')) signInBtn.textContent = t['btn-signin'];
+        if (joinBtn && joinBtn.textContent.includes('Join MPA')) joinBtn.textContent = t['btn-join'];
+
+        // Hero section translations
+        const heroTitle = document.querySelector('.hero-title');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        const searchPlaceholder = document.querySelector('.search-input input');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        if (heroTitle) heroTitle.textContent = t['hero-title'];
+        if (heroSubtitle) heroSubtitle.textContent = t['hero-subtitle'];
+        if (searchPlaceholder) searchPlaceholder.placeholder = t['search-placeholder'];
+        if (searchBtn) searchBtn.textContent = t['search-btn'];
+
+        // Stats translations
+        const statLabels = document.querySelectorAll('.stat-label');
+        if (statLabels.length >= 4) {
+            statLabels[0].textContent = t['stat-members'];
+            statLabels[1].textContent = t['stat-events'];
+            statLabels[2].textContent = t['stat-startups'];
+            statLabels[3].textContent = t['stat-partners'];
+        }
+
+        // Events section translations
+        const eventsTitle = document.querySelector('.featured-events h2');
+        const viewAllEvents = document.querySelector('.view-all');
+        if (eventsTitle) eventsTitle.textContent = t['events-title'];
+        if (viewAllEvents) viewAllEvents.textContent = t['view-all-events'];
+
+        // Event cards translations
+        const eventTitles = document.querySelectorAll('.event-title');
+        const eventDescriptions = document.querySelectorAll('.event-description');
+        const eventBadges = document.querySelectorAll('.event-badge');
+        const registerButtons = document.querySelectorAll('.event-footer .btn-outline');
+        
+        if (eventTitles.length >= 3) {
+            eventTitles[0].textContent = t['event-summit-title'];
+            eventTitles[1].textContent = t['event-ai-title'];
+            eventTitles[2].textContent = t['event-pitch-title'];
+        }
+        
+        if (eventDescriptions.length >= 3) {
+            eventDescriptions[0].textContent = t['event-summit-desc'];
+            eventDescriptions[1].textContent = t['event-ai-desc'];
+            eventDescriptions[2].textContent = t['event-pitch-desc'];
+        }
+        
+        if (eventBadges.length > 0) {
+            eventBadges[0].textContent = t['event-featured'];
+        }
+        
+        registerButtons.forEach(btn => {
+            if (btn.textContent === 'Register') {
+                btn.textContent = t['btn-register'];
+            }
+        });
+
+        // About section translations
+        const aboutTitle = document.querySelector('#about h2');
+        const aboutTexts = document.querySelectorAll('#about p');
+        if (aboutTitle) aboutTitle.textContent = t['about-title'];
+        if (aboutTexts.length >= 2) {
+            aboutTexts[0].textContent = t['about-text-1'];
+            aboutTexts[1].textContent = t['about-text-2'];
+        }
+
+        // Features translations
+        const features = document.querySelectorAll('#about .feature h4');
+        const featureDescs = document.querySelectorAll('#about .feature p');
+        if (features.length >= 3) {
+            features[0].textContent = t['feature-community'];
+            features[1].textContent = t['feature-innovation'];
+            features[2].textContent = t['feature-global'];
+        }
+        if (featureDescs.length >= 3) {
+            featureDescs[0].textContent = t['feature-community-desc'];
+            featureDescs[1].textContent = t['feature-innovation-desc'];
+            featureDescs[2].textContent = t['feature-global-desc'];
+        }
+
+        // Membership section translations
+        const membershipTitle = document.querySelector('#membership h2');
+        const membershipSubtitle = document.querySelector('#membership .section-header p');
+        if (membershipTitle) membershipTitle.textContent = t['membership-title'];
+        if (membershipSubtitle) membershipSubtitle.textContent = t['membership-subtitle'];
+
+        // Membership benefits translations
+        const benefitItems = document.querySelectorAll('.benefits li');
+        benefitItems.forEach(item => {
+            const text = item.textContent.trim();
+            if (text.includes('Access to all events')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-events']}`;
+            } else if (text.includes('Member directory')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-directory']}`;
+            } else if (text.includes('Newsletter subscription')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-newsletter']}`;
+            } else if (text.includes('Resource library')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-resources']}`;
+            } else if (text.includes('All Startup benefits')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-all-startup']}`;
+            } else if (text.includes('Priority event registration')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-priority']}`;
+            } else if (text.includes('Networking opportunities')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-networking']}`;
+            } else if (text.includes('Mentorship program')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-mentorship']}`;
+            } else if (text.includes('All Professional benefits')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-all-professional']}`;
+            } else if (text.includes('Speaking opportunities')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-speaking']}`;
+            } else if (text.includes('Custom workshops')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-workshops']}`;
+            } else if (text.includes('Board advisory')) {
+                item.innerHTML = `<i class="fas fa-check"></i> ${t['benefit-advisory']}`;
+            }
+        });
+
+        // Join Now buttons
+        const joinNowButtons = document.querySelectorAll('.membership-card .btn-primary');
+        joinNowButtons.forEach(btn => {
+            if (btn.textContent === 'Join Now') {
+                btn.textContent = t['btn-join-now'];
+            }
+        });
+
+        // Newsletter section translations
+        const newsletterTitle = document.querySelector('.newsletter h2');
+        const newsletterSubtitle = document.querySelector('.newsletter p');
+        const newsletterPlaceholder = document.querySelector('.newsletter-form input');
+        const subscribeBtn = document.querySelector('.newsletter-form .btn-primary');
+        if (newsletterTitle) newsletterTitle.textContent = t['newsletter-title'];
+        if (newsletterSubtitle) newsletterSubtitle.textContent = t['newsletter-subtitle'];
+        if (newsletterPlaceholder) newsletterPlaceholder.placeholder = t['newsletter-placeholder'];
+        if (subscribeBtn) subscribeBtn.textContent = t['btn-subscribe'];
+
+        // Footer translations
+        const footerDesc = document.querySelector('.footer-section p');
+        const footerLinks = document.querySelectorAll('.footer-section h4');
+        const footerCopyright = document.querySelector('.footer-bottom p');
+        if (footerDesc) footerDesc.textContent = t['footer-mpa-desc'];
+        if (footerCopyright) footerCopyright.textContent = t['footer-copyright'];
     }
 
     if (languageToggle) {
@@ -382,17 +814,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Membership Join Buttons
-    const membershipButtons = document.querySelectorAll('.membership-card .btn-primary');
-    
-    membershipButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const membershipType = this.closest('.membership-card').querySelector('h3').textContent;
-            // Implement membership registration here
-            console.log('Joining membership:', membershipType);
-            alert(`Membership registration for "${membershipType}" will be implemented here.`);
-        });
-    });
+    // Membership Join Buttons - Now handled by links to join.html
+    // Removed pop-up functionality since buttons are now proper links
 
     // Navigation Join MPA Buttons
     const navJoinButtons = document.querySelectorAll('.nav-actions .btn-primary');
@@ -1084,3 +1507,37 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Year tab functionality for old members page
+function initYearTabs() {
+    const yearTabs = document.querySelectorAll('.year-tab');
+    const committeeYears = document.querySelectorAll('.committee-year');
+    
+    yearTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetYear = tab.getAttribute('data-year');
+            
+            // Remove active class from all tabs and years
+            yearTabs.forEach(t => t.classList.remove('active'));
+            committeeYears.forEach(year => year.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding year
+            tab.classList.add('active');
+            const targetYearElement = document.getElementById(targetYear);
+            if (targetYearElement) {
+                targetYearElement.classList.add('active');
+            }
+        });
+    });
+}
+
+// Initialize year tabs if on old-members page
+if (document.querySelector('.year-tabs')) {
+    initYearTabs();
+}
+
+// Initialize language on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    selectLanguage(savedLanguage);
+});
