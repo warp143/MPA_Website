@@ -4254,8 +4254,8 @@ body.light-mode .form-group textarea:focus {
 
 .directory-item .member-logo {
     flex-shrink: 0;
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     border-radius: var(--border-radius-md);
     overflow: hidden;
     background: var(--light-bg);
@@ -4829,8 +4829,8 @@ body.light-mode .form-group textarea:focus {
     }
     
     .member-logo {
-        width: 60px !important;
-        height: 60px !important;
+        width: 100px !important;
+        height: 100px !important;
         margin: 0 auto var(--spacing-md) !important;
     }
     
