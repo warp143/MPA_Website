@@ -4524,7 +4524,7 @@ body.light-mode .form-group textarea:focus {
 
 @media (max-width: 480px) {
     .categories-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
     
     .category-card,
@@ -4549,5 +4549,297 @@ body.light-mode .form-group textarea:focus {
     .trend-icon i,
     .program-icon i {
         font-size: 1.2rem;
+    }
+    
+    /* Enhanced mobile optimization for all pages */
+    .hero-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem !important;
+    }
+    
+    .section-header h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .section-header p {
+        font-size: 0.9rem !important;
+    }
+    
+    .mandates-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .mandate-card {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .mandate-card i {
+        font-size: 2rem !important;
+    }
+    
+    .pillars-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .pillar-card {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .pillar-card i {
+        font-size: 2.5rem !important;
+    }
+    
+    .committee-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .committee-member {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .member-categories .categories-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .category-card {
+        padding: var(--spacing-md) !important;
+        text-align: center !important;
+    }
+    
+    .category-card i {
+        font-size: 2rem !important;
+    }
+    
+    .subcategories {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: var(--spacing-xs) !important;
+    }
+    
+    .subcategory {
+        font-size: 0.8rem !important;
+        padding: 4px 8px !important;
+    }
+    
+    .members-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .member-card {
+        padding: var(--spacing-md) !important;
+        text-align: center !important;
+    }
+    
+    .member-logo {
+        width: 60px !important;
+        height: 60px !important;
+        margin: 0 auto var(--spacing-md) !important;
+    }
+    
+    .member-tags {
+        justify-content: center !important;
+    }
+    
+    .partners-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .partner-card {
+        padding: var(--spacing-md) !important;
+        text-align: center !important;
+    }
+    
+    .partner-logo {
+        width: 60px !important;
+        height: 60px !important;
+        margin: 0 auto var(--spacing-md) !important;
+    }
+    
+    .news-articles {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .news-card {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .news-card img {
+        height: 200px !important;
+    }
+    
+    .membership-cards {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .membership-card {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .tiers-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .tier-card {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .contact-form {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .contact-info {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .contact-item {
+        text-align: center !important;
+        padding: var(--spacing-md) !important;
+    }
+    
+    .proptech-categories {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .proptech-card {
+        padding: var(--spacing-md) !important;
+        text-align: center !important;
+    }
+    
+    .proptech-card i {
+        font-size: 2rem !important;
+    }
+    
+    .proptech-trends {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .trend-card {
+        padding: var(--spacing-md) !important;
+        text-align: center !important;
+    }
+    
+    .trend-icon {
+        width: 50px !important;
+        height: 50px !important;
+        margin: 0 auto var(--spacing-md) !important;
+    }
+    
+    .partnership-benefits {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .benefit-card {
+        padding: var(--spacing-md) !important;
+        text-align: center !important;
+    }
+    
+    .partnership-programs {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .program-card {
+        padding: var(--spacing-md) !important;
+        text-align: center !important;
+    }
+    
+    .program-icon {
+        width: 50px !important;
+        height: 50px !important;
+        margin: 0 auto var(--spacing-md) !important;
+    }
+    
+    .partner-testimonials {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .testimonial-card {
+        padding: var(--spacing-md) !important;
+        text-align: center !important;
+    }
+    
+    .testimonial-author {
+        justify-content: center !important;
+    }
+    
+    .author-avatar {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .directory-search .search-container {
+        flex-direction: column !important;
+        gap: var(--spacing-sm) !important;
+    }
+    
+    .directory-search input {
+        width: 100% !important;
+    }
+    
+    .directory-search button {
+        width: 100% !important;
+    }
+    
+    .filter-options {
+        flex-direction: column !important;
+        gap: var(--spacing-sm) !important;
+    }
+    
+    .filter-tabs {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+    
+    .filter-tab {
+        font-size: 0.8rem !important;
+        padding: var(--spacing-xs) var(--spacing-sm) !important;
+    }
+    
+    .directory-item {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .directory-logo {
+        width: 60px !important;
+        height: 60px !important;
+        margin: 0 auto !important;
+    }
+    
+    .directory-info {
+        text-align: center !important;
+    }
+    
+    .directory-tags {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .directory-actions {
+        flex-direction: column !important;
+        gap: var(--spacing-sm) !important;
+        align-items: center !important;
+    }
+    
+    .directory-actions .btn-outline {
+        width: 100% !important;
     }
 }
