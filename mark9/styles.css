@@ -4410,6 +4410,116 @@ body.light-mode .form-group textarea:focus {
         flex-direction: column;
         align-items: center;
     }
+    
+    /* Events Page Mobile Optimization */
+    .top-events-layout {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+        min-height: auto !important;
+    }
+    
+    .calendar-section {
+        order: 2 !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding: var(--spacing-sm) !important;
+    }
+    
+    .featured-events {
+        order: 1 !important;
+    }
+    
+    .calendar-widget {
+        max-width: 100% !important;
+        min-width: auto !important;
+        height: auto !important;
+    }
+    
+    .calendar-grid {
+        grid-template-columns: repeat(8, 1fr) !important;
+        grid-auto-rows: 40px !important;
+        gap: 1px !important;
+        padding: var(--spacing-xs) !important;
+        font-size: 0.8rem !important;
+        min-height: auto !important;
+    }
+    
+    .calendar-day {
+        min-height: 35px !important;
+        padding: 2px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .calendar-day.weekday-header {
+        min-height: 25px !important;
+        font-size: 0.7rem !important;
+        padding: 2px !important;
+    }
+    
+    .day-number {
+        font-size: 0.75rem !important;
+    }
+    
+    .week-number {
+        font-size: 0.7rem !important;
+    }
+    
+    .calendar-footer {
+        margin-top: var(--spacing-sm) !important;
+        padding: var(--spacing-xs) !important;
+    }
+    
+    .calendar-footer h4 {
+        font-size: 0.8rem !important;
+    }
+    
+    .public-holidays {
+        font-size: 0.7rem !important;
+    }
+    
+    .events-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .event-card {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+    
+    .event-image {
+        width: 100% !important;
+        height: 200px !important;
+        object-fit: cover !important;
+    }
+    
+    .event-content {
+        padding: var(--spacing-md) !important;
+    }
+    
+    .event-title {
+        font-size: 1.1rem !important;
+    }
+    
+    .event-description {
+        font-size: 0.9rem !important;
+    }
+    
+    .event-meta {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: var(--spacing-xs) !important;
+    }
+    
+    .event-tags {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .event-tag {
+        font-size: 0.7rem !important;
+        padding: 2px 6px !important;
+    }
 }
 
 @media (max-width: 480px) {
