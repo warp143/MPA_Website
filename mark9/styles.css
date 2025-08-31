@@ -516,8 +516,7 @@ body.light-mode .nav-logo h2 {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    gap: var(--spacing-md);
-    justify-content: space-between;
+    gap: 0;
 }
 
 .nav-menu .nav-link:first-child {
@@ -529,6 +528,7 @@ body.light-mode .nav-logo h2 {
 }
 
 .nav-menu .nav-link:not(:first-child):not(:last-child) {
+    flex: 1;
     text-align: center;
 }
 
