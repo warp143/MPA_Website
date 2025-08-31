@@ -130,7 +130,7 @@
         <div class="pdf-container">
             <iframe 
                 id="pdfViewer"
-                src="pdfjs/web/viewer.html?file=http://localhost:1739/MPA%20-%20Privacy%20Policy%20-%20English.pdf" 
+                src="pdfjs/web/viewer.html?file=MPA%20-%20Privacy%20Policy%20-%20English.pdf" 
                 width="100%" 
                 height="800px" 
                 frameborder="0"
@@ -233,10 +233,9 @@
                     pdfFile = 'MPA%20-%20Privacy%20Policy%20-%20English.pdf';
                 }
                 
-                // Update PDF viewer with PDF.js - use absolute URL and force reload
-                const baseUrl = window.location.origin;
+                // Update PDF viewer with PDF.js - use relative URL and force reload
                 const timestamp = new Date().getTime(); // Add timestamp to prevent caching
-                const newSrc = `pdfjs/web/viewer.html?file=${baseUrl}/${pdfFile}&t=${timestamp}`;
+                const newSrc = `pdfjs/web/viewer.html?file=${pdfFile}&t=${timestamp}`;
                 
                 console.log('Loading PDF:', newSrc); // Debug
                 
