@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const translations = {
         en: {
             // Navigation
-            'nav-proptech': 'Property Technology',
+            'nav-proptech': 'Proptech',
             'nav-about': 'About',
             'nav-members': 'Members',
             'nav-events': 'Events',
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         bm: {
             // Navigation
-            'nav-proptech': 'Teknologi Hartanah',
+            'nav-proptech': 'Proptech',
             'nav-about': 'Tentang Kami',
             'nav-members': 'Ahli',
             'nav-events': 'Acara',
@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         cn: {
             // Navigation
-            'nav-proptech': '房地产科技',
+            'nav-proptech': 'Proptech',
             'nav-about': '关于我们',
             'nav-members': '会员',
             'nav-events': '活动',
