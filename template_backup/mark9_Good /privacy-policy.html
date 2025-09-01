@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Malaysia Proptech Association</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+        <!-- Header Placeholder -->
+    <div class="header-placeholder"></div>
+
+<!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 data-translate="privacy-title">Privacy Policy</h1>
+                <p data-translate="privacy-subtitle">Protecting your personal data and ensuring transparency in how we handle your information</p>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?w=600&h=400&fit=crop&crop=center" alt="Privacy Policy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Policy Content -->
+    <section class="privacy-content">
+
+        <!-- PDF Display using Browser Built-in Viewer -->
+        <div class="pdf-container">
+            <embed 
+                id="pdfViewer"
+                src="MPA%20-%20Privacy%20Policy%20-%20English.pdf" 
+                type="application/pdf"
+                width="100%" 
+                height="800px">
+        </div>
+
+        <!-- Download Section -->
+        <div class="container">
+            <div class="download-section">
+                <h3 data-translate="download-policy">Download Privacy Policy</h3>
+                <p data-translate="download-description">Download the privacy policy in your preferred language</p>
+                <div class="download-buttons">
+                    <a href="MPA%20-%20Privacy%20Policy%20-%20English.pdf" class="btn-outline" download>
+                        <i class="fas fa-download"></i>
+                        <span data-translate="download-english">English PDF</span>
+                    </a>
+                    <a href="MPA%20-%20Privacy%20Policy%20-%20Bahasa.pdf" class="btn-outline" download>
+                        <i class="fas fa-download"></i>
+                        <span data-translate="download-bahasa">Bahasa Malaysia PDF</span>
+                    </a>
+                </section>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="container">
+            <div class="cookie-content">
+                <div class="cookie-text">
+                    <h4 data-translate="cookie-title">Cookie & Privacy Notice</h4>
+                    <p data-translate="cookie-text">We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, and personalize content. By continuing to use our website, you consent to our use of cookies in accordance with our Privacy Policy.</p>
+                </div>
+                <div class="cookie-actions">
+                    <button class="btn-primary" id="acceptCookies" data-translate="accept-cookies">Accept All</button>
+                    <button class="btn-outline" id="rejectCookies" data-translate="reject-cookies">Reject</button>
+                    <a href="privacy-policy.html" class="btn-outline" data-translate="learn-more">Learn More</a>
+                </div>
+
+        <!-- Footer Placeholder -->
+    <div class="footer-placeholder"></div>
+
+    <script src="script.js"></script>
+    <script src="js/components.js"></script>
+    <script src="scripts/header-loader.js"></script>
+    <script src="scripts/footer-loader.js"></script>
+            <script>
+        // Privacy Policy specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const pdfViewer = document.getElementById('pdfViewer');
+
+            // Function to update PDF based on language
+            window.updatePrivacyPolicyPDF = function(lang) {
+                console.log('updatePrivacyPolicyPDF called with lang:', lang); // Debug
+                
+                let pdfFile;
+                
+                if (lang === 'bm') {
+                    pdfFile = 'MPA%20-%20Privacy%20Policy%20-%20Bahasa.pdf';
+                } else {
+                    // Default to English for 'en' and 'cn'
+                    pdfFile = 'MPA%20-%20Privacy%20Policy%20-%20English.pdf';
+                }
+                
+                // Update PDF viewer with browser built-in viewer
+                pdfViewer.src = pdfFile;
+                
+                console.log('Loading PDF:', pdfFile); // Debug
+            };
+
+            // Override the default language selection for privacy policy page
+            const originalSelectLanguage = window.selectLanguage;
+            window.selectLanguage = function(lang) {
+                // Call original function for navigation and other translations
+                if (originalSelectLanguage) {
+                    originalSelectLanguage(lang);
+                }
+                
+                // Update PDF for privacy policy page
+                updatePrivacyPolicyPDF(lang);
+            };
+
+            // Initialize with current language
+            const currentLang = localStorage.getItem('selectedLanguage') || 'en';
+            updatePrivacyPolicyPDF(currentLang);
+
+            // Cookie Banner
+            const cookieBanner = document.getElementById('cookieBanner');
+            const acceptCookies = document.getElementById('acceptCookies');
+            const rejectCookies = document.getElementById('rejectCookies');
+
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('cookieChoice');
+            if (cookieChoice) {
+                cookieBanner.style.display = 'none';
+            }
+
+            acceptCookies.addEventListener('click', function() {
+                localStorage.setItem('cookieChoice', 'accepted');
+                cookieBanner.style.display = 'none';
+                showNotification('Cookie preferences saved. Thank you!', 'success');
+            });
+
+            rejectCookies.addEventListener('click', function() {
+                localStorage.setItem('cookieChoice', 'rejected');
+                cookieBanner.style.display = 'none';
+                showNotification('Cookie preferences saved. Some features may be limited.', 'info');
+            });
+        });
+    </script>
+</body>
+</html>

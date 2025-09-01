@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaysia Proptech Association - Leading Digital Transformation in Property Technology</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Placeholder -->
+    <div class="header-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-text-group">
+                    <h1 class="hero-title">For The Future of A Sustainable Property Market</h1>
+                    <p class="hero-subtitle">Malaysia Proptech Association - Leading The Digital Transformation of the Property Industry in Malaysia through innovation, collaboration, and sustainable growth. Building a strong community with integrity, inclusivity, and equality.</p>
+                </div>
+                <div class="hero-search">
+                    <div class="search-container">
+                        <div class="search-input">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Find events, members, or resources...">
+                        </div>
+                        <button class="search-btn" id="searchBtn">Search</button>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Members</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Events</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">90+</span>
+                        <span class="stat-label">Startups</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Partners</span>
+                    </div>
+                </div>
+            </div>
+        <div class="hero-image">
+            <div class="image-container">
+                <img src="assets/mpa-intro.jpg" alt="Malaysia Proptech Association - Kuala Lumpur Skyline">
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Events Section -->
+    <section class="featured-events">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+                <a href="events.html" class="view-all">View all events</a>
+            </div>
+            <div class="events-grid" id="homepageEventsGrid">
+                <!-- Events will be populated dynamically from events page data -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About MPA</h2>
+                    <p>The Malaysia Proptech Association (MPA) is the leading organization driving innovation in Malaysia's property technology sector. We bring together startups, established companies, investors, and government agencies to accelerate the digital transformation of real estate.</p>
+                    <p>Our mission is to foster a sustainable property market through technology innovation, collaboration, and community building. We believe in integrity, inclusivity, and equality for all our members.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-users"></i>
+                            <h4>Community</h4>
+                            <p>Connect with 150+ PropTech professionals</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>Innovation</h4>
+                            <p>Drive cutting-edge PropTech solutions</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-globe"></i>
+                            <h4>Global Network</h4>
+                            <p>Access international PropTech ecosystem</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?w=500&h=400&fit=crop&crop=center" alt="About MPA">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Section -->
+    <section id="membership" class="membership">
+        <div class="container">
+            <div class="section-header">
+                <h2>Join Our Community</h2>
+                <p>Choose the membership that fits your needs</p>
+            </div>
+            <div class="membership-cards">
+                <div class="membership-card">
+                    <div class="card-header">
+                        <h3>Startup</h3>
+                        <div class="price">RM 500<span>/year</span></div>
+                    </div>
+                    <ul class="benefits">
+                        <li><i class="fas fa-check"></i> Access to all events</li>
+                        <li><i class="fas fa-check"></i> Member directory</li>
+                        <li><i class="fas fa-check"></i> Newsletter subscription</li>
+                        <li><i class="fas fa-check"></i> Resource library</li>
+                    </ul>
+                    <a href="join.html" class="btn-primary">Join Now</a>
+                </div>
+                <div class="membership-card featured">
+                    <div class="card-header">
+                        <h3>Professional</h3>
+                        <div class="price">RM 1,000<span>/year</span></div>
+                    </div>
+                    <ul class="benefits">
+                        <li><i class="fas fa-check"></i> All Startup benefits</li>
+                        <li><i class="fas fa-check"></i> Priority event registration</li>
+                        <li><i class="fas fa-check"></i> Networking opportunities</li>
+                        <li><i class="fas fa-check"></i> Mentorship program</li>
+                    </ul>
+                    <a href="join.html" class="btn-primary">Join Now</a>
+                </div>
+                <div class="membership-card">
+                    <div class="card-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">RM 5,000<span>/year</span></div>
+                    </div>
+                    <ul class="benefits">
+                        <li><i class="fas fa-check"></i> All Professional benefits</li>
+                        <li><i class="fas fa-check"></i> Speaking opportunities</li>
+                        <li><i class="fas fa-check"></i> Custom workshops</li>
+                        <li><i class="fas fa-check"></i> Board advisory</li>
+                    </ul>
+                    <a href="join.html" class="btn-primary">Join Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated</h2>
+                <p>Get the latest PropTech news, events, and insights delivered to your inbox</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address">
+                    <button class="btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="container">
+            <div class="cookie-content">
+                <div class="cookie-text">
+                    <h4>Cookie & Privacy Notice</h4>
+                    <p>We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, and personalize content. By continuing to use our website, you consent to our use of cookies in accordance with our Privacy Policy.</p>
+                </div>
+                <div class="cookie-actions">
+                    <button class="btn-primary" id="acceptCookies">Accept All</button>
+                    <button class="btn-outline" id="rejectCookies">Reject</button>
+                    <a href="privacy-policy.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div class="footer-placeholder"></div>
+
+    <script src="script.js"></script>
+    <script src="js/components.js"></script>
+    <script src="scripts/header-loader.js"></script>
+    <script src="scripts/footer-loader.js"></script>
+    <script>
+        // Populate homepage events from events page data
+        document.addEventListener('DOMContentLoaded', function() {
+            populateHomepageEvents();
+            initSearchFunctionality();
+            initCookieBanner();
+            
+            function initCookieBanner() {
+                const cookieBanner = document.getElementById('cookieBanner');
+                const acceptCookies = document.getElementById('acceptCookies');
+                const rejectCookies = document.getElementById('rejectCookies');
+
+                // Check if user has already made a choice
+                const cookieChoice = localStorage.getItem('cookieChoice');
+                if (cookieChoice) {
+                    cookieBanner.style.display = 'none';
+                }
+
+                acceptCookies.addEventListener('click', function() {
+                    localStorage.setItem('cookieChoice', 'accepted');
+                    cookieBanner.style.display = 'none';
+                    showNotification('Cookie preferences saved. Thank you!', 'success');
+                });
+
+                rejectCookies.addEventListener('click', function() {
+                    localStorage.setItem('cookieChoice', 'rejected');
+                    cookieBanner.style.display = 'none';
+                    showNotification('Cookie preferences saved. Some features may be limited.', 'info');
+                });
+            }
+            
+            function populateHomepageEvents() {
+                // Define the same events data as used in events.html
+                const upcomingEvents = [
+                    {
+                        title: 'Startup Pitch Competition',
+                        date: 'Jan 10, 2025',
+                        location: 'Penang Tech Hub',
+                        description: 'Showcase your PropTech innovation to investors and mentors. Win funding and mentorship opportunities.',
+                        price: 'RM 100',
+                        image: 'https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?w=400&h=250&fit=crop&crop=center',
+                        badge: 'UPCOMING'
+                    },
+                    {
+                        title: 'Sustainability in PropTech',
+                        date: 'Jan 25, 2025',
+                        location: 'Online Webinar',
+                        description: 'How PropTech is driving sustainability in Malaysia\'s construction and real estate industry.',
+                        price: 'Free',
+                        image: 'https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Mandates-Promote-01.png',
+                        badge: 'UPCOMING'
+                    },
+                    {
+                        title: 'Blockchain in Real Estate Workshop',
+                        date: 'Feb 15, 2025',
+                        location: 'Cyberjaya',
+                        description: 'Hands-on workshop exploring blockchain applications in real estate.',
+                        price: 'RM 200',
+                        image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?w=400&h=250&fit=crop&crop=center',
+                        badge: 'UPCOMING'
+                    }
+                ];
+                
+                const eventsGrid = document.getElementById('homepageEventsGrid');
+                if (eventsGrid) {
+                    upcomingEvents.forEach(event => {
+                        const eventCard = createEventCard(event);
+                        eventsGrid.appendChild(eventCard);
+                    });
+                }
+            }
+            
+            function createEventCard(event) {
+                const card = document.createElement('div');
+                card.className = 'event-card';
+                
+                card.innerHTML = `
+                    <div class="event-image">
+                        <img src="${event.image}" alt="${event.title}">
+                        <div class="event-badge upcoming">${event.badge}</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <span class="event-date">${event.date}</span>
+                            <span class="event-location">${event.location}</span>
+                        </div>
+                        <h3 class="event-title">${event.title}</h3>
+                        <p class="event-description">${event.description}</p>
+                        <div class="event-footer">
+                            <span class="event-price">${event.price}</span>
+                            <button class="btn-outline">Register</button>
+                        </div>
+                    </div>
+                `;
+                
+                return card;
+            }
+            
+            function initSearchFunctionality() {
+                const searchInput = document.getElementById('searchInput');
+                const searchBtn = document.getElementById('searchBtn');
+                
+                if (searchInput && searchBtn) {
+                    // Handle search button click
+                    searchBtn.addEventListener('click', function() {
+                        performSearch();
+                    });
+                    
+                    // Handle Enter key press
+                    searchInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            performSearch();
+                        }
+                    });
+                }
+                
+                function performSearch() {
+                    const query = searchInput.value.trim().toLowerCase();
+                    
+                    if (query === '') {
+                        showSearchNotification('Please enter a search term', 'warning');
+                        return;
+                    }
+                    
+                    // Define searchable content
+                    const searchableContent = {
+                        events: [
+                            'startup pitch competition',
+                            'sustainability in proptech',
+                            'blockchain in real estate',
+                            'proptech investment forum',
+                            'summit',
+                            'webinar',
+                            'workshop'
+                        ],
+                        members: [
+                            'pitchin',
+                            'omeshwer',
+                            'proptech',
+                            'startup',
+                            'technology',
+                            'real estate'
+                        ],
+                        resources: [
+                            'news',
+                            'articles',
+                            'reports',
+                            'guides',
+                            'research',
+                            'insights'
+                        ]
+                    };
+                    
+                    // Search through content
+                    let results = [];
+                    
+                    // Search events
+                    if (searchableContent.events.some(event => event.includes(query))) {
+                        results.push('events');
+                    }
+                    
+                    // Search members
+                    if (searchableContent.members.some(member => member.includes(query))) {
+                        results.push('members');
+                    }
+                    
+                    // Search resources
+                    if (searchableContent.resources.some(resource => resource.includes(query))) {
+                        results.push('resources');
+                    }
+                    
+                    // Handle search results
+                    if (results.length > 0) {
+                        showSearchNotification(`Found ${results.length} result(s) for "${query}"`, 'success');
+                        
+                        // Navigate to appropriate page based on results
+                        setTimeout(() => {
+                            if (results.includes('events')) {
+                                window.location.href = 'events.html';
+                            } else if (results.includes('members')) {
+                                window.location.href = 'members.html';
+                            } else if (results.includes('resources')) {
+                                window.location.href = 'news.html';
+                            }
+                        }, 1500);
+                    } else {
+                        showSearchNotification(`No results found for "${query}"`, 'error');
+                    }
+                }
+                
+                function showSearchNotification(message, type = 'info') {
+                    // Create notification element
+                    const notification = document.createElement('div');
+                    notification.className = `search-notification ${type}`;
+                    notification.textContent = message;
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: ${type === 'success' ? 'var(--accent-green)' : type === 'error' ? 'var(--accent-red)' : type === 'warning' ? 'var(--accent-orange)' : 'var(--accent-blue)'};
+                        color: white;
+                        padding: var(--spacing-md);
+                        border-radius: var(--border-radius-md);
+                        box-shadow: var(--shadow-md);
+                        z-index: 1000;
+                        font-weight: 500;
+                        animation: slideIn 0.3s ease;
+                        max-width: 300px;
+                    `;
+                    
+                    document.body.appendChild(notification);
+                    
+                    // Remove after 3 seconds
+                    setTimeout(() => {
+                        notification.style.animation = 'slideOut 0.3s ease';
+                        setTimeout(() => {
+                            if (notification.parentNode) {
+                                notification.parentNode.removeChild(notification);
+                            }
+                        }, 300);
+                    }, 3000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
