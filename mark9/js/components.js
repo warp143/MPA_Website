@@ -17,3 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
         loadComponent('mpa-pillars-component', 'components/pillars.html');
     }
 });
+
+// Expose selectLanguage function globally for header component integration
+window.selectLanguage = window.selectLanguage || function(lang) {
+    console.warn('selectLanguage function not available - language switching may not work properly');
+};

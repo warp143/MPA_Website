@@ -10,108 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">
-                    <img src="assets/mpa-logo.png" alt="Malaysia Proptech Association" class="logo-img">
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="proptech.html" class="nav-link">Property Technology</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="members.html" class="nav-link">Members</a>
-                <a href="events.html" class="nav-link">Events</a>
-                <a href="news.html" class="nav-link active">News & Resource</a>
-                <a href="partners.html" class="nav-link">Partners</a>
-                <a href="contact.html" class="nav-link">Contact</a>
-            </div>
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle">
-                    <span class="theme-icon">🌙</span>
-                    <span class="auto-indicator" id="autoIndicator" title="Auto mode active">🔄</span>
-                </button>
-                <div class="language-dropdown">
-                    <button class="language-toggle" id="languageToggle">
-                        <span class="current-language">EN</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="language-menu" id="languageMenu">
-                        <button class="language-option" data-lang="en">
-                            <span class="flag">🇺🇸</span>
-                            <span>English</span>
-                        </button>
-                        <button class="language-option" data-lang="bm">
-                            <span class="flag">🇲🇾</span>
-                            <span>Bahasa Malaysia</span>
-                        </button>
-                        <button class="language-option" data-lang="cn">
-                            <span class="flag">🇨🇳</span>
-                            <span>中文</span>
-                        </button>
-                    </div>
-                </div>
-                <a href="signin.html" class="btn-secondary desktop-only">Sign In</a>
-                <button class="btn-primary desktop-only">Join MPA</button>
-                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
-            </div>
-        </div>
-    </nav>
+        <!-- Header Placeholder -->
+    <div class="header-placeholder"></div>
 
-    <!-- Mobile Dropdown Menu -->
-    <div class="mobile-dropdown-menu" id="mobileDropdownMenu">
-        <nav class="mobile-dropdown-nav">
-            <a href="proptech.html" class="mobile-dropdown-link">
-                <i class="fas fa-microchip"></i>
-                <span>Property Technology</span>
-            </a>
-            <a href="about.html" class="mobile-dropdown-link">
-                <i class="fas fa-info-circle"></i>
-                <span>About</span>
-            </a>
-            <a href="members.html" class="mobile-dropdown-link">
-                <i class="fas fa-users"></i>
-                <span>Members</span>
-            </a>
-            <a href="events.html" class="mobile-dropdown-link">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Events</span>
-            </a>
-            <a href="news.html" class="mobile-dropdown-link">
-                <i class="fas fa-newspaper"></i>
-                <span>News & Resource</span>
-            </a>
-            <a href="partners.html" class="mobile-dropdown-link">
-                <i class="fas fa-handshake"></i>
-                <span>Partners</span>
-            </a>
-            <a href="contact.html" class="mobile-dropdown-link">
-                <i class="fas fa-envelope"></i>
-                <span>Contact</span>
-            </a>
-            
-            <div class="mobile-language-selector">
-                <span class="mobile-language-label">Language:</span>
-                <div class="mobile-language-options">
-                    <button class="mobile-language-option active" data-lang="en">EN</button>
-                    <button class="mobile-language-option" data-lang="bm">BM</button>
-                    <button class="mobile-language-option" data-lang="cn">CN</button>
-                </div>
-            </div>
-            
-            <a href="signin.html" class="btn-secondary mobile-only">Sign In</a>
-            <button class="btn-primary mobile-only">Join MPA</button>
-        </nav>
-    </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
+<!-- Hero Section -->
     <section class="page-hero">
         <div class="container">
             <h1>Latest News</h1>
@@ -137,10 +39,7 @@
                     <p>This massive market has been traditionally slow to adopt technology, but the last 35 years have seen a remarkable transformation. From the early days of property listing websites to today's AI-powered platforms, PropTech has evolved dramatically through four distinct phases.</p>
                     <p>The journey began with PropTech 1.0 (1986-2000) focusing on basic digitization, followed by PropTech 2.0 (2000-2010) with the internet revolution, PropTech 3.0 (2010-2020) with mobile and social media, and now we're in PropTech 4.0 characterized by AI, blockchain, and sustainability.</p>
                     <a href="#" class="btn-primary">Read Full Article</a>
-                </div>
-            </div>
-        </div>
-    </section>
+                </section>
 
     <!-- News Grid -->
     <section class="news-grid">
@@ -203,15 +102,14 @@
                 <div class="newsletter-form">
                     <input type="email" placeholder="Enter your email address">
                     <button class="btn-primary">Subscribe</button>
-                </div>
-            </div>
-        </div>
-    </section>
+                </section>
 
         <!-- Footer Placeholder -->
     <div class="footer-placeholder"></div>
 
     <script src="script.js"></script>
+    <script src="js/components.js"></script>
+    <script src="scripts/header-loader.js"></script>
     <script src="scripts/footer-loader.js"></script>
 </body>
 </html>

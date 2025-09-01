@@ -58,6 +58,9 @@ function checkAndUpdateTheme() {
     }
 }
 
+// Expose checkAndUpdateTheme globally for header component integration
+window.checkAndUpdateTheme = checkAndUpdateTheme;
+
 function setTheme(theme) {
     currentTheme = theme;
     isAutoMode = theme === 'auto';
@@ -73,6 +76,9 @@ function cycleTheme() {
     const newTheme = themes[nextIndex];
     setTheme(newTheme);
 }
+
+// Expose cycleTheme globally for header component integration
+window.cycleTheme = cycleTheme;
 
 function updateThemeIcon(theme) {
     const themeIcon = document.querySelector('.theme-icon');
@@ -568,22 +574,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function selectLanguage(lang) {
         // Update current language display
-        currentLanguage.textContent = lang.toUpperCase();
+        const currentLanguage = document.querySelector('.current-language');
+        if (currentLanguage) {
+            currentLanguage.textContent = lang.toUpperCase();
+        }
         
         // Update active states
         document.querySelectorAll('.language-option').forEach(option => {
             option.classList.remove('active');
         });
-        document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+        const activeOption = document.querySelector(`[data-lang="${lang}"]`);
+        if (activeOption) {
+            activeOption.classList.add('active');
+        }
         
         // Update mobile language options
         document.querySelectorAll('.mobile-language-option').forEach(option => {
             option.classList.remove('active');
         });
-        document.querySelector(`.mobile-language-option[data-lang="${lang}"]`).classList.add('active');
+        const activeMobileOption = document.querySelector(`.mobile-language-option[data-lang="${lang}"]`);
+        if (activeMobileOption) {
+            activeMobileOption.classList.add('active');
+        }
         
         // Close dropdown
-        languageDropdown.classList.remove('active');
+        const languageDropdown = document.querySelector('.language-dropdown');
+        if (languageDropdown) {
+            languageDropdown.classList.remove('active');
+        }
         
         // Store language preference
         localStorage.setItem('selectedLanguage', lang);
@@ -600,6 +618,9 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Not calling updatePrivacyPolicyPDF - condition not met'); // Debug
         }
     }
+    
+    // Expose selectLanguage globally for header component integration
+    window.selectLanguage = selectLanguage;
 
     function applyTranslationsWithRetry(lang, retryCount = 0) {
         const maxRetries = 3;

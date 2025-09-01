@@ -10,106 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">
-                    <img src="assets/mpa-logo.png" alt="Malaysia Proptech Association" class="logo-img">
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="proptech.html" class="nav-link">Property Technology</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="membership.html" class="nav-link active">Membership</a>
-                <a href="events.html" class="nav-link">Events</a>
-                <a href="news.html" class="nav-link">News & Resource</a>
-                <a href="partners.html" class="nav-link">Partners</a>
-                <a href="contact.html" class="nav-link">Contact</a>
-            </div>
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle">
-                    <span class="theme-icon">🌙</span>
-                    <span class="auto-indicator" id="autoIndicator" title="Auto mode active">🔄</span>
-                </button>
-                <div class="language-dropdown">
-                    <button class="language-toggle" id="languageToggle">
-                        <span class="current-language">EN</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="language-menu" id="languageMenu">
-                        <button class="language-option" data-lang="en">
-                            <span class="flag">🇺🇸</span>
-                            <span>English</span>
-                        </button>
-                        <button class="language-option" data-lang="bm">
-                            <span class="flag">🇲🇾</span>
-                            <span>Bahasa Malaysia</span>
-                        </button>
-                        <button class="language-option" data-lang="cn">
-                            <span class="flag">🇨🇳</span>
-                            <span>中文</span>
-                        </button>
-                    </div>
-                </div>
-                <a href="signin.html" class="btn-secondary desktop-only">Sign In</a>
-                <button class="btn-primary desktop-only">Join MPA</button>
-                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
-            </div>
-        </div>
-    </nav>
+        <!-- Header Placeholder -->
+    <div class="header-placeholder"></div>
 
-    <!-- Mobile Dropdown Menu -->
-    <div class="mobile-dropdown-menu" id="mobileDropdownMenu">
-        <nav class="mobile-dropdown-nav">
-            <a href="proptech.html" class="mobile-dropdown-link">
-                <i class="fas fa-microchip"></i>
-                <span>Property Technology</span>
-            </a>
-            <a href="about.html" class="mobile-dropdown-link">
-                <i class="fas fa-info-circle"></i>
-                <span>About</span>
-            </a>
-            <a href="membership.html" class="mobile-dropdown-link">
-                <i class="fas fa-users"></i>
-                <span>Membership</span>
-            </a>
-            <a href="events.html" class="mobile-dropdown-link">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Events</span>
-            </a>
-            <a href="news.html" class="mobile-dropdown-link">
-                <i class="fas fa-newspaper"></i>
-                <span>News & Resource</span>
-            </a>
-            <a href="partners.html" class="mobile-dropdown-link">
-                <i class="fas fa-handshake"></i>
-                <span>Partners</span>
-            </a>
-            <a href="contact.html" class="mobile-dropdown-link">
-                <i class="fas fa-envelope"></i>
-                <span>Contact</span>
-            </a>
-            
-            <div class="mobile-language-selector">
-                <span class="mobile-language-label">Language:</span>
-                <div class="mobile-language-options">
-                    <button class="mobile-language-option active" data-lang="en">EN</button>
-                    <button class="mobile-language-option" data-lang="bm">BM</button>
-                    <button class="mobile-language-option" data-lang="cn">CN</button>
-                </div>
-            </div>
-            
-            <a href="signin.html" class="btn-secondary mobile-only">Sign In</a>
-            <button class="btn-primary mobile-only">Join MPA</button>
-        </nav>
-    </div>
-
-    <!-- Hero Section -->
+<!-- Hero Section -->
     <section class="page-hero">
         <div class="container">
             <div class="hero-content">
@@ -172,11 +76,7 @@
                             <div class="form-group full-width">
                                 <label for="description">Company Description *</label>
                                 <textarea id="description" name="description" rows="4" required placeholder="Describe your company's focus, products/services, and PropTech involvement"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Contact Information -->
+                            <!-- Contact Information -->
                     <div class="form-section">
                         <h3><i class="fas fa-user"></i> Primary Contact</h3>
                         <div class="form-grid">
@@ -203,11 +103,7 @@
                             <div class="form-group">
                                 <label for="linkedin">LinkedIn Profile</label>
                                 <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/username">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Address Information -->
+                            <!-- Address Information -->
                     <div class="form-section">
                         <h3><i class="fas fa-map-marker-alt"></i> Address Information</h3>
                         <div class="form-grid">
@@ -239,11 +135,7 @@
                                     <option value="VN">Vietnam</option>
                                     <option value="other">Other</option>
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Membership Selection -->
+                            <!-- Membership Selection -->
                     <div class="form-section">
                         <h3><i class="fas fa-crown"></i> Membership Tier</h3>
                         <div class="membership-options">
@@ -302,11 +194,7 @@
                                         </ul>
                                     </div>
                                 </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Additional Information -->
+                            <!-- Additional Information -->
                     <div class="form-section">
                         <h3><i class="fas fa-info-circle"></i> Additional Information</h3>
                         <div class="form-grid">
@@ -332,11 +220,7 @@
                             <div class="form-group full-width">
                                 <label for="expectations">What do you hope to achieve through MPA membership?</label>
                                 <textarea id="expectations" name="expectations" rows="3" placeholder="Describe your goals and expectations from joining MPA"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Terms and Conditions -->
+                            <!-- Terms and Conditions -->
                     <div class="form-section">
                         <div class="form-group checkbox-group">
                             <input type="checkbox" id="terms" name="terms" required>
@@ -369,6 +253,8 @@
     <div class="footer-placeholder"></div>
 
     <script src="script.js"></script>
+    <script src="js/components.js"></script>
+    <script src="scripts/header-loader.js"></script>
     <script src="scripts/footer-loader.js"></script>
 </body>
 </html>

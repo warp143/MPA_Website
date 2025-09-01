@@ -13,106 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">
-                    <img src="assets/mpa-logo.png" alt="Malaysia Proptech Association" class="logo-img">
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="proptech.html" class="nav-link">Property Technology</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="members.html" class="nav-link">Members</a>
-                <a href="events.html" class="nav-link active">Events</a>
-                <a href="news.html" class="nav-link">News & Resource</a>
-                <a href="partners.html" class="nav-link">Partners</a>
-                <a href="contact.html" class="nav-link">Contact</a>
-            </div>
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle">
-                    <span class="theme-icon">🌙</span>
-                    <span class="auto-indicator" id="autoIndicator" title="Auto mode active">🔄</span>
-                </button>
-                <div class="language-dropdown">
-                    <button class="language-toggle" id="languageToggle">
-                        <span class="current-language">EN</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="language-menu" id="languageMenu">
-                        <button class="language-option" data-lang="en">
-                            <span class="flag">🇺🇸</span>
-                            <span>English</span>
-                        </button>
-                        <button class="language-option" data-lang="bm">
-                            <span class="flag">🇲🇾</span>
-                            <span>Bahasa Malaysia</span>
-                        </button>
-                        <button class="language-option" data-lang="cn">
-                            <span class="flag">🇨🇳</span>
-                            <span>中文</span>
-                        </button>
-                    </div>
-                </div>
-                <a href="signin.html" class="btn-secondary desktop-only">Sign In</a>
-                <button class="btn-primary desktop-only">Join MPA</button>
-                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Mobile Dropdown Menu -->
-    <div class="mobile-dropdown-menu" id="mobileDropdownMenu">
-        <nav class="mobile-dropdown-nav">
-            <a href="proptech.html" class="mobile-dropdown-link">
-                <i class="fas fa-microchip"></i>
-                <span>Property Technology</span>
-            </a>
-            <a href="about.html" class="mobile-dropdown-link">
-                <i class="fas fa-info-circle"></i>
-                <span>About</span>
-            </a>
-            <a href="members.html" class="mobile-dropdown-link">
-                <i class="fas fa-users"></i>
-                <span>Members</span>
-            </a>
-            <a href="events.html" class="mobile-dropdown-link">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Events</span>
-            </a>
-            <a href="news.html" class="mobile-dropdown-link">
-                <i class="fas fa-newspaper"></i>
-                <span>News & Resource</span>
-            </a>
-            <a href="partners.html" class="mobile-dropdown-link">
-                <i class="fas fa-handshake"></i>
-                <span>Partners</span>
-            </a>
-            <a href="contact.html" class="mobile-dropdown-link">
-                <i class="fas fa-envelope"></i>
-                <span>Contact</span>
-            </a>
-            
-            <div class="mobile-language-selector">
-                <span class="mobile-language-label">Language:</span>
-                <div class="mobile-language-options">
-                    <button class="mobile-language-option active" data-lang="en">EN</button>
-                    <button class="mobile-language-option" data-lang="bm">BM</button>
-                    <button class="mobile-language-option" data-lang="cn">CN</button>
-                </div>
-            </div>
-            
-            <a href="signin.html" class="btn-secondary mobile-only">Sign In</a>
-            <button class="btn-primary mobile-only">Join MPA</button>
-        </nav>
-    </div>
-        </div>
-    </nav>
+        <!-- Header Placeholder -->
+    <div class="header-placeholder"></div>
 
     <!-- Hero Section -->
     <section class="page-hero">
@@ -160,11 +62,7 @@
                                 Subscribe to Our Calendar
                             </button>
                             <p class="subscription-info">Get all MPA events automatically in your calendar</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Featured Events on the right -->
+                        <!-- Featured Events on the right -->
                 <div class="featured-events-section">
                     <div class="section-header">
                         <h2>Upcoming Events</h2>
@@ -174,9 +72,6 @@
                     <div class="featured-events-grid" id="upcomingEventsGrid">
                         <!-- Upcoming events will be populated dynamically from All Events section -->
                     </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- All Events Section -->
@@ -223,9 +118,6 @@
                                     <i class="fas fa-calendar-plus"></i> Add to Calendar
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Past Events -->
                 <div class="event-card past" data-category="past summit">
@@ -250,11 +142,7 @@
                         <div class="event-footer">
                             <span class="event-price">Completed</span>
                             <a href="#" class="btn-secondary">View Photos</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="event-card past" data-category="past">
+                        <div class="event-card past" data-category="past">
                     <div class="event-image">
                         <img src="https://proptech.org.my/wp-content/uploads/2021/09/Singapore-nightline-mpa-apps2021-338x225.jpg" alt="PropTech Asia Summit">
                         <div class="event-date-badge past">
@@ -276,11 +164,7 @@
                         <div class="event-footer">
                             <span class="event-price">Completed</span>
                             <a href="#" class="btn-secondary">View Report</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="event-card upcoming" data-category="upcoming webinar">
+                        <div class="event-card upcoming" data-category="upcoming webinar">
                     <div class="event-image">
                         <img src="https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Mandates-Promote-01.png" alt="Sustainability in PropTech">
                         <div class="event-date-badge">
@@ -308,9 +192,6 @@
                                     <i class="fas fa-calendar-plus"></i> Add to Calendar
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="event-card upcoming" data-category="upcoming">
                     <div class="event-image">
@@ -340,9 +221,6 @@
                                     <i class="fas fa-calendar-plus"></i> Add to Calendar
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="event-card upcoming" data-category="upcoming">
                     <div class="event-image">
@@ -371,20 +249,14 @@
                                 <button class="btn-calendar" data-event="proptech-investment-forum" data-date="2025-02-28" data-time="14:00-18:00" data-title="PropTech Investment Forum" data-location="Kuala Lumpur">
                                     <i class="fas fa-calendar-plus"></i> Add to Calendar
                                 </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
+                            </section>
 
         <!-- Footer Placeholder -->
     <div class="footer-placeholder"></div>
 
     <script src="script.js?v=5"></script>
+    <script src="js/components.js"></script>
+    <script src="scripts/header-loader.js"></script>
     <script src="scripts/footer-loader.js"></script>
     <script>
         // Populate upcoming events from All Events section
