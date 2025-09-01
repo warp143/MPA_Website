@@ -42,7 +42,10 @@ function initializeHeaderFunctionality() {
     // Re-initialize theme toggle functionality
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle && typeof cycleTheme === 'function') {
-        themeToggle.addEventListener('click', function(e) {
+        // Remove any existing event listeners to prevent duplicates
+        themeToggle.replaceWith(themeToggle.cloneNode(true));
+        const newThemeToggle = document.getElementById('themeToggle');
+        newThemeToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             cycleTheme();
@@ -54,7 +57,10 @@ function initializeHeaderFunctionality() {
     const languageDropdown = document.querySelector('.language-dropdown');
     
     if (languageToggle && languageDropdown) {
-        languageToggle.addEventListener('click', function(e) {
+        // Remove any existing event listeners to prevent duplicates
+        languageToggle.replaceWith(languageToggle.cloneNode(true));
+        const newLanguageToggle = document.getElementById('languageToggle');
+        newLanguageToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             languageDropdown.classList.toggle('active');

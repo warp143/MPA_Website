@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
 
     function toggleMobileMenu() {
+        if (!mobileDropdownMenu) return;
         const isActive = mobileDropdownMenu.classList.contains('active');
         
         if (isActive) {
@@ -165,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function openMobileMenu() {
+        if (!mobileDropdownMenu || !mobileMenuToggle) return;
         mobileDropdownMenu.classList.add('active');
         mobileMenuToggle.classList.add('active');
         
@@ -182,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closeMobileMenu() {
+        if (!mobileDropdownMenu || !mobileMenuToggle) return;
         mobileDropdownMenu.classList.remove('active');
         mobileMenuToggle.classList.remove('active');
         
@@ -205,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentLanguage = document.querySelector('.current-language');
 
     function toggleLanguageMenu() {
+        if (!languageDropdown) return;
         languageDropdown.classList.toggle('active');
     }
 
@@ -218,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'nav-events': 'Events',
             'nav-news': 'News & Resource',
             'nav-partners': 'Partners',
-            'nav-contact': 'Contact',
+
             'btn-signin': 'Sign In',
             'btn-join': 'Join MPA',
             
@@ -349,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'nav-events': 'Acara',
             'nav-news': 'Berita & Sumber',
             'nav-partners': 'Rakan Kongsi',
-            'nav-contact': 'Hubungi',
+
             'btn-signin': 'Daftar Masuk',
             'btn-join': 'Sertai MPA',
             
@@ -480,7 +484,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'nav-events': '活动',
             'nav-news': '新闻与资源',
             'nav-partners': '合作伙伴',
-            'nav-contact': '联系我们',
+
             'btn-signin': '登录',
             'btn-join': '加入MPA',
             
@@ -991,9 +995,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close menu when clicking outside
     document.addEventListener('click', function(e) {
-        if (mobileDropdownMenu.classList.contains('active') && 
+        if (mobileDropdownMenu && mobileDropdownMenu.classList.contains('active') && 
             !mobileDropdownMenu.contains(e.target) && 
-            !mobileMenuToggle.contains(e.target)) {
+            mobileMenuToggle && !mobileMenuToggle.contains(e.target)) {
             closeMobileMenu();
         }
         
@@ -1004,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close menu on escape key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mobileDropdownMenu.classList.contains('active')) {
+        if (e.key === 'Escape' && mobileDropdownMenu && mobileDropdownMenu.classList.contains('active')) {
             closeMobileMenu();
         }
     });
@@ -1013,10 +1017,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.querySelector('.navbar');
     
     window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+        if (navbar) {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         }
     });
 
