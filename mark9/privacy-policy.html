@@ -28,15 +28,11 @@
 
     <!-- Privacy Policy Content -->
     <section class="privacy-content">
-
-        <!-- PDF Display using Browser Built-in Viewer -->
-        <div class="pdf-container">
-            <embed 
-                id="pdfViewer"
-                src="MPA%20-%20Privacy%20Policy%20-%20English.pdf" 
-                type="application/pdf"
-                width="100%" 
-                height="800px">
+        <!-- Privacy Policy Content Display -->
+        <div class="container">
+            <div class="privacy-content-display" id="privacyContent">
+                <!-- Content will be loaded here dynamically -->
+            </div>
         </div>
 
         <!-- Download Section -->
@@ -53,7 +49,10 @@
                         <i class="fas fa-download"></i>
                         <span data-translate="download-bahasa">Bahasa Malaysia PDF</span>
                     </a>
-                </section>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Cookie Consent Banner -->
     <div class="cookie-banner" id="cookieBanner">
@@ -68,38 +67,100 @@
                     <button class="btn-outline" id="rejectCookies" data-translate="reject-cookies">Reject</button>
                     <a href="privacy-policy.html" class="btn-outline" data-translate="learn-more">Learn More</a>
                 </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- Footer Placeholder -->
+    <!-- Footer Placeholder -->
     <div class="footer-placeholder"></div>
 
     <script src="script.js"></script>
     <script src="js/components.js"></script>
     <script src="scripts/header-loader.js"></script>
     <script src="scripts/footer-loader.js"></script>
-            <script>
+    <script>
         // Privacy Policy specific functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const pdfViewer = document.getElementById('pdfViewer');
+            const privacyContent = document.getElementById('privacyContent');
 
-            // Function to update PDF based on language
-            window.updatePrivacyPolicyPDF = function(lang) {
-                console.log('updatePrivacyPolicyPDF called with lang:', lang); // Debug
+            // Function to update privacy policy content based on language
+            window.updatePrivacyPolicyContent = function(lang) {
+                console.log('updatePrivacyPolicyContent called with lang:', lang, 'on page:', window.location.pathname); // Debug
                 
-                let pdfFile;
+                let markdownFile;
                 
                 if (lang === 'bm') {
-                    pdfFile = 'MPA%20-%20Privacy%20Policy%20-%20Bahasa.pdf';
+                    markdownFile = 'MPA_Privacy_Policy_Bahasa.md';
+                } else if (lang === 'cn') {
+                    markdownFile = 'MPA_Privacy_Policy_Chinese.md';
                 } else {
-                    // Default to English for 'en' and 'cn'
-                    pdfFile = 'MPA%20-%20Privacy%20Policy%20-%20English.pdf';
+                    // Default to English for 'en'
+                    markdownFile = 'MPA_Privacy_Policy_English.md';
                 }
                 
-                // Update PDF viewer with browser built-in viewer
-                pdfViewer.src = pdfFile;
+                // Load markdown content
+                console.log('Attempting to fetch:', markdownFile); // Debug
+                fetch(markdownFile)
+                    .then(response => {
+                        console.log('Fetch response status:', response.status); // Debug
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(content => {
+                        console.log('Content loaded successfully, length:', content.length); // Debug
+                        // Convert markdown to HTML (basic conversion)
+                        const htmlContent = convertMarkdownToHtml(content);
+                        privacyContent.innerHTML = htmlContent;
+                    })
+                    .catch(error => {
+                        console.error('Error loading privacy policy content:', error);
+                        privacyContent.innerHTML = '<p>Error loading privacy policy content. Please try again.</p>';
+                    });
                 
-                console.log('Loading PDF:', pdfFile); // Debug
+                console.log('Loading markdown file:', markdownFile); // Debug
             };
 
+            // Basic markdown to HTML converter
+            function convertMarkdownToHtml(markdown) {
+                let html = markdown;
+                
+                // Convert headers
+                html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+                html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+                html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+                
+                // Convert bold text
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // Convert italic text
+                html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                
+                // Convert lists
+                html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
+                html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+                
+                // Convert line breaks
+                html = html.replace(/\n\n/g, '</p><p>');
+                html = html.replace(/\n/g, '<br>');
+                
+                // Wrap in paragraphs
+                html = '<p>' + html + '</p>';
+                
+                // Clean up empty paragraphs
+                html = html.replace(/<p><\/p>/g, '');
+                html = html.replace(/<p><br><\/p>/g, '');
+                
+                return html;
+            }
+
+            // Make the function globally available
+            window.updatePrivacyPolicyContent = updatePrivacyPolicyContent;
+
+            // Initialize with current language
+            const currentLang = localStorage.getItem('selectedLanguage') || 'en';
+            
             // Override the default language selection for privacy policy page
             const originalSelectLanguage = window.selectLanguage;
             window.selectLanguage = function(lang) {
@@ -108,13 +169,20 @@
                     originalSelectLanguage(lang);
                 }
                 
-                // Update PDF for privacy policy page
-                updatePrivacyPolicyPDF(lang);
+                // Update privacy policy content
+                updatePrivacyPolicyContent(lang);
             };
-
-            // Initialize with current language
-            const currentLang = localStorage.getItem('selectedLanguage') || 'en';
-            updatePrivacyPolicyPDF(currentLang);
+            
+            // Load content immediately
+            updatePrivacyPolicyContent(currentLang);
+            
+            // Fallback: try loading again after a short delay
+            setTimeout(() => {
+                if (!privacyContent.innerHTML || privacyContent.innerHTML.includes('Content will be loaded')) {
+                    console.log('Fallback: Loading privacy policy content...');
+                    updatePrivacyPolicyContent(currentLang);
+                }
+            }, 1000);
 
             // Cookie Banner
             const cookieBanner = document.getElementById('cookieBanner');
