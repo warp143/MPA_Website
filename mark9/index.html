@@ -18,8 +18,8 @@
         <div class="hero-content">
             <div class="hero-left">
                 <div class="hero-text-group">
-                    <h1 class="hero-title">For The Future of A Sustainable Property Market</h1>
-                    <p class="hero-subtitle">Malaysia Proptech Association - Leading The Digital Transformation of the Property Industry in Malaysia through innovation, collaboration, and sustainable growth. Building a strong community with integrity, inclusivity, and equality.</p>
+                    <h1 class="hero-title">Malaysia Proptech Association</h1>
+                    <p class="hero-subtitle">Leading The Digital Transformation of the Property Industry in Malaysia</p>
                 </div>
                 <div class="hero-search">
                     <div class="search-container">
@@ -56,27 +56,23 @@
         </div>
     </section>
 
-    <!-- Featured Events Section -->
-    <section class="featured-events">
-        <div class="container">
-            <div class="section-header">
-                <h2>Upcoming Events</h2>
-                <a href="events.html" class="view-all">View all events</a>
-            </div>
-            <div class="events-grid" id="homepageEventsGrid">
-                <!-- Events will be populated dynamically from events page data -->
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
+    <!-- About MPA Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2>About MPA</h2>
-                    <p>The Malaysia Proptech Association (MPA) is the leading organization driving innovation in Malaysia's property technology sector. We bring together startups, established companies, investors, and government agencies to accelerate the digital transformation of real estate.</p>
-                    <p>Our mission is to foster a sustainable property market through technology innovation, collaboration, and community building. We believe in integrity, inclusivity, and equality for all our members.</p>
+                    <h2>For The Future of A Sustainable Property Market</h2>
+                    <p class="tie-paragraph">Malaysia Proptech Association Leads The Digital Transformation of the Built Environment in Malaysia and beyond, through innovation, collaboration, and sustainable growth. Building a strong community with integrity, inclusivity, and equality.</p>
+                    <p>The Malaysia PropTech Association (MPA) is the driving force behind Malaysia's digital transformation in the built environment. We unite startups, scale-ups, corporates, investors, and government stakeholders to shape a smarter, more inclusive property ecosystem.</p>
+                    
+                    <p>Our mission is to accelerate innovation, foster collaboration, and empower a new generation of tech-driven leaders in the built environment!</p>
+                    
+                    <p>We believe that transformation must be rooted in integrity, inclusivity, and shared progress.</p>
+                    
+                    <p>MPA's work is guided by five Strategic Anchors, the pillars that define our purpose and drive our outcomes!</p>
+                    
+                    <p class="highlight-text">Together, we're building the built environment of the future!</p>
+                    
                     <div class="about-features">
                         <div class="feature">
                             <i class="fas fa-users"></i>
@@ -95,12 +91,40 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-image">
-                    <img src="https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?w=500&h=400&fit=crop&crop=center" alt="About MPA">
-                </div>
             </div>
         </div>
     </section>
+
+    <!-- Featured Events Section -->
+    <section class="featured-events">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+                <a href="events.html" class="view-all">View all events</a>
+            </div>
+            <div class="events-grid" id="homepageEventsGrid">
+                <!-- Events will be populated dynamically from events page data -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Partners</h2>
+                <p>Strategic collaborations driving PropTech innovation in Malaysia</p>
+            </div>
+            <div class="partners-grid" id="homepagePartnersGrid">
+                <!-- Partners will be populated dynamically from partners page data -->
+            </div>
+            <div class="partners-cta">
+                <a href="partners.html" class="btn-outline">View All Partners</a>
+            </div>
+        </div>
+    </section>
+
+
 
     <!-- Membership Section -->
     <section id="membership" class="membership">
@@ -195,6 +219,7 @@
         // Populate homepage events from events page data
         document.addEventListener('DOMContentLoaded', function() {
             populateHomepageEvents();
+            populateHomepagePartners();
             initSearchFunctionality();
             initCookieBanner();
             
@@ -413,6 +438,67 @@
                         }, 300);
                     }, 3000);
                 }
+            }
+            
+            function populateHomepagePartners() {
+                // Define featured partners data (first 4 from partners page)
+                const featuredPartners = [
+                    {
+                        name: 'Light House Club',
+                        category: 'International Organization',
+                        description: 'Lighthouse Club International is a non-political organisation supporting the construction industry worldwide through the promotion of good fellowship among its members and the provision of charitable assistance to distressed persons within the industry.',
+                        logo: 'assets/light-house-club-logo.png',
+                        tags: ['Construction', 'International']
+                    },
+                    {
+                        name: 'Indonesia PropTech Association',
+                        category: 'International Organization',
+                        description: 'Building a Collaborative Proptech Community & Ecosystem. The Indonesia PropTech Association (IPTA) is an independent, official membership and non-profit organization established in Indonesia.',
+                        logo: 'assets/indonesia-proptech-association-logo.png',
+                        tags: ['Regional', 'Ecosystem']
+                    },
+                    {
+                        name: 'PropTech JAPAN',
+                        category: 'International Organization',
+                        description: 'PropTech JAPAN is Japan\'s largest real estate/construction startup community, which started its activities in 2017.',
+                        logo: 'assets/proptech-japan-logo.png',
+                        tags: ['Startups', 'Real Estate']
+                    },
+                    {
+                        name: 'Asia PropTech',
+                        category: 'International Organization',
+                        description: 'The PropTech for Good alliance is the place where CEOs, entrepreneurs, investors, innovators, and sustainability leaders from all around the world come together.',
+                        logo: 'assets/asia-proptech-logo.png',
+                        tags: ['Alliance', 'Sustainability']
+                    }
+                ];
+                
+                const partnersGrid = document.getElementById('homepagePartnersGrid');
+                if (partnersGrid) {
+                    featuredPartners.forEach(partner => {
+                        const partnerCard = createPartnerCard(partner);
+                        partnersGrid.appendChild(partnerCard);
+                    });
+                }
+            }
+            
+            function createPartnerCard(partner) {
+                const card = document.createElement('div');
+                card.className = 'partner-card';
+                
+                card.innerHTML = `
+                    <div class="partner-logo">
+                        <img src="${partner.logo}" alt="${partner.name}" onerror="this.style.display='none'">
+                    </div>
+                    <h3>${partner.name}</h3>
+                    <p class="partner-category">${partner.category}</p>
+                    <p class="partner-description">${partner.description}</p>
+                    <div class="partner-tags">
+                        ${partner.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                `;
+                
+                return card;
             }
         });
     </script>
