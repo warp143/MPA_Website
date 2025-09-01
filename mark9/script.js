@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
         en: {
             // Navigation
             'nav-proptech': 'Proptech',
-            'nav-about': 'About',
+            'nav-about': 'Association',
             'nav-members': 'Members',
             'nav-events': 'Events',
             'nav-news': 'News & Resource',
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bm: {
             // Navigation
             'nav-proptech': 'Proptech',
-            'nav-about': 'Tentang Kami',
+            'nav-about': 'Persatuan',
             'nav-members': 'Ahli',
             'nav-events': 'Acara',
             'nav-news': 'Berita & Sumber',
@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cn: {
             // Navigation
             'nav-proptech': 'Proptech',
-            'nav-about': '关于我们',
+            'nav-about': '协会',
             'nav-members': '会员',
             'nav-events': '活动',
             'nav-news': '新闻与资源',
