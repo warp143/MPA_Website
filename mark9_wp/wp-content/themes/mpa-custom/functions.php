@@ -307,14 +307,16 @@ add_action('init', 'mpa_custom_security_headers');
  * Performance optimizations
  */
 function mpa_custom_performance_optimizations() {
-    // Remove query strings from static resources
-    function mpa_custom_remove_script_version($src) {
-        if (strpos($src, 'ver=')) {
-            $src = remove_query_arg('ver', $src);
+    // Remove query strings from static resources (only in production)
+    if (!defined('WP_DEBUG') || !WP_DEBUG) {
+        function mpa_custom_remove_script_version($src) {
+            if (strpos($src, 'ver=')) {
+                $src = remove_query_arg('ver', $src);
+            }
+            return $src;
         }
-        return $src;
+        add_filter('script_loader_src', 'mpa_custom_remove_script_version', 15, 1);
+        add_filter('style_loader_src', 'mpa_custom_remove_script_version', 15, 1);
     }
-    add_filter('script_loader_src', 'mpa_custom_remove_script_version', 15, 1);
-    add_filter('style_loader_src', 'mpa_custom_remove_script_version', 15, 1);
 }
 add_action('init', 'mpa_custom_performance_optimizations');

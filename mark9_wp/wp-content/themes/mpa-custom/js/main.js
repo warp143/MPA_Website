@@ -1311,6 +1311,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const calendarGrid = document.getElementById('calendarGrid');
     
     if (prevMonthBtn && nextMonthBtn && currentMonthEl && calendarGrid) {
+        console.log('Calendar functionality initialized');
+    } else {
+        console.log('Calendar elements not found - calendar functionality disabled');
+        return; // Exit early if calendar elements don't exist
+    }
+    
+    if (prevMonthBtn && nextMonthBtn && currentMonthEl && calendarGrid) {
             // Use actual current date
             const today = new Date();
             let currentDate = new Date(today.getFullYear(), today.getMonth(), 1); // First day of current month

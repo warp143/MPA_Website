@@ -206,10 +206,14 @@
 <script>
     // Populate homepage events from events page data
     document.addEventListener('DOMContentLoaded', function() {
-        populateHomepageEvents();
-        populateHomepagePartners();
-        initSearchFunctionality();
-        initCookieBanner();
+        try {
+            populateHomepageEvents();
+            populateHomepagePartners();
+            initSearchFunctionality();
+            initCookieBanner();
+        } catch (error) {
+            console.error('Error initializing page:', error);
+        }
         
         function initCookieBanner() {
             const cookieBanner = document.getElementById('cookieBanner');
@@ -244,7 +248,7 @@
                     location: 'Penang Tech Hub',
                     description: 'Showcase your PropTech innovation to investors and mentors. Win funding and mentorship opportunities.',
                     price: 'RM 100',
-                    image: 'https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?w=400&h=250&fit=crop&crop=center',
+                    image: '<?php echo get_template_directory_uri(); ?>/assets/images/event-startup.svg',
                     badge: 'UPCOMING'
                 },
                 {
@@ -253,7 +257,7 @@
                     location: 'Online Webinar',
                     description: 'How PropTech is driving sustainability in Malaysia\'s construction and real estate industry.',
                     price: 'Free',
-                    image: 'https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Mandates-Promote-01.png',
+                    image: '<?php echo get_template_directory_uri(); ?>/assets/un-sdg-goals.jpg',
                     badge: 'UPCOMING'
                 },
                 {
@@ -262,7 +266,7 @@
                     location: 'Cyberjaya',
                     description: 'Hands-on workshop exploring blockchain applications in real estate.',
                     price: 'RM 200',
-                    image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?w=400&h=250&fit=crop&crop=center',
+                    image: '<?php echo get_template_directory_uri(); ?>/assets/images/event-ai.svg',
                     badge: 'UPCOMING'
                 }
             ];
@@ -306,18 +310,35 @@
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
             
+            console.log('Initializing search functionality', { searchInput, searchBtn });
+            
             if (searchInput && searchBtn) {
                 // Handle search button click
-                searchBtn.addEventListener('click', function() {
+                searchBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Search button clicked');
                     performSearch();
                 });
                 
                 // Handle Enter key press
                 searchInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
+                        e.preventDefault();
+                        console.log('Enter key pressed in search');
                         performSearch();
                     }
                 });
+                
+                // Prevent form submission if wrapped in form
+                const form = searchInput.closest('form');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        performSearch();
+                    });
+                }
+            } else {
+                console.log('Search elements not found');
             }
             
             function performSearch() {
@@ -327,6 +348,8 @@
                     showSearchNotification('Please enter a search term', 'warning');
                     return;
                 }
+                
+                console.log('Performing search for:', query);
                 
                 // Define searchable content
                 const searchableContent = {
@@ -377,18 +400,10 @@
                 
                 // Handle search results
                 if (results.length > 0) {
-                    showSearchNotification(`Found ${results.length} result(s) for "${query}"`, 'success');
+                    showSearchNotification(`Found ${results.length} result(s) for "${query}". Click to navigate.`, 'success');
                     
-                    // Navigate to appropriate page based on results
-                    setTimeout(() => {
-                        if (results.includes('events')) {
-                            window.location.href = '<?php echo esc_url(home_url("/events/")); ?>';
-                        } else if (results.includes('members')) {
-                            window.location.href = '<?php echo esc_url(home_url("/members/")); ?>';
-                        } else if (results.includes('resources')) {
-                            window.location.href = '<?php echo esc_url(home_url("/news/")); ?>';
-                        }
-                    }, 1500);
+                    // Don't auto-redirect, let user click to navigate
+                    console.log('Search results:', results);
                 } else {
                     showSearchNotification(`No results found for "${query}"`, 'error');
                 }

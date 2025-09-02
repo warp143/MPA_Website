@@ -85,9 +85,19 @@ $table_prefix = 'wp_';
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', true );
+define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
+
+// Force WordPress to use localhost:8000 for development
+define( 'WP_HOME', 'http://localhost:8000' );
+define( 'WP_SITEURL', 'http://localhost:8000' );
+
+// Disable file editing in admin
+define( 'DISALLOW_FILE_EDIT', true );
+
+// Increase memory limit for development
+define( 'WP_MEMORY_LIMIT', '256M' );
 
 
 

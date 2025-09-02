@@ -2064,16 +2064,20 @@ body:not(.light-mode) .page-hero::before {
     grid-template-columns: 1fr 1fr;
     gap: 60px;
     align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .page-hero .hero-content {
     text-align: left;
+    position: relative;
+    z-index: 2;
 }
 
 .page-hero h1 {
     font-size: 3rem;
     margin-bottom: var(--spacing-md);
-    color: var(--glass-bg);
+    color: white;
 }
 
 .page-hero p {

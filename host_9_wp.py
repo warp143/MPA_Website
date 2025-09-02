@@ -56,12 +56,38 @@ def start_wordpress():
         
         print(f"Starting WordPress server from: {wp_dir}")
         print("WordPress will be available at: http://localhost:8000")
+        print("Admin setup: http://localhost:8000/wp-admin/install.php")
         print("Press Ctrl+C to stop the server")
         print("-" * 50)
         
-        # Change to WordPress directory and start server
+        # Change to WordPress directory and start server with better error handling
         os.chdir(wp_dir)
-        subprocess.run(['php', '-S', 'localhost:8000'])
+        
+        # Start PHP server with error output
+        process = subprocess.Popen(
+            ['php', '-S', 'localhost:8000'],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            bufsize=1,
+            universal_newlines=True
+        )
+        
+        # Monitor the process
+        try:
+            while True:
+                output = process.stdout.readline()
+                if output == '' and process.poll() is not None:
+                    break
+                if output:
+                    # Filter out excessive reload messages
+                    if not any(x in output for x in ['Closing', 'Accepted', '[200]: GET']):
+                        print(output.strip())
+        except KeyboardInterrupt:
+            print("\n\nStopping WordPress server...")
+            process.terminate()
+            process.wait()
+            print("WordPress server stopped by user")
         
     except KeyboardInterrupt:
         print("\n\nWordPress server stopped by user")
