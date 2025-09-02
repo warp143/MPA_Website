@@ -172,6 +172,9 @@ function mpa_custom_scripts() {
     wp_enqueue_style('mpa-custom-style', get_stylesheet_uri(), array(), MPA_THEME_VERSION);
     
     // Enqueue main JavaScript
+    wp_enqueue_script('mpa-custom-main', get_template_directory_uri() . '/js/main.js', array(), MPA_THEME_VERSION, true);
+    
+    // Enqueue navigation JavaScript
     wp_enqueue_script('mpa-custom-navigation', get_template_directory_uri() . '/js/navigation.js', array(), MPA_THEME_VERSION, true);
     
     // Enqueue comment reply script
