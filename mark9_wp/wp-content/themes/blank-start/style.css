@@ -1,0 +1,27 @@
+/*
+Theme Name: Blank Start
+Description: Completely blank theme - start from scratch
+Version: 1.0
+Author: Custom Build
+*/
+
+/* Minimal reset - everything else is custom */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #fff;
+}
+
+/* Hide default WordPress content */
+.entry-content,
+.entry-header,
+.wp-block-post-content {
+    display: none;
+}

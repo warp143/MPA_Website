@@ -1,0 +1,18 @@
+/*
+Theme Name: No Theme
+Description: Minimal theme - no styling, pure HTML
+Version: 1.0
+Author: Custom Build
+*/
+
+/* Minimal reset - everything else is custom */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
