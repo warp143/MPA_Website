@@ -13,7 +13,7 @@
     <div class="container">
         <div class="featured-article">
             <div class="featured-image">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/news-hero.jpg" alt="35 Years of PropTech">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_10_35-years-of-proptech-fostering-a-bright-start-to-proptech-4.0.png" alt="35 Years of PropTech">
                 <div class="featured-badge">Featured</div>
             </div>
             <div class="featured-content">
@@ -37,7 +37,7 @@
         <div class="news-articles">
             <article class="news-card">
                 <div class="news-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-news.svg" alt="RE:Connect September 2021">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_09_RE-Connect-MPA.png" alt="RE:Connect September 2021">
                 </div>
                 <div class="news-content">
                     <div class="article-meta">
@@ -52,7 +52,7 @@
 
             <article class="news-card">
                 <div class="news-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-news.svg" alt="PropTech Shaping Real Estate">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/proptech-innovation.jpg" alt="PropTech Shaping Real Estate">
                 </div>
                 <div class="news-content">
                     <div class="article-meta">
@@ -67,7 +67,7 @@
 
             <article class="news-card">
                 <div class="news-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-news.svg" alt="MPA New Committee Members">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_07_MPA_Committee_2021-2023_positions.png" alt="MPA New Committee Members">
                 </div>
                 <div class="news-content">
                     <div class="article-meta">
@@ -82,7 +82,7 @@
 
             <article class="news-card">
                 <div class="news-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-news.svg" alt="PropTech Investment Trends">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/proptech-investment-forum.jpeg" alt="PropTech Investment Trends">
                 </div>
                 <div class="news-content">
                     <div class="article-meta">
@@ -97,7 +97,7 @@
 
             <article class="news-card">
                 <div class="news-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-news.svg" alt="Smart Cities Initiative">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/proptech-hero.jpg" alt="Smart Cities Initiative">
                 </div>
                 <div class="news-content">
                     <div class="article-meta">
@@ -112,7 +112,7 @@
 
             <article class="news-card">
                 <div class="news-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-news.svg" alt="Sustainability in PropTech">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/asia-proptech-logo.png" alt="Sustainability in PropTech">
                 </div>
                 <div class="news-content">
                     <div class="article-meta">

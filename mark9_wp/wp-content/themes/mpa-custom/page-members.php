@@ -300,7 +300,7 @@
             </div>
             <div class="directory-item" data-categories="property-marketplace">
                 <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-logo.svg" alt="Property Hunter">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/property-hunter-logo.png" alt="Property Hunter">
                 </div>
                 <div class="member-info">
                     <h3>Property Hunter Sdn Bhd</h3>
@@ -315,7 +315,7 @@
             </div>
             <div class="directory-item" data-categories="property-management">
                 <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-logo.svg" alt="Propenomy">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/propenomy-logo.png" alt="Propenomy">
                 </div>
                 <div class="member-info">
                     <h3>Propenomy Sdn Bhd</h3>
@@ -330,7 +330,7 @@
             </div>
             <div class="directory-item" data-categories="rental-marketplace">
                 <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-logo.svg" alt="RentLab">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/rentlab-logo.png" alt="RentLab">
                 </div>
                 <div class="member-info">
                     <h3>RentLab Malaysia</h3>
@@ -345,7 +345,7 @@
             </div>
             <div class="directory-item" data-categories="property-community">
                 <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-logo.svg" alt="ServeDeck">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/servedeck-logo.png" alt="ServeDeck">
                 </div>
                 <div class="member-info">
                     <h3>ServeDeck Sdn Bhd</h3>
@@ -358,40 +358,11 @@
                     <a href="https://www.servedeck.com/" class="btn-outline" target="_blank">View Website</a>
                 </div>
             </div>
-            <div class="directory-item" data-categories="property-marketplace">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-logo.svg" alt="HomeSifu">
-                </div>
-                <div class="member-info">
-                    <h3>HomeSifu</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Property Marketplace</span>
-                    </div>
-                    <p class="member-description">AI-powered property search and recommendation platform</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://www.homesifu.io" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="fintech mortgages">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-logo.svg" alt="iMortgage2u">
-                </div>
-                <div class="member-info">
-                    <h3>iMortgage2u</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Fintech</span>
-                        <span class="member-category">Mortgages</span>
-                    </div>
-                    <p class="member-description">Digital mortgage platform simplifying home financing</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://www.imortgage2u.com/promo/" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
+
+
             <div class="directory-item" data-categories="property-management">
                 <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-logo.svg" alt="MyLiving MyLife">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/myliving-mylife-logo.png" alt="MyLiving MyLife">
                 </div>
                 <div class="member-info">
                     <h3>MyLiving MyLife</h3>
@@ -406,7 +377,7 @@
             </div>
             <div class="directory-item" data-categories="property-development">
                 <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-logo.svg" alt="Novo Reperio">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/novo-reperio-logo.png" alt="Novo Reperio">
                 </div>
                 <div class="member-info">
                     <h3>Novo Reperio</h3>
@@ -419,21 +390,7 @@
                     <a href="https://novoreperio.com/" class="btn-outline" target="_blank">View Website</a>
                 </div>
             </div>
-            <div class="directory-item" data-categories="ai">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-logo.svg" alt="AIVOT">
-                </div>
-                <div class="member-info">
-                    <h3>AIVOT</h3>
-                    <div class="member-categories">
-                        <span class="member-category">AI, DL & ML</span>
-                    </div>
-                    <p class="member-description">AI-powered solutions for property management and optimization</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://www.aivot.my" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
+
         </div>
     </div>
 </section>
