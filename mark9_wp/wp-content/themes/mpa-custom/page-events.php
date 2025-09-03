@@ -72,187 +72,146 @@
             <button class="filter-tab" data-filter="summit">Summits</button>
         </div>
         <div class="events-grid">
+            <?php
+            // Query for all events
+            $events_query = new WP_Query(array(
+                'post_type' => 'mpa_event',
+                'posts_per_page' => -1,
+                'post_status' => 'publish',
+                'meta_key' => '_event_date',
+                'orderby' => 'meta_value',
+                'order' => 'ASC'
+            ));
 
-            <div class="event-card upcoming" data-category="upcoming">
-                <div class="event-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/startup-pitch-competition.jpeg" alt="Startup Pitch Competition">
-                    <div class="event-date-badge">
-                        <span class="day">10</span>
-                        <span class="month">JAN</span>
-                    </div>
-                </div>
-                <div class="event-content">
-                    <div class="event-meta">
-                        <span class="event-location"><i class="fas fa-map-marker-alt"></i> Penang Tech Hub</span>
-                        <span class="event-time"><i class="fas fa-clock"></i> 10:00 AM - 5:00 PM</span>
-                    </div>
-                    <h3 class="event-title">Startup Pitch Competition</h3>
-                    <p class="event-description">Showcase your PropTech innovation to investors and mentors. Win funding and mentorship opportunities. This competition is open to early-stage PropTech startups from across Malaysia.</p>
-                    <div class="event-tags">
-                        <span class="tag">Competition</span>
-                        <span class="tag">Startup</span>
-                        <span class="tag">Funding</span>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">RM 100</span>
-                        <div class="event-actions">
-                            <button class="btn-outline">Register</button>
-                            <button class="btn-calendar" data-event="startup-pitch-competition" data-date="2025-01-10" data-time="10:00-17:00" data-title="Startup Pitch Competition" data-location="Penang Tech Hub">
-                                <i class="fas fa-calendar-plus"></i> Add to Calendar
-                            </button>
+            if ($events_query->have_posts()) :
+                while ($events_query->have_posts()) : $events_query->the_post();
+                    // Get event meta data
+                    $event_date = get_post_meta(get_the_ID(), '_event_date', true);
+                    $event_start_time = get_post_meta(get_the_ID(), '_event_start_time', true);
+                    $event_end_time = get_post_meta(get_the_ID(), '_event_end_time', true);
+                    $event_location = get_post_meta(get_the_ID(), '_event_location', true);
+                    $event_price = get_post_meta(get_the_ID(), '_event_price', true);
+                    $event_registration_url = get_post_meta(get_the_ID(), '_event_registration_url', true);
+                    $event_status = get_post_meta(get_the_ID(), '_event_status', true);
+                    $event_type = get_post_meta(get_the_ID(), '_event_type', true);
+                    
+                    // Format date for display
+                    $date_obj = DateTime::createFromFormat('Y-m-d', $event_date);
+                    $day = $date_obj ? $date_obj->format('d') : '';
+                    $month = $date_obj ? $date_obj->format('M') : '';
+                    
+                    // Format time for display
+                    $start_time_obj = DateTime::createFromFormat('H:i', $event_start_time);
+                    $end_time_obj = DateTime::createFromFormat('H:i', $event_end_time);
+                    $time_display = '';
+                    if ($start_time_obj && $end_time_obj) {
+                        $time_display = $start_time_obj->format('g:i A') . ' - ' . $end_time_obj->format('g:i A');
+                    } elseif ($event_status === 'past') {
+                        $time_display = 'Past Event';
+                    }
+                    
+                    // Get event tags
+                    $event_tags = wp_get_post_terms(get_the_ID(), 'event_tag');
+                    
+                    // Determine data categories for filtering
+                    $data_categories = array($event_status);
+                    if ($event_type) {
+                        $data_categories[] = $event_type;
+                    }
+                    
+                    // Get featured image or use placeholder
+                    $featured_image = '';
+                    if (has_post_thumbnail()) {
+                        $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                    } else {
+                        // Use placeholder or try to match with existing assets
+                        $title_slug = sanitize_title(get_the_title());
+                        $possible_images = array(
+                            $title_slug . '.jpeg',
+                            $title_slug . '.jpg',
+                            'placeholder-event.svg'
+                        );
+                        
+                        foreach ($possible_images as $img) {
+                            $img_path = get_template_directory() . '/assets/' . $img;
+                            if (file_exists($img_path)) {
+                                $featured_image = get_template_directory_uri() . '/assets/' . $img;
+                                break;
+                            }
+                        }
+                        
+                        // Fallback to placeholder
+                        if (!$featured_image) {
+                            $featured_image = get_template_directory_uri() . '/assets/placeholder-event.svg';
+                        }
+                    }
+                    
+                    // Generate calendar data attributes
+                    $calendar_data = array(
+                        'data-event' => sanitize_title(get_the_title()),
+                        'data-date' => $event_date,
+                        'data-time' => $event_start_time . '-' . $event_end_time,
+                        'data-title' => esc_attr(get_the_title()),
+                        'data-location' => esc_attr($event_location)
+                    );
+                    ?>
+                    
+                    <div class="event-card <?php echo esc_attr($event_status); ?>" data-category="<?php echo esc_attr(implode(' ', $data_categories)); ?>">
+                        <div class="event-image">
+                            <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
+                            <div class="event-date-badge <?php echo $event_status === 'past' ? 'past' : ''; ?>">
+                                <span class="day"><?php echo esc_html($day); ?></span>
+                                <span class="month"><?php echo esc_html($month); ?></span>
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-meta">
+                                <span class="event-location">
+                                    <i class="fas fa-<?php echo strpos(strtolower($event_location), 'online') !== false ? 'globe' : 'map-marker-alt'; ?>"></i> 
+                                    <?php echo esc_html($event_location); ?>
+                                </span>
+                                <span class="event-time"><i class="fas fa-clock"></i> <?php echo esc_html($time_display); ?></span>
+                            </div>
+                            <h3 class="event-title"><?php the_title(); ?></h3>
+                            <p class="event-description"><?php echo esc_html(get_the_excerpt() ?: wp_trim_words(get_the_content(), 25)); ?></p>
+                            
+                            <?php if (!empty($event_tags)) : ?>
+                            <div class="event-tags">
+                                <?php foreach ($event_tags as $tag) : ?>
+                                    <span class="tag"><?php echo esc_html($tag->name); ?></span>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endif; ?>
+                            
+                            <div class="event-footer">
+                                <span class="event-price"><?php echo esc_html($event_price); ?></span>
+                                <div class="event-actions">
+                                    <?php if ($event_status === 'upcoming') : ?>
+                                        <?php if ($event_registration_url) : ?>
+                                            <a href="<?php echo esc_url($event_registration_url); ?>" class="btn-outline" target="_blank">Register</a>
+                                        <?php else : ?>
+                                            <button class="btn-outline">Register</button>
+                                        <?php endif; ?>
+                                        <button class="btn-calendar" <?php echo implode(' ', array_map(function($k, $v) { return $k . '="' . $v . '"'; }, array_keys($calendar_data), $calendar_data)); ?>>
+                                            <i class="fas fa-calendar-plus"></i> Add to Calendar
+                                        </button>
+                                    <?php else : ?>
+                                        <a href="#" class="btn-secondary">
+                                            <?php echo $event_type === 'summit' ? 'View Photos' : 'View Report'; ?>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
+                <?php endwhile;
+                wp_reset_postdata();
+            else : ?>
+                <div class="no-events">
+                    <p>No events found. <a href="<?php echo admin_url('post-new.php?post_type=mpa_event'); ?>">Add your first event</a>.</p>
                 </div>
-            </div>
-
-            <!-- Past Events -->
-            <div class="event-card past" data-category="past summit">
-                <div class="event-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/placeholder-event.svg" alt="RE:Connect September 2021">
-                    <div class="event-date-badge past">
-                        <span class="day">15</span>
-                        <span class="month">SEP</span>
-                    </div>
-                </div>
-                <div class="event-content">
-                    <div class="event-meta">
-                        <span class="event-location"><i class="fas fa-map-marker-alt"></i> Kuala Lumpur</span>
-                        <span class="event-time"><i class="fas fa-clock"></i> Past Event</span>
-                    </div>
-                    <h3 class="event-title">RE:Connect September 2021</h3>
-                    <p class="event-description">Malaysia PropTech Association Members at RE:Connect September 2021 - A successful networking event that brought together PropTech professionals, investors, and industry leaders from across the region.</p>
-                    <div class="event-tags">
-                        <span class="tag">Past</span>
-                        <span class="tag">Networking</span>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">Completed</span>
-                        <a href="#" class="btn-secondary">View Photos</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="event-card past" data-category="past">
-                <div class="event-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/placeholder-event.svg" alt="PropTech Asia Summit">
-                    <div class="event-date-badge past">
-                        <span class="day">20</span>
-                        <span class="month">JUN</span>
-                    </div>
-                </div>
-                <div class="event-content">
-                    <div class="event-meta">
-                        <span class="event-location"><i class="fas fa-map-marker-alt"></i> Singapore</span>
-                        <span class="event-time"><i class="fas fa-clock"></i> Past Event</span>
-                    </div>
-                    <h3 class="event-title">PropTech Asia Summit 2023</h3>
-                    <p class="event-description">MPA members participated in the regional PropTech summit, showcasing Malaysian innovations. The event featured panel discussions on AI in real estate, sustainable development, and regional collaboration opportunities.</p>
-                    <div class="event-tags">
-                        <span class="tag">Past</span>
-                        <span class="tag">Regional</span>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">Completed</span>
-                        <a href="#" class="btn-secondary">View Report</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="event-card upcoming" data-category="upcoming webinar">
-                <div class="event-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/placeholder-event.svg" alt="Sustainability in PropTech">
-                    <div class="event-date-badge">
-                        <span class="day">25</span>
-                        <span class="month">JAN</span>
-                    </div>
-                </div>
-                <div class="event-content">
-                    <div class="event-meta">
-                        <span class="event-location"><i class="fas fa-globe"></i> Online Webinar</span>
-                        <span class="event-time"><i class="fas fa-clock"></i> 3:00 PM - 5:00 PM</span>
-                    </div>
-                    <h3 class="event-title">Sustainability in PropTech</h3>
-                    <p class="event-description">How PropTech is driving sustainability in Malaysia's construction and real estate industry. Learn about green building technologies, ESG compliance, and sustainable development practices.</p>
-                    <div class="event-tags">
-                        <span class="tag">Webinar</span>
-                        <span class="tag">Sustainability</span>
-                        <span class="tag">Green Tech</span>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">Free</span>
-                        <div class="event-actions">
-                            <button class="btn-outline">Register</button>
-                            <button class="btn-calendar" data-event="sustainability-proptech" data-date="2025-01-25" data-time="15:00-17:00" data-title="Sustainability in PropTech" data-location="Online Webinar">
-                                <i class="fas fa-calendar-plus"></i> Add to Calendar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="event-card upcoming" data-category="upcoming">
-                <div class="event-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/blockchain-real-estate.jpeg" alt="Blockchain in Real Estate">
-                    <div class="event-date-badge">
-                        <span class="day">15</span>
-                        <span class="month">FEB</span>
-                    </div>
-                </div>
-                <div class="event-content">
-                    <div class="event-meta">
-                        <span class="event-location"><i class="fas fa-map-marker-alt"></i> Cyberjaya</span>
-                        <span class="event-time"><i class="fas fa-clock"></i> 9:00 AM - 4:00 PM</span>
-                    </div>
-                    <h3 class="event-title">Blockchain in Real Estate Workshop</h3>
-                    <p class="event-description">Hands-on workshop exploring blockchain applications in real estate, including property tokenization, smart contracts, and transparent transaction systems.</p>
-                    <div class="event-tags">
-                        <span class="tag">Workshop</span>
-                        <span class="tag">Blockchain</span>
-                        <span class="tag">Technology</span>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">RM 200</span>
-                        <div class="event-actions">
-                            <button class="btn-outline">Register</button>
-                            <button class="btn-calendar" data-event="blockchain-real-estate" data-date="2025-02-15" data-time="09:00-16:00" data-title="Blockchain in Real Estate Workshop" data-location="Cyberjaya">
-                                <i class="fas fa-calendar-plus"></i> Add to Calendar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="event-card upcoming" data-category="upcoming">
-                <div class="event-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/proptech-investment-forum.jpeg" alt="PropTech Investment Forum">
-                    <div class="event-date-badge">
-                        <span class="day">28</span>
-                        <span class="month">FEB</span>
-                    </div>
-                </div>
-                <div class="event-content">
-                    <div class="event-meta">
-                        <span class="event-location"><i class="fas fa-map-marker-alt"></i> Kuala Lumpur</span>
-                        <span class="event-time"><i class="fas fa-clock"></i> 2:00 PM - 6:00 PM</span>
-                    </div>
-                    <h3 class="event-title">PropTech Investment Forum</h3>
-                    <p class="event-description">Connect with investors, venture capitalists, and funding institutions. Learn about investment trends in PropTech and pitch your innovative solutions.</p>
-                    <div class="event-tags">
-                        <span class="tag">Forum</span>
-                        <span class="tag">Investment</span>
-                        <span class="tag">Networking</span>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">RM 150</span>
-                        <div class="event-actions">
-                            <button class="btn-outline">Register</button>
-                            <button class="btn-calendar" data-event="proptech-investment-forum" data-date="2025-02-28" data-time="14:00-18:00" data-title="PropTech Investment Forum" data-location="Kuala Lumpur">
-                                <i class="fas fa-calendar-plus"></i> Add to Calendar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -262,7 +221,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         const upcomingEventsGrid = document.getElementById('upcomingEventsGrid');
         if (upcomingEventsGrid) {
-            populateUpcomingEvents();
+            // Wait a bit for events to be rendered, then populate upcoming events
+            setTimeout(populateUpcomingEvents, 500);
         }
         
         // Initialize calendar functionality
@@ -271,20 +231,63 @@
         initViewAllEventsLink();
         
         function populateUpcomingEvents() {
-            // Get all upcoming event cards from the All Events section
-            const allUpcomingEvents = document.querySelectorAll('.event-card.upcoming');
+            // Get all event cards from the All Events section
+            const allEventCards = document.querySelectorAll('.events-grid .event-card');
+            const today = new Date();
+            const upcomingEvents = [];
             
-            // Take the first 2 upcoming events
-            const firstTwoUpcoming = Array.from(allUpcomingEvents).slice(0, 2);
+            // Filter and sort upcoming events
+            allEventCards.forEach(eventCard => {
+                const dateElement = eventCard.querySelector('.event-date-badge');
+                if (dateElement) {
+                    const day = dateElement.querySelector('.day')?.textContent;
+                    const month = dateElement.querySelector('.month')?.textContent;
+                    
+                    if (day && month) {
+                        // Convert month abbreviation to date
+                        const monthMap = {
+                            'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+                            'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+                        };
+                        
+                        const monthNum = monthMap[month];
+                        if (monthNum !== undefined) {
+                            // Assume events are in 2025/2026 based on current date
+                            let year = today.getFullYear();
+                            if (monthNum < 6) year += 1; // Jan-May are likely next year
+                            else if (year === 2024) year = 2025; // If we're in 2024, events are in 2025
+                            
+                            const eventDate = new Date(year, monthNum, parseInt(day));
+                            
+                            // Include today's events and future events
+                            const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                            if (eventDate >= todayStart) {
+                                upcomingEvents.push({
+                                    date: eventDate,
+                                    element: eventCard
+                                });
+                            }
+                        }
+                    }
+                }
+            });
             
-            firstTwoUpcoming.forEach(eventCard => {
+            // Sort by date and take first 2
+            upcomingEvents.sort((a, b) => a.date - b.date);
+            const nextTwoEvents = upcomingEvents.slice(0, 2);
+            
+            // Clear existing content
+            upcomingEventsGrid.innerHTML = '';
+            
+            // Add the next 2 upcoming events
+            nextTwoEvents.forEach(eventObj => {
                 // Clone the event card
-                const clonedEvent = eventCard.cloneNode(true);
+                const clonedEvent = eventObj.element.cloneNode(true);
                 
                 // Add the "featured" class for styling
                 clonedEvent.classList.add('featured');
                 
-                // Add "UPCOMING" badge if it doesn't exist
+                // Add "UPCOMING" badge
                 const eventImage = clonedEvent.querySelector('.event-image');
                 if (eventImage && !eventImage.querySelector('.event-badge')) {
                     const upcomingBadge = document.createElement('div');
@@ -414,37 +417,39 @@
                 subscribeBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // Create a comprehensive calendar feed with all MPA events
-                    const allEvents = [
-                        {
-                            title: 'Startup Pitch Competition',
-                            date: '2025-01-10',
-                            time: '10:00-17:00',
-                            location: 'Penang Tech Hub',
-                            description: 'Showcase your PropTech innovation to investors and mentors. Win funding and mentorship opportunities.'
-                        },
-                        {
-                            title: 'Sustainability in PropTech',
-                            date: '2025-01-25',
-                            time: '15:00-17:00',
-                            location: 'Online Webinar',
-                            description: 'How PropTech is driving sustainability in Malaysia\'s construction and real estate industry.'
-                        },
-                        {
-                            title: 'Blockchain in Real Estate Workshop',
-                            date: '2025-02-15',
-                            time: '09:00-16:00',
-                            location: 'Cyberjaya',
-                            description: 'Hands-on workshop exploring blockchain applications in real estate.'
-                        },
-                        {
-                            title: 'PropTech Investment Forum',
-                            date: '2025-02-28',
-                            time: '14:00-18:00',
-                            location: 'Kuala Lumpur',
-                            description: 'Connect with investors, venture capitalists, and funding institutions.'
+                    // Get real events from the page
+                    const allEvents = [];
+                    
+                    // Extract real event data from the page
+                    document.querySelectorAll('.event-card').forEach(eventCard => {
+                        const title = eventCard.querySelector('.event-title')?.textContent || '';
+                        const dateElement = eventCard.querySelector('.event-date-badge');
+                        const day = dateElement?.querySelector('.day')?.textContent || '';
+                        const month = dateElement?.querySelector('.month')?.textContent || '';
+                        const timeElement = eventCard.querySelector('.event-time')?.textContent || '';
+                        const locationElement = eventCard.querySelector('.event-location')?.textContent || '';
+                        const descriptionElement = eventCard.querySelector('.event-description')?.textContent || '';
+                        
+                        if (title && day && month) {
+                            // Convert month abbreviation to number
+                            const monthMap = {
+                                'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04',
+                                'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08',
+                                'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'
+                            };
+                            const monthNum = monthMap[month] || '01';
+                            const currentYear = new Date().getFullYear();
+                            const eventYear = currentYear + (monthNum < '06' ? 1 : 0); // Assume events in Jan-May are next year
+                            
+                            allEvents.push({
+                                title: title.trim(),
+                                date: `${eventYear}-${monthNum}-${day.padStart(2, '0')}`,
+                                time: timeElement.replace(/.*(\d{1,2}:\d{2}\s*[AP]M\s*-\s*\d{1,2}:\d{2}\s*[AP]M).*/, '$1'),
+                                location: locationElement.replace(/.*\s/, '').trim(),
+                                description: descriptionElement.trim()
+                            });
                         }
-                    ];
+                    });
                     
                     // Generate comprehensive calendar data
                     const calendarData = generateSubscriptionCalendarData(allEvents);

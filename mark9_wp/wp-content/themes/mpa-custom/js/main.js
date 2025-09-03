@@ -242,12 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'event-featured': 'Featured',
             'event-free': 'Free for Members',
             'btn-register': 'Register',
-            'event-summit-title': 'PropTech Summit 2024',
-            'event-summit-desc': 'Join industry leaders for the biggest PropTech event in Malaysia. Featuring keynote speakers, panel discussions, and networking opportunities.',
-            'event-ai-title': 'AI in Real Estate Webinar',
-            'event-ai-desc': 'Exploring the future of AI applications in property technology and how it\'s transforming the industry.',
-            'event-pitch-title': 'Startup Pitch Competition',
-            'event-pitch-desc': 'Showcase your PropTech innovation to investors and mentors. Win funding and mentorship opportunities.',
+
             
             // About Section
             'about-title': 'About MPA',
@@ -373,12 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'event-featured': 'Terserlah',
             'event-free': 'Percuma untuk Ahli',
             'btn-register': 'Daftar',
-            'event-summit-title': 'PropTech Summit 2024',
-            'event-summit-desc': 'Sertai pemimpin industri untuk acara PropTech terbesar di Malaysia. Menampilkan pembicara utama, perbincangan panel, dan peluang rangkaian.',
-            'event-ai-title': 'Webinar AI dalam Hartanah',
-            'event-ai-desc': 'Meneroka masa depan aplikasi AI dalam teknologi hartanah dan bagaimana ia mengubah industri.',
-            'event-pitch-title': 'Pertandingan Pitch Syarikat Permulaan',
-            'event-pitch-desc': 'Tunjukkan inovasi PropTech anda kepada pelabur dan mentor. Menangi peluang pembiayaan dan mentor.',
+
             
             // About Section
             'about-title': 'Tentang MPA',
@@ -716,23 +706,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (eventsTitle) eventsTitle.textContent = t['events-title'];
         if (viewAllEvents) viewAllEvents.textContent = t['view-all-events'];
 
-        // Event cards translations
-        const eventTitles = document.querySelectorAll('.event-title');
-        const eventDescriptions = document.querySelectorAll('.event-description');
+        // Event cards translations - removed hardcoded event overrides
         const eventBadges = document.querySelectorAll('.event-badge');
         const registerButtons = document.querySelectorAll('.event-footer .btn-outline');
-        
-        if (eventTitles.length >= 3) {
-            eventTitles[0].textContent = t['event-summit-title'];
-            eventTitles[1].textContent = t['event-ai-title'];
-            eventTitles[2].textContent = t['event-pitch-title'];
-        }
-        
-        if (eventDescriptions.length >= 3) {
-            eventDescriptions[0].textContent = t['event-summit-desc'];
-            eventDescriptions[1].textContent = t['event-ai-desc'];
-            eventDescriptions[2].textContent = t['event-pitch-desc'];
-        }
         
         if (eventBadges.length > 0) {
             eventBadges[0].textContent = t['event-featured'];
@@ -1325,17 +1301,26 @@ document.addEventListener('DOMContentLoaded', function() {
             // Debug: Log the current date to console
             
         
-        // Sample events data
-        const events = [
-            { date: '2025-08-15', title: 'PropTech Summit 2025', type: 'summit' },
-            { date: '2025-08-20', title: 'AI in Real Estate Webinar', type: 'webinar' },
-            { date: '2025-08-25', title: 'Startup Pitch Competition', type: 'competition' },
-            { date: '2025-09-10', title: 'Blockchain Workshop', type: 'workshop' },
-            { date: '2025-09-25', title: 'PropTech Investment Forum', type: 'forum' },
-            { date: '2025-10-15', title: 'Smart Cities Conference', type: 'conference' },
-            { date: '2025-11-05', title: 'Sustainability in PropTech', type: 'seminar' },
-            { date: '2025-12-12', title: 'Digital Transformation Summit', type: 'summit' }
-        ];
+        // Events data will be loaded from WordPress database
+        let events = [];
+        
+        // Load events from WordPress
+        async function loadEvents() {
+            try {
+                const response = await fetch('/wp-content/themes/mpa-custom/get-events-json.php');
+                events = await response.json();
+                console.log('Loaded events:', events);
+                // Refresh calendar after loading events
+                if (typeof populateCalendar === 'function') {
+                    populateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+                }
+            } catch (error) {
+                console.error('Failed to load events:', error);
+            }
+        }
+        
+        // Load events when page loads
+        loadEvents();
         
         function getISOWeekNumber(date) {
             const d = new Date(date);

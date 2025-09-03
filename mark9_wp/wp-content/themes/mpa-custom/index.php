@@ -239,44 +239,46 @@
             });
         }
         
-        function populateHomepageEvents() {
-            // Define the same events data as used in events.html
-            const upcomingEvents = [
-                {
-                    title: 'Startup Pitch Competition',
-                    date: 'Jan 10, 2025',
-                    location: 'Penang Tech Hub',
-                    description: 'Showcase your PropTech innovation to investors and mentors. Win funding and mentorship opportunities.',
-                    price: 'RM 100',
-                    image: '<?php echo get_template_directory_uri(); ?>/assets/images/event-startup.svg',
-                    badge: 'UPCOMING'
-                },
-                {
-                    title: 'Sustainability in PropTech',
-                    date: 'Jan 25, 2025',
-                    location: 'Online Webinar',
-                    description: 'How PropTech is driving sustainability in Malaysia\'s construction and real estate industry.',
-                    price: 'Free',
-                    image: '<?php echo get_template_directory_uri(); ?>/assets/un-sdg-goals.jpg',
-                    badge: 'UPCOMING'
-                },
-                {
-                    title: 'Blockchain in Real Estate Workshop',
-                    date: 'Feb 15, 2025',
-                    location: 'Cyberjaya',
-                    description: 'Hands-on workshop exploring blockchain applications in real estate.',
-                    price: 'RM 200',
-                    image: '<?php echo get_template_directory_uri(); ?>/assets/images/event-ai.svg',
-                    badge: 'UPCOMING'
+        async function populateHomepageEvents() {
+            // Get real events from WordPress database
+            try {
+                const response = await fetch('/wp-content/themes/mpa-custom/get-events-json.php');
+                const allEvents = await response.json();
+                
+                // Filter and sort upcoming events
+                const today = new Date();
+                const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                
+                const upcomingEvents = allEvents
+                    .filter(event => {
+                        const eventDate = new Date(event.date);
+                        return eventDate >= todayStart;
+                    })
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
+                    .slice(0, 3); // Take first 3 upcoming events
+                
+                const eventsGrid = document.getElementById('homepageEventsGrid');
+                if (eventsGrid) {
+                    // Clear existing content
+                    eventsGrid.innerHTML = '';
+                    
+                    if (upcomingEvents.length > 0) {
+                        upcomingEvents.forEach(event => {
+                            const eventCard = createEventCard(event);
+                            eventsGrid.appendChild(eventCard);
+                        });
+                    } else {
+                        // Show placeholder if no upcoming events
+                        eventsGrid.innerHTML = '<p class="no-events">No upcoming events at this time.</p>';
+                    }
                 }
-            ];
-            
-            const eventsGrid = document.getElementById('homepageEventsGrid');
-            if (eventsGrid) {
-                upcomingEvents.forEach(event => {
-                    const eventCard = createEventCard(event);
-                    eventsGrid.appendChild(eventCard);
-                });
+            } catch (error) {
+                console.error('Failed to load events for homepage:', error);
+                // Show fallback message
+                const eventsGrid = document.getElementById('homepageEventsGrid');
+                if (eventsGrid) {
+                    eventsGrid.innerHTML = '<p class="no-events">Unable to load events. Please try again later.</p>';
+                }
             }
         }
         
@@ -284,21 +286,42 @@
             const card = document.createElement('div');
             card.className = 'event-card';
             
+            // Format date for display
+            const eventDate = new Date(event.date);
+            const formattedDate = eventDate.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: 'numeric'
+            });
+            
+            // Get event type for styling
+            const eventType = event.type || 'event';
+            
             card.innerHTML = `
                 <div class="event-image">
-                    <img src="${event.image}" alt="${event.title}">
-                    <div class="event-badge upcoming">${event.badge}</div>
+                    <img src="/wp-content/themes/mpa-custom/assets/placeholder-event.svg" alt="${event.title}">
+                    <div class="event-badge upcoming">UPCOMING</div>
+                    <div class="event-date-badge">
+                        <span class="day">${eventDate.getDate()}</span>
+                        <span class="month">${eventDate.toLocaleDateString('en-US', { month: 'short' })}</span>
+                    </div>
                 </div>
                 <div class="event-content">
                     <div class="event-meta">
-                        <span class="event-date">${event.date}</span>
-                        <span class="event-location">${event.location}</span>
+                        <span class="event-location">
+                            <i class="fas fa-map-marker-alt"></i> ${event.location || 'TBD'}
+                        </span>
+                        <span class="event-time">
+                            <i class="fas fa-clock"></i> ${formattedDate}
+                        </span>
                     </div>
                     <h3 class="event-title">${event.title}</h3>
                     <p class="event-description">${event.description}</p>
                     <div class="event-footer">
-                        <span class="event-price">${event.price}</span>
-                        <button class="btn-outline">Register</button>
+                        <span class="event-price">Free</span>
+                        <div class="event-actions">
+                            <a href="/events/" class="btn-secondary">View Details</a>
+                        </div>
                     </div>
                 </div>
             `;
