@@ -374,6 +374,58 @@ function mpa_register_events_post_type() {
 add_action('init', 'mpa_register_events_post_type');
 
 /**
+ * Register Committee Members Post Type
+ */
+function mpa_register_committee_post_type() {
+    $labels = array(
+        'name'                  => _x('Committee Members', 'Post type general name', 'mpa-custom'),
+        'singular_name'         => _x('Committee Member', 'Post type singular name', 'mpa-custom'),
+        'menu_name'             => _x('Committee', 'Admin Menu text', 'mpa-custom'),
+        'name_admin_bar'        => _x('Committee Member', 'Add New on Toolbar', 'mpa-custom'),
+        'add_new'               => __('Add New', 'mpa-custom'),
+        'add_new_item'          => __('Add New Committee Member', 'mpa-custom'),
+        'new_item'              => __('New Committee Member', 'mpa-custom'),
+        'edit_item'             => __('Edit Committee Member', 'mpa-custom'),
+        'view_item'             => __('View Committee Member', 'mpa-custom'),
+        'all_items'             => __('All Committee Members', 'mpa-custom'),
+        'search_items'          => __('Search Committee Members', 'mpa-custom'),
+        'parent_item_colon'     => __('Parent Committee Members:', 'mpa-custom'),
+        'not_found'             => __('No committee members found.', 'mpa-custom'),
+        'not_found_in_trash'    => __('No committee members found in Trash.', 'mpa-custom'),
+        'featured_image'        => _x('Member Photo', 'Overrides the "Featured Image" phrase', 'mpa-custom'),
+        'set_featured_image'    => _x('Set member photo', 'Overrides the "Set featured image" phrase', 'mpa-custom'),
+        'remove_featured_image' => _x('Remove member photo', 'Overrides the "Remove featured image" phrase', 'mpa-custom'),
+        'use_featured_image'    => _x('Use as member photo', 'Overrides the "Use as featured image" phrase', 'mpa-custom'),
+        'archives'              => _x('Committee archives', 'The post type archive label', 'mpa-custom'),
+        'insert_into_item'      => _x('Insert into committee member', 'Overrides the "Insert into post" phrase', 'mpa-custom'),
+        'uploaded_to_this_item' => _x('Uploaded to this committee member', 'Overrides the "Uploaded to this post" phrase', 'mpa-custom'),
+        'filter_items_list'     => _x('Filter committee members list', 'Screen reader text for the filter links', 'mpa-custom'),
+        'items_list_navigation' => _x('Committee members list navigation', 'Screen reader text for the pagination', 'mpa-custom'),
+        'items_list'            => _x('Committee members list', 'Screen reader text for the items list', 'mpa-custom'),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'committee-member'),
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => false,
+        'menu_position'      => 21,
+        'menu_icon'          => 'dashicons-groups',
+        'show_in_rest'       => true,
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes'),
+    );
+
+    register_post_type('mpa_committee', $args);
+}
+add_action('init', 'mpa_register_committee_post_type');
+
+/**
  * Add custom columns to Events admin table
  */
 function mpa_add_event_columns($columns) {
@@ -517,6 +569,407 @@ function mpa_event_columns_orderby($query) {
     }
 }
 add_action('pre_get_posts', 'mpa_event_columns_orderby');
+
+/**
+ * Add custom columns to Committee Members admin table
+ */
+function mpa_add_committee_columns($columns) {
+    // Remove unwanted columns
+    unset($columns['date']);
+    
+    // Add custom columns
+    $columns['member_photo'] = __('Photo', 'mpa-custom');
+    $columns['member_position'] = __('Position', 'mpa-custom');
+    $columns['member_term'] = __('Term', 'mpa-custom');
+    $columns['member_status'] = __('Status', 'mpa-custom');
+    $columns['member_contacts'] = __('Contacts', 'mpa-custom');
+    $columns['menu_order'] = __('Display Order', 'mpa-custom');
+    $columns['date'] = __('Created', 'mpa-custom'); // Re-add date column at the end
+    
+    return $columns;
+}
+add_filter('manage_mpa_committee_posts_columns', 'mpa_add_committee_columns');
+
+/**
+ * Populate custom columns with data for Committee Members
+ */
+function mpa_populate_committee_columns($column, $post_id) {
+    switch ($column) {
+        case 'member_photo':
+            $thumbnail_id = get_post_meta($post_id, '_thumbnail_id', true);
+            if ($thumbnail_id) {
+                $image_url = wp_get_attachment_image_url($thumbnail_id, array(50, 50));
+                if ($image_url) {
+                    echo '<img src="' . esc_url($image_url) . '" width="50" height="50" style="border-radius: 50%; object-fit: cover;" alt="Committee member photo" />';
+                } else {
+                    echo '<span style="color: #999;">No photo (ID: ' . $thumbnail_id . ')</span>';
+                }
+            } else {
+                echo '<span style="color: #999;">No photo</span>';
+            }
+            break;
+            
+        case 'member_position':
+            $position = get_post_meta($post_id, '_member_position', true);
+            if ($position) {
+                // Truncate long positions
+                $position_display = strlen($position) > 30 ? substr($position, 0, 30) . '...' : $position;
+                echo '<span title="' . esc_attr($position) . '" style="font-weight: bold; color: #0073aa;">' . esc_html($position_display) . '</span>';
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+            
+        case 'member_term':
+            $term = get_post_meta($post_id, '_member_term', true);
+            if ($term) {
+                echo '<span style="background: #f0f0f1; padding: 2px 6px; border-radius: 3px; font-size: 11px;">' . esc_html($term) . '</span>';
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+            
+        case 'member_status':
+            $status = get_post_meta($post_id, '_member_status', true);
+            if ($status) {
+                $status_class = '';
+                $status_text = ucfirst($status);
+                
+                // Add color coding
+                switch ($status) {
+                    case 'active':
+                        $status_class = 'style="color: #00a32a; font-weight: bold;"';
+                        break;
+                    case 'inactive':
+                        $status_class = 'style="color: #666; font-weight: bold;"';
+                        break;
+                    case 'alumni':
+                        $status_class = 'style="color: #0073aa; font-weight: bold;"';
+                        break;
+                }
+                
+                echo '<span ' . $status_class . '>' . esc_html($status_text) . '</span>';
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+            
+        case 'member_contacts':
+            $website = get_post_meta($post_id, '_member_website', true);
+            $email = get_post_meta($post_id, '_member_email', true);
+            $linkedin = get_post_meta($post_id, '_member_linkedin', true);
+            
+            $contacts = array();
+            if ($website) $contacts[] = '<a href="' . esc_url($website) . '" target="_blank" title="Website"><i class="fas fa-globe"></i></a>';
+            if ($email) $contacts[] = '<a href="mailto:' . esc_attr($email) . '" title="Email"><i class="fas fa-envelope"></i></a>';
+            if ($linkedin) $contacts[] = '<a href="' . esc_url($linkedin) . '" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>';
+            
+            if (!empty($contacts)) {
+                echo '<div style="font-size: 16px;">' . implode(' ', $contacts) . '</div>';
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+            
+        case 'menu_order':
+            $order = get_post_field('menu_order', $post_id);
+            echo '<span style="font-weight: bold; color: #0073aa; font-size: 16px;">' . esc_html($order) . '</span>';
+            break;
+    }
+}
+add_action('manage_mpa_committee_posts_custom_column', 'mpa_populate_committee_columns', 10, 2);
+
+/**
+ * Make custom columns sortable for Committee Members
+ */
+function mpa_make_committee_columns_sortable($columns) {
+    $columns['member_position'] = 'member_position';
+    $columns['member_term'] = 'member_term';
+    $columns['member_status'] = 'member_status';
+    $columns['menu_order'] = 'menu_order';
+    
+    return $columns;
+}
+add_filter('manage_edit-mpa_committee_sortable_columns', 'mpa_make_committee_columns_sortable');
+
+/**
+ * Handle sorting for custom columns for Committee Members
+ */
+function mpa_committee_columns_orderby($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    
+    $orderby = $query->get('orderby');
+    
+    switch ($orderby) {
+        case 'member_position':
+            $query->set('meta_key', '_member_position');
+            $query->set('orderby', 'meta_value');
+            break;
+            
+        case 'member_term':
+            $query->set('meta_key', '_member_term');
+            $query->set('orderby', 'meta_value');
+            break;
+            
+        case 'member_status':
+            $query->set('meta_key', '_member_status');
+            $query->set('orderby', 'meta_value');
+            break;
+    }
+}
+add_action('pre_get_posts', 'mpa_committee_columns_orderby');
+
+
+
+/**
+ * Add Committee Member Meta Boxes
+ */
+function mpa_add_committee_meta_boxes() {
+    // Force add meta box for committee members
+    add_meta_box(
+        'committee_member_details',
+        __('Member Details', 'mpa-custom'),
+        'mpa_committee_member_details_callback',
+        'mpa_committee',
+        'normal',
+        'high'
+    );
+    
+    // Debug: Also add to all post types to test
+    global $post;
+    if ($post && $post->post_type == 'mpa_committee') {
+        error_log('Adding meta box for committee member: ' . $post->ID);
+    }
+}
+add_action('add_meta_boxes', 'mpa_add_committee_meta_boxes');
+
+/**
+ * Committee Member Details Meta Box Callback
+ */
+function mpa_committee_member_details_callback($post) {
+    // Add nonce for security
+    wp_nonce_field('mpa_save_committee_member_details', 'mpa_committee_member_details_nonce');
+
+    // Get current values
+    $member_position = get_post_meta($post->ID, '_member_position', true);
+    $member_term = get_post_meta($post->ID, '_member_term', true);
+    $member_status = get_post_meta($post->ID, '_member_status', true);
+    $member_website = get_post_meta($post->ID, '_member_website', true);
+    $member_email = get_post_meta($post->ID, '_member_email', true);
+    $member_linkedin = get_post_meta($post->ID, '_member_linkedin', true);
+
+    ?>
+    <table class="form-table">
+        <tr style="background-color: #f9f9f9;">
+            <th scope="row">
+                <label for="member_position" style="font-weight: bold; color: #0073aa;"><?php _e('Position/Role', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="text" id="member_position" name="member_position" value="<?php echo esc_attr($member_position); ?>" class="regular-text" style="border: 2px solid #0073aa;" />
+                <p class="description"><?php _e('e.g., President, Vice President, Events & Marketing', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr style="background-color: #f0f8ff;">
+            <th scope="row">
+                <label for="member_order" style="font-weight: bold; color: #0073aa;"><?php _e('Display Order', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="number" id="member_order" name="member_order" value="<?php echo esc_attr(get_post_field('menu_order', $post->ID)); ?>" min="1" max="50" class="small-text" style="border: 2px solid #0073aa;" />
+                <p class="description"><?php _e('Lower numbers appear first (1 = President, 2 = Vice President, etc.)', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="member_term"><?php _e('Term', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <select id="member_term" name="member_term">
+                    <option value=""><?php _e('Select Term', 'mpa-custom'); ?></option>
+                    <option value="2025-2026" <?php selected($member_term, '2025-2026'); ?>><?php _e('2025-2026', 'mpa-custom'); ?></option>
+                    <option value="2023-2025" <?php selected($member_term, '2023-2025'); ?>><?php _e('2023-2025', 'mpa-custom'); ?></option>
+                    <option value="2021-2023" <?php selected($member_term, '2021-2023'); ?>><?php _e('2021-2023', 'mpa-custom'); ?></option>
+                </select>
+                <p class="description"><?php _e('Committee term period.', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="member_status"><?php _e('Status', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <select id="member_status" name="member_status">
+                    <option value="active" <?php selected($member_status, 'active'); ?>><?php _e('Active', 'mpa-custom'); ?></option>
+                    <option value="inactive" <?php selected($member_status, 'inactive'); ?>><?php _e('Inactive', 'mpa-custom'); ?></option>
+                    <option value="alumni" <?php selected($member_status, 'alumni'); ?>><?php _e('Alumni', 'mpa-custom'); ?></option>
+                </select>
+                <p class="description"><?php _e('Current membership status.', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="member_website"><?php _e('Website URL', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="url" id="member_website" name="member_website" value="<?php echo esc_attr($member_website); ?>" class="regular-text" />
+                <p class="description"><?php _e('Personal or company website (optional).', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="member_email"><?php _e('Email Address', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="email" id="member_email" name="member_email" value="<?php echo esc_attr($member_email); ?>" class="regular-text" />
+                <p class="description"><?php _e('Contact email address.', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="member_linkedin"><?php _e('LinkedIn Profile', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="url" id="member_linkedin" name="member_linkedin" value="<?php echo esc_attr($member_linkedin); ?>" class="regular-text" />
+                <p class="description"><?php _e('LinkedIn profile URL (optional).', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+    </table>
+    
+    <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #0073aa;">
+        <h4><?php _e('Instructions:', 'mpa-custom'); ?></h4>
+        <ul style="margin-left: 20px;">
+            <li><?php _e('Use the <strong>Title</strong> field above for the member\'s full name', 'mpa-custom'); ?></li>
+            <li><?php _e('Use the <strong>Content Editor</strong> above for detailed bio/responsibilities', 'mpa-custom'); ?></li>
+            <li><?php _e('Set a <strong>Featured Image</strong> for the member\'s photo', 'mpa-custom'); ?></li>
+            <li><?php _e('Use <strong>Page Attributes > Order</strong> to control display order (lower numbers appear first)', 'mpa-custom'); ?></li>
+        </ul>
+    </div>
+    <?php
+}
+
+/**
+ * Save Committee Member Meta Box Data
+ */
+function mpa_save_committee_member_details($post_id) {
+    // Check if nonce is valid
+    if (!isset($_POST['mpa_committee_member_details_nonce']) || !wp_verify_nonce($_POST['mpa_committee_member_details_nonce'], 'mpa_save_committee_member_details')) {
+        return;
+    }
+
+    // Check if user has permissions to save data
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Check if not an autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Check if this is the correct post type
+    if (get_post_type($post_id) !== 'mpa_committee') {
+        return;
+    }
+
+        // Save meta fields
+    $fields = array(
+        'member_position',
+        'member_term', 
+        'member_status',
+        'member_website',
+        'member_email',
+        'member_linkedin'
+    );
+    
+    foreach ($fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, '_' . $field, sanitize_text_field($_POST[$field]));
+        }
+    }
+    
+    // Save display order (menu_order)
+    if (isset($_POST['member_order'])) {
+        $order = intval($_POST['member_order']);
+        if ($order > 0) {
+            wp_update_post(array(
+                'ID' => $post_id,
+                'menu_order' => $order
+            ));
+        }
+    }
+}
+add_action('save_post', 'mpa_save_committee_member_details');
+
+/**
+ * Add JavaScript for committee order management
+ */
+function mpa_committee_admin_scripts($hook) {
+    global $post_type;
+    
+    if ($hook == 'edit.php' && $post_type == 'mpa_committee') {
+        wp_enqueue_script('jquery');
+        wp_localize_script('jquery', 'mpa_ajax', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('update_committee_order')
+        ));
+        
+        ?>
+        <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            console.log('Committee order script loaded');
+            console.log('Found ' + $('.committee-order-select').length + ' dropdowns');
+            
+            $('.committee-order-select').on('change', function() {
+                console.log('Dropdown changed!');
+                var postId = $(this).data('post-id');
+                var newOrder = $(this).val();
+                var $select = $(this);
+                
+                console.log('Post ID: ' + postId + ', New Order: ' + newOrder);
+                
+                // Show loading
+                $select.prop('disabled', true);
+                
+                $.ajax({
+                    url: mpa_ajax.ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'update_committee_order',
+                        post_id: postId,
+                        new_order: newOrder,
+                        nonce: mpa_ajax.nonce
+                    },
+                    success: function(response) {
+                        console.log('AJAX success:', response);
+                        if (response.success) {
+                            // Update the "Current" display
+                            $select.next('span').text('Current: ' + newOrder);
+                            
+                            // Show success message
+                            $('<div class="notice notice-success is-dismissible"><p>Display order updated successfully!</p></div>')
+                                .insertAfter('.wp-header-end')
+                                .delay(3000)
+                                .fadeOut();
+                        } else {
+                            alert('Error updating order: ' + response.data);
+                        }
+                        $select.prop('disabled', false);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('AJAX error:', status, error);
+                        console.log('Response:', xhr.responseText);
+                        alert('Error updating order. Please try again.');
+                        $select.prop('disabled', false);
+                    }
+                });
+            });
+        });
+        </script>
+        <?php
+    }
+}
+
 
 
 
