@@ -299,8 +299,8 @@
             
             card.innerHTML = `
                 <div class="event-image">
-                    <img src="/wp-content/themes/mpa-custom/assets/placeholder-event.svg" alt="${event.title}">
-                    <div class="event-badge upcoming">UPCOMING</div>
+                    <img src="${event.featured_image || '/wp-content/themes/mpa-custom/assets/placeholder-event.svg'}" alt="${event.title}">
+                    <div class="event-badge ${event.status || 'upcoming'}">${(event.status || 'upcoming').toUpperCase()}</div>
                     <div class="event-date-badge">
                         <span class="day">${eventDate.getDate()}</span>
                         <span class="month">${eventDate.toLocaleDateString('en-US', { month: 'short' })}</span>
@@ -309,16 +309,17 @@
                 <div class="event-content">
                     <div class="event-meta">
                         <span class="event-location">
-                            <i class="fas fa-map-marker-alt"></i> ${event.location || 'TBD'}
+                            <i class="fas fa-${event.location && event.location.toLowerCase().includes('online') ? 'globe' : 'map-marker-alt'}"></i> 
+                            ${event.location || 'TBD'}
                         </span>
                         <span class="event-time">
                             <i class="fas fa-clock"></i> ${formattedDate}
                         </span>
                     </div>
                     <h3 class="event-title">${event.title}</h3>
-                    <p class="event-description">${event.description}</p>
+                    <p class="event-description">${event.excerpt || event.description}</p>
                     <div class="event-footer">
-                        <span class="event-price">Free</span>
+                        <span class="event-price">${event.price || 'Free'}</span>
                         <div class="event-actions">
                             <a href="/events/" class="btn-secondary">View Details</a>
                         </div>

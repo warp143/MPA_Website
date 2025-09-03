@@ -309,11 +309,13 @@
             <div class="committee-member">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_01_Michele-Tan.webp" alt="Michele Tan">
                 <h3>Michele Tan</h3>
-                <p class="position">Community Engagement</p>
+                <p class="position">Community Engagement, Partnership</p>
                 <div class="position-description">
                     <p>• Strengthen member networking and collaboration</p>
                     <p>• Create channels for peer-to-peer support and industry conversations</p>
                     <p>• Drive grassroots involvement in PropTech initiatives</p>
+                    <p>• Develop collaborations with industry associations, academia, government agencies, and international PropTech bodies</p>
+                    <p>• Create cross-promotional and co-hosted event opportunities</p>
                 </div>
                 <div class="member-contact">
                     <a href="https://www.servedeck.com/" class="contact-link" title="Website"><i class="fas fa-globe"></i></a>
@@ -425,22 +427,7 @@
                     <a href="#" class="contact-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
-            <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Michelle Tan">
-                <h3>Michelle Tan</h3>
-                <p class="position">Sponsorship, Partnership</p>
-                <div class="position-description">
-                    <p>• Identify and secure sponsorship for events and initiatives</p>
-                    <p>• Build long-term relationships with corporate sponsors</p>
-                    <p>• Develop collaborations with industry associations, academia, government agencies, and international PropTech bodies</p>
-                    <p>• Create cross-promotional and co-hosted event opportunities</p>
-                </div>
-                <div class="member-contact">
-                    <a href="https://www.homesifu.io" class="contact-link" title="Website"><i class="fas fa-globe"></i></a>
-                    <a href="mailto:amk@homesifu.io" class="contact-link" title="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.linkedin.com/in/andrewmichaelkho/" class="contact-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
+
         </div>
         <div class="text-center" style="margin-top: var(--spacing-xxl);">
             <a href="<?php echo esc_url(home_url('/old-members/')); ?>" class="btn-primary">View Previous Committee Members (2021-2023)</a>
