@@ -1,5 +1,10 @@
 <?php get_header(); ?>
 
+<!-- Set custom page title -->
+<script>
+document.title = 'Proptech |';
+</script>
+
 <!-- Hero Section -->
 <section class="page-hero">
     <div class="container">

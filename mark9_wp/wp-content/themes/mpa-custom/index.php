@@ -1,5 +1,10 @@
 <?php get_header(); ?>
 
+<!-- Set custom page title -->
+<script>
+document.title = 'Malaysia Proptech Association';
+</script>
+
 <main id="main" class="site-main">
     <!-- Hero Section -->
     <section id="home" class="hero">

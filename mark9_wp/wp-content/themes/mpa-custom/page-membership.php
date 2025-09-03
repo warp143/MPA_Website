@@ -103,53 +103,7 @@
     </div>
 </section>
 
-<!-- Member Success Stories -->
-<section class="member-stories">
-    <div class="container">
-        <div class="section-header">
-            <h2>Member Success Stories</h2>
-            <p>Hear from our members about their MPA experience</p>
-        </div>
-        <div class="stories-grid">
-            <div class="story-card">
-                <div class="story-content">
-                    <p>"Joining MPA has been transformative for our startup. The networking opportunities and mentorship program have accelerated our growth significantly."</p>
-                </div>
-                <div class="story-author">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/Andrew.png" alt="Andrew Michael Kho">
-                    <div class="author-info">
-                        <h4>Andrew Michael Kho</h4>
-                        <p>Founder, HomeSifu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="story-card">
-                <div class="story-content">
-                    <p>"The MPA community has provided invaluable connections and insights that have helped us navigate the PropTech landscape in Malaysia."</p>
-                </div>
-                <div class="story-author">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Dr. Daniele Gambero">
-                    <div class="author-info">
-                        <h4>Dr. Daniele Gambero</h4>
-                        <p>President, MPA</p>
-                    </div>
-                </div>
-            </div>
-            <div class="story-card">
-                <div class="story-content">
-                    <p>"Through MPA, we've gained access to industry leaders and potential partners that have been crucial to our business development."</p>
-                </div>
-                <div class="story-author">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Jason Ding">
-                    <div class="author-info">
-                        <h4>Jason Ding</h4>
-                        <p>Deputy President, MPA</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 
 <!-- Membership Process -->
 <section class="membership-process">

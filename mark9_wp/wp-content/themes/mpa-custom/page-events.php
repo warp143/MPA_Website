@@ -1,10 +1,15 @@
 <?php get_header(); ?>
 
+<!-- Set custom page title -->
+<script>
+document.title = 'Events |';
+</script>
+
 <!-- Hero Section -->
 <section class="page-hero">
     <div class="container">
         <div class="hero-content">
-            <h1>MPA Events</h1>
+            <h1>Events</h1>
             <p>Join our local and internationally promoted events</p>
         </div>
         <div class="hero-image">

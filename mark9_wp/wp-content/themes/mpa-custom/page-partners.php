@@ -1,10 +1,15 @@
 <?php get_header(); ?>
 
+<!-- Set custom page title -->
+<script>
+document.title = 'Partners |';
+</script>
+
 <!-- Hero Section -->
 <section class="page-hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Our Partners</h1>
+            <h1>Partners</h1>
             <p>Strategic collaborations driving innovation in Malaysia's PropTech ecosystem</p>
         </div>
         <div class="hero-image">

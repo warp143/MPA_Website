@@ -1311,16 +1311,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 events = await response.json();
                 console.log('Loaded events:', events);
                 // Refresh calendar after loading events
-                if (typeof populateCalendar === 'function') {
-                    populateCalendar(currentDate.getFullYear(), currentDate.getMonth());
-                }
+                renderCalendar();
             } catch (error) {
                 console.error('Failed to load events:', error);
+                // Still render calendar even if events fail to load
+                renderCalendar();
             }
         }
         
         // Load events when page loads
         loadEvents();
+        
+        // Initial calendar render will happen after events are loaded
+        // No need for setTimeout here since loadEvents() will trigger renderCalendar()
         
         function getISOWeekNumber(date) {
             const d = new Date(date);
@@ -1444,6 +1447,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function renderCalendar() {
+            console.log('Rendering calendar for:', currentDate.getMonth() + 1, currentDate.getFullYear());
+            console.log('Available events:', events);
+            
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                                'July', 'August', 'September', 'October', 'November', 'December'];
             
@@ -1502,6 +1508,12 @@ document.addEventListener('DOMContentLoaded', function() {
             for (let day = 1; day <= daysInMonth; day++) {
                 const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const dayEvents = events.filter(event => event.date === dateString);
+                
+                // Debug: Log events for this day
+                if (dayEvents.length > 0) {
+                    console.log(`Events for ${dateString}:`, dayEvents);
+                }
+                
                 const isToday = today.toDateString() === new Date(year, month, day).toDateString();
                 const isPast = new Date(year, month, day) < new Date().setHours(0, 0, 0, 0);
                 
@@ -1613,12 +1625,8 @@ document.addEventListener('DOMContentLoaded', function() {
             renderCalendar();
         });
         
-        // Force initial render with a small delay to ensure DOM is ready
-        setTimeout(() => {
-            renderCalendar();
-            // Debug: Force show current date info
-            
-        }, 100);
+        // Initial calendar render happens after events are loaded via loadEvents()
+        // No need for setTimeout since events loading will trigger calendar render
     } else {
         console.warn('Calendar elements not found - calendar functionality disabled');
     }

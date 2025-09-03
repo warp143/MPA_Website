@@ -2959,7 +2959,17 @@ body:not(.light-mode) .partner-testimonials {
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center 5%;
     margin-bottom: var(--spacing-md);
+}
+
+/* Specific positioning for Lim Sook Khim */
+.committee-member img[alt="Lim Sook Khim"] {
+    object-position: center 25%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: center 25%;
 }
 
 .committee-member h3 {

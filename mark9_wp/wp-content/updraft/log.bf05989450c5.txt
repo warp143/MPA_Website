@@ -1,0 +1,212 @@
+0000.000 (0) Opened log file at time: Wed, 03 Sep 2025 12:33:49 +0000 on http://localhost:8000
+0000.001 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.25.7 WP: 6.8.2 PHP: 8.4.12 (cli-server, Darwin AMK-MacBook-Air.local 24.6.0 Darwin Kernel Version 24.6.0: Mon Jul 14 11:30:51 PDT 2025; root:xnu-11417.140.69~1/RELEASE_ARM64_T8112 arm64) MySQL: 9.4.0 (max packet size=67108864) WPLANG: en_US Server: PHP/8.4.12 (Development Server) safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 2.8M | 4M) multisite: N openssl: OpenSSL 3.5.2 5 Aug 2025 mcrypt: N LANG: en_US.UTF-8 WP Proxy: disabled ZipArchive::addFile: Y
+0000.002 (0) Free space on disk containing Updraft's temporary directory: 120164.9 MB
+0000.010 (0) Tasks: Backup files: 1 (schedule: unset) Backup DB: 1 (schedule: unset)
+0000.013 (0) Requesting semaphore lock (fd) (apparently not via scheduler)
+0000.015 (0) Set semaphore last lock (fd) time to 2025-09-03 12:33:49
+0000.016 (0) Semaphore lock (fd) complete
+0000.018 (0) Backup run: resumption=0, nonce=bf05989450c5, file_nonce=bf05989450c5 begun at=1756902829 (0s ago), job type=backup
+0000.019 (0) Scheduling a resumption (1) after 300 seconds (1756903129) in case this run gets aborted
+0000.042 (0) Checking if we have a zip executable available
+0000.042 (0) Testing: /usr/bin/zip
+0000.051 (0) Output: zip warning: binziptest/test.zip not found or empty
+0000.052 (0) Output: adding: binziptest/subdir1/	(in=0) (out=0) (stored 0%)
+0000.053 (0) Output: adding: binziptest/subdir1/subdir2/	(in=0) (out=0) (stored 0%)
+0000.053 (0) Output: adding: binziptest/subdir1/subdir2/test.html	(in=131) (out=107) (deflated 18%)
+0000.054 (0) Output: total bytes=131, compressed=107 -> 18% savings
+0000.061 (0) Output: adding: binziptest/subdir1/subdir2/test2.html	(in=138) (out=113) (deflated 18%)
+0000.062 (0) Output: total bytes=269, compressed=220 -> 18% savings
+0000.063 (0) Working binary zip found: /usr/bin/zip
+0000.065 (0) Zip engine: found/will use a binary zip: /usr/bin/zip
+0000.065 (0) Creation of backups of directories: beginning
+0000.068 (0) Beginning creation of dump of plugins (split every: 400 MB)
+0000.106 (0) Total entities for the zip file: 220 directories, 1276 files (0 skipped as non-modified), 25.6 MB
+0000.109 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 100 files added (on-disk size: 0 KB)
+0000.111 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 200 files added (on-disk size: 0 KB)
+0000.113 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 300 files added (on-disk size: 0 KB)
+0000.115 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 400 files added (on-disk size: 0 KB)
+0000.117 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 500 files added (on-disk size: 0 KB)
+0000.119 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 600 files added (on-disk size: 0 KB)
+0000.121 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 700 files added (on-disk size: 0 KB)
+0000.123 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 800 files added (on-disk size: 0 KB)
+0000.125 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 900 files added (on-disk size: 0 KB)
+0000.129 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 1000 files added (on-disk size: 0 KB)
+0000.130 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (24.5 MB, 1276 files batched, 1001 (1001) added so far); re-opening (prior size: 0 KB)
+0000.855 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: size is now: 7.10 MB
+0000.859 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 1100 files added (on-disk size: 7254 KB)
+0000.862 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.tmp: 1200 files added (on-disk size: 7254 KB)
+0000.951 (0) Creating zip file manifest (backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.list-temp.tmp)
+0000.954 (0) Successfully created zip file manifest (size: 110224)
+0001.009 (0) Created plugins zip (0) - 7736.8 KB in 0.9 s (8232.7 KB/s) (sha1: ba7568d8b2d60d5f36af557fa14ea8ed8826ac25, sha256: 081fd7987a2a31355f45efa3045bb19faea99afd68527e5e83afeb3d743aa0bd)
+0001.012 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0001.013 (0) No remote despatch: user chose no remote backup service
+0001.014 (0) Recording as successfully uploaded: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip
+0001.015 (0) Deleting zip manifest (backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip.list.tmp)
+0001.017 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=2
+0001.018 (0) Number of backup sets in history: 0; groups (db): 1
+0001.018 (0) Number of backup sets in history: 0; groups (files): 1
+0001.019 (0) Retain: saving new backup history (sets now: 0) and finishing retain operation
+0001.022 (0) Beginning creation of dump of themes (split every: 400 MB)
+0001.034 (0) Total entities for the zip file: 56 directories, 564 files (0 skipped as non-modified), 28.9 MB
+0001.036 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip.tmp: 100 files added (on-disk size: 0 KB)
+0001.042 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip.tmp: 200 files added (on-disk size: 0 KB)
+0001.044 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip.tmp: 300 files added (on-disk size: 0 KB)
+0001.046 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip.tmp: 400 files added (on-disk size: 0 KB)
+0001.048 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 25 MB added on this batch (25.4 MB, 564 files batched, 498 (498) added so far); re-opening (prior size: 0 KB)
+0001.413 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip.tmp: size is now: 24.40 MB
+0001.415 (0) A useful amount of data was added after this amount of zip processing: 1.4 s (normalised: 1.3 s, rate: 19245.1 KB/s)
+0001.419 (0) Performance is good - will increase the amount of data we attempt to batch (time=1.3511769771576, normalised_time=1.3302099727666, max_time=1.4180800914764, data points known=1, old_max_bytes=26214400, new_max_bytes=118241783)
+0001.420 (0) Zip: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip.tmp: 500 files added (on-disk size: 24992 KB)
+0001.538 (0) Creating zip file manifest (backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip.list-temp.tmp)
+0001.540 (0) Successfully created zip file manifest (size: 38260)
+0001.726 (0) Created themes zip (0) - 27998.7 KB in 0.7 s (39963.7 KB/s) (sha1: 5beb7533efeecc72b88f52ffe4b127101140aad9, sha256: 6daad917dde707c0b6ae623d9015a361fc8b7d4d616f8fc21ae6ec6da40b47a9)
+0001.730 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0001.731 (0) No remote despatch: user chose no remote backup service
+0001.732 (0) Recording as successfully uploaded: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip
+0001.733 (0) Deleting zip manifest (backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip.list.tmp)
+0001.735 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=2
+0001.736 (0) Number of backup sets in history: 0; groups (db): 1
+0001.737 (0) Number of backup sets in history: 0; groups (files): 1
+0001.739 (0) Retain: saving new backup history (sets now: 0) and finishing retain operation
+0001.744 (0) Exclusion option setting (uploads): backup*,*backups,backwpup*,wp-clone,snapshots,wp-staging
+0001.744 (0) Looking for candidates to backup in: /Users/amk/Documents/GitHub/MPA_Website/mark9_wp/wp-content/uploads
+0001.745 (0) finding files: 2025: adding to list (1)
+0001.745 (0) finding files: 2025 2: adding to list (2)
+0001.746 (0) Beginning creation of dump of uploads (split every: 400 MB)
+0001.748 (0) Total entities for the zip file: 3 directories, 7 files (0 skipped as non-modified), 1.2 MB
+0001.760 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-uploads.zip.tmp: size is now: 1.20 MB
+0001.762 (0) Creating zip file manifest (backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-uploads.zip.list-temp.tmp)
+0001.763 (0) Successfully created zip file manifest (size: 429)
+0001.775 (0) Created uploads zip (0) - 1277.4 KB in 0 s (46603.1 KB/s) (sha1: 7dcfa015da4ec91540f62ac2cd0bdf2870c072a5, sha256: 7c1113de0b3d95659131f7152319a6a87af740aa9e6287bb0e95f482b77cf335)
+0001.777 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0001.778 (0) No remote despatch: user chose no remote backup service
+0001.779 (0) Recording as successfully uploaded: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-uploads.zip
+0001.781 (0) Deleting zip manifest (backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-uploads.zip.list.tmp)
+0001.782 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=2
+0001.783 (0) Number of backup sets in history: 0; groups (db): 1
+0001.783 (0) Number of backup sets in history: 0; groups (files): 1
+0001.784 (0) Retain: saving new backup history (sets now: 0) and finishing retain operation
+0001.786 (0) No backup of mu-plugins: excluded by user's options
+0001.787 (0) Beginning backup of other directories found in the content directory (index: 0)
+0001.788 (0) Exclusion option setting (others): upgrade,cache,updraft,backup*,*backups,mysql.sql,debug.log
+0001.788 (0) Looking for candidates to backup in: /Users/amk/Documents/GitHub/MPA_Website/mark9_wp/wp-content
+0001.789 (0) finding files: upgrade: skipping: excluded by options
+0001.790 (0) finding files: index.php: adding to list (1)
+0001.790 (0) finding files: plugins: skipping: this is the plugins directory
+0001.791 (0) finding files: uploads: skipping: this is the uploads directory
+0001.792 (0) finding files: updraft: skipping: this is the updraft directory
+0001.793 (0) finding files: themes: skipping: this is the themes directory
+0001.795 (0) Total entities for the zip file: 0 directories, 1 files (0 skipped as non-modified), 0 MB
+0001.801 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-others.zip.tmp: size is now: 0.00 MB
+0001.803 (0) Creating zip file manifest (backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-others.zip.list-temp.tmp)
+0001.804 (0) Successfully created zip file manifest (size: 43)
+0001.808 (0) Created others zip (0) - 0.2 KB in 0 s (15.8 KB/s) (sha1: 90ac377f316ea6a0a47b1d762539090dd8514a1e, sha256: d984c1044776bc4d777b7f4dbe40edaf1d8d95f1252755d7e54a41a34b7c16b5)
+0001.811 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0001.812 (0) No remote despatch: user chose no remote backup service
+0001.813 (0) Recording as successfully uploaded: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-others.zip
+0001.814 (0) Deleting zip manifest (backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-others.zip.list.tmp)
+0001.816 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=2
+0001.816 (0) Number of backup sets in history: 0; groups (db): 1
+0001.817 (0) Number of backup sets in history: 0; groups (files): 1
+0001.817 (0) Retain: saving new backup history (sets now: 0) and finishing retain operation
+0001.823 (0) Saving backup status to database (elements: 8)
+0001.824 (0) Beginning creation of database dump (WordPress DB)
+0001.825 (0) SQL compatibility mode is: NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+0001.834 (0) Table wp_options: Total expected rows (via COUNT): 221
+0001.835 (0) Table is relatively small; fetch_rows will thus be: 250 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.869 (0) Table wp_options: Rows added in this batch (next record: 347): 192 (uncompressed bytes in this segment=1302656) in 0.04 seconds
+0001.874 (0) Table wp_options: finishing file(s) (2, 263.7 KB)
+0001.880 (0) Table wp_users: Total expected rows (via COUNT): 1
+0001.880 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.882 (0) Table wp_users: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=1389) in 0.00 seconds
+0001.884 (0) Table wp_users: finishing file(s) (2, 0.6 KB)
+0001.894 (0) Table wp_usermeta: Total expected rows (via COUNT): 18
+0001.895 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.896 (0) Table wp_usermeta: Rows added in this batch (next record: 18): 18 (uncompressed bytes in this segment=3823) in 0.00 seconds
+0001.901 (0) Table wp_usermeta: finishing file(s) (2, 1.4 KB)
+0001.909 (0) Table wp_commentmeta: Total expected rows (via COUNT): 0
+0001.910 (0) Table wp_commentmeta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=677) in 0.01 seconds
+0001.914 (0) Table wp_commentmeta: finishing file(s) (2, 0.4 KB)
+0001.917 (0) Table wp_comments: Total expected rows (via COUNT): 0
+0001.919 (0) Table wp_comments: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1702) in 0.00 seconds
+0001.920 (0) Table wp_comments: finishing file(s) (2, 0.5 KB)
+0001.923 (0) Table wp_links: Total expected rows (via COUNT): 0
+0001.923 (0) Table wp_links: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1298) in 0.00 seconds
+0001.924 (0) Table wp_links: finishing file(s) (2, 0.5 KB)
+0001.926 (0) Table wp_postmeta: Total expected rows (via COUNT): 370
+0001.927 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.928 (0) Table wp_postmeta: Rows added in this batch (next record: 1298): 370 (uncompressed bytes in this segment=19496) in 0.00 seconds
+0001.930 (0) Table wp_postmeta: finishing file(s) (2, 3.5 KB)
+0001.931 (0) Table wp_posts: Total expected rows (via COUNT): 65
+0001.932 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.933 (0) Table wp_posts: Rows added in this batch (next record: 200): 65 (uncompressed bytes in this segment=35851) in 0.00 seconds
+0001.934 (0) Table wp_posts: finishing file(s) (2, 5 KB)
+0001.935 (0) Table wp_term_relationships: Total expected rows (approximate): 17
+0001.937 (0) Table wp_term_relationships: Rows added in this batch (next record: 100000): 17 (uncompressed bytes in this segment=905) in 0.00 seconds
+0001.937 (0) Table wp_term_relationships: finishing file(s) (2, 0.4 KB)
+0001.940 (0) Table wp_term_taxonomy: Total expected rows (via COUNT): 22
+0001.940 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.941 (0) Table wp_term_taxonomy: Rows added in this batch (next record: 22): 22 (uncompressed bytes in this segment=1683) in 0.00 seconds
+0001.943 (0) Table wp_term_taxonomy: finishing file(s) (2, 0.6 KB)
+0001.945 (0) Table wp_termmeta: Total expected rows (via COUNT): 0
+0001.946 (0) Table wp_termmeta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=650) in 0.00 seconds
+0001.948 (0) Table wp_termmeta: finishing file(s) (2, 0.4 KB)
+0001.950 (0) Table wp_terms: Total expected rows (via COUNT): 22
+0001.951 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.951 (0) Table wp_terms: Rows added in this batch (next record: 22): 22 (uncompressed bytes in this segment=1578) in 0.00 seconds
+0001.952 (0) Table wp_terms: finishing file(s) (2, 0.8 KB)
+0001.953 (0) PHP event: code E_WARNING: filemtime(): stat failed for /Users/amk/Documents/GitHub/MPA_Website/mark9_wp/wp-content/updraft/backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db.gz (line 1923, wp-content/plugins/updraftplus/backup.php)
+0001.953 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_options.table.tmpr348.gz (1/12/fopen): adding to final database dump
+0001.955 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_options.table.gz (2/12/fopen): adding to final database dump
+0001.956 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_users.table.tmpr2.gz (3/12/fopen): adding to final database dump
+0001.956 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_users.table.gz (4/12/fopen): adding to final database dump
+0001.956 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_usermeta.table.tmpr19.gz (5/12/fopen): adding to final database dump
+0001.956 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_usermeta.table.gz (6/12/fopen): adding to final database dump
+0001.956 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_commentmeta.table.tmpr0.gz (7/12/fopen): adding to final database dump
+0001.956 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_commentmeta.table.gz (8/12/fopen): adding to final database dump
+0001.957 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_comments.table.tmpr0.gz (9/12/fopen): adding to final database dump
+0001.957 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_comments.table.gz (10/12/fopen): adding to final database dump
+0001.957 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_links.table.tmpr0.gz (11/12/fopen): adding to final database dump
+0001.957 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_links.table.gz (12/12/fopen): adding to final database dump
+0001.960 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_postmeta.table.tmpr1299.gz (13/12/fopen): adding to final database dump
+0001.961 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_postmeta.table.gz (14/12/fopen): adding to final database dump
+0001.961 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_posts.table.tmpr201.gz (15/12/fopen): adding to final database dump
+0001.962 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_posts.table.gz (16/12/fopen): adding to final database dump
+0001.962 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_term_relationships.table.tmpr100001.gz (17/12/fopen): adding to final database dump
+0001.962 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_term_relationships.table.gz (18/12/fopen): adding to final database dump
+0001.962 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_term_taxonomy.table.tmpr23.gz (19/12/fopen): adding to final database dump
+0001.962 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_term_taxonomy.table.gz (20/12/fopen): adding to final database dump
+0001.962 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_termmeta.table.tmpr0.gz (21/12/fopen): adding to final database dump
+0001.963 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_termmeta.table.gz (22/12/fopen): adding to final database dump
+0001.963 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_terms.table.tmpr23.gz (23/12/fopen): adding to final database dump
+0001.963 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db-table-wp_terms.table.gz (24/12/fopen): adding to final database dump
+0001.964 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db.gz: finished writing out complete database file (278 KB)
+0001.968 (0) Total database tables backed up: 12 (backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db.gz, size: 284808, sha1: 56fa10f403b8080757153e296a785859146fb9c3, sha256: 47e3724377554a91d22faf45adbb3ce55bfeaaac79eab9980cf3118b056e2f66)
+0001.969 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-plugins.zip: plugins: This file has already been successfully processed
+0001.969 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-themes.zip: themes: This file has already been successfully processed
+0001.969 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-uploads.zip: uploads: This file has already been successfully processed
+0001.970 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-others.zip: others: This file has already been successfully processed
+0001.970 (0) backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db.gz: db: This file has not yet been successfully uploaded: will queue
+0001.970 (0) Saving backup history. Total backup size: 36.4 MB
+0001.971 (0) Requesting upload of the files that have not yet been successfully uploaded (1)
+0001.972 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0001.972 (0) No remote despatch: user chose no remote backup service
+0001.972 (0) Recording as successfully uploaded: backup_2025-09-03-1233_Malaysia_Proptech_Association_bf05989450c5-db.gz
+0001.973 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=2
+0001.973 (0) Number of backup sets in history: 1; groups (db): 1
+0001.973 (0) Examining (for databases) backup set with group_id=0, nonce=bf05989450c5, datestamp=1756902829 (Sep 03 2025 12:33:49)
+0001.974 (0) This backup set is the backup set just made, so will not be deleted.
+0001.974 (0) Number of backup sets in history: 1; groups (files): 1
+0001.974 (0) Examining (for files) backup set with nonce=bf05989450c5, datestamp=1756902829 (Sep 03 2025 12:33:49)
+0001.974 (0) This backup set is the backup set just made, so will not be deleted.
+0001.974 (0) This backup set is the backup set just made, so will not be deleted.
+0001.974 (0) This backup set is the backup set just made, so will not be deleted.
+0001.974 (0) This backup set is the backup set just made, so will not be deleted.
+0001.974 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0001.974 (0) Retain: saving new backup history (sets now: 1) and finishing retain operation
+0001.975 (0) Resume backup (bf05989450c5, 0): finish run
+0001.976 (0) Decremented the semaphore (fd) by 1
+0001.976 (0) Semaphore (fd) unlocked
+0001.976 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0001.977 (0) No email will/can be sent - the user has not configured an email address.
+0001.978 (0) The backup succeeded and is now complete

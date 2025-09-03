@@ -1,10 +1,15 @@
 <?php get_header(); ?>
 
+<!-- Set custom page title -->
+<script>
+document.title = 'Association |';
+</script>
+
 <!-- Hero Section -->
 <section class="page-hero">
     <div class="container">
         <div class="hero-content">
-            <h1><?php the_title(); ?></h1>
+            <h1>Association</h1>
             <p><?php 
                 $hero_description = get_post_meta(get_the_ID(), '_hero_description', true);
                 echo $hero_description ?: 'Leading The Digital Transformation of the Property Industry in Malaysia';
@@ -384,8 +389,8 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_01_azlan-zainuddin.webp" alt="Azlan">
-                <h3>Azlan</h3>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_01_azlan-zainuddin.webp" alt="Azlan Bin Zainuddin">
+                <h3>Azlan Bin Zainuddin</h3>
                 <p class="position">Tech & Innovation</p>
                 <div class="position-description">
                     <p>• Oversee PropTech-related initiatives, innovation showcases, and knowledge sharing</p>
@@ -398,8 +403,8 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Khim">
-                <h3>Khim</h3>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/lim-sook-khim.jpeg" alt="Lim Sook Khim">
+                <h3>Lim Sook Khim</h3>
                 <p class="position">Sponsorship</p>
                 <div class="position-description">
                     <p>• Identify and secure sponsorship for events and initiatives</p>
@@ -412,8 +417,8 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Dato Joseph">
-                <h3>Dato Joseph</h3>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/dato-joseph-hii.png" alt="Dato' Joseph Hii W S">
+                <h3>Dato' Joseph Hii W S</h3>
                 <p class="position">Sponsorship, Partnership</p>
                 <div class="position-description">
                     <p>• Identify and secure sponsorship for events and initiatives</p>
@@ -423,7 +428,7 @@
                 </div>
                 <div class="member-contact">
                     <a href="#" class="contact-link" title="Website"><i class="fas fa-globe"></i></a>
-                    <a href="mailto:info@proptech.org.my" class="contact-link" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="mailto:joehws1308@gmail.com" class="contact-link" title="Email"><i class="fas fa-envelope"></i></a>
                     <a href="#" class="contact-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
