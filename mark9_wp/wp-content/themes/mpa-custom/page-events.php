@@ -124,25 +124,31 @@
                     if (has_post_thumbnail()) {
                         $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'medium');
                     } else {
-                        // Use placeholder or try to match with existing assets
-                        $title_slug = sanitize_title(get_the_title());
-                        $possible_images = array(
-                            $title_slug . '.jpeg',
-                            $title_slug . '.jpg',
-                            'placeholder-event.svg'
-                        );
-                        
-                        foreach ($possible_images as $img) {
-                            $img_path = get_template_directory() . '/assets/' . $img;
-                            if (file_exists($img_path)) {
-                                $featured_image = get_template_directory_uri() . '/assets/' . $img;
-                                break;
+                        // Check if it's a Happy Hour event and use specific placeholder
+                        $event_title = get_the_title();
+                        if (stripos($event_title, 'Happy Hour') !== false) {
+                            $featured_image = get_template_directory_uri() . '/assets/placeholder-happy-hour.jpeg';
+                        } else {
+                            // Use placeholder or try to match with existing assets
+                            $title_slug = sanitize_title(get_the_title());
+                            $possible_images = array(
+                                $title_slug . '.jpeg',
+                                $title_slug . '.jpg',
+                                'placeholder-event.svg'
+                            );
+                            
+                            foreach ($possible_images as $img) {
+                                $img_path = get_template_directory() . '/assets/' . $img;
+                                if (file_exists($img_path)) {
+                                    $featured_image = get_template_directory_uri() . '/assets/' . $img;
+                                    break;
+                                }
                             }
-                        }
-                        
-                        // Fallback to placeholder
-                        if (!$featured_image) {
-                            $featured_image = get_template_directory_uri() . '/assets/placeholder-event.svg';
+                            
+                            // Fallback to placeholder
+                            if (!$featured_image) {
+                                $featured_image = get_template_directory_uri() . '/assets/placeholder-event.svg';
+                            }
                         }
                     }
                     

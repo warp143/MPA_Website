@@ -550,6 +550,7 @@ function mpa_event_details_callback($post) {
                     <option value="workshop" <?php selected($event_type, 'workshop'); ?>><?php _e('Workshop', 'mpa-custom'); ?></option>
                     <option value="summit" <?php selected($event_type, 'summit'); ?>><?php _e('Summit', 'mpa-custom'); ?></option>
                     <option value="networking" <?php selected($event_type, 'networking'); ?>><?php _e('Networking', 'mpa-custom'); ?></option>
+                    <option value="happy-hour" <?php selected($event_type, 'happy-hour'); ?>><?php _e('Happy Hour', 'mpa-custom'); ?></option>
                     <option value="competition" <?php selected($event_type, 'competition'); ?>><?php _e('Competition', 'mpa-custom'); ?></option>
                     <option value="forum" <?php selected($event_type, 'forum'); ?>><?php _e('Forum', 'mpa-custom'); ?></option>
                 </select>
