@@ -33,7 +33,7 @@
     --bg-primary: var(--bg-primary-dark);
     --bg-secondary: var(--bg-secondary-dark);
     --bg-tertiary: var(--bg-tertiary-dark);
-    --text-primary: var(--text-primary-dark);
+    --text-primary: var(--text-primary-light);
     --text-secondary: var(--text-secondary-dark);
     --text-muted: var(--text-muted-dark);
     --glass-bg: var(--glass-bg-dark);
@@ -4272,6 +4272,7 @@ body.light-mode .form-group textarea:focus {
     background: var(--glass-bg);
     border: 2px solid var(--accent-blue);
     font-weight: 600;
+    color: var(--text-primary);
 }
 
 .calendar-day.has-event:hover {
