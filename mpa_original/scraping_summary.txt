@@ -1,0 +1,135 @@
+Malaysia PropTech Association Website Scraping Summary
+============================================================
+
+Base URL: https://proptech.org.my/
+Output Directory: /Users/amk/Documents/GitHub/MPA_Website/mpa_original
+Total URLs Downloaded: 121
+Failed Downloads: 1
+
+Successfully Downloaded URLs:
+------------------------------
+  https://proptech.org.my/
+  https://proptech.org.my/#content
+  https://proptech.org.my/35-years-of-proptech-fostering-a-bright-start-to-proptech-4-0/
+  https://proptech.org.my/about/
+  https://proptech.org.my/category/equity-crowd-funding/
+  https://proptech.org.my/category/news/
+  https://proptech.org.my/category/press-release/
+  https://proptech.org.my/category/re-connect/
+  https://proptech.org.my/committee/
+  https://proptech.org.my/contact/
+  https://proptech.org.my/feed/
+  https://proptech.org.my/investors/
+  https://proptech.org.my/links/
+  https://proptech.org.my/malaysia-proptech-association-members-at-reconnect-september-2021/
+  https://proptech.org.my/members-directory/
+  https://proptech.org.my/mission-vision/
+  https://proptech.org.my/mpa-events/
+  https://proptech.org.my/mpa-new-committee-members-2021-2023/
+  https://proptech.org.my/mpa-news/
+  https://proptech.org.my/new-member-information/
+  https://proptech.org.my/partners/
+  https://proptech.org.my/privacy-policy/
+  https://proptech.org.my/properly-asia-sdn-bhd/
+  https://proptech.org.my/proptech-is-shaping-the-real-estate-industry-in-asia/
+  https://proptech.org.my/terms-of-use/
+  https://proptech.org.my/word-from-the-president/
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-css/animate.min.css?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-css/background-style.min.css?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-css/headings.min.css?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-css/info-box.min.css?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-css/style.min.css?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/custom.min.js?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/headings.min.js?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/info-box.min.js?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/jquery-appear.min.js?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/ultimate-params.min.js?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/ultimate_bg.min.js?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/vhparallax.min.js?ver=3.19.23
+  https://proptech.org.my/wp-content/plugins/dt-the7-core/assets/css/post-type.min.css?ver=2.7.11
+  https://proptech.org.my/wp-content/plugins/dt-the7-core/assets/js/post-type.min.js?ver=2.7.11
+  https://proptech.org.my/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=8.0.1
+  https://proptech.org.my/wp-content/plugins/revslider/sr6/assets/assets/dummy.png
+  https://proptech.org.my/wp-content/plugins/revslider/sr6/assets/css/rs6.css?ver=6.7.37
+  https://proptech.org.my/wp-content/plugins/revslider/sr6/assets/fonts/revicons/revicons.woff?5510888
+  https://proptech.org.my/wp-content/plugins/revslider/sr6/assets/js/rbtools.min.js?ver=6.7.37
+  https://proptech.org.my/wp-content/plugins/revslider/sr6/assets/js/rs6.min.js?ver=6.7.37
+  https://proptech.org.my/wp-content/themes/dt-the7/css/main.min.css?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/css/wpbakery.min.css?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/fonts/FontAwesome/css/all.min.css?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/fonts/icomoon-the7-font/icomoon-the7-font.min.css?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/js/above-the-fold.min.js?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/js/legacy.min.js?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/js/main.min.js?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/lib/custom-scrollbar/custom-scrollbar.min.css?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/lib/custom-scrollbar/custom-scrollbar.min.js?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/lib/jquery-mousewheel/jquery-mousewheel.min.js?ver=12.1.1
+  https://proptech.org.my/wp-content/themes/dt-the7/style.css?ver=12.1.1
+  https://proptech.org.my/wp-content/uploads/2020/01/fav.png
+  https://proptech.org.my/wp-content/uploads/2021/01/Jacky-Chuah.webp
+  https://proptech.org.my/wp-content/uploads/2021/01/Liz-Ang.webp
+  https://proptech.org.my/wp-content/uploads/2021/01/Michele-Tan.webp
+  https://proptech.org.my/wp-content/uploads/2021/01/aiden-teh.webp
+  https://proptech.org.my/wp-content/uploads/2021/01/azlan-zainuddin.webp
+  https://proptech.org.my/wp-content/uploads/2021/01/benny-wee.webp
+  https://proptech.org.my/wp-content/uploads/2021/01/christina-leong.webp
+  https://proptech.org.my/wp-content/uploads/2021/01/jason-ding.webp
+  https://proptech.org.my/wp-content/uploads/2021/07/MPA_Committee_2021-2023_positions-338x225.png
+  https://proptech.org.my/wp-content/uploads/2021/07/MPA_Committee_2021-2023_positions-575x383.png
+  https://proptech.org.my/wp-content/uploads/2021/07/Proptech_Icon_White_72x72.png
+  https://proptech.org.my/wp-content/uploads/2021/07/malaysiaproptech-logo_180x50.png
+  https://proptech.org.my/wp-content/uploads/2021/07/malaysiaproptech-logo_250x70.png
+  https://proptech.org.my/wp-content/uploads/2021/08/Angela_Kew.png
+  https://proptech.org.my/wp-content/uploads/2021/08/DG-Head-2021-300x270.png
+  https://proptech.org.my/wp-content/uploads/2021/08/DG-Head-2021.png
+  https://proptech.org.my/wp-content/uploads/2021/08/KW_Wong.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Diagonal-Bottom-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Diagonal-Top-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Mandates-Employment-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Mandates-Events-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Mandates-Innovation-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Mandates-Inspire-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Mandates-Partnerships-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-Mandates-Promote-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-WhyJoinUs-Events-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-WhyJoinUs-Fundings-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MPA-FrontPage-WhyJoinUs-Partnerships-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/MaGIC-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/PropTechHK-01-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/Proptech-BNE-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/Proptech-For-Good-01.png
+  https://proptech.org.my/wp-content/uploads/2021/08/Tharma.png
+  https://proptech.org.my/wp-content/uploads/2021/08/Unissu-01.png
+  https://proptech.org.my/wp-content/uploads/2021/09/RE-Connect-MPA-338x225.png
+  https://proptech.org.my/wp-content/uploads/2021/09/RE-Connect-MPA-575x383.png
+  https://proptech.org.my/wp-content/uploads/2021/09/Singapore-nightline-mpa-apps2021-338x225.jpg
+  https://proptech.org.my/wp-content/uploads/2021/09/Singapore-nightline-mpa-apps2021-575x383.jpg
+  https://proptech.org.my/wp-content/uploads/2021/10/35-Years-of-Proptech-Fostering-A-Bright-Start-To-Proptech-4.0-371x248.png
+  https://proptech.org.my/wp-content/uploads/2021/10/Asia-Proptech-01.png
+  https://proptech.org.my/wp-content/uploads/2021/10/Proptech-Japan-01.png
+  https://proptech.org.my/wp-content/uploads/2021/10/Sample2-20210505-PLA-FB-Funding-PitchIN-2-01-338x225.png
+  https://proptech.org.my/wp-content/uploads/2021/10/Sample2-20210505-PLA-FB-Funding-PitchIN-2-01-575x383.png
+  https://proptech.org.my/wp-content/uploads/2021/10/indonesia-proptech-association-01.png
+  https://proptech.org.my/wp-content/uploads/2021/11/Craddle-ticker.png
+  https://proptech.org.my/wp-content/uploads/2021/11/LHC-ticker.png
+  https://proptech.org.my/wp-content/uploads/2024/07/Daniele-Gambero.webp
+  https://proptech.org.my/wp-content/uploads/2024/07/Naga-R-Krishnan-.webp
+  https://proptech.org.my/wp-content/uploads/js_composer/js_composer_front_custom.css?ver=8.0.1
+  https://proptech.org.my/wp-content/uploads/smile_fonts/Defaults/Defaults.css?ver=c749ee1596db23b31691ecfa5bff9d6f
+  https://proptech.org.my/wp-content/uploads/the7-css/css-vars.css?ver=20841a1870f9
+  https://proptech.org.my/wp-content/uploads/the7-css/custom.css?ver=20841a1870f9
+  https://proptech.org.my/wp-content/uploads/the7-css/media.css?ver=20841a1870f9
+  https://proptech.org.my/wp-content/uploads/the7-css/mega-menu.css?ver=20841a1870f9
+  https://proptech.org.my/wp-content/uploads/the7-css/post-type-dynamic.css?ver=20841a1870f9
+  https://proptech.org.my/wp-content/uploads/the7-css/the7-elements-albums-portfolio.css?ver=20841a1870f9
+  https://proptech.org.my/wp-includes/css/dist/block-library/style.min.css?ver=c749ee1596db23b31691ecfa5bff9d6f
+  https://proptech.org.my/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1
+  https://proptech.org.my/wp-includes/js/jquery/jquery.min.js?ver=3.7.1
+  https://proptech.org.my/wp-json/
+  https://proptech.org.my/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fproptech.org.my%2F
+  https://proptech.org.my/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fproptech.org.my%2F&format=xml
+  https://proptech.org.my/wp-json/wp/v2/pages/5
+
+Failed Downloads:
+--------------------
+  https://proptech.org.my/xmlrpc.php?rsd: 404 Client Error: Not Found for url: https://proptech.org.my/xmlrpc.php?rsd
