@@ -38,7 +38,7 @@
     <div class="container">
         <div class="message-content">
             <div class="president-image">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Dr. Daniele Gambero - MPA President">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2024_07_Daniele-Gambero.webp" alt="Dr. Daniele Gambero - MPA President">
             </div>
             <div class="message-text">
                 <h2>Word From The President</h2>
@@ -231,7 +231,7 @@
         </div>
         <div class="committee-grid">
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Dr. Daniele Gambero">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2024_07_Daniele-Gambero.webp" alt="Dr. Daniele Gambero">
                 <h3>Dr. Daniele Gambero</h3>
                 <p class="position">President</p>
                 <div class="position-description">
@@ -247,7 +247,7 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Jason Ding">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_01_jason-ding.webp" alt="Jason Ding">
                 <h3>Jason Ding</h3>
                 <p class="position">Deputy President</p>
                 <div class="position-description">
@@ -262,7 +262,7 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Wong Keh Wei">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_08_KW_Wong.png" alt="Wong Keh Wei">
                 <h3>Wong Keh Wei</h3>
                 <p class="position">Secretary General</p>
                 <div class="position-description">
@@ -277,7 +277,7 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Liz Ang Gaik See">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_01_Liz-Ang.webp" alt="Liz Ang Gaik See">
                 <h3>Liz Ang Gaik See</h3>
                 <p class="position">Treasurer</p>
                 <div class="position-description">
@@ -292,7 +292,7 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Angela Kew Chui Teen">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_08_Angela_Kew.png" alt="Angela Kew Chui Teen">
                 <h3>Angela Kew Chui Teen</h3>
                 <p class="position">Membership</p>
                 <div class="position-description">
@@ -307,7 +307,7 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Michele Tan">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_01_Michele-Tan.webp" alt="Michele Tan">
                 <h3>Michele Tan</h3>
                 <p class="position">Community Engagement</p>
                 <div class="position-description">
@@ -322,7 +322,7 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Naga R Krishnan">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2024_07_Naga-R-Krishnan-.webp" alt="Naga R Krishnan">
                 <h3>Naga R Krishnan</h3>
                 <p class="position">Events</p>
                 <div class="position-description">
@@ -382,7 +382,7 @@
                 </div>
             </div>
             <div class="committee-member">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder-member.svg" alt="Azlan">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2021_01_azlan-zainuddin.webp" alt="Azlan">
                 <h3>Azlan</h3>
                 <p class="position">Tech & Innovation</p>
                 <div class="position-description">
