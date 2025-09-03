@@ -9,7 +9,7 @@ document.title = 'Members |';
 <section class="page-hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Members</h1>
+            <h1>Our Members</h1>
             <p>Meet the innovative companies and professionals driving Malaysia's PropTech ecosystem</p>
         </div>
         <div class="hero-image">
@@ -288,114 +288,6 @@ document.title = 'Members |';
                     <a href="https://nuveq.com.my/" class="btn-outline" target="_blank">View Website</a>
                 </div>
             </div>
-            <div class="directory-item" data-categories="property-development">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/hck-properties-logo.png" alt="HCK Properties">
-                </div>
-                <div class="member-info">
-                    <h3>HCK Properties Sdn. Bhd.</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Property Development</span>
-                    </div>
-                    <p class="member-description">Property development company focusing on innovative and sustainable projects</p>
-                </div>
-                <div class="member-actions">
-                    <a href="#" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="property-marketplace">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/property-hunter-logo.png" alt="Property Hunter">
-                </div>
-                <div class="member-info">
-                    <h3>Property Hunter Sdn Bhd</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Property Marketplace</span>
-                    </div>
-                    <p class="member-description">Digital platform connecting property buyers, sellers, and agents</p>
-                </div>
-                <div class="member-actions">
-                    <a href="#" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="property-management">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/propenomy-logo.png" alt="Propenomy">
-                </div>
-                <div class="member-info">
-                    <h3>Propenomy Sdn Bhd</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Property Management</span>
-                    </div>
-                    <p class="member-description">Comprehensive property management solutions powered by technology</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://propenomy.com/" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="rental-marketplace">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/rentlab-logo.png" alt="RentLab">
-                </div>
-                <div class="member-info">
-                    <h3>RentLab Malaysia</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Rental Marketplace</span>
-                    </div>
-                    <p class="member-description">Digital rental platform streamlining the rental process for landlords and tenants</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://www.rentlab.com.my" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="property-community">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/servedeck-logo.png" alt="ServeDeck">
-                </div>
-                <div class="member-info">
-                    <h3>ServeDeck Sdn Bhd</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Property Community</span>
-                    </div>
-                    <p class="member-description">Community management platform for residential and commercial properties</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://www.servedeck.com/" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-
-
-            <div class="directory-item" data-categories="property-management">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/myliving-mylife-logo.png" alt="MyLiving MyLife">
-                </div>
-                <div class="member-info">
-                    <h3>MyLiving MyLife</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Property Management</span>
-                    </div>
-                    <p class="member-description">Integrated property and lifestyle management solutions</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://www.living.my" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="property-development">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/novo-reperio-logo.png" alt="Novo Reperio">
-                </div>
-                <div class="member-info">
-                    <h3>Novo Reperio</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Property Development</span>
-                    </div>
-                    <p class="member-description">Innovation in property development and construction technology</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://novoreperio.com/" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>
@@ -422,6 +314,69 @@ document.addEventListener('DOMContentLoaded', function() {
     const verticalFilter = document.querySelector('.vertical-filter');
     const categoryFilter = document.querySelector('.category-filter');
     const directoryItems = document.querySelectorAll('.directory-item');
+
+    // Featured members functionality
+    const featuredMembersGrid = document.getElementById('featuredMembersGrid');
+    if (featuredMembersGrid) {
+        populateFeaturedMembers();
+    }
+    
+    function populateFeaturedMembers() {
+        // Get the first 6 member directory items
+        const firstSixMembers = Array.from(directoryItems).slice(0, 6);
+        
+        firstSixMembers.forEach(memberItem => {
+            // Clone the member item
+            const clonedMember = memberItem.cloneNode(true);
+            
+            // Convert to featured member card format
+            const memberCard = document.createElement('div');
+            memberCard.className = 'member-card';
+            
+            // Get the logo
+            const logo = clonedMember.querySelector('.member-logo img');
+            const logoDiv = document.createElement('div');
+            logoDiv.className = 'member-logo';
+            logoDiv.appendChild(logo.cloneNode(true));
+            
+            // Get the name
+            const name = clonedMember.querySelector('h3');
+            const nameH3 = document.createElement('h3');
+            nameH3.textContent = name.textContent;
+            
+            // Get the categories
+            const categories = clonedMember.querySelector('.member-categories');
+            const categoriesDiv = categories.cloneNode(true);
+            
+            // Get the description
+            const description = clonedMember.querySelector('.member-description');
+            const descriptionP = document.createElement('p');
+            descriptionP.className = 'member-description';
+            descriptionP.textContent = description.textContent;
+            
+            // Get the action button
+            const action = clonedMember.querySelector('.member-actions a');
+            const actionDiv = document.createElement('div');
+            actionDiv.className = 'member-actions';
+            actionDiv.appendChild(action.cloneNode(true));
+            
+            // Create featured tag
+            const featuredTag = document.createElement('div');
+            featuredTag.className = 'featured-tag';
+            featuredTag.textContent = 'FEATURED';
+            
+            // Assemble the member card
+            memberCard.appendChild(logoDiv);
+            memberCard.appendChild(nameH3);
+            memberCard.appendChild(categoriesDiv);
+            memberCard.appendChild(descriptionP);
+            memberCard.appendChild(actionDiv);
+            memberCard.appendChild(featuredTag);
+            
+            // Add to featured members grid
+            featuredMembersGrid.appendChild(memberCard);
+        });
+    }
 
     function filterMembers() {
         const searchTerm = searchInput.value.toLowerCase();
@@ -459,19 +414,6 @@ document.addEventListener('DOMContentLoaded', function() {
     searchBtn.addEventListener('click', filterMembers);
     verticalFilter.addEventListener('change', filterMembers);
     categoryFilter.addEventListener('change', filterMembers);
-
-    // Featured Members Population (simplified version)
-    const featuredMembersGrid = document.getElementById('featuredMembersGrid');
-    if (featuredMembersGrid) {
-        // Get first 6 members from directory for featured section
-        const featuredMembers = Array.from(directoryItems).slice(0, 6);
-        
-        featuredMembers.forEach(member => {
-            const clone = member.cloneNode(true);
-            clone.classList.add('featured-member');
-            featuredMembersGrid.appendChild(clone);
-        });
-    }
 });
 </script>
 
