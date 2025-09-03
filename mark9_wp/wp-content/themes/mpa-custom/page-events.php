@@ -70,11 +70,11 @@ document.title = 'Events |';
             <p>Browse through all our events and activities</p>
         </div>
         <div class="filter-tabs">
-            <button class="filter-tab active" data-filter="all">All Events</button>
-            <button class="filter-tab" data-filter="upcoming">Upcoming</button>
-            <button class="filter-tab" data-filter="past">Past Events</button>
+            <button class="filter-tab active" data-filter="upcoming">Upcoming</button>
             <button class="filter-tab" data-filter="webinar">Webinars</button>
-            <button class="filter-tab" data-filter="summit">Summits</button>
+            <button class="filter-tab" data-filter="summit">Summit</button>
+            <button class="filter-tab" data-filter="past">Past Events</button>
+            <button class="filter-tab" data-filter="all">All Events</button>
         </div>
         <div class="events-grid">
             <?php
@@ -100,6 +100,19 @@ document.title = 'Events |';
                     $event_status = get_post_meta(get_the_ID(), '_event_status', true);
                     $event_type = get_post_meta(get_the_ID(), '_event_type', true);
                     
+                    // Automatically determine if event is past based on date
+                    if ($event_date) {
+                        $event_date_obj = DateTime::createFromFormat('Y-m-d', $event_date);
+                        $today = new DateTime();
+                        $today->setTime(0, 0, 0); // Set to start of day
+                        
+                        // Only override status to 'past' if date has passed, preserve existing status otherwise
+                        if ($event_date_obj && $event_date_obj < $today) {
+                            $event_status = 'past';
+                        }
+                        // Don't override existing status - let WordPress custom fields handle it
+                    }
+                    
                     // Format date for display
                     $date_obj = DateTime::createFromFormat('Y-m-d', $event_date);
                     $day = $date_obj ? $date_obj->format('d') : '';
@@ -115,8 +128,7 @@ document.title = 'Events |';
                         $time_display = 'Past Event';
                     }
                     
-                    // Get event tags
-                    $event_tags = wp_get_post_terms(get_the_ID(), 'event_tag');
+                    // Event tags removed - using event_type meta field instead
                     
                     // Determine data categories for filtering
                     $data_categories = array($event_status);
@@ -167,7 +179,11 @@ document.title = 'Events |';
                     );
                     ?>
                     
-                    <div class="event-card <?php echo esc_attr($event_status); ?>" data-category="<?php echo esc_attr(implode(' ', $data_categories)); ?>">
+                    <div class="event-card <?php echo esc_attr($event_status); ?>" 
+                         data-category="<?php echo esc_attr(implode(' ', $data_categories)); ?>"
+                         data-event-status="<?php echo esc_attr($event_status); ?>"
+                         data-event-type="<?php echo esc_attr($event_type); ?>"
+                         data-event-date="<?php echo esc_attr($event_date); ?>">
                         <div class="event-image">
                             <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
                             <div class="event-date-badge <?php echo $event_status === 'past' ? 'past' : ''; ?>">
@@ -186,11 +202,9 @@ document.title = 'Events |';
                             <h3 class="event-title"><?php the_title(); ?></h3>
                             <p class="event-description"><?php echo esc_html(get_the_excerpt() ?: wp_trim_words(get_the_content(), 25)); ?></p>
                             
-                            <?php if (!empty($event_tags)) : ?>
+                            <?php if (!empty($event_type)) : ?>
                             <div class="event-tags">
-                                <?php foreach ($event_tags as $tag) : ?>
-                                    <span class="tag"><?php echo esc_html($tag->name); ?></span>
-                                <?php endforeach; ?>
+                                <span class="tag"><?php echo esc_html(ucwords(str_replace('-', ' ', $event_type))); ?></span>
                             </div>
                             <?php endif; ?>
                             
@@ -240,6 +254,7 @@ document.title = 'Events |';
         initCalendarButtons();
         initCalendarSubscription();
         initViewAllEventsLink();
+        initFilterTabs();
         
         function populateUpcomingEvents() {
             // Get all event cards from the All Events section
@@ -530,6 +545,66 @@ document.title = 'Events |';
                     }
                 });
             }
+        }
+
+        // Initialize filter tabs functionality
+        function initFilterTabs() {
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const eventCards = document.querySelectorAll('.event-card');
+            
+            console.log('Found event cards:', eventCards.length);
+            eventCards.forEach(card => {
+                console.log('Card status:', card.getAttribute('data-event-status'), 'Type:', card.getAttribute('data-event-type'));
+            });
+            
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    console.log('Filter clicked:', filter);
+                    filterEvents(filter, eventCards);
+                });
+            });
+        }
+
+        function filterEvents(filter, eventCards) {
+            eventCards.forEach(card => {
+                const eventStatus = card.getAttribute('data-event-status');
+                const eventType = card.getAttribute('data-event-type');
+                const eventDate = card.getAttribute('data-event-date');
+                
+                let showCard = false;
+                
+                switch(filter) {
+                    case 'upcoming':
+                        showCard = eventStatus === 'upcoming' || eventStatus === 'featured';
+                        break;
+                    case 'webinar':
+                        showCard = eventType === 'webinar';
+                        break;
+                    case 'summit':
+                        showCard = eventType === 'summit';
+                        break;
+                    case 'past':
+                        showCard = eventStatus === 'past';
+                        break;
+                    case 'all':
+                        showCard = true; // Show ALL events regardless of status
+                        break;
+                    default:
+                        showCard = true;
+                }
+                
+                card.style.display = showCard ? 'block' : 'none';
+            });
+            
+            // Log for debugging
+            console.log(`Filter: ${filter}, Total cards: ${eventCards.length}, Visible: ${Array.from(eventCards).filter(card => card.style.display !== 'none').length}`);
+            console.log(`Event statuses:`, Array.from(eventCards).map(card => card.getAttribute('data-event-status')));
         }
     });
 </script>

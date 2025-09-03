@@ -367,7 +367,6 @@ function mpa_register_events_post_type() {
         'menu_icon'          => 'dashicons-calendar-alt',
         'show_in_rest'       => true,
         'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
-        'taxonomies'         => array('event_category', 'event_tag'),
     );
 
     register_post_type('mpa_event', $args);
@@ -375,68 +374,151 @@ function mpa_register_events_post_type() {
 add_action('init', 'mpa_register_events_post_type');
 
 /**
- * Register Event Categories Taxonomy
+ * Add custom columns to Events admin table
  */
-function mpa_register_event_taxonomies() {
-    // Event Categories
-    $category_labels = array(
-        'name'              => _x('Event Categories', 'taxonomy general name', 'mpa-custom'),
-        'singular_name'     => _x('Event Category', 'taxonomy singular name', 'mpa-custom'),
-        'search_items'      => __('Search Event Categories', 'mpa-custom'),
-        'all_items'         => __('All Event Categories', 'mpa-custom'),
-        'parent_item'       => __('Parent Event Category', 'mpa-custom'),
-        'parent_item_colon' => __('Parent Event Category:', 'mpa-custom'),
-        'edit_item'         => __('Edit Event Category', 'mpa-custom'),
-        'update_item'       => __('Update Event Category', 'mpa-custom'),
-        'add_new_item'      => __('Add New Event Category', 'mpa-custom'),
-        'new_item_name'     => __('New Event Category Name', 'mpa-custom'),
-        'menu_name'         => __('Event Categories', 'mpa-custom'),
-    );
-
-    $category_args = array(
-        'hierarchical'      => true,
-        'labels'            => $category_labels,
-        'show_ui'           => true,
-        'show_admin_column' => true,
-        'query_var'         => true,
-        'show_in_rest'      => true,
-        'rewrite'           => array('slug' => 'event-category'),
-    );
-
-    register_taxonomy('event_category', array('mpa_event'), $category_args);
-
-    // Event Tags
-    $tag_labels = array(
-        'name'                       => _x('Event Tags', 'taxonomy general name', 'mpa-custom'),
-        'singular_name'              => _x('Event Tag', 'taxonomy singular name', 'mpa-custom'),
-        'search_items'               => __('Search Event Tags', 'mpa-custom'),
-        'popular_items'              => __('Popular Event Tags', 'mpa-custom'),
-        'all_items'                  => __('All Event Tags', 'mpa-custom'),
-        'edit_item'                  => __('Edit Event Tag', 'mpa-custom'),
-        'update_item'                => __('Update Event Tag', 'mpa-custom'),
-        'add_new_item'               => __('Add New Event Tag', 'mpa-custom'),
-        'new_item_name'              => __('New Event Tag Name', 'mpa-custom'),
-        'separate_items_with_commas' => __('Separate event tags with commas', 'mpa-custom'),
-        'add_or_remove_items'        => __('Add or remove event tags', 'mpa-custom'),
-        'choose_from_most_used'      => __('Choose from the most used event tags', 'mpa-custom'),
-        'not_found'                  => __('No event tags found.', 'mpa-custom'),
-        'menu_name'                  => __('Event Tags', 'mpa-custom'),
-    );
-
-    $tag_args = array(
-        'hierarchical'          => false,
-        'labels'                => $tag_labels,
-        'show_ui'               => true,
-        'show_admin_column'     => true,
-        'update_count_callback' => '_update_post_term_count',
-        'query_var'             => true,
-        'show_in_rest'          => true,
-        'rewrite'               => array('slug' => 'event-tag'),
-    );
-
-    register_taxonomy('event_tag', array('mpa_event'), $tag_args);
+function mpa_add_event_columns($columns) {
+    // Remove unwanted columns
+    unset($columns['date']);
+    unset($columns['taxonomy-event_category']); // Remove event categories column
+    unset($columns['taxonomy-event_tag']); // Remove event tags column
+    
+    // Add custom columns
+    $columns['event_status'] = __('Event Status', 'mpa-custom');
+    $columns['event_type'] = __('Event Type', 'mpa-custom');
+    $columns['event_date'] = __('Event Date', 'mpa-custom');
+    $columns['event_location'] = __('Location', 'mpa-custom');
+    $columns['date'] = __('Published', 'mpa-custom'); // Re-add date column at the end
+    
+    return $columns;
 }
-add_action('init', 'mpa_register_event_taxonomies');
+add_filter('manage_mpa_event_posts_columns', 'mpa_add_event_columns');
+
+/**
+ * Populate custom columns with data
+ */
+function mpa_populate_event_columns($column, $post_id) {
+    switch ($column) {
+        case 'event_status':
+            $status = get_post_meta($post_id, '_event_status', true);
+            if ($status) {
+                $status_class = '';
+                $status_text = ucfirst($status);
+                
+                // Add color coding
+                switch ($status) {
+                    case 'upcoming':
+                        $status_class = 'style="color: #0073aa; font-weight: bold;"';
+                        break;
+                    case 'past':
+                        $status_class = 'style="color: #666; font-weight: bold;"';
+                        break;
+                    case 'cancelled':
+                        $status_class = 'style="color: #d63638; font-weight: bold;"';
+                        break;
+                }
+                
+                echo '<span ' . $status_class . '>' . esc_html($status_text) . '</span>';
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+            
+        case 'event_type':
+            $type = get_post_meta($post_id, '_event_type', true);
+            if ($type) {
+                // Capitalize and format type
+                $type_formatted = ucwords(str_replace('-', ' ', $type));
+                echo '<span style="background: #f0f0f1; padding: 2px 6px; border-radius: 3px; font-size: 11px;">' . esc_html($type_formatted) . '</span>';
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+            
+        case 'event_date':
+            $event_date = get_post_meta($post_id, '_event_date', true);
+            if ($event_date) {
+                $date_obj = DateTime::createFromFormat('Y-m-d', $event_date);
+                if ($date_obj) {
+                    $formatted_date = $date_obj->format('M j, Y');
+                    $today = new DateTime();
+                    $today->setTime(0, 0, 0);
+                    
+                    // Color code based on date
+                    if ($date_obj < $today) {
+                        echo '<span style="color: #666;">' . esc_html($formatted_date) . '</span>';
+                    } else {
+                        echo '<span style="color: #0073aa; font-weight: bold;">' . esc_html($formatted_date) . '</span>';
+                    }
+                } else {
+                    echo esc_html($event_date);
+                }
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+            
+        case 'event_location':
+            $location = get_post_meta($post_id, '_event_location', true);
+            if ($location) {
+                // Truncate long locations
+                $location_display = strlen($location) > 25 ? substr($location, 0, 25) . '...' : $location;
+                echo '<span title="' . esc_attr($location) . '">' . esc_html($location_display) . '</span>';
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+    }
+}
+add_action('manage_mpa_event_posts_custom_column', 'mpa_populate_event_columns', 10, 2);
+
+/**
+ * Make custom columns sortable
+ */
+function mpa_make_event_columns_sortable($columns) {
+    $columns['event_status'] = 'event_status';
+    $columns['event_type'] = 'event_type';
+    $columns['event_date'] = 'event_date';
+    $columns['event_location'] = 'event_location';
+    
+    return $columns;
+}
+add_filter('manage_edit-mpa_event_sortable_columns', 'mpa_make_event_columns_sortable');
+
+/**
+ * Handle sorting for custom columns
+ */
+function mpa_event_columns_orderby($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    
+    $orderby = $query->get('orderby');
+    
+    switch ($orderby) {
+        case 'event_status':
+            $query->set('meta_key', '_event_status');
+            $query->set('orderby', 'meta_value');
+            break;
+            
+        case 'event_type':
+            $query->set('meta_key', '_event_type');
+            $query->set('orderby', 'meta_value');
+            break;
+            
+        case 'event_date':
+            $query->set('meta_key', '_event_date');
+            $query->set('orderby', 'meta_value');
+            break;
+            
+        case 'event_location':
+            $query->set('meta_key', '_event_location');
+            $query->set('orderby', 'meta_value');
+            break;
+    }
+}
+add_action('pre_get_posts', 'mpa_event_columns_orderby');
+
+
 
 /**
  * Add Event Meta Boxes
