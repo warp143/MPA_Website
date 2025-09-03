@@ -44,7 +44,8 @@ foreach ($events as $event) {
             'description' => wp_trim_words($event->post_content, 20),
             'location' => $event_location ?: 'TBD',
             'price' => $event_price ?: 'Free',
-            'status' => $event_status ?: 'upcoming',
+            'status' => ($event_status === 'featured' || $event_status === 'scheduled') ? 'upcoming' : ($event_status ?: 'upcoming'),
+            'original_status' => $event_status, // Debug: keep original status for troubleshooting
             'start_time' => $event_start_time ?: '',
             'end_time' => $event_end_time ?: '',
             'featured_image' => $featured_image,

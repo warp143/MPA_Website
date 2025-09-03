@@ -150,11 +150,11 @@ body.light-mode {
 
 /* Page loading states */
 body.page-loaded {
-    opacity: 1;
+    
 }
 
 body:not(.page-loaded) {
-    opacity: 0.8;
+    
 }
 
 /* Light Mode */
@@ -347,32 +347,32 @@ body.light-mode .full-page-ripple {
 @keyframes full-page-ripple-animation {
     0% {
         transform: scale(0);
-        opacity: 0.65;
+        
         box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.38);
     }
     20% {
         transform: scale(0.3);
-        opacity: 0.57;
+        
         box-shadow: 0 0 0 45px rgba(0, 122, 255, 0.31);
     }
     40% {
         transform: scale(0.58);
-        opacity: 0.47;
+        
         box-shadow: 0 0 0 85px rgba(0, 122, 255, 0.24);
     }
     60% {
         transform: scale(0.8);
-        opacity: 0.33;
+        
         box-shadow: 0 0 0 125px rgba(0, 122, 255, 0.17);
     }
     80% {
         transform: scale(0.94);
-        opacity: 0.24;
+        
         box-shadow: 0 0 0 145px rgba(0, 122, 255, 0.12);
     }
     100% {
         transform: scale(1);
-        opacity: 0;
+        
         box-shadow: 0 0 0 160px rgba(0, 122, 255, 0.06);
     }
 }
@@ -380,32 +380,32 @@ body.light-mode .full-page-ripple {
 @keyframes full-page-ripple-animation-light {
     0% {
         transform: scale(0);
-        opacity: 0.35;
+        
         box-shadow: 0 0 0 0 rgba(52, 58, 64, 0.25);
     }
     20% {
         transform: scale(0.35);
-        opacity: 0.30;
+        
         box-shadow: 0 0 0 50px rgba(52, 58, 64, 0.20);
     }
     40% {
         transform: scale(0.65);
-        opacity: 0.25;
+        
         box-shadow: 0 0 0 95px rgba(52, 58, 64, 0.15);
     }
     60% {
         transform: scale(0.85);
-        opacity: 0.18;
+        
         box-shadow: 0 0 0 135px rgba(52, 58, 64, 0.10);
     }
     80% {
         transform: scale(0.97);
-        opacity: 0.12;
+        
         box-shadow: 0 0 0 155px rgba(52, 58, 64, 0.08);
     }
     100% {
         transform: scale(1);
-        opacity: 0;
+        
         box-shadow: 0 0 0 175px rgba(52, 58, 64, 0.05);
     }
 }
@@ -630,7 +630,7 @@ body.light-mode .nav-link.active {
 }
 
 .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
-    opacity: 0;
+    
 }
 
 .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
@@ -706,7 +706,7 @@ body.light-mode .language-toggle:hover {
     backdrop-filter: blur(20px);
     box-shadow: var(--shadow-lg);
     z-index: 1000;
-    opacity: 0;
+    
     visibility: hidden;
     transform: translateY(-10px);
     transition: all var(--transition-normal);
@@ -715,7 +715,7 @@ body.light-mode .language-toggle:hover {
 }
 
 .language-dropdown.active .language-menu {
-    opacity: 1;
+    
     visibility: visible;
     transform: translateY(0);
 }
@@ -760,14 +760,14 @@ body.light-mode .language-toggle:hover {
     backdrop-filter: blur(20px);
     box-shadow: var(--shadow-lg);
     z-index: 10000;
-    opacity: 0;
+    
     visibility: hidden;
     transform: translateY(-10px);
     transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mobile-dropdown-menu.active {
-    opacity: 1;
+    
     visibility: visible;
     transform: translateY(0);
 }
@@ -936,7 +936,7 @@ body.light-mode .theme-toggle:hover {
 
 .auto-indicator {
     font-size: 0.9rem;
-    opacity: 0.7;
+    
     transition: var(--transition-normal);
     display: flex;
     align-items: center;
@@ -1199,7 +1199,7 @@ body.light-mode .partner-card:hover {
     height: 100%;
     object-fit: cover;
     border-radius: var(--border-radius-lg);
-    transition: opacity 0.3s ease;
+    
 }
 
 .committee-member img,
@@ -1208,21 +1208,21 @@ body.light-mode .partner-card:hover {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    transition: opacity 0.3s ease;
+    
 }
 
 /* Image loading states - DISABLED */
 img {
-    opacity: 1;
-    transition: opacity 0.3s ease;
+    
+    
 }
 
 img.loaded {
-    opacity: 1;
+    
 }
 
 img.loading {
-    opacity: 1;
+    
 }
 
 /* Loading placeholder */
@@ -1527,22 +1527,22 @@ img.loading {
 @keyframes slideIn {
     from {
         transform: translateX(100%);
-        opacity: 0;
+        
     }
     to {
         transform: translateX(0);
-        opacity: 1;
+        
     }
 }
 
 @keyframes slideOut {
     from {
         transform: translateX(0);
-        opacity: 1;
+        
     }
     to {
         transform: translateX(100%);
-        opacity: 0;
+        
     }
 }
 
@@ -2623,22 +2623,22 @@ body:not(.light-mode) .partner-testimonials {
 /* Animation for SDG content */
 @keyframes fadeIn {
     from {
-        opacity: 0;
+        
         transform: translateY(10px);
     }
     to {
-        opacity: 1;
+        
         transform: translateY(0);
     }
 }
 
 @keyframes fadeInUp {
     from {
-        opacity: 0;
+        
         transform: translateY(30px);
     }
     to {
-        opacity: 1;
+        
         transform: translateY(0);
     }
 }
@@ -3107,11 +3107,11 @@ body:not(.light-mode) .partner-testimonials {
 
 @keyframes fadeIn {
     from {
-        opacity: 0;
+        
         transform: translateY(10px);
     }
     to {
-        opacity: 1;
+        
         transform: translateY(0);
     }
 }
@@ -4459,11 +4459,11 @@ body.light-mode .form-group textarea:focus {
     
     @keyframes slideIn {
         from {
-            opacity: 0;
+            
             transform: translateX(-100%);
         }
         to {
-            opacity: 1;
+            
             transform: translateX(0);
         }
     }
@@ -5108,7 +5108,7 @@ body.light-mode .form-group textarea:focus {
 .proptech-cta p {
     margin-bottom: var(--spacing-lg);
     font-size: 1.1rem;
-    opacity: 0.9;
+    
 }
 
 .cta-buttons {
@@ -5518,7 +5518,7 @@ body.light-mode .form-group textarea:focus {
 .become-member p {
     margin-bottom: var(--spacing-lg);
     font-size: 1.1rem;
-    opacity: 0.9;
+    
 }
 
 /* Partners Page Styles */
@@ -5719,7 +5719,7 @@ body.light-mode .form-group textarea:focus {
 .become-partner p {
     margin-bottom: var(--spacing-lg);
     font-size: 1.1rem;
-    opacity: 0.9;
+    
 }
 
 .partner-testimonials {
@@ -6977,7 +6977,7 @@ body.light-mode .form-group textarea:focus {
     max-width: 600px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    opacity: 1;
+    
 }
 
 .language-notice .notice-content {

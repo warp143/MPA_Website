@@ -707,12 +707,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (viewAllEvents) viewAllEvents.textContent = t['view-all-events'];
 
         // Event cards translations - removed hardcoded event overrides
-        const eventBadges = document.querySelectorAll('.event-badge');
         const registerButtons = document.querySelectorAll('.event-footer .btn-outline');
-        
-        if (eventBadges.length > 0) {
-            eventBadges[0].textContent = t['event-featured'];
-        }
         
         registerButtons.forEach(btn => {
             if (btn.textContent === 'Register') {

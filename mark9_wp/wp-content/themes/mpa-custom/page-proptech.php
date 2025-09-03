@@ -2,14 +2,14 @@
 
 <!-- Set custom page title -->
 <script>
-document.title = 'Proptech |';
+document.title = 'PropTech |';
 </script>
 
 <!-- Hero Section -->
 <section class="page-hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Property Technology</h1>
+            <h1>PropTech</h1>
             <p>Transforming the Real Estate Industry Through Innovation</p>
         </div>
         <div class="hero-image">

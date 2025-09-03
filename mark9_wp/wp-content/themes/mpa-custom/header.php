@@ -122,11 +122,11 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="<?php echo esc_url(home_url('/')); ?>">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/mpa-logo.png" alt="Malaysia Proptech Association" class="logo-img">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/mpa-logo.png" alt="Malaysia PropTech Association" class="logo-img">
                 </a>
             </div>
             <div class="nav-menu" id="nav-menu">
-                <a href="<?php echo esc_url(home_url('/proptech/')); ?>" class="nav-link">Proptech</a>
+                <a href="<?php echo esc_url(home_url('/proptech/')); ?>" class="nav-link">PropTech</a>
                 <a href="<?php echo esc_url(home_url('/association/')); ?>" class="nav-link">Association</a>
                 <a href="<?php echo esc_url(home_url('/members/')); ?>" class="nav-link">Members</a>
                 <a href="<?php echo esc_url(home_url('/events/')); ?>" class="nav-link">Events</a>
@@ -174,7 +174,7 @@
         <nav class="mobile-dropdown-nav">
             <a href="<?php echo esc_url(home_url('/proptech/')); ?>" class="mobile-dropdown-link">
                 <i class="fas fa-microchip"></i>
-                <span>Proptech</span>
+                <span>PropTech</span>
             </a>
             <a href="<?php echo esc_url(home_url('/association/')); ?>" class="mobile-dropdown-link">
                 <i class="fas fa-info-circle"></i>

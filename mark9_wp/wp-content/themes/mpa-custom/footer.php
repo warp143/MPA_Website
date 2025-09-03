@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <?php echo date('Y'); ?> Malaysia Proptech Association. All rights reserved.</p>
+                <p>&copy; <?php echo date('Y'); ?> Malaysia PropTech Association. All rights reserved.</p>
             </div>
         </div>
     </footer>

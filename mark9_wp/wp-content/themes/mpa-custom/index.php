@@ -2,7 +2,7 @@
 
 <!-- Set custom page title -->
 <script>
-document.title = 'Malaysia Proptech Association';
+document.title = 'Malaysia PropTech Association';
 </script>
 
 <main id="main" class="site-main">
@@ -11,7 +11,7 @@ document.title = 'Malaysia Proptech Association';
         <div class="hero-content">
             <div class="hero-left">
                 <div class="hero-text-group">
-                    <h1 class="hero-title">Malaysia Proptech Association</h1>
+                    <h1 class="hero-title">Malaysia PropTech Association</h1>
                     <p class="hero-subtitle">Leading The Digital Transformation of the Property Industry in Malaysia</p>
                 </div>
                 <div class="hero-search">
@@ -305,7 +305,7 @@ document.title = 'Malaysia Proptech Association';
             card.innerHTML = `
                 <div class="event-image">
                     <img src="${event.featured_image || '/wp-content/themes/mpa-custom/assets/placeholder-event.svg'}" alt="${event.title}">
-                    <div class="event-badge ${event.status || 'upcoming'}">${(event.status || 'upcoming').toUpperCase()}</div>
+                    <div class="event-badge upcoming">UPCOMING</div>
                     <div class="event-date-badge">
                         <span class="day">${eventDate.getDate()}</span>
                         <span class="month">${eventDate.toLocaleDateString('en-US', { month: 'short' })}</span>
