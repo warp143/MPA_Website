@@ -9,11 +9,18 @@ document.title = 'Partners |';
 <section class="page-hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Partners</h1>
-            <p>Strategic collaborations driving innovation in Malaysia's PropTech ecosystem</p>
+            <h1><?php the_title(); ?></h1>
+            <p><?php 
+                $hero_description = get_post_meta(get_the_ID(), '_hero_description', true);
+                echo $hero_description ?: 'Strategic collaborations driving innovation in Malaysia\'s PropTech ecosystem';
+            ?></p>
         </div>
         <div class="hero-image">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/partners-hero.jpeg" alt="MPA Partners">
+            <?php if (has_post_thumbnail()) : ?>
+                <?php the_post_thumbnail('large', array('alt' => get_the_title() . ' Hero')); ?>
+            <?php else : ?>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/partners-hero.jpeg" alt="<?php echo esc_attr(get_the_title()); ?>">
+            <?php endif; ?>
         </div>
     </div>
 </section>
