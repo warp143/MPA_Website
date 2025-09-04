@@ -101,6 +101,14 @@ define( 'WP_MEMORY_LIMIT', '256M' );
 
 
 
+/* Force HTTP for admin and uploads */
+define('FORCE_SSL_ADMIN', false);
+define('FORCE_SSL_LOGIN', false);
+
+/* Force all URLs to be HTTP */
+define('WP_HOME', 'http://172.188.12.16');
+define('WP_SITEURL', 'http://172.188.12.16');
+
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

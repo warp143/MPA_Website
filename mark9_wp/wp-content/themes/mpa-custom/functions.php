@@ -823,6 +823,25 @@ function mpa_committee_default_sort($query) {
 add_action('pre_get_posts', 'mpa_committee_default_sort');
 
 /**
+ * Force HTTPS for all upload URLs
+ */
+function force_https_upload_urls($url) {
+    if (strpos($url, 'http://172.188.12.16') === 0) {
+        return str_replace('http://', 'https://', $url);
+    }
+    return $url;
+}
+add_filter('upload_dir', function($uploads) {
+    if (isset($uploads['baseurl'])) {
+        $uploads['baseurl'] = force_https_upload_urls($uploads['baseurl']);
+    }
+    if (isset($uploads['url'])) {
+        $uploads['url'] = force_https_upload_urls($uploads['url']);
+    }
+    return $uploads;
+});
+
+/**
  * Handle sorting for custom columns for Committee Members
  */
 function mpa_committee_columns_orderby($query) {

@@ -18,6 +18,15 @@ if (!defined('ABSPATH')) {
 class MPAImageProcessor {
     
     public function __construct() {
+        // HTTPS forcing disabled - using HTTP for IP address
+        // add_filter('upload_dir', array($this, 'force_https_upload_dir'), 10, 1);
+        // add_filter('wp_get_upload_dir', array($this, 'force_https_upload_dir'), 10, 1);
+        // add_filter('home_url', array($this, 'force_https_home_url'), 10, 1);
+        // add_filter('site_url', array($this, 'force_https_site_url'), 10, 1);
+        // add_filter('wp_ajax_mpa_upload_image', array($this, 'force_https_ajax_response'), 10, 1);
+        // add_filter('wp_ajax_nopriv_mpa_upload_image', array($this, 'force_https_ajax_response'), 10, 1);
+        // add_filter('wp_ajax_mpa_remove_background', array($this, 'force_https_ajax_response'), 10, 1);
+        // add_filter('wp_ajax_nopriv_mpa_remove_background', array($this, 'force_https_ajax_response'), 10, 1);
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
         add_action('admin_enqueue_scripts', array($this, 'custom_admin_scripts'));
@@ -46,6 +55,49 @@ class MPAImageProcessor {
             @ini_set('max_execution_time', '300');
             @ini_set('memory_limit', '512M');
         }
+    }
+    
+    /**
+     * Force HTTPS for all upload URLs
+     */
+    public function force_https_upload_dir($uploads) {
+        if (isset($uploads['baseurl']) && strpos($uploads['baseurl'], 'http://') === 0) {
+            $uploads['baseurl'] = str_replace('http://', 'https://', $uploads['baseurl']);
+        }
+        if (isset($uploads['url']) && strpos($uploads['url'], 'http://') === 0) {
+            $uploads['url'] = str_replace('http://', 'https://', $uploads['url']);
+        }
+        return $uploads;
+    }
+    
+    /**
+     * Force HTTPS for home URL
+     */
+    public function force_https_home_url($url) {
+        if (strpos($url, 'http://172.188.12.16') === 0) {
+            return str_replace('http://', 'https://', $url);
+        }
+        return $url;
+    }
+    
+    /**
+     * Force HTTPS for site URL
+     */
+    public function force_https_site_url($url) {
+        if (strpos($url, 'http://172.188.12.16') === 0) {
+            return str_replace('http://', 'https://', $url);
+        }
+        return $url;
+    }
+    
+    /**
+     * Force HTTPS for AJAX responses
+     */
+    public function force_https_ajax_response($response) {
+        if (is_array($response) && isset($response['data']['image_url'])) {
+            $response['data']['image_url'] = str_replace('http://', 'https://', $response['data']['image_url']);
+        }
+        return $response;
     }
     
     public function add_admin_menu() {
@@ -462,11 +514,20 @@ class MPAImageProcessor {
         }
         
         if (move_uploaded_file($file['tmp_name'], $target_path)) {
+            $image_url = 'http://172.188.12.16/wp-content/uploads/mpa-processor/' . $file_name . '?v=' . time();
             error_log('MPA Image Processor: File uploaded successfully');
-            wp_send_json_success(array(
-                'image_path' => $target_path,
-                'image_url' => $upload_dir['baseurl'] . '/mpa-processor/' . $file_name
+            error_log('MPA Image Processor: Generated URL: ' . $image_url);
+            
+            // Force immediate response without WordPress processing
+            header('Content-Type: application/json');
+            echo json_encode(array(
+                'success' => true,
+                'data' => array(
+                    'image_path' => $target_path,
+                    'image_url' => $image_url
+                )
             ));
+            exit;
         } else {
             error_log('MPA Image Processor: Failed to move uploaded file');
             wp_send_json_error('Failed to move uploaded file to destination');
@@ -527,11 +588,20 @@ class MPAImageProcessor {
                 error_log('MPA Image Processor: Copying to: ' . $web_processed_path);
                 
                 if (copy($processed_path, $web_processed_path)) {
+                    $processed_url = 'http://172.188.12.16/wp-content/uploads/mpa-processor/processed/' . $processed_name . '?v=' . time();
                     error_log('MPA Image Processor: Copy successful!');
-                    wp_send_json_success(array(
-                        'processed_path' => $web_processed_path,
-                        'processed_url' => $upload_dir['baseurl'] . '/mpa-processor/processed/' . $processed_name
+                    error_log('MPA Image Processor: Generated processed URL: ' . $processed_url);
+                    
+                    // Force immediate response without WordPress processing
+                    header('Content-Type: application/json');
+                    echo json_encode(array(
+                        'success' => true,
+                        'data' => array(
+                            'processed_path' => $web_processed_path,
+                            'processed_url' => $processed_url
+                        )
                     ));
+                    exit;
                 } else {
                     error_log('MPA Image Processor: Copy failed!');
                     wp_send_json_error('Failed to copy processed image to web directory');
