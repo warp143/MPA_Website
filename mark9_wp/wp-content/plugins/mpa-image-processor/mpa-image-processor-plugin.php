@@ -558,7 +558,7 @@ class MPAImageProcessor {
         
         // Call Python script for background removal
         $command = sprintf(
-            'cd %s && source plugin_env/bin/activate && python process_image.py %s --output-dir processed --target-size 2.0 2>&1',
+            'bash -c "cd %s && source plugin_env/bin/activate && python process_image.py %s --output-dir processed --target-size 2.0" 2>&1',
             escapeshellarg(plugin_dir_path(__FILE__)),
             escapeshellarg($image_path)
         );
