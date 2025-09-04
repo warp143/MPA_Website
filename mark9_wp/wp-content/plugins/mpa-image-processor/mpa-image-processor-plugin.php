@@ -70,25 +70,6 @@ class MPAImageProcessor {
         return $uploads;
     }
     
-    /**
-     * Force HTTPS for home URL
-     */
-    public function force_https_home_url($url) {
-        if (strpos($url, 'http://172.188.12.16') === 0) {
-            return str_replace('http://', 'https://', $url);
-        }
-        return $url;
-    }
-    
-    /**
-     * Force HTTPS for site URL
-     */
-    public function force_https_site_url($url) {
-        if (strpos($url, 'http://172.188.12.16') === 0) {
-            return str_replace('http://', 'https://', $url);
-        }
-        return $url;
-    }
     
     /**
      * Force HTTPS for AJAX responses
