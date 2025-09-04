@@ -456,6 +456,11 @@ class MPAImageProcessor {
     }
     
     public function process_image_ajax() {
+        // Clear any existing output
+        if (ob_get_level()) {
+            ob_clean();
+        }
+        
         // Increase PHP limits for upload
         @ini_set('upload_max_filesize', '50M');
         @ini_set('post_max_size', '50M');
@@ -466,15 +471,23 @@ class MPAImageProcessor {
         error_log('MPA Image Processor: AJAX request received');
         error_log('MPA Image Processor: Current upload_max_filesize: ' . ini_get('upload_max_filesize'));
         
-        check_ajax_referer('mpa_image_processor_nonce', 'nonce');
-        if (!current_user_can('manage_options')) {
-            error_log('MPA Image Processor: User not authorized');
-            wp_die('Unauthorized');
+        try {
+            check_ajax_referer('mpa_image_processor_nonce', 'nonce');
+            if (!current_user_can('manage_options')) {
+                error_log('MPA Image Processor: User not authorized');
+                wp_send_json_error('Unauthorized');
+                return;
+            }
+        } catch (Exception $e) {
+            error_log('MPA Image Processor: Nonce check failed: ' . $e->getMessage());
+            wp_send_json_error('Security check failed');
+            return;
         }
         
         if (!isset($_FILES['image'])) {
             error_log('MPA Image Processor: No image file in request');
             wp_send_json_error('No image uploaded');
+            return;
         }
         
         error_log('MPA Image Processor: Image file found: ' . $_FILES['image']['name']);
@@ -514,20 +527,15 @@ class MPAImageProcessor {
         }
         
         if (move_uploaded_file($file['tmp_name'], $target_path)) {
-            $image_url = 'http://172.188.12.16/wp-content/uploads/mpa-processor/' . $file_name . '?v=' . time();
+            $upload_dir = wp_upload_dir();
+            $image_url = $upload_dir['baseurl'] . '/mpa-processor/' . $file_name . '?v=' . time();
             error_log('MPA Image Processor: File uploaded successfully');
             error_log('MPA Image Processor: Generated URL: ' . $image_url);
             
-            // Force immediate response without WordPress processing
-            header('Content-Type: application/json');
-            echo json_encode(array(
-                'success' => true,
-                'data' => array(
-                    'image_path' => $target_path,
-                    'image_url' => $image_url
-                )
+            wp_send_json_success(array(
+                'image_path' => $target_path,
+                'image_url' => $image_url
             ));
-            exit;
         } else {
             error_log('MPA Image Processor: Failed to move uploaded file');
             wp_send_json_error('Failed to move uploaded file to destination');

@@ -86,6 +86,8 @@ $table_prefix = 'wp_';
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
 define( 'WP_DEBUG', false );
+define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG_DISPLAY', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
@@ -99,15 +101,9 @@ define( 'DISALLOW_FILE_EDIT', true );
 // Increase memory limit for development
 define( 'WP_MEMORY_LIMIT', '256M' );
 
-
-
 /* Force HTTP for admin and uploads */
 define('FORCE_SSL_ADMIN', false);
 define('FORCE_SSL_LOGIN', false);
-
-/* Force all URLs to be HTTP */
-define('WP_HOME', 'http://172.188.12.16');
-define('WP_SITEURL', 'http://172.188.12.16');
 
 /* That's all, stop editing! Happy publishing. */
 
