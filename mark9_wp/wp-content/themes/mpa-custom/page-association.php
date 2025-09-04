@@ -48,7 +48,6 @@ document.title = 'Association |';
             <div class="message-text">
                 <h2>Word From The President</h2>
                 <h3>Dr. Daniele Gambero</h3>
-                <p>Welcome to the Malaysia PropTech Association (MPA), a dynamic hub where innovation meets purpose, and where Malaysia's built environment is being reimagined through technology.</p>
                 <p>Since our inception, MPA has united the country's most forward-thinking startups in property and construction tech. Together, we are driving digital transformation, boosting collaboration, and amplifying the voice of Malaysia's proptech ecosystem across borders.</p>
                 <div class="goals">
                     <h4>Our mission is clear:</h4>
