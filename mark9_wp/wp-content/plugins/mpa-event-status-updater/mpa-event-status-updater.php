@@ -1,10 +1,11 @@
 <?php
 /**
  * Plugin Name: MPA Event Status Updater
- * Plugin URI: https://malaysiaproptech.org
+ * Plugin URI: https://www.homesifu.io
  * Description: Automatically updates MPA event status from 'upcoming' to 'past' based on event dates. Includes logging, admin settings, and manual controls.
  * Version: 1.0.0
- * Author: MPA Development Team
+ * Author: MPA Committee Member 2025-2026 @ Andrew Michael Kho
+ * Author URI: https://www.linkedin.com/in/andrewmichaelkho/
  * License: GPL v2 or later
  * Text Domain: mpa-event-status-updater
  */
@@ -37,6 +38,7 @@ class MPAEventStatusUpdater {
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_init', array($this, 'admin_init'));
         add_action('wp_dashboard_setup', array($this, 'add_dashboard_widget'));
+        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
         
         // AJAX hooks for manual updates
         add_action('wp_ajax_mpa_manual_update', array($this, 'manual_update_ajax'));
@@ -184,6 +186,26 @@ class MPAEventStatusUpdater {
             'mpa-event-status-updater',
             array($this, 'admin_page')
         );
+    }
+    
+    /**
+     * Enqueue admin scripts
+     */
+    public function admin_enqueue_scripts($hook) {
+        // Only load on plugins page
+        if ($hook === 'plugins.php') {
+            wp_enqueue_script('jquery');
+            wp_add_inline_script('jquery', '
+                jQuery(document).ready(function($) {
+                    // Change "Visit plugin site" to "View details" for MPA plugins
+                    $("a[href*=\'homesifu.io\']").each(function() {
+                        if ($(this).text() === "Visit plugin site") {
+                            $(this).text("View details");
+                        }
+                    });
+                });
+            ');
+        }
     }
     
     /**
