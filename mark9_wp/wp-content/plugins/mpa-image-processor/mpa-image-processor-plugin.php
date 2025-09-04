@@ -527,7 +527,6 @@ class MPAImageProcessor {
         }
         
         if (move_uploaded_file($file['tmp_name'], $target_path)) {
-            $upload_dir = wp_upload_dir();
             $image_url = $upload_dir['baseurl'] . '/mpa-processor/' . $file_name . '?v=' . time();
             error_log('MPA Image Processor: File uploaded successfully');
             error_log('MPA Image Processor: Generated URL: ' . $image_url);
@@ -596,7 +595,7 @@ class MPAImageProcessor {
                 error_log('MPA Image Processor: Copying to: ' . $web_processed_path);
                 
                 if (copy($processed_path, $web_processed_path)) {
-                    $processed_url = 'http://172.188.12.16/wp-content/uploads/mpa-processor/processed/' . $processed_name . '?v=' . time();
+                    $processed_url = $upload_dir['baseurl'] . '/mpa-processor/processed/' . $processed_name . '?v=' . time();
                     error_log('MPA Image Processor: Copy successful!');
                     error_log('MPA Image Processor: Generated processed URL: ' . $processed_url);
                     
