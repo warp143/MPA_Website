@@ -680,14 +680,26 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.textContent = t['btn-join'];
         });
 
-        // Hero section translations
+        // Hero section translations - use WordPress data attributes if available
         const heroTitle = document.querySelector('.hero-title');
         const heroSubtitle = document.querySelector('.hero-subtitle');
         const searchPlaceholder = document.querySelector('.search-input input');
         const searchBtn = document.querySelector('.search-btn');
         
-        if (heroTitle) heroTitle.textContent = t['hero-title'];
-        if (heroSubtitle) heroSubtitle.textContent = t['hero-subtitle'];
+        // Check if WordPress data attributes exist (WordPress-managed content)
+        if (heroTitle && heroTitle.hasAttribute('data-' + lang)) {
+            heroTitle.textContent = heroTitle.getAttribute('data-' + lang);
+        } else if (heroTitle) {
+            // Fallback to hardcoded translations for non-WordPress pages
+            heroTitle.textContent = t['hero-title'];
+        }
+        
+        if (heroSubtitle && heroSubtitle.hasAttribute('data-' + lang)) {
+            heroSubtitle.textContent = heroSubtitle.getAttribute('data-' + lang);
+        } else if (heroSubtitle) {
+            // Fallback to hardcoded translations for non-WordPress pages
+            heroSubtitle.textContent = t['hero-subtitle'];
+        }
         if (searchPlaceholder) searchPlaceholder.placeholder = t['search-placeholder'];
         if (searchBtn) searchBtn.textContent = t['search-btn'];
 
@@ -1769,11 +1781,27 @@ if (document.querySelector('.year-tabs')) {
 
 // Initialize language on page load with delay to ensure DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    let savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    
+    // Validate that the saved language is supported
+    const supportedLanguages = ['en', 'bm', 'cn'];
+    if (!supportedLanguages.includes(savedLanguage)) {
+        console.warn('Unsupported language detected:', savedLanguage, 'Falling back to English');
+        savedLanguage = 'en';
+        localStorage.setItem('selectedLanguage', 'en');
+    }
+    
     // Add a small delay to ensure all DOM elements are fully loaded
     setTimeout(() => {
         selectLanguage(savedLanguage);
     }, 100);
+    
+    // Add manual language reset option (for debugging)
+    if (window.location.search.includes('reset-lang=en')) {
+        localStorage.setItem('selectedLanguage', 'en');
+        selectLanguage('en');
+        console.log('Language manually reset to English');
+    }
 });
 
 // Global notification function

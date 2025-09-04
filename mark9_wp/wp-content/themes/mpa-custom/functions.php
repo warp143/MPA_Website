@@ -1176,6 +1176,19 @@ function mpa_add_page_meta_boxes() {
         'normal',
         'high'
     );
+    
+    // Add homepage-specific meta box
+    $front_page_id = get_option('page_on_front');
+    if ($front_page_id && isset($_GET['post']) && $_GET['post'] == $front_page_id) {
+        add_meta_box(
+            'homepage_details',
+            __('Homepage Settings', 'mpa-custom'),
+            'mpa_homepage_callback',
+            'page',
+            'normal',
+            'high'
+        );
+    }
 }
 add_action('add_meta_boxes', 'mpa_add_page_meta_boxes');
 
@@ -1229,4 +1242,189 @@ function mpa_save_page_hero($post_id) {
     }
 }
 add_action('save_post', 'mpa_save_page_hero');
+
+/**
+ * Homepage Meta Box Callback
+ */
+function mpa_homepage_callback($post) {
+    // Add nonce for security
+    wp_nonce_field('mpa_save_homepage', 'mpa_homepage_nonce');
+
+    // Get current values
+    $hero_title = get_post_meta($post->ID, '_hero_title', true);
+    $hero_subtitle = get_post_meta($post->ID, '_hero_subtitle', true);
+    $about_title = get_post_meta($post->ID, '_about_title', true);
+    $about_content = get_post_meta($post->ID, '_about_content', true);
+    $strategic_anchors_text = get_post_meta($post->ID, '_strategic_anchors_text', true);
+    $stat_members = get_post_meta($post->ID, '_stat_members', true);
+    $stat_events = get_post_meta($post->ID, '_stat_events', true);
+    $stat_startups = get_post_meta($post->ID, '_stat_startups', true);
+    $stat_partners = get_post_meta($post->ID, '_stat_partners', true);
+
+    ?>
+    <table class="form-table">
+        <tr>
+            <th colspan="2"><h3><?php _e('Hero Section', 'mpa-custom'); ?></h3></th>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="hero_title"><?php _e('Hero Title', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="text" id="hero_title" name="hero_title" value="<?php echo esc_attr($hero_title); ?>" class="large-text" />
+                <p class="description"><?php _e('Main title in the hero section (default: For The Future of A Sustainable Property Market)', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="hero_subtitle"><?php _e('Hero Subtitle', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <textarea id="hero_subtitle" name="hero_subtitle" rows="2" class="large-text"><?php echo esc_textarea($hero_subtitle); ?></textarea>
+                <p class="description"><?php _e('Subtitle text below the main title', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2"><h3><?php _e('Hero Image', 'mpa-custom'); ?></h3></th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p><strong><?php _e('Hero Background Image:', 'mpa-custom'); ?></strong></p>
+                <p><?php _e('To change the hero background image, use the "Featured Image" section on the right side of this page.', 'mpa-custom'); ?></p>
+                <p><?php _e('Current image: ', 'mpa-custom'); ?>
+                    <?php if (has_post_thumbnail($post->ID)) : ?>
+                        <span style="color: green;">✅ <?php _e('Custom image set', 'mpa-custom'); ?></span>
+                    <?php else : ?>
+                        <span style="color: orange;">⚠️ <?php _e('Using default image (mpa-intro.jpg)', 'mpa-custom'); ?></span>
+                    <?php endif; ?>
+                </p>
+                <p><em><?php _e('Recommended size: 1200x800px or larger for best quality', 'mpa-custom'); ?></em></p>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2"><h3><?php _e('Statistics', 'mpa-custom'); ?></h3></th>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="stat_members"><?php _e('Members Count', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="text" id="stat_members" name="stat_members" value="<?php echo esc_attr($stat_members); ?>" class="regular-text" />
+                <p class="description"><?php _e('e.g., 150+ (default: 150+)', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="stat_events"><?php _e('Events Count', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="text" id="stat_events" name="stat_events" value="<?php echo esc_attr($stat_events); ?>" class="regular-text" />
+                <p class="description"><?php _e('e.g., 50+ (default: 50+)', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="stat_startups"><?php _e('Startups Count', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="text" id="stat_startups" name="stat_startups" value="<?php echo esc_attr($stat_startups); ?>" class="regular-text" />
+                <p class="description"><?php _e('e.g., 90+ (default: 90+)', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="stat_partners"><?php _e('Partners Count', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="text" id="stat_partners" name="stat_partners" value="<?php echo esc_attr($stat_partners); ?>" class="regular-text" />
+                <p class="description"><?php _e('e.g., 15+ (default: 15+)', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2"><h3><?php _e('Multilingual Hero Content (EN/BM/CN)', 'mpa-custom'); ?></h3></th>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="hero_title_bm"><?php _e('Hero Title (BM - Bahasa Malaysia)', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="text" id="hero_title_bm" name="hero_title_bm" value="<?php echo esc_attr(get_post_meta($post->ID, '_hero_title_bm', true)); ?>" class="large-text" />
+                <p class="description"><?php _e('Bahasa Malaysia version of the hero title', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="hero_subtitle_bm"><?php _e('Hero Subtitle (BM - Bahasa Malaysia)', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <textarea id="hero_subtitle_bm" name="hero_subtitle_bm" rows="3" class="large-text"><?php echo esc_textarea(get_post_meta($post->ID, '_hero_subtitle_bm', true)); ?></textarea>
+                <p class="description"><?php _e('Bahasa Malaysia version of the hero subtitle', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="hero_title_cn"><?php _e('Hero Title (CN - 中文)', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="text" id="hero_title_cn" name="hero_title_cn" value="<?php echo esc_attr(get_post_meta($post->ID, '_hero_title_cn', true)); ?>" class="large-text" />
+                <p class="description"><?php _e('Chinese version of the hero title', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="hero_subtitle_cn"><?php _e('Hero Subtitle (CN - 中文)', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <textarea id="hero_subtitle_cn" name="hero_subtitle_cn" rows="3" class="large-text"><?php echo esc_textarea(get_post_meta($post->ID, '_hero_subtitle_cn', true)); ?></textarea>
+                <p class="description"><?php _e('Chinese version of the hero subtitle', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+
+/**
+ * Save Homepage Meta Data
+ */
+function mpa_save_homepage($post_id) {
+    // Check if nonce is valid
+    if (!isset($_POST['mpa_homepage_nonce']) || !wp_verify_nonce($_POST['mpa_homepage_nonce'], 'mpa_save_homepage')) {
+        return;
+    }
+
+    // Check if user has permission to edit the post
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Don't save on autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Save all homepage fields
+    $fields = [
+        'hero_title',
+        'hero_subtitle', 
+        'stat_members',
+        'stat_events',
+        'stat_startups',
+        'stat_partners',
+        'hero_title_bm',
+        'hero_subtitle_bm',
+        'hero_title_cn',
+        'hero_subtitle_cn'
+    ];
+
+    foreach ($fields as $field) {
+        if (isset($_POST[$field])) {
+            if (in_array($field, ['hero_subtitle', 'hero_subtitle_bm', 'hero_subtitle_cn'])) {
+                update_post_meta($post_id, '_' . $field, sanitize_textarea_field($_POST[$field]));
+            } else {
+                update_post_meta($post_id, '_' . $field, sanitize_text_field($_POST[$field]));
+            }
+        }
+    }
+}
+add_action('save_post', 'mpa_save_homepage');
 
