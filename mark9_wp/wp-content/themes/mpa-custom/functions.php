@@ -434,14 +434,29 @@ function mpa_add_event_columns($columns) {
     unset($columns['taxonomy-event_category']); // Remove event categories column
     unset($columns['taxonomy-event_tag']); // Remove event tags column
     
-    // Add custom columns
-    $columns['event_status'] = __('Event Status', 'mpa-custom');
-    $columns['event_type'] = __('Event Type', 'mpa-custom');
-    $columns['event_date'] = __('Event Date', 'mpa-custom');
-    $columns['event_location'] = __('Location', 'mpa-custom');
-    $columns['date'] = __('Published', 'mpa-custom'); // Re-add date column at the end
+    // Create new column order with Event Date first (after checkbox)
+    $new_columns = array();
     
-    return $columns;
+    // Keep the checkbox column first
+    if (isset($columns['cb'])) {
+        $new_columns['cb'] = $columns['cb'];
+    }
+    
+    // Add Event Date as the FIRST column (second overall after checkbox)
+    $new_columns['event_date'] = __('Event Date', 'mpa-custom');
+    
+    // Add Title after Event Date
+    if (isset($columns['title'])) {
+        $new_columns['title'] = $columns['title'];
+    }
+    
+    // Add other custom columns
+    $new_columns['event_status'] = __('Event Status', 'mpa-custom');
+    $new_columns['event_type'] = __('Event Type', 'mpa-custom');
+    $new_columns['event_location'] = __('Location', 'mpa-custom');
+    $new_columns['date'] = __('Published', 'mpa-custom'); // Re-add date column at the end
+    
+    return $new_columns;
 }
 add_filter('manage_mpa_event_posts_columns', 'mpa_add_event_columns');
 
@@ -571,21 +586,115 @@ function mpa_event_columns_orderby($query) {
 add_action('pre_get_posts', 'mpa_event_columns_orderby');
 
 /**
+ * Set default sort order for events admin page
+ */
+function mpa_events_default_sort($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    
+    // Only apply to events admin page
+    if ($query->get('post_type') !== 'mpa_event') {
+        return;
+    }
+    
+    // Only set default if no orderby is specified
+    if (!$query->get('orderby')) {
+        $query->set('meta_key', '_event_date');
+        $query->set('orderby', 'meta_value');
+        $query->set('order', 'ASC'); // Earliest date first
+    }
+}
+add_action('pre_get_posts', 'mpa_events_default_sort');
+
+/**
+ * Add custom CSS for admin tables
+ */
+function mpa_admin_tables_css() {
+    $screen = get_current_screen();
+    
+    // Events table CSS
+    if ($screen && $screen->post_type === 'mpa_event') {
+        echo '<style>
+            .wp-list-table .column-event_date {
+                width: 120px !important;
+                max-width: 120px !important;
+            }
+            .wp-list-table .column-event_status {
+                width: 100px !important;
+            }
+            .wp-list-table .column-event_type {
+                width: 100px !important;
+            }
+            .wp-list-table .column-event_location {
+                width: 80px !important;
+            }
+        </style>';
+    }
+    
+    // Committee Members table CSS
+    if ($screen && $screen->post_type === 'mpa_committee') {
+        echo '<style>
+            .wp-list-table .column-member_photo {
+                width: 80px !important;
+                text-align: center !important;
+            }
+            .wp-list-table .column-member_position {
+                width: 150px !important;
+            }
+            .wp-list-table .column-member_website {
+                width: 200px !important;
+            }
+            .wp-list-table .column-member_email {
+                width: 200px !important;
+            }
+            .wp-list-table .column-member_linkedin {
+                width: 200px !important;
+            }
+            .wp-list-table .column-menu_order {
+                width: 80px !important;
+                text-align: center !important;
+            }
+            .wp-list-table .column-title {
+                width: 140px !important;
+                max-width: 140px !important;
+            }
+        </style>';
+    }
+}
+add_action('admin_head', 'mpa_admin_tables_css');
+
+/**
  * Add custom columns to Committee Members admin table
  */
 function mpa_add_committee_columns($columns) {
     // Remove unwanted columns
     unset($columns['date']);
     
-    // Add custom columns
-    $columns['member_photo'] = __('Photo', 'mpa-custom');
-    $columns['member_position'] = __('Position', 'mpa-custom');
-    $columns['member_website'] = __('Website', 'mpa-custom');
-    $columns['member_email'] = __('Email', 'mpa-custom');
-    $columns['member_linkedin'] = __('LinkedIn', 'mpa-custom');
-    $columns['menu_order'] = __('Display Order', 'mpa-custom');
+    // Reorder columns with Order first
+    $new_columns = array();
     
-    return $columns;
+    // Keep checkbox if it exists
+    if (isset($columns['cb'])) {
+        $new_columns['cb'] = $columns['cb'];
+    }
+    
+    // Add Order as first column
+    $new_columns['menu_order'] = __('Order', 'mpa-custom');
+    
+    // Add Name column
+    if (isset($columns['title'])) {
+        $new_columns['title'] = __('Name', 'mpa-custom');
+    }
+    
+    // Add other custom columns
+    $new_columns['member_photo'] = __('Photo', 'mpa-custom');
+    $new_columns['member_position'] = __('Position', 'mpa-custom');
+    $new_columns['member_website'] = __('Website', 'mpa-custom');
+    $new_columns['member_email'] = __('Email', 'mpa-custom');
+    $new_columns['member_linkedin'] = __('LinkedIn', 'mpa-custom');
+    
+    return $new_columns;
 }
 add_filter('manage_mpa_committee_posts_columns', 'mpa_add_committee_columns');
 
@@ -694,6 +803,26 @@ function mpa_make_committee_columns_sortable($columns) {
 add_filter('manage_edit-mpa_committee_sortable_columns', 'mpa_make_committee_columns_sortable');
 
 /**
+ * Set default sort for Committee Members by Order
+ */
+function mpa_committee_default_sort($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    
+    if ($query->get('post_type') !== 'mpa_committee') {
+        return;
+    }
+    
+    // Only set default sort if no orderby is specified
+    if (!$query->get('orderby')) {
+        $query->set('orderby', 'menu_order');
+        $query->set('order', 'ASC'); // Lowest order number first
+    }
+}
+add_action('pre_get_posts', 'mpa_committee_default_sort');
+
+/**
  * Handle sorting for custom columns for Committee Members
  */
 function mpa_committee_columns_orderby($query) {
@@ -782,7 +911,7 @@ function mpa_committee_member_details_callback($post) {
         </tr>
         <tr style="background-color: #f0f8ff;">
             <th scope="row">
-                <label for="member_order" style="font-weight: bold; color: #0073aa;"><?php _e('Display Order', 'mpa-custom'); ?></label>
+                <label for="member_order" style="font-weight: bold; color: #0073aa;"><?php _e('Order', 'mpa-custom'); ?></label>
             </th>
             <td>
                 <input type="number" id="member_order" name="member_order" value="<?php echo esc_attr(get_post_field('menu_order', $post->ID)); ?>" min="1" max="50" class="small-text" style="border: 2px solid #0073aa;" />
