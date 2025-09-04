@@ -580,11 +580,10 @@ function mpa_add_committee_columns($columns) {
     // Add custom columns
     $columns['member_photo'] = __('Photo', 'mpa-custom');
     $columns['member_position'] = __('Position', 'mpa-custom');
-    $columns['member_term'] = __('Term', 'mpa-custom');
-    $columns['member_status'] = __('Status', 'mpa-custom');
-    $columns['member_contacts'] = __('Contacts', 'mpa-custom');
+    $columns['member_website'] = __('Website', 'mpa-custom');
+    $columns['member_email'] = __('Email', 'mpa-custom');
+    $columns['member_linkedin'] = __('LinkedIn', 'mpa-custom');
     $columns['menu_order'] = __('Display Order', 'mpa-custom');
-    $columns['date'] = __('Created', 'mpa-custom'); // Re-add date column at the end
     
     return $columns;
 }
@@ -620,52 +619,53 @@ function mpa_populate_committee_columns($column, $post_id) {
             }
             break;
             
-        case 'member_term':
-            $term = get_post_meta($post_id, '_member_term', true);
-            if ($term) {
-                echo '<span style="background: #f0f0f1; padding: 2px 6px; border-radius: 3px; font-size: 11px;">' . esc_html($term) . '</span>';
-            } else {
-                echo '<span style="color: #999;">—</span>';
-            }
-            break;
+
             
-        case 'member_status':
-            $status = get_post_meta($post_id, '_member_status', true);
-            if ($status) {
-                $status_class = '';
-                $status_text = ucfirst($status);
-                
-                // Add color coding
-                switch ($status) {
-                    case 'active':
-                        $status_class = 'style="color: #00a32a; font-weight: bold;"';
-                        break;
-                    case 'inactive':
-                        $status_class = 'style="color: #666; font-weight: bold;"';
-                        break;
-                    case 'alumni':
-                        $status_class = 'style="color: #0073aa; font-weight: bold;"';
-                        break;
-                }
-                
-                echo '<span ' . $status_class . '>' . esc_html($status_text) . '</span>';
-            } else {
-                echo '<span style="color: #999;">—</span>';
-            }
-            break;
-            
-        case 'member_contacts':
+        case 'member_website':
             $website = get_post_meta($post_id, '_member_website', true);
+            $website_secondary = get_post_meta($post_id, '_member_website_secondary', true);
+            
+            if ($website || $website_secondary) {
+                if ($website) {
+                    $display_url = strlen($website) > 30 ? substr($website, 0, 30) . '...' : $website;
+                    echo '<div style="margin-bottom: 5px;"><strong style="color: #333;">Primary:</strong> <a href="' . esc_url($website) . '" target="_blank" style="color: #0073aa !important; text-decoration: none !important; font-weight: normal;" title="' . esc_attr($website) . '">' . esc_html($display_url) . '</a></div>';
+                }
+                if ($website_secondary) {
+                    $display_url = strlen($website_secondary) > 30 ? substr($website_secondary, 0, 30) . '...' : $website_secondary;
+                    echo '<div style="margin-bottom: 5px;"><em style="color: #333; font-style: italic;">Secondary:</em> <a href="' . esc_url($website_secondary) . '" target="_blank" style="color: #0073aa !important; text-decoration: none !important; font-weight: normal;" title="' . esc_attr($website_secondary) . '">' . esc_html($display_url) . '</a></div>';
+                }
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+            
+        case 'member_email':
             $email = get_post_meta($post_id, '_member_email', true);
+            $email_secondary = get_post_meta($post_id, '_member_email_secondary', true);
+            if ($email || $email_secondary) {
+                if ($email) {
+                    echo '<div style="margin-bottom: 5px;"><strong style="color: #333;">Primary:</strong> <a href="mailto:' . esc_attr($email) . '" style="color: #0073aa !important; text-decoration: none !important; font-weight: normal;"><i class="fas fa-envelope"></i> ' . esc_html($email) . '</a></div>';
+                }
+                if ($email_secondary) {
+                    echo '<div style="margin-bottom: 5px;"><em style="color: #333; font-style: italic;">Secondary:</em> <a href="mailto:' . esc_attr($email_secondary) . '" style="color: #0073aa !important; text-decoration: none !important; font-weight: normal;"><i class="fas fa-envelope"></i> ' . esc_html($email_secondary) . '</a></div>';
+                }
+            } else {
+                echo '<span style="color: #999;">—</span>';
+            }
+            break;
+            
+        case 'member_linkedin':
             $linkedin = get_post_meta($post_id, '_member_linkedin', true);
-            
-            $contacts = array();
-            if ($website) $contacts[] = '<a href="' . esc_url($website) . '" target="_blank" title="Website"><i class="fas fa-globe"></i></a>';
-            if ($email) $contacts[] = '<a href="mailto:' . esc_attr($email) . '" title="Email"><i class="fas fa-envelope"></i></a>';
-            if ($linkedin) $contacts[] = '<a href="' . esc_url($linkedin) . '" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>';
-            
-            if (!empty($contacts)) {
-                echo '<div style="font-size: 16px;">' . implode(' ', $contacts) . '</div>';
+            $linkedin_secondary = get_post_meta($post_id, '_member_linkedin_secondary', true);
+            if ($linkedin || $linkedin_secondary) {
+                if ($linkedin) {
+                    $display_url = strlen($linkedin) > 30 ? substr($linkedin, 0, 30) . '...' : $linkedin;
+                    echo '<div style="margin-bottom: 5px;"><strong style="color: #333;">Primary:</strong> <a href="' . esc_url($linkedin) . '" target="_blank" style="color: #0073aa !important; text-decoration: none !important; font-weight: normal;" title="' . esc_attr($linkedin) . '">' . esc_html($display_url) . '</a></div>';
+                }
+                if ($linkedin_secondary) {
+                    $display_url = strlen($linkedin_secondary) > 30 ? substr($linkedin_secondary, 0, 30) . '...' : $linkedin_secondary;
+                    echo '<div style="margin-bottom: 5px;"><em style="color: #333; font-style: italic;">Secondary:</em> <a href="' . esc_url($linkedin_secondary) . '" target="_blank" style="color: #0073aa !important; text-decoration: none !important; font-weight: normal;" title="' . esc_attr($linkedin_secondary) . '">' . esc_html($display_url) . '</a></div>';
+                }
             } else {
                 echo '<span style="color: #999;">—</span>';
             }
@@ -684,8 +684,9 @@ add_action('manage_mpa_committee_posts_custom_column', 'mpa_populate_committee_c
  */
 function mpa_make_committee_columns_sortable($columns) {
     $columns['member_position'] = 'member_position';
-    $columns['member_term'] = 'member_term';
-    $columns['member_status'] = 'member_status';
+    $columns['member_website'] = 'member_website';
+    $columns['member_email'] = 'member_email';
+    $columns['member_linkedin'] = 'member_linkedin';
     $columns['menu_order'] = 'menu_order';
     
     return $columns;
@@ -708,13 +709,20 @@ function mpa_committee_columns_orderby($query) {
             $query->set('orderby', 'meta_value');
             break;
             
-        case 'member_term':
-            $query->set('meta_key', '_member_term');
+
+            
+        case 'member_website':
+            $query->set('meta_key', '_member_website');
             $query->set('orderby', 'meta_value');
             break;
             
-        case 'member_status':
-            $query->set('meta_key', '_member_status');
+        case 'member_email':
+            $query->set('meta_key', '_member_email');
+            $query->set('orderby', 'meta_value');
+            break;
+            
+        case 'member_linkedin':
+            $query->set('meta_key', '_member_linkedin');
             $query->set('orderby', 'meta_value');
             break;
     }
@@ -754,11 +762,12 @@ function mpa_committee_member_details_callback($post) {
 
     // Get current values
     $member_position = get_post_meta($post->ID, '_member_position', true);
-    $member_term = get_post_meta($post->ID, '_member_term', true);
-    $member_status = get_post_meta($post->ID, '_member_status', true);
     $member_website = get_post_meta($post->ID, '_member_website', true);
     $member_email = get_post_meta($post->ID, '_member_email', true);
     $member_linkedin = get_post_meta($post->ID, '_member_linkedin', true);
+    $member_website_secondary = get_post_meta($post->ID, '_member_website_secondary', true);
+    $member_email_secondary = get_post_meta($post->ID, '_member_email_secondary', true);
+    $member_linkedin_secondary = get_post_meta($post->ID, '_member_linkedin_secondary', true);
 
     ?>
     <table class="form-table">
@@ -780,58 +789,77 @@ function mpa_committee_member_details_callback($post) {
                 <p class="description"><?php _e('Lower numbers appear first (1 = President, 2 = Vice President, etc.)', 'mpa-custom'); ?></p>
             </td>
         </tr>
+
+
+        <tr style="background-color: #f9f9f9;">
+            <th scope="row" colspan="2">
+                <h3 style="margin: 0; color: #0073aa;">🌐 Website Information</h3>
+            </th>
+        </tr>
         <tr>
             <th scope="row">
-                <label for="member_term"><?php _e('Term', 'mpa-custom'); ?></label>
+                <label for="member_website"><?php _e('Primary Website', 'mpa-custom'); ?></label>
             </th>
             <td>
-                <select id="member_term" name="member_term">
-                    <option value=""><?php _e('Select Term', 'mpa-custom'); ?></option>
-                    <option value="2025-2026" <?php selected($member_term, '2025-2026'); ?>><?php _e('2025-2026', 'mpa-custom'); ?></option>
-                    <option value="2023-2025" <?php selected($member_term, '2023-2025'); ?>><?php _e('2023-2025', 'mpa-custom'); ?></option>
-                    <option value="2021-2023" <?php selected($member_term, '2021-2023'); ?>><?php _e('2021-2023', 'mpa-custom'); ?></option>
-                </select>
-                <p class="description"><?php _e('Committee term period.', 'mpa-custom'); ?></p>
+                <input type="url" id="member_website" name="member_website" value="<?php echo esc_attr($member_website); ?>" class="regular-text" placeholder="https://example.com" />
+                <p class="description"><?php _e('Main personal or company website (optional).', 'mpa-custom'); ?></p>
             </td>
         </tr>
         <tr>
             <th scope="row">
-                <label for="member_status"><?php _e('Status', 'mpa-custom'); ?></label>
+                <label for="member_website_secondary"><?php _e('Secondary Website', 'mpa-custom'); ?></label>
             </th>
             <td>
-                <select id="member_status" name="member_status">
-                    <option value="active" <?php selected($member_status, 'active'); ?>><?php _e('Active', 'mpa-custom'); ?></option>
-                    <option value="inactive" <?php selected($member_status, 'inactive'); ?>><?php _e('Inactive', 'mpa-custom'); ?></option>
-                    <option value="alumni" <?php selected($member_status, 'alumni'); ?>><?php _e('Alumni', 'mpa-custom'); ?></option>
-                </select>
-                <p class="description"><?php _e('Current membership status.', 'mpa-custom'); ?></p>
+                <input type="url" id="member_website_secondary" name="member_website_secondary" value="<?php echo esc_attr($member_website_secondary); ?>" class="regular-text" placeholder="https://example2.com" />
+                <p class="description"><?php _e('Additional website (optional).', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        
+        <tr style="background-color: #f9f9f9;">
+            <th scope="row" colspan="2">
+                <h3 style="margin: 0; color: #0073aa;">📧 Email Information</h3>
+            </th>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="member_email"><?php _e('Primary Email', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="email" id="member_email" name="member_email" value="<?php echo esc_attr($member_email); ?>" class="regular-text" placeholder="email@example.com" />
+                <p class="description"><?php _e('Main contact email address.', 'mpa-custom'); ?></p>
             </td>
         </tr>
         <tr>
             <th scope="row">
-                <label for="member_website"><?php _e('Website URL', 'mpa-custom'); ?></label>
+                <label for="member_email_secondary"><?php _e('Secondary Email', 'mpa-custom'); ?></label>
             </th>
             <td>
-                <input type="url" id="member_website" name="member_website" value="<?php echo esc_attr($member_website); ?>" class="regular-text" />
-                <p class="description"><?php _e('Personal or company website (optional).', 'mpa-custom'); ?></p>
+                <input type="email" id="member_email_secondary" name="member_email_secondary" value="<?php echo esc_attr($member_email_secondary); ?>" class="regular-text" placeholder="email2@example.com" />
+                <p class="description"><?php _e('Additional email address (optional).', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        
+        <tr style="background-color: #f9f9f9;">
+            <th scope="row" colspan="2">
+                <h3 style="margin: 0; color: #0073aa;">💼 LinkedIn Information</h3>
+            </th>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="member_linkedin"><?php _e('Primary LinkedIn', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="url" id="member_linkedin" name="member_linkedin" value="<?php echo esc_attr($member_linkedin); ?>" class="regular-text" placeholder="https://linkedin.com/in/username" />
+                <p class="description"><?php _e('Main LinkedIn profile URL (optional).', 'mpa-custom'); ?></p>
             </td>
         </tr>
         <tr>
             <th scope="row">
-                <label for="member_email"><?php _e('Email Address', 'mpa-custom'); ?></label>
+                <label for="member_linkedin_secondary"><?php _e('Secondary LinkedIn', 'mpa-custom'); ?></label>
             </th>
             <td>
-                <input type="email" id="member_email" name="member_email" value="<?php echo esc_attr($member_email); ?>" class="regular-text" />
-                <p class="description"><?php _e('Contact email address.', 'mpa-custom'); ?></p>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <label for="member_linkedin"><?php _e('LinkedIn Profile', 'mpa-custom'); ?></label>
-            </th>
-            <td>
-                <input type="url" id="member_linkedin" name="member_linkedin" value="<?php echo esc_attr($member_linkedin); ?>" class="regular-text" />
-                <p class="description"><?php _e('LinkedIn profile URL (optional).', 'mpa-custom'); ?></p>
+                <input type="url" id="member_linkedin_secondary" name="member_linkedin_secondary" value="<?php echo esc_attr($member_linkedin_secondary); ?>" class="regular-text" placeholder="https://linkedin.com/in/username2" />
+                <p class="description"><?php _e('Additional LinkedIn profile URL (optional).', 'mpa-custom'); ?></p>
             </td>
         </tr>
     </table>
@@ -875,11 +903,12 @@ function mpa_save_committee_member_details($post_id) {
         // Save meta fields
     $fields = array(
         'member_position',
-        'member_term', 
-        'member_status',
         'member_website',
+        'member_website_secondary',
         'member_email',
-        'member_linkedin'
+        'member_email_secondary',
+        'member_linkedin',
+        'member_linkedin_secondary'
     );
     
     foreach ($fields as $field) {
@@ -1200,3 +1229,4 @@ function mpa_save_page_hero($post_id) {
     }
 }
 add_action('save_post', 'mpa_save_page_hero');
+

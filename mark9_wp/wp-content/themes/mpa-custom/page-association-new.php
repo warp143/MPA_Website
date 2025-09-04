@@ -13,7 +13,7 @@ document.title = 'Association |';
             <p>Driving Malaysia's PropTech transformation through innovation, collaboration, and strategic leadership</p>
         </div>
         <div class="hero-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/association-hero.jpg" alt="MPA Association">
+                            <img src="<?php echo get_template_directory_uri(); ?>assets/association-hero.jpg" alt="MPA Association">
         </div>
     </div>
 </section>
@@ -116,9 +116,8 @@ document.title = 'Association |';
                     
                     // Get member photo
                     $member_photo = '';
-                    $thumbnail_id = get_post_meta(get_the_ID(), '_thumbnail_id', true);
-                    if ($thumbnail_id) {
-                        $member_photo = wp_get_attachment_image_url($thumbnail_id, 'medium');
+                    if (has_post_thumbnail()) {
+                        $member_photo = get_the_post_thumbnail_url(get_the_ID(), 'medium');
                     }
                     
                     // Get member bio/responsibilities from content
@@ -165,11 +164,11 @@ document.title = 'Association |';
                             <?php endif; ?>
                             
                             <?php if ($member_linkedin) : ?>
-                                <a href="<?php echo esc_url($member_linkedin); ?>" class="contact-link" title="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                <a href="<?php echo esc_url($member_linkedin); ?>" class="contact-link" title="LinkedIn" target="_blank"><i class="fas fa-linkedin"></i></a>
                             <?php endif; ?>
                             
                             <?php if ($member_linkedin_secondary) : ?>
-                                <a href="<?php echo esc_url($member_linkedin_secondary); ?>" class="contact-link" title="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                <a href="<?php echo esc_url($member_linkedin_secondary); ?>" class="contact-link" title="LinkedIn" target="_blank"><i class="fas fa-linkedin"></i></a>
                             <?php endif; ?>
                         </div>
                     </div>

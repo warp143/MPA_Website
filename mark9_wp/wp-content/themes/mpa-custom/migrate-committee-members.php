@@ -233,3 +233,4 @@ function create_attachment_from_file($file_path, $parent_post_id, $title) {
 
 echo "<p><strong>Note:</strong> You can delete this migration script after running it successfully.</p>";
 ?>
+

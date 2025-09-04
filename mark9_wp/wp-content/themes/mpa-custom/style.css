@@ -3057,11 +3057,14 @@ body:not(.light-mode) .partner-testimonials {
 
 /* Member Contact Links */
 .member-contact {
-    display: flex;
-    justify-content: center;
+    display: grid;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
-    flex-wrap: wrap;
+    max-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    grid-auto-rows: auto;
 }
 
 .contact-link {
@@ -3096,6 +3099,7 @@ body:not(.light-mode) .partner-testimonials {
 @media (max-width: 768px) {
     .member-contact {
         gap: var(--spacing-xs);
+        max-width: 120px;
     }
     
     .contact-link {
