@@ -9,7 +9,7 @@ document.title = 'Association |';
 <section class="page-hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Association</h1>
+            <h1><?php the_title(); ?></h1>
             <p><?php 
                 $hero_description = get_post_meta(get_the_ID(), '_hero_description', true);
                 echo $hero_description ?: 'Leading The Digital Transformation of the Property Industry in Malaysia';

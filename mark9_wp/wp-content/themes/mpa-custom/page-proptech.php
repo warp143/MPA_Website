@@ -9,11 +9,18 @@ document.title = 'PropTech |';
 <section class="page-hero">
     <div class="container">
         <div class="hero-content">
-            <h1>PropTech</h1>
-            <p>Transforming the Real Estate Industry Through Innovation</p>
+            <h1><?php the_title(); ?></h1>
+            <p><?php 
+                $hero_description = get_post_meta(get_the_ID(), '_hero_description', true);
+                echo $hero_description ?: 'Transforming the Real Estate Industry Through Innovation';
+            ?></p>
         </div>
         <div class="hero-image">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/proptech-hero.jpg" alt="Property Technology">
+            <?php if (has_post_thumbnail()) : ?>
+                <?php the_post_thumbnail('large', array('alt' => get_the_title() . ' Hero')); ?>
+            <?php else : ?>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/proptech-hero.jpg" alt="<?php echo esc_attr(get_the_title()); ?>">
+            <?php endif; ?>
         </div>
     </div>
 </section>
