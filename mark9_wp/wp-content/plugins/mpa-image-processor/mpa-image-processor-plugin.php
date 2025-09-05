@@ -33,6 +33,7 @@ class MPAImageProcessor {
         add_action('wp_ajax_process_image', array($this, 'process_image_ajax'));
         add_action('wp_ajax_remove_background', array($this, 'remove_background_ajax'));
         add_action('wp_ajax_save_processed_image', array($this, 'save_processed_image_ajax'));
+        add_action('wp_ajax_cleanup_temp_images', array($this, 'cleanup_temp_images_ajax'));
         
         // Increase PHP limits for this plugin
         add_action('init', array($this, 'increase_php_limits'));
@@ -564,36 +565,24 @@ class MPAImageProcessor {
             error_log('MPA Image Processor: File exists check: ' . (file_exists($processed_path) ? 'YES' : 'NO'));
             
             if (file_exists($processed_path)) {
-                error_log('MPA Image Processor: File found! Starting copy process...');
-                // Copy the processed image to uploads directory for web access
-                $upload_dir = wp_upload_dir();
-                $web_processed_dir = $upload_dir['basedir'] . '/mpa-processor/processed/';
-                if (!file_exists($web_processed_dir)) {
-                    wp_mkdir_p($web_processed_dir);
-                }
+                error_log('MPA Image Processor: File found! Processing complete.');
                 
-                $web_processed_path = $web_processed_dir . $processed_name;
-                error_log('MPA Image Processor: Copying to: ' . $web_processed_path);
+                // Generate a temporary URL for display (using plugin directory)
+                $plugin_url = plugin_dir_url(__FILE__);
+                $processed_url = $plugin_url . 'processed/' . $processed_name . '?v=' . time();
                 
-                if (copy($processed_path, $web_processed_path)) {
-                    $processed_url = $upload_dir['baseurl'] . '/mpa-processor/processed/' . $processed_name . '?v=' . time();
-                    error_log('MPA Image Processor: Copy successful!');
-                    error_log('MPA Image Processor: Generated processed URL: ' . $processed_url);
-                    
-                    // Force immediate response without WordPress processing
-                    header('Content-Type: application/json');
-                    echo json_encode(array(
-                        'success' => true,
-                        'data' => array(
-                            'processed_path' => $web_processed_path,
-                            'processed_url' => $processed_url
-                        )
-                    ));
-                    exit;
-                } else {
-                    error_log('MPA Image Processor: Copy failed!');
-                    wp_send_json_error('Failed to copy processed image to web directory');
-                }
+                error_log('MPA Image Processor: Generated processed URL: ' . $processed_url);
+                
+                // Force immediate response without WordPress processing
+                header('Content-Type: application/json');
+                echo json_encode(array(
+                    'success' => true,
+                    'data' => array(
+                        'processed_path' => $processed_path,
+                        'processed_url' => $processed_url
+                    )
+                ));
+                exit;
             } else {
                 wp_send_json_error('Processed image not found at: ' . $processed_path);
             }
@@ -631,6 +620,10 @@ class MPAImageProcessor {
             $attach_id = wp_insert_attachment($attachment, $target_path);
             if (!is_wp_error($attach_id)) {
                 wp_update_attachment_metadata($attach_id, wp_generate_attachment_metadata($attach_id, $target_path));
+                
+                // Clean up temporary files after successful save
+                $this->cleanup_temp_files($image_path);
+                
                 wp_send_json_success(array(
                     'attachment_id' => $attach_id,
                     'url' => wp_get_attachment_url($attach_id)
@@ -640,6 +633,47 @@ class MPAImageProcessor {
             }
         } else {
             wp_send_json_error('Failed to copy image');
+        }
+    }
+    
+    public function cleanup_temp_images_ajax() {
+        check_ajax_referer('mpa_image_processor_nonce', 'nonce');
+        if (!current_user_can('manage_options')) {
+            wp_die('Unauthorized');
+        }
+        
+        $image_path = sanitize_text_field($_POST['image_path']);
+        $this->cleanup_temp_files($image_path);
+        
+        wp_send_json_success('Temporary files cleaned up');
+    }
+    
+    private function cleanup_temp_files($image_path) {
+        // Clean up the processed image in plugin directory
+        if (file_exists($image_path)) {
+            unlink($image_path);
+            error_log('MPA Image Processor: Cleaned up processed image: ' . $image_path);
+        }
+        
+        // Clean up the original uploaded image
+        $upload_dir = wp_upload_dir();
+        $original_dir = $upload_dir['basedir'] . '/mpa-processor/';
+        $file_name = basename($image_path);
+        
+        // Remove _cropped from filename to get original name
+        $original_name = str_replace('_cropped.png', '', $file_name);
+        $original_name = str_replace('_cropped.jpg', '', $original_name);
+        $original_name = str_replace('_cropped.jpeg', '', $original_name);
+        
+        // Try different extensions for original file
+        $extensions = array('.jpeg', '.jpg', '.png');
+        foreach ($extensions as $ext) {
+            $original_path = $original_dir . $original_name . $ext;
+            if (file_exists($original_path)) {
+                unlink($original_path);
+                error_log('MPA Image Processor: Cleaned up original image: ' . $original_path);
+                break;
+            }
         }
     }
 }

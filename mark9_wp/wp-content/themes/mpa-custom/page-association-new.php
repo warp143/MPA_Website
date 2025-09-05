@@ -164,11 +164,11 @@ document.title = 'Association |';
                             <?php endif; ?>
                             
                             <?php if ($member_linkedin) : ?>
-                                <a href="<?php echo esc_url($member_linkedin); ?>" class="contact-link" title="LinkedIn" target="_blank"><i class="fas fa-linkedin"></i></a>
+                                <a href="<?php echo esc_url($member_linkedin); ?>" class="contact-link" title="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
                             <?php endif; ?>
                             
                             <?php if ($member_linkedin_secondary) : ?>
-                                <a href="<?php echo esc_url($member_linkedin_secondary); ?>" class="contact-link" title="LinkedIn" target="_blank"><i class="fas fa-linkedin"></i></a>
+                                <a href="<?php echo esc_url($member_linkedin_secondary); ?>" class="contact-link" title="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
                             <?php endif; ?>
                         </div>
                     </div>

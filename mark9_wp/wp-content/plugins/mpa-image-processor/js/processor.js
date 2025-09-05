@@ -5,6 +5,7 @@ jQuery(document).ready(function($) {
     let currentImagePath = null;
     let processedImagePath = null;
     let originalFileName = null;
+    let cleanupTimeout = null;
     
     // Prevent multiple initialization
     if (window.mpaProcessorInitialized) {
@@ -368,9 +369,51 @@ jQuery(document).ready(function($) {
         processedImagePath = data.processed_path;
         $('#processedResult').attr('src', data.processed_url);
         $('#originalResult').attr('src', $('#cropImage').attr('src'));
+        
+        // Start 60-second cleanup timer
+        startCleanupTimer();
+    }
+    
+    function startCleanupTimer() {
+        // Clear any existing timeout
+        if (cleanupTimeout) {
+            clearTimeout(cleanupTimeout);
+        }
+        
+        // Set 60-second timeout for auto cleanup
+        cleanupTimeout = setTimeout(function() {
+            console.log('MPA Image Processor: Auto cleanup triggered after 60 seconds');
+            cleanupTempFiles();
+        }, 60000); // 60 seconds
+    }
+    
+    function cleanupTempFiles() {
+        if (processedImagePath) {
+            $.ajax({
+                url: mpa_ajax.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'cleanup_temp_images',
+                    nonce: mpa_ajax.nonce,
+                    image_path: processedImagePath
+                },
+                success: function(response) {
+                    console.log('MPA Image Processor: Cleanup successful');
+                },
+                error: function() {
+                    console.log('MPA Image Processor: Cleanup failed');
+                }
+            });
+        }
     }
     
     function saveToMediaLibrary(imagePath, imageTitle) {
+        // Clear cleanup timer since user is saving
+        if (cleanupTimeout) {
+            clearTimeout(cleanupTimeout);
+            cleanupTimeout = null;
+        }
+        
         $.ajax({
             url: mpa_ajax.ajax_url,
             type: 'POST',
@@ -383,6 +426,7 @@ jQuery(document).ready(function($) {
             success: function(response) {
                 if (response.success) {
                     alert('Image saved to media library successfully!');
+                    // Cleanup is handled automatically by the PHP function
                 } else {
                     alert('Failed to save image: ' + response.data);
                 }
@@ -394,6 +438,17 @@ jQuery(document).ready(function($) {
     }
     
     function resetInterface() {
+        // Clear cleanup timer
+        if (cleanupTimeout) {
+            clearTimeout(cleanupTimeout);
+            cleanupTimeout = null;
+        }
+        
+        // Clean up any existing temp files before reset
+        if (processedImagePath) {
+            cleanupTempFiles();
+        }
+        
         $('#uploadSection').show();
         $('#cropSection').hide();
         $('#processingSection').hide();
