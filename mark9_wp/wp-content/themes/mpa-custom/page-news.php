@@ -145,19 +145,16 @@ document.title = 'News & Resources |';
     </div>
 </section>
 
-<!-- Newsletter Signup -->
-<section class="newsletter-section">
+<!-- Newsletter Section -->
+<section class="newsletter">
     <div class="container">
         <div class="newsletter-content">
             <h2>Stay Updated</h2>
-            <p>Subscribe to our newsletter to receive the latest PropTech news, insights, and updates directly in your inbox.</p>
-            <form class="newsletter-form" id="newsNewsletterForm">
-                <div class="form-group">
-                    <input type="email" placeholder="Enter your email address" required>
-                    <button type="submit" class="btn-primary">Subscribe</button>
-                </div>
-                <p class="form-note">We respect your privacy. Unsubscribe at any time.</p>
-            </form>
+            <p>Get the latest PropTech news, events, and insights delivered to your inbox</p>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Enter your email address">
+                <button class="btn-primary">Subscribe</button>
+            </div>
         </div>
     </div>
 </section>

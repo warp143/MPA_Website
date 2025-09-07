@@ -65,48 +65,6 @@ document.title = 'Association |';
     </div>
 </section>
 
-<!-- Mission & Vision -->
-<section class="mission-vision">
-    <div class="container">
-        <div class="mission-content">
-            <div class="mission-text">
-                <h2>Mission & Vision</h2>
-                <h3>People</h3>
-                <p>People shall be the main focus of our association and all our members. When addressing pain points and problem statements from the property industry stakeholders people should always be the main beneficiary of our members' digital solutions.</p>
-                <p>We respect and are committed in helping the growth of everyone notwithstanding disabilities, sex, race or religion and there shall never be a compromise on this. In our association woman will always be given the same opportunities as man and the association is strongly committed towards the achievement of Goal: 5 of SDG-2030 "Gender Equality".</p>
-                
-                <h3>MPA Mandates</h3>
-                <div class="mandates-grid">
-                    <div class="mandate-card">
-                        <i class="fas fa-shield-alt"></i>
-                        <h4>Trust</h4>
-                        <p>Trust, which is one of the pillars of a successful digital transformation, should not be traded, ever.</p>
-                    </div>
-                    <div class="mandate-card">
-                        <i class="fas fa-balance-scale"></i>
-                        <h4>Truth</h4>
-                        <p>To promote truth, in both our internal and external communication truth shall always prevail and be the engine of the trust building process.</p>
-                    </div>
-                    <div class="mandate-card">
-                        <i class="fas fa-user-graduate"></i>
-                        <h4>Talent</h4>
-                        <p>To nurture talents leveraging on a preferential relationship with local and international universities and attract them towards our association to contribute to their and our members wellbeing.</p>
-                    </div>
-                    <div class="mandate-card">
-                        <i class="fas fa-microchip"></i>
-                        <h4>Technology</h4>
-                        <p>To nurture and stimulate the research for new innovative technologies to help the built environment ecosystem to become more resilient, user friendly and solution providing to all parties.</p>
-                    </div>
-                </div>
-                
-                <a href="#" class="btn-primary">Read Full Mission & Vision</a>
-            </div>
-            <div class="mission-image">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/association-mission.jpg" alt="MPA Mission & Vision">
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Mission, Vision & SDG-2030 Section -->
 <section class="mission-vision-sdg">

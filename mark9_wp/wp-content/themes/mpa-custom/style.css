@@ -3652,8 +3652,27 @@ body:not(.light-mode) .partner-testimonials {
 .newsletter-section {
     padding: var(--spacing-xxl) 0;
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    color: var(--glass-bg);
+    color: #333;
     text-align: center;
+}
+
+.newsletter-section h2 {
+    color: #222;
+    margin-bottom: var(--spacing-md);
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.newsletter-section p {
+    color: #555;
+    margin-bottom: var(--spacing-lg);
+    font-size: 1.1rem;
+}
+
+.newsletter-section .form-note {
+    color: #777;
+    font-size: 0.9rem;
+    margin-top: var(--spacing-sm);
 }
 
 /* Why Join */
