@@ -55,62 +55,23 @@
             <p>Select the membership tier that best fits your needs and goals</p>
         </div>
         <div class="tiers-grid">
-            <div class="tier-card">
+            <?php 
+            $membership_tiers = mpa_get_membership_tiers();
+            foreach ($membership_tiers as $tier_key => $tier_data): 
+                $featured_class = $tier_data['featured'] ? 'featured' : '';
+                $button_class = $tier_data['featured'] ? 'btn-primary' : 'btn-outline';
+                $button_text = 'Join ' . $tier_data['name'];
+            ?>
+            <div class="tier-card <?php echo esc_attr($featured_class); ?>">
                 <div class="tier-header">
-                    <h3>Startup</h3>
-                    <div class="price">RM 500<span>/year</span></div>
-                    <p>Perfect for early-stage PropTech startups</p>
+                    <h3><?php echo esc_html($tier_data['name']); ?></h3>
+                    <div class="price"><?php echo esc_html($tier_data['price']); ?><span>/year</span></div>
+                    <p><?php echo esc_html($tier_data['description']); ?></p>
                 </div>
-                <ul class="tier-benefits">
-                    <li><i class="fas fa-check"></i> Access to all MPA events and webinars</li>
-                    <li><i class="fas fa-check"></i> Member directory listing</li>
-                    <li><i class="fas fa-check"></i> Monthly newsletter subscription</li>
-                    <li><i class="fas fa-check"></i> Access to resource library</li>
-                    <li><i class="fas fa-check"></i> Networking opportunities</li>
-                    <li><i class="fas fa-check"></i> MPA logo usage rights</li>
-                    <li><i class="fas fa-check"></i> Basic mentorship support</li>
-                </ul>
-                <a href="<?php echo esc_url(home_url('/join/')); ?>" class="btn-outline">Join Startup</a>
+                <?php echo mpa_format_membership_benefits($tier_data['benefits']); ?>
+                <a href="<?php echo esc_url(home_url('/join/')); ?>" class="<?php echo esc_attr($button_class); ?>"><?php echo esc_html($button_text); ?></a>
             </div>
-
-            <div class="tier-card featured">
-                <div class="tier-header">
-                    <h3>Professional</h3>
-                    <div class="price">RM 1,000<span>/year</span></div>
-                    <p>For established companies and professionals</p>
-                </div>
-                <ul class="tier-benefits">
-                    <li><i class="fas fa-check"></i> All Startup benefits</li>
-                    <li><i class="fas fa-check"></i> Priority event registration</li>
-                    <li><i class="fas fa-check"></i> Exclusive networking events</li>
-                    <li><i class="fas fa-check"></i> Mentorship program access</li>
-                    <li><i class="fas fa-check"></i> Speaking opportunities at events</li>
-                    <li><i class="fas fa-check"></i> Industry research reports</li>
-                    <li><i class="fas fa-check"></i> Discounted event tickets</li>
-                    <li><i class="fas fa-check"></i> Advanced training programs</li>
-                </ul>
-                <a href="<?php echo esc_url(home_url('/join/')); ?>" class="btn-primary">Join Professional</a>
-            </div>
-
-            <div class="tier-card">
-                <div class="tier-header">
-                    <h3>Enterprise</h3>
-                    <div class="price">RM 5,000<span>/year</span></div>
-                    <p>For large organizations and industry leaders</p>
-                </div>
-                <ul class="tier-benefits">
-                    <li><i class="fas fa-check"></i> All Professional benefits</li>
-                    <li><i class="fas fa-check"></i> Board advisory opportunities</li>
-                    <li><i class="fas fa-check"></i> Custom workshops and training</li>
-                    <li><i class="fas fa-check"></i> Dedicated account manager</li>
-                    <li><i class="fas fa-check"></i> Strategic partnership opportunities</li>
-                    <li><i class="fas fa-check"></i> Thought leadership platform</li>
-                    <li><i class="fas fa-check"></i> Exclusive investor access</li>
-                    <li><i class="fas fa-check"></i> Custom research and insights</li>
-                    <li><i class="fas fa-check"></i> Event sponsorship opportunities</li>
-                </ul>
-                <a href="<?php echo esc_url(home_url('/join/')); ?>" class="btn-outline">Join Enterprise</a>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>

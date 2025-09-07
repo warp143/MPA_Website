@@ -148,62 +148,25 @@
                 <div class="form-section">
                     <h3><i class="fas fa-crown"></i> Membership Tier</h3>
                     <div class="membership-options">
+                        <?php 
+                        $membership_tiers = mpa_get_membership_tiers();
+                        foreach ($membership_tiers as $tier_key => $tier_data): 
+                            $featured_class = $tier_data['featured'] ? 'featured' : '';
+                        ?>
                         <div class="membership-option">
-                            <input type="radio" id="startup" name="membershipTier" value="startup" required>
-                            <label for="startup" class="membership-label">
+                            <input type="radio" id="<?php echo esc_attr($tier_key); ?>" name="membershipTier" value="<?php echo esc_attr($tier_key); ?>" required>
+                            <label for="<?php echo esc_attr($tier_key); ?>" class="membership-label <?php echo esc_attr($featured_class); ?>">
                                 <div class="tier-info">
-                                    <h4>Startup</h4>
-                                    <div class="price">RM 500<span>/year</span></div>
-                                    <p>Perfect for early-stage PropTech startups</p>
+                                    <h4><?php echo esc_html($tier_data['name']); ?></h4>
+                                    <div class="price"><?php echo esc_html($tier_data['price']); ?><span>/year</span></div>
+                                    <p><?php echo esc_html($tier_data['description']); ?></p>
                                 </div>
                                 <div class="tier-benefits">
-                                    <ul>
-                                        <li>Access to all MPA events and webinars</li>
-                                        <li>Member directory listing</li>
-                                        <li>Monthly newsletter subscription</li>
-                                        <li>Access to resource library</li>
-                                    </ul>
+                                    <?php echo mpa_format_membership_benefits($tier_data['benefits']); ?>
                                 </div>
                             </label>
                         </div>
-
-                        <div class="membership-option">
-                            <input type="radio" id="professional" name="membershipTier" value="professional" required>
-                            <label for="professional" class="membership-label featured">
-                                <div class="tier-info">
-                                    <h4>Professional</h4>
-                                    <div class="price">RM 1,000<span>/year</span></div>
-                                    <p>For established companies and professionals</p>
-                                </div>
-                                <div class="tier-benefits">
-                                    <ul>
-                                        <li>All Startup benefits</li>
-                                        <li>Priority event registration</li>
-                                        <li>Exclusive networking events</li>
-                                        <li>Mentorship program access</li>
-                                    </ul>
-                                </div>
-                            </label>
-                        </div>
-
-                        <div class="membership-option">
-                            <input type="radio" id="enterprise" name="membershipTier" value="enterprise" required>
-                            <label for="enterprise" class="membership-label">
-                                <div class="tier-info">
-                                    <h4>Enterprise</h4>
-                                    <div class="price">RM 5,000<span>/year</span></div>
-                                    <p>For large organizations and industry leaders</p>
-                                </div>
-                                <div class="tier-benefits">
-                                    <ul>
-                                        <li>All Professional benefits</li>
-                                        <li>Board advisory opportunities</li>
-                                        <li>Custom workshops and training</li>
-                                        <li>Dedicated account manager</li>
-                                    </ul>
-                                </div>
-                            </label>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 

@@ -162,45 +162,20 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
                 <p>Choose the membership that fits your needs</p>
             </div>
             <div class="membership-cards">
-                <div class="membership-card">
+                <?php 
+                $membership_tiers = mpa_get_membership_tiers();
+                foreach ($membership_tiers as $tier_key => $tier_data): 
+                    $featured_class = $tier_data['featured'] ? 'featured' : '';
+                ?>
+                <div class="membership-card <?php echo esc_attr($featured_class); ?>">
                     <div class="card-header">
-                        <h3>Startup</h3>
-                        <div class="price">RM 500<span>/year</span></div>
+                        <h3><?php echo esc_html($tier_data['name']); ?></h3>
+                        <div class="price"><?php echo esc_html($tier_data['price']); ?><span>/year</span></div>
                     </div>
-                    <ul class="benefits">
-                        <li><i class="fas fa-check"></i> Access to all events</li>
-                        <li><i class="fas fa-check"></i> Member directory</li>
-                        <li><i class="fas fa-check"></i> Newsletter subscription</li>
-                        <li><i class="fas fa-check"></i> Resource library</li>
-                    </ul>
+                    <?php echo mpa_format_membership_benefits($tier_data['benefits']); ?>
                     <a href="<?php echo esc_url(home_url('/join/')); ?>" class="btn-primary">Join Now</a>
                 </div>
-                <div class="membership-card featured">
-                    <div class="card-header">
-                        <h3>Professional</h3>
-                        <div class="price">RM 1,000<span>/year</span></div>
-                    </div>
-                    <ul class="benefits">
-                        <li><i class="fas fa-check"></i> All Startup benefits</li>
-                        <li><i class="fas fa-check"></i> Priority event registration</li>
-                        <li><i class="fas fa-check"></i> Networking opportunities</li>
-                        <li><i class="fas fa-check"></i> Mentorship program</li>
-                    </ul>
-                    <a href="<?php echo esc_url(home_url('/join/')); ?>" class="btn-primary">Join Now</a>
-                </div>
-                <div class="membership-card">
-                    <div class="card-header">
-                        <h3>Enterprise</h3>
-                        <div class="price">RM 5,000<span>/year</span></div>
-                    </div>
-                    <ul class="benefits">
-                        <li><i class="fas fa-check"></i> All Professional benefits</li>
-                        <li><i class="fas fa-check"></i> Speaking opportunities</li>
-                        <li><i class="fas fa-check"></i> Custom workshops</li>
-                        <li><i class="fas fa-check"></i> Board advisory</li>
-                    </ul>
-                    <a href="<?php echo esc_url(home_url('/join/')); ?>" class="btn-primary">Join Now</a>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>

@@ -1558,3 +1558,292 @@ function mpa_save_homepage($post_id) {
 }
 add_action('save_post', 'mpa_save_homepage');
 
+/**
+ * ========================================
+ * MEMBERSHIP TIERS MANAGEMENT SYSTEM
+ * ========================================
+ */
+
+/**
+ * Add Membership Settings to WordPress Admin Menu
+ */
+function mpa_add_membership_settings_menu() {
+    add_options_page(
+        __('Membership Tiers', 'mpa-custom'),
+        __('Membership Tiers', 'mpa-custom'),
+        'manage_options',
+        'mpa-membership-settings',
+        'mpa_membership_settings_page'
+    );
+}
+add_action('admin_menu', 'mpa_add_membership_settings_menu');
+
+/**
+ * Membership Settings Page HTML
+ */
+function mpa_membership_settings_page() {
+    // Handle form submission
+    if (isset($_POST['submit']) && wp_verify_nonce($_POST['mpa_membership_nonce'], 'mpa_save_membership_settings')) {
+        mpa_save_membership_settings();
+        echo '<div class="notice notice-success"><p>' . __('Membership settings saved successfully!', 'mpa-custom') . '</p></div>';
+    }
+    
+    // Get current settings
+    $membership_tiers = get_option('mpa_membership_tiers', mpa_get_default_membership_tiers());
+    ?>
+    <div class="wrap">
+        <h1><?php _e('Membership Tiers Management', 'mpa-custom'); ?></h1>
+        <p><?php _e('Manage your membership tiers, pricing, and benefits. Changes will be reflected on both the homepage and join page.', 'mpa-custom'); ?></p>
+        
+        <form method="post" action="">
+            <?php wp_nonce_field('mpa_save_membership_settings', 'mpa_membership_nonce'); ?>
+            
+            <div class="membership-tiers-container">
+                <?php foreach ($membership_tiers as $tier_key => $tier_data): ?>
+                    <div class="membership-tier-box" style="border: 1px solid #ddd; margin: 20px 0; padding: 20px; background: #f9f9f9;">
+                        <h2 style="margin-top: 0; color: #0073aa;">
+                            <?php echo esc_html($tier_data['name']); ?>
+                            <?php if ($tier_data['featured']): ?>
+                                <span style="background: #0073aa; color: white; padding: 2px 8px; border-radius: 3px; font-size: 12px; margin-left: 10px;">FEATURED</span>
+                            <?php endif; ?>
+                        </h2>
+                        
+                        <table class="form-table">
+                            <tr>
+                                <th scope="row">
+                                    <label for="tier_<?php echo $tier_key; ?>_name"><?php _e('Tier Name', 'mpa-custom'); ?></label>
+                                </th>
+                                <td>
+                                    <input type="text" 
+                                           id="tier_<?php echo $tier_key; ?>_name" 
+                                           name="membership_tiers[<?php echo $tier_key; ?>][name]" 
+                                           value="<?php echo esc_attr($tier_data['name']); ?>" 
+                                           class="regular-text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <label for="tier_<?php echo $tier_key; ?>_price"><?php _e('Price', 'mpa-custom'); ?></label>
+                                </th>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 5px;">
+                                        <span style="font-weight: bold; color: #0073aa;">RM</span>
+                                        <input type="number" 
+                                               id="tier_<?php echo $tier_key; ?>_price" 
+                                               name="membership_tiers[<?php echo $tier_key; ?>][price]" 
+                                               value="<?php echo esc_attr(mpa_extract_price_number($tier_data['price'])); ?>" 
+                                               class="regular-text" 
+                                               placeholder="500" 
+                                               min="0" 
+                                               step="1" />
+                                    </div>
+                                    <p class="description"><?php _e('Enter only the number (e.g., 500, 1000, 5000). RM will be added automatically.', 'mpa-custom'); ?></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <label for="tier_<?php echo $tier_key; ?>_description"><?php _e('Description', 'mpa-custom'); ?></label>
+                                </th>
+                                <td>
+                                    <input type="text" 
+                                           id="tier_<?php echo $tier_key; ?>_description" 
+                                           name="membership_tiers[<?php echo $tier_key; ?>][description]" 
+                                           value="<?php echo esc_attr($tier_data['description']); ?>" 
+                                           class="large-text" 
+                                           placeholder="Perfect for early-stage PropTech startups" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <label for="tier_<?php echo $tier_key; ?>_benefits"><?php _e('Benefits', 'mpa-custom'); ?></label>
+                                </th>
+                                <td>
+                                    <textarea id="tier_<?php echo $tier_key; ?>_benefits" 
+                                              name="membership_tiers[<?php echo $tier_key; ?>][benefits]" 
+                                              rows="6" 
+                                              class="large-text"><?php echo esc_textarea($tier_data['benefits']); ?></textarea>
+                                    <p class="description"><?php _e('Enter one benefit per line. Each line will become a bullet point.', 'mpa-custom'); ?></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <label for="tier_<?php echo $tier_key; ?>_featured"><?php _e('Featured Tier', 'mpa-custom'); ?></label>
+                                </th>
+                                <td>
+                                    <input type="checkbox" 
+                                           id="tier_<?php echo $tier_key; ?>_featured" 
+                                           name="membership_tiers[<?php echo $tier_key; ?>][featured]" 
+                                           value="1" 
+                                           <?php checked($tier_data['featured'], 1); ?> />
+                                    <label for="tier_<?php echo $tier_key; ?>_featured"><?php _e('Mark as featured tier (will be highlighted)', 'mpa-custom'); ?></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <label for="tier_<?php echo $tier_key; ?>_active"><?php _e('Active', 'mpa-custom'); ?></label>
+                                </th>
+                                <td>
+                                    <input type="checkbox" 
+                                           id="tier_<?php echo $tier_key; ?>_active" 
+                                           name="membership_tiers[<?php echo $tier_key; ?>][active]" 
+                                           value="1" 
+                                           <?php checked($tier_data['active'], 1); ?> />
+                                    <label for="tier_<?php echo $tier_key; ?>_active"><?php _e('Show this tier on the website', 'mpa-custom'); ?></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <p class="submit">
+                <input type="submit" name="submit" class="button-primary" value="<?php _e('Save Membership Settings', 'mpa-custom'); ?>" />
+            </p>
+        </form>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #e7f3ff; border-left: 4px solid #0073aa;">
+            <h3><?php _e('How to Use', 'mpa-custom'); ?></h3>
+            <ul>
+                <li><?php _e('Edit the tier names, prices, descriptions, and benefits above', 'mpa-custom'); ?></li>
+                <li><?php _e('Mark one tier as "Featured" to highlight it on the website', 'mpa-custom'); ?></li>
+                <li><?php _e('Uncheck "Active" to hide a tier from the website', 'mpa-custom'); ?></li>
+                <li><?php _e('Changes will automatically appear on both the homepage and join page', 'mpa-custom'); ?></li>
+            </ul>
+        </div>
+    </div>
+    
+    <style>
+    .membership-tier-box {
+        border-radius: 5px;
+    }
+    .membership-tier-box h2 {
+        border-bottom: 2px solid #0073aa;
+        padding-bottom: 10px;
+    }
+    </style>
+    <?php
+}
+
+/**
+ * Get default membership tiers
+ */
+function mpa_get_default_membership_tiers() {
+    return array(
+        'startup' => array(
+            'name' => 'Student',
+            'price' => 'RM 50',
+            'description' => 'Perfect for students and young professionals entering PropTech',
+            'benefits' => "Access to all MPA events and webinars\nMember directory listing\nMonthly newsletter subscription\nAccess to resource library\nNetworking opportunities\nMPA logo usage rights\nBasic mentorship support",
+            'featured' => false,
+            'active' => true
+        ),
+        'professional' => array(
+            'name' => 'Associate',
+            'price' => 'RM 300',
+            'description' => 'For growing companies and mid-level professionals',
+            'benefits' => "All Student benefits\nPriority event registration\nExclusive networking events\nMentorship program access\nSpeaking opportunities at events\nIndustry research reports\nDiscounted event tickets\nAdvanced training programs",
+            'featured' => true,
+            'active' => true
+        ),
+        'enterprise' => array(
+            'name' => 'Ordinary',
+            'price' => 'RM 500',
+            'description' => 'For established companies and industry leaders',
+            'benefits' => "All Associate benefits\nBoard advisory opportunities\nCustom workshops and training\nDedicated account manager\nStrategic partnership opportunities\nThought leadership platform\nExclusive investor access\nCustom research and insights\nEvent sponsorship opportunities",
+            'featured' => false,
+            'active' => true
+        )
+    );
+}
+
+/**
+ * Extract price number from price string
+ */
+function mpa_extract_price_number($price_string) {
+    // Remove "RM" and any spaces, then extract just the number
+    $number = preg_replace('/[^0-9]/', '', $price_string);
+    return $number ?: '';
+}
+
+/**
+ * Format price with RM prefix
+ */
+function mpa_format_price($price_number) {
+    if (empty($price_number)) {
+        return '';
+    }
+    return 'RM ' . number_format($price_number);
+}
+
+/**
+ * Save membership settings
+ */
+function mpa_save_membership_settings() {
+    if (isset($_POST['membership_tiers'])) {
+        $membership_tiers = array();
+        
+        foreach ($_POST['membership_tiers'] as $tier_key => $tier_data) {
+            // Format price with RM prefix
+            $price_number = sanitize_text_field($tier_data['price']);
+            $formatted_price = mpa_format_price($price_number);
+            
+            $membership_tiers[$tier_key] = array(
+                'name' => sanitize_text_field($tier_data['name']),
+                'price' => $formatted_price,
+                'description' => sanitize_text_field($tier_data['description']),
+                'benefits' => sanitize_textarea_field($tier_data['benefits']),
+                'featured' => isset($tier_data['featured']) ? 1 : 0,
+                'active' => isset($tier_data['active']) ? 1 : 0
+            );
+        }
+        
+        update_option('mpa_membership_tiers', $membership_tiers);
+    }
+}
+
+/**
+ * Get membership tiers for frontend use
+ */
+function mpa_get_membership_tiers() {
+    $tiers = get_option('mpa_membership_tiers', mpa_get_default_membership_tiers());
+    
+    // Filter out inactive tiers
+    $active_tiers = array();
+    foreach ($tiers as $tier_key => $tier_data) {
+        if ($tier_data['active']) {
+            $active_tiers[$tier_key] = $tier_data;
+        }
+    }
+    
+    return $active_tiers;
+}
+
+/**
+ * Get a specific membership tier
+ */
+function mpa_get_membership_tier($tier_key) {
+    $tiers = get_option('mpa_membership_tiers', mpa_get_default_membership_tiers());
+    return isset($tiers[$tier_key]) ? $tiers[$tier_key] : null;
+}
+
+/**
+ * Format benefits as HTML list
+ */
+function mpa_format_membership_benefits($benefits_text) {
+    if (empty($benefits_text)) {
+        return '';
+    }
+    
+    $benefits = array_filter(array_map('trim', explode("\n", $benefits_text)));
+    $html = '<ul class="tier-benefits">';
+    
+    foreach ($benefits as $benefit) {
+        if (!empty($benefit)) {
+            $html .= '<li>' . esc_html($benefit) . '</li>';
+        }
+    }
+    
+    $html .= '</ul>';
+    return $html;
+}
+
