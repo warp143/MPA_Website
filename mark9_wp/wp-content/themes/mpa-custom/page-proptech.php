@@ -30,9 +30,9 @@ document.title = 'PropTech |';
     <div class="container">
         <div class="intro-content">
             <div class="intro-text">
-                <h2>What is PropTech?</h2>
-                <p>Property Technology (PropTech) is the application of information technology and platform economics to real estate markets. It encompasses a wide range of technologies that are transforming how we buy, sell, rent, design, construct, and manage real estate.</p>
-                <p>PropTech is revolutionizing the property industry by introducing innovative solutions that improve efficiency, transparency, and user experience across the entire real estate lifecycle.</p>
+                <h2>What is PropTech</h2>
+                <p>PropTech, short for Property Technology, refers to the digital transformation of the real estate and built environment sectors through innovative technologies. At its core, PropTech aims to enhance efficiency, transparency, and sustainability across the entire property lifecycle, from planning to construction, buy & sell, lease, manage, and maintain.</p>
+                <p>PropTech represents a paradigm shift across the entire property lifecycle introducing innovative solutions to empower all industry stakeholders with data-driven insights and automation tools that reduce costs, improve safety, and elevate user experience.</p>
             </div>
             <div class="intro-image">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/proptech-innovation.jpg" alt="PropTech Innovation">
