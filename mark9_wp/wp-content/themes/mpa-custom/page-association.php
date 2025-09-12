@@ -199,18 +199,6 @@ document.title = 'Association |';
                 'post_type' => 'mpa_committee',
                 'posts_per_page' => -1,
                 'post_status' => 'publish',
-                'meta_query' => array(
-                    array(
-                        'key' => '_member_status',
-                        'value' => 'active',
-                        'compare' => '='
-                    ),
-                    array(
-                        'key' => '_member_term',
-                        'value' => '2025-2026',
-                        'compare' => '='
-                    )
-                ),
                 'orderby' => 'menu_order',
                 'order' => 'ASC'
             ));
