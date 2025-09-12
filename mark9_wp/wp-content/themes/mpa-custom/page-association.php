@@ -46,8 +46,9 @@ document.title = 'Association |';
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/wp-content_uploads_2024_07_Daniele-Gambero.webp" alt="Dr. Daniele Gambero - MPA President">
             </div>
             <div class="message-text">
-                <h2>Word From The President</h2>
+                <h2>Word from the President</h2>
                 <h3>Dr. Daniele Gambero</h3>
+                <p>Welcome to the Malaysia PropTech Association (MPA), a dynamic hub where innovation meets purpose, and where Malaysia's built environment is being reimagined through technology.</p>
                 <p>Since our inception, MPA has united the country's most forward-thinking startups in property and construction tech. Together, we are driving digital transformation, boosting collaboration, and amplifying the voice of Malaysia's proptech ecosystem across borders.</p>
                 <div class="goals">
                     <h4>Our mission is clear:</h4>
@@ -88,7 +89,6 @@ document.title = 'Association |';
                 <div class="people-section">
                     <h3>People</h3>
                     <p>People is the main focus of our association and all our members. When addressing pain points and problem statements from the built environment stakeholders people should always be the main beneficiary of our members' digital solutions.</p>
-                    <p>We respect and are committed in helping the growth of everyone notwithstanding disabilities, sex, race or religion and there shall never be a compromise on this. In our association women will always be given the same opportunities as men and the association is strongly committed towards the achievement of Goal: 5 of SDG-2030 "Gender Equality".</p>
                 </div>
             </div>
         </div>
@@ -97,7 +97,8 @@ document.title = 'Association |';
             <div class="sdg-commitment-content">
                 <h3>MPA's Commitment to Sustainability and SDG-2030</h3>
                 <div class="sdg-commitment-text">
-                    <p>At the Malaysia PropTech Association (MPA), we believe that the future of the built environment must be sustainable, inclusive, and purpose driven.</p>
+                    <p>Malaysia PropTech Association (MPA) believes that the future of the built environment must be sustainable, inclusive, and purpose driven.</p>
+                    <p>As cities grow and ESG compliance becomes non-negotiable, PropTech is emerging as a strategic enabler of smart urban development bridging the gap between traditional real estate practices and the demands of a digital-first people-focused future</p>
                     <p>Our commitment to the United Nations Sustainable Development Goals (SDG-2030) is strong and consistent. While we support the spirit of all 17 goals, our focus and actions are mostly aligned with the six SDGs that shape the future of the built environment and construction.</p>
                 </div>
             </div>
