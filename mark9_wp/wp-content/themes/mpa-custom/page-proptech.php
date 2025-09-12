@@ -245,45 +245,45 @@ document.title = 'PropTech |';
         <div class="trends-grid">
             <div class="trend-card">
                 <div class="trend-icon">
-                    <i class="fas fa-vr-cardboard"></i>
+                    <i class="fas fa-cube"></i>
                 </div>
-                <h3>Virtual & Augmented Reality</h3>
-                <p>VR/AR technologies are revolutionizing property viewing, design, and construction processes, enabling immersive experiences and better decision-making.</p>
+                <h3>Digital Twin Technology</h3>
+                <p>Virtual replicas of physical assets buildings digital twins enable predictive maintenance, energy modeling, and scenario testing without disrupting operations.</p>
             </div>
             <div class="trend-card">
                 <div class="trend-icon">
-                    <i class="fas fa-link"></i>
+                    <i class="fas fa-leaf"></i>
                 </div>
-                <h3>Blockchain & Tokenization</h3>
-                <p>Blockchain technology is enabling property tokenization, smart contracts, and transparent transaction systems that reduce costs and increase efficiency.</p>
+                <h3>AI-Driven Sustainability Platforms</h3>
+                <p>AI is being used to optimize energy consumption, automate ESG reporting, and simulate climate resilience strategies helping developers and facility managers align with SDG-2030 and carbon neutrality goals.</p>
             </div>
             <div class="trend-card">
                 <div class="trend-icon">
-                    <i class="fas fa-mobile-alt"></i>
+                    <i class="fas fa-file-contract"></i>
                 </div>
-                <h3>Mobile-First Solutions</h3>
-                <p>Mobile applications are becoming the primary interface for property transactions, management, and customer engagement.</p>
+                <h3>Smart Contracts & e-Signature Integration</h3>
+                <p>Smart contracts and digital signing tools are streamlining construction tenders & contracts, property transactions, lease agreements, and compliance workflows while accelerating transparency and reducing friction in real estate deals.</p>
             </div>
             <div class="trend-card">
                 <div class="trend-icon">
-                    <i class="fas fa-cloud"></i>
+                    <i class="fas fa-microchip"></i>
                 </div>
-                <h3>Cloud Computing</h3>
-                <p>Cloud-based PropTech solutions are providing scalable, secure, and cost-effective platforms for property management and operations.</p>
+                <h3>Edge Computing for Smart Buildings</h3>
+                <p>By processing data locally, within the building itself, edge computing enables faster responses for security, HVAC, and lighting systems. It also enhances privacy and reduces cloud dependency.</p>
             </div>
             <div class="trend-card">
                 <div class="trend-icon">
-                    <i class="fas fa-shield-alt"></i>
+                    <i class="fas fa-microphone"></i>
                 </div>
-                <h3>Cybersecurity</h3>
-                <p>As PropTech adoption grows, cybersecurity solutions are becoming increasingly important to protect sensitive property and financial data.</p>
+                <h3>Voice-Activated Property Management</h3>
+                <p>Voice interfaces are expanding into tenant services and facility operations, allowing hands-free control of lighting, temperature, access, and maintenance requests. This boosts accessibility and user experience.</p>
             </div>
             <div class="trend-card">
                 <div class="trend-icon">
-                    <i class="fas fa-network-wired"></i>
+                    <i class="fas fa-wifi"></i>
                 </div>
-                <h3>5G & IoT Integration</h3>
-                <p>The rollout of 5G networks is enabling faster, more reliable IoT connectivity for smart buildings and connected property solutions.</p>
+                <h3>5G-Enabled IoT Ecosystems</h3>
+                <p>With 5G rollout, PropTech devices, from sensors to surveillance, can operate with ultra-low latency unlocking real-time monitoring, smart grid integration, and hyper-connected building systems.</p>
             </div>
         </div>
     </div>
