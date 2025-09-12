@@ -213,6 +213,9 @@ document.title = 'Association |';
                     $member_email_secondary = get_post_meta(get_the_ID(), '_member_email_secondary', true);
                     $member_linkedin = get_post_meta(get_the_ID(), '_member_linkedin', true);
                     $member_linkedin_secondary = get_post_meta(get_the_ID(), '_member_linkedin_secondary', true);
+                    $member_company_name = get_post_meta(get_the_ID(), '_member_company_name', true);
+                    $member_company_logo_id = get_post_meta(get_the_ID(), '_member_company_logo_id', true);
+                    $member_company_logo_url = $member_company_logo_id ? wp_get_attachment_url($member_company_logo_id) : '';
                     
                     // Get member photo
                     $member_photo = '';
@@ -238,11 +241,18 @@ document.title = 'Association |';
                             <p class="position"><?php echo esc_html($member_position); ?></p>
                         <?php endif; ?>
                         
-                        <?php if (!empty($bio_lines)) : ?>
-                            <div class="position-description">
-                                <?php foreach ($bio_lines as $line) : ?>
-                                    <p><?php echo esc_html(trim($line)); ?></p>
-                                <?php endforeach; ?>
+                        <?php if ($member_company_name || $member_company_logo_url) : ?>
+                            <div class="company-info">
+                                <?php if ($member_company_logo_url) : ?>
+                                    <div class="company-logo">
+                                        <img src="<?php echo esc_url($member_company_logo_url); ?>" alt="<?php echo esc_attr($member_company_name ?: 'Company Logo'); ?>" style="max-height: 40px; max-width: 120px; object-fit: contain;">
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($member_company_name) : ?>
+                                    <div class="company-name">
+                                        <p><?php echo esc_html($member_company_name); ?></p>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
                         

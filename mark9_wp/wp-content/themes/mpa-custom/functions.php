@@ -898,6 +898,8 @@ function mpa_committee_member_details_callback($post) {
     $member_website_secondary = get_post_meta($post->ID, '_member_website_secondary', true);
     $member_email_secondary = get_post_meta($post->ID, '_member_email_secondary', true);
     $member_linkedin_secondary = get_post_meta($post->ID, '_member_linkedin_secondary', true);
+    $member_company_name = get_post_meta($post->ID, '_member_company_name', true);
+    $member_company_logo = get_post_meta($post->ID, '_member_company_logo', true);
 
     ?>
     <table class="form-table">
@@ -920,6 +922,40 @@ function mpa_committee_member_details_callback($post) {
             </td>
         </tr>
 
+        <tr style="background-color: #fff2cc;">
+            <th scope="row">
+                <label for="member_company_name" style="font-weight: bold; color: #0073aa;"><?php _e('Company Name', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="text" id="member_company_name" name="member_company_name" value="<?php echo esc_attr($member_company_name); ?>" class="regular-text" style="border: 2px solid #0073aa;" />
+                <p class="description"><?php _e('Company or organization name (optional).', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr style="background-color: #fff2cc;">
+            <th scope="row">
+                <label for="member_company_logo" style="font-weight: bold; color: #0073aa;"><?php _e('Company Logo', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <div class="company-logo-upload">
+                    <?php 
+                    $logo_id = get_post_meta($post->ID, '_member_company_logo_id', true);
+                    $logo_url = '';
+                    if ($logo_id) {
+                        $logo_url = wp_get_attachment_url($logo_id);
+                    }
+                    ?>
+                    <input type="hidden" id="member_company_logo_id" name="member_company_logo_id" value="<?php echo esc_attr($logo_id); ?>" />
+                    <div class="logo-preview" style="margin-bottom: 10px;">
+                        <?php if ($logo_url) : ?>
+                            <img src="<?php echo esc_url($logo_url); ?>" style="max-height: 60px; max-width: 150px; object-fit: contain; border: 1px solid #ddd; padding: 5px;" />
+                        <?php endif; ?>
+                    </div>
+                    <button type="button" class="button upload-logo-button" onclick="uploadCompanyLogo()"><?php _e('Upload Logo', 'mpa-custom'); ?></button>
+                    <button type="button" class="button remove-logo-button" onclick="removeCompanyLogo()" style="<?php echo $logo_url ? '' : 'display:none;'; ?>"><?php _e('Remove Logo', 'mpa-custom'); ?></button>
+                </div>
+                <p class="description"><?php _e('Upload company logo image (optional).', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
 
         <tr style="background-color: #f9f9f9;">
             <th scope="row" colspan="2">
@@ -994,6 +1030,33 @@ function mpa_committee_member_details_callback($post) {
         </tr>
     </table>
     
+    <script>
+    function uploadCompanyLogo() {
+        var mediaUploader = wp.media({
+            title: 'Choose Company Logo',
+            button: {
+                text: 'Use This Logo'
+            },
+            multiple: false
+        });
+        
+        mediaUploader.on('select', function() {
+            var attachment = mediaUploader.state().get('selection').first().toJSON();
+            document.getElementById('member_company_logo_id').value = attachment.id;
+            document.querySelector('.logo-preview').innerHTML = '<img src="' + attachment.url + '" style="max-height: 60px; max-width: 150px; object-fit: contain; border: 1px solid #ddd; padding: 5px;" />';
+            document.querySelector('.remove-logo-button').style.display = 'inline-block';
+        });
+        
+        mediaUploader.open();
+    }
+    
+    function removeCompanyLogo() {
+        document.getElementById('member_company_logo_id').value = '';
+        document.querySelector('.logo-preview').innerHTML = '';
+        document.querySelector('.remove-logo-button').style.display = 'none';
+    }
+    </script>
+    
     <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #0073aa;">
         <h4><?php _e('Instructions:', 'mpa-custom'); ?></h4>
         <ul style="margin-left: 20px;">
@@ -1038,7 +1101,9 @@ function mpa_save_committee_member_details($post_id) {
         'member_email',
         'member_email_secondary',
         'member_linkedin',
-        'member_linkedin_secondary'
+        'member_linkedin_secondary',
+        'member_company_name',
+        'member_company_logo_id'
     );
     
     foreach ($fields as $field) {
