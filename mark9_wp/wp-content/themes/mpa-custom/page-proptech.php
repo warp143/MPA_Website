@@ -85,11 +85,12 @@ document.title = 'PropTech |';
             <div class="category-card">
                 <i class="fas fa-hammer"></i>
                 <h3>Construction Tech</h3>
-                <p>Innovative construction technologies including BIM, modular construction, 3D printing, and project management solutions.</p>
+                <p>Innovative construction technologies providing enhanced data control and management from design stage till completion of the construction.</p>
+                <p>This includes but is not limited to:</p>
                 <ul>
                     <li>Building Information Modeling (BIM)</li>
-                    <li>Modular construction</li>
-                    <li>3D printing</li>
+                    <li>Construction e-procurement</li>
+                    <li>Cost Control & resources management</li>
                     <li>Project management</li>
                 </ul>
             </div>
@@ -168,15 +169,19 @@ document.title = 'PropTech |';
             <div class="category-card plan-category">
                 <i class="fas fa-map-marked-alt"></i>
                 <h3>PLAN & CONSTRUCT</h3>
-                <p>Feasibility, land use, design, BIM/digital twins, modular, carbon/supply chain, resilience & permitting.</p>
+                <p>Market and Feasibility data-driven studies, land use, design, BIM, e-procurement, digitalized Bill of Quantities, cost control, resources management, project management, carbon supply-chain.</p>
                 <div class="subcategories">
-                    <span class="subcategory">Feasibility</span>
+                    <span class="subcategory">Market & Feasibility</span>
                     <span class="subcategory">Land Use</span>
                     <span class="subcategory">Design</span>
-                    <span class="subcategory">BIM/Digital Twins</span>
-                    <span class="subcategory">Modular</span>
+                    <span class="subcategory">BIM</span>
+                    <span class="subcategory">e-procurement</span>
+                    <span class="subcategory">BoQ</span>
+                    <span class="subcategory">e-Tender</span>
+                    <span class="subcategory">e-Contract</span>
+                    <span class="subcategory">Project Management</span>
+                    <span class="subcategory">ESG Compliance</span>
                     <span class="subcategory">Carbon/Supply Chain</span>
-                    <span class="subcategory">Resilience</span>
                     <span class="subcategory">Permitting</span>
                 </div>
                 <div class="category-count">15+ Members</div>
