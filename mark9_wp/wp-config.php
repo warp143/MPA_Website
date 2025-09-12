@@ -99,7 +99,13 @@ define( 'WP_SITEURL', 'http://localhost:8000' );
 define( 'DISALLOW_FILE_EDIT', true );
 
 // Increase memory limit for development
-define( 'WP_MEMORY_LIMIT', '256M' );
+define( 'WP_MEMORY_LIMIT', '512M' );
+
+// Fix REST API and loopback timeout issues
+define( 'WP_HTTP_TIMEOUT', 30 );
+define( 'WP_HTTP_CONNECT_TIMEOUT', 30 );
+ini_set( 'max_execution_time', 300 );
+ini_set( 'default_socket_timeout', 30 );
 
 /* Force HTTP for admin and uploads */
 define('FORCE_SSL_ADMIN', false);

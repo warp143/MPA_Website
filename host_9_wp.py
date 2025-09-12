@@ -63,9 +63,9 @@ def start_wordpress():
         # Change to WordPress directory and start server with better error handling
         os.chdir(wp_dir)
         
-        # Start PHP server with error output
+        # Start PHP server with better configuration for WordPress
         process = subprocess.Popen(
-            ['php', '-S', 'localhost:8000'],
+            ['php', '-S', 'localhost:8000', '-d', 'max_execution_time=300', '-d', 'default_socket_timeout=30'],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
