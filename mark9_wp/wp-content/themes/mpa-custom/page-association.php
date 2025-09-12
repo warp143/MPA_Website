@@ -242,15 +242,15 @@ document.title = 'Association |';
                         <?php endif; ?>
                         
                         <?php if ($member_company_name || $member_company_logo_url) : ?>
-                            <div class="company-info">
+                            <div class="company-info" style="width: calc(100% + 3rem) !important; margin: 0 -1.5rem !important; padding: 0 !important; box-sizing: border-box !important;">
                                 <?php if ($member_company_logo_url) : ?>
-                                    <div class="company-logo">
-                                        <img src="<?php echo esc_url($member_company_logo_url); ?>" alt="<?php echo esc_attr($member_company_name ?: 'Company Logo'); ?>" style="max-height: 40px; max-width: 120px; object-fit: contain;">
+                                    <div class="company-logo" style="width: 250px !important; margin: 0 auto !important; padding: 1rem !important; background: white !important; border-radius: 8px !important; box-sizing: border-box !important;">
+                                        <img src="<?php echo esc_url($member_company_logo_url); ?>" alt="<?php echo esc_attr($member_company_name ?: 'Company Logo'); ?>" class="company-logo-img" style="max-width: 100% !important; max-height: 80px !important; width: auto !important; height: auto !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; padding: 0 !important; box-sizing: border-box !important;">
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($member_company_name) : ?>
-                                    <div class="company-name">
-                                        <p><?php echo esc_html($member_company_name); ?></p>
+                                    <div class="company-name" style="width: 100% !important; margin: 0 !important; padding: 0 1.5rem !important; box-sizing: border-box !important;">
+                                        <p style="margin: 8px 0 0 0 !important; padding: 0 !important;"><?php echo esc_html($member_company_name); ?></p>
                                     </div>
                                 <?php endif; ?>
                             </div>

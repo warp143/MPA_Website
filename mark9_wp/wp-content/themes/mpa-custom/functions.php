@@ -689,6 +689,7 @@ function mpa_add_committee_columns($columns) {
     
     // Add other custom columns
     $new_columns['member_photo'] = __('Photo', 'mpa-custom');
+    $new_columns['member_company_name'] = __('Company Name', 'mpa-custom');
     $new_columns['member_position'] = __('Position', 'mpa-custom');
     $new_columns['member_website'] = __('Website', 'mpa-custom');
     $new_columns['member_email'] = __('Email', 'mpa-custom');
@@ -714,6 +715,15 @@ function mpa_populate_committee_columns($column, $post_id) {
                 }
             } else {
                 echo '<span style="color: #999;">No photo</span>';
+            }
+            break;
+            
+        case 'member_company_name':
+            $company_name = get_post_meta($post_id, '_member_company_name', true);
+            if ($company_name) {
+                echo esc_html($company_name);
+            } else {
+                echo '<span style="color: #999;">—</span>';
             }
             break;
             
