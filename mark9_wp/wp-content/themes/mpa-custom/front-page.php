@@ -91,7 +91,7 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
                     <p>The Malaysia PropTech Association (MPA) is the driving force behind Malaysia's digital transformation in the built environment. We unite startups, scale-ups, corporates, investors, and government stakeholders to shape a smarter, more inclusive property ecosystem.</p>
                     <p>Our mission is to accelerate innovation, foster collaboration, and empower a new generation of tech-driven leaders in the built environment!</p>
                     <p>We believe that transformation must be rooted in integrity, inclusivity, and shared progress.</p>
-                    <p class="highlight-text">Together, we're building the built environment of the future!</p>
+                    <p class="highlight-text">Together, we're shaping the built environment of the future!</p>
                 </div>
                 
                 <div class="about-right">
@@ -99,24 +99,38 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
                     
                     <div class="about-features">
                         <div class="feature">
+                            <i class="fas fa-gavel"></i>
+                            <div class="feature-content">
+                                <h4>Advocacy</h4>
+                                <p>Championing digitalization and policy reform across the industry</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-handshake"></i>
+                            <div class="feature-content">
+                                <h4>Business Opportunities</h4>
+                                <p>Connecting members to funding, partnerships, and market access</p>
+                            </div>
+                        </div>
+                        <div class="feature">
                             <i class="fas fa-users"></i>
                             <div class="feature-content">
                                 <h4>Community</h4>
-                                <p>Connect with <?php echo get_post_meta(get_the_ID(), '_stat_members', true) ?: '150+'; ?> PropTech professionals</p>
+                                <p>Building a vibrant, collaborative ecosystem of innovators and changemakers</p>
                             </div>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-lightbulb"></i>
+                            <i class="fas fa-rocket"></i>
                             <div class="feature-content">
-                                <h4>Innovation</h4>
-                                <p>Drive cutting-edge PropTech solutions</p>
+                                <h4>Development</h4>
+                                <p>Supporting startup growth, talent acceleration, and ecosystem maturity</p>
                             </div>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-globe"></i>
+                            <i class="fas fa-graduation-cap"></i>
                             <div class="feature-content">
-                                <h4>Global Network</h4>
-                                <p>Access international PropTech ecosystem</p>
+                                <h4>Education</h4>
+                                <p>Equipping the industry with knowledge, tools, and future-ready skills</p>
                             </div>
                         </div>
                     </div>
