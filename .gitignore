@@ -1,2 +1,8 @@
 mark9_wp/wp-content/updraft/
 *.zip
+
+# SSH keys and credentials
+ssh/proptech*
+ssh/*.json
+ssh/*_key
+ssh/*_key.pub
