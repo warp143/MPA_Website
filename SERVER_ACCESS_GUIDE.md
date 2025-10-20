@@ -1,153 +1,600 @@
-# Server Access Guide - Proptech.org.my
+# PropTech.org.my - Server & Workflow Guide
+
+**Complete guide for managing and editing the live PropTech website**
+
+---
+
+## 📋 Table of Contents
+
+1. [Server Information](#server-information)
+2. [Quick Start - Editing Files](#quick-start---editing-files)
+3. [SSH Access Methods](#ssh-access-methods)
+4. [Direct Editing Workflow](#direct-editing-workflow)
+5. [Common Editing Tasks](#common-editing-tasks)
+6. [WordPress Management](#wordpress-management)
+7. [Server Directory Structure](#server-directory-structure)
+8. [Backup & Security](#backup--security)
+9. [Troubleshooting](#troubleshooting)
+10. [Alternative Access](#alternative-access)
+
+---
 
 ## Server Information
+
 - **Server**: smaug.cygnusdns.com
-- **OS**: Ubuntu 20.04.6 LTS
 - **IP Address**: 103.152.12.27
+- **OS**: Ubuntu 20.04.6 LTS
 - **Username**: proptech
 - **Password**: D!~EzNB$KHbE
+- **Disk Usage**: 75% (352GB/494GB used)
 
-## SSH Access Instructions
+### Important URLs
+- **Live Site**: https://proptech.org.my
+- **Admin Panel**: https://proptech.org.my/wp-admin/
+- **Test Site**: https://proptech.org.my/test/
+- **cPanel**: https://smaug.cygnusdns.com:2083
 
-### Method 1: Direct SSH with Password
+### Configuration File
+Server credentials and paths are stored in:
+```bash
+ssh/proptech.json
+```
+
+This file contains:
+- Server hostname and username
+- SSH key path
+- WordPress database credentials (db_name, db_user, db_password)
+- Site URLs
+
+---
+
+## Quick Start - Editing Files
+
+**🚀 Recommended Method: Interactive Editor Tool**
+
+```bash
+python3 tools/edit_live_theme.py
+```
+
+**What it does:**
+- ✅ Shows menu of common theme files
+- ✅ Downloads file from live server
+- ✅ Opens in your editor (nano/vim)
+- ✅ Creates automatic backup with timestamp
+- ✅ Uploads changes back to server
+- ✅ Changes are live immediately
+
+**Example Session:**
+```bash
+$ python3 tools/edit_live_theme.py
+
+📁 Available theme files to edit:
+
+  1. front-page.php      - Homepage template
+  2. header.php          - Site header
+  3. footer.php          - Site footer
+  4. style.css           - Theme styles
+  5. functions.php       - Theme functions
+  6. page-events.php     - Events page
+  7. page-members.php    - Members page
+  8. page-partners.php   - Partners page
+
+  0. Custom path
+  q. Quit
+
+Select file to edit: 1
+
+📥 Downloading front-page.php...
+✅ Download successful
+📝 Opening in nano...
+
+[Make your edits, save and exit]
+
+💾 File was modified. Upload to live server? (y/N): y
+💾 Creating backup...
+📤 Uploading...
+✅ Upload successful
+🎉 Changes are now live at https://proptech.org.my
+```
+
+---
+
+## SSH Access Methods
+
+### Method 1: SSH with Password
 ```bash
 ssh proptech@smaug.cygnusdns.com
 ```
-When prompted, enter the password: `D!~EzNB$KHbE`
+When prompted, enter password: `D!~EzNB$KHbE`
 
-### Method 2: SSH with Key Authentication (Recommended)
-If you want to use the SSH keys from your local project:
-
-1. **Copy your public key to the server** (if not already done):
+### Method 2: SSH with Key (Recommended)
 ```bash
-ssh-copy-id -i /Users/amk/Documents/GitHub/MPA_Website/id_rsa.pub proptech@smaug.cygnusdns.com
+# Connect using SSH key
+ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
 ```
 
-2. **Connect using the private key**:
+**First time setup (if needed):**
 ```bash
-ssh -i /Users/amk/Documents/GitHub/MPA_Website/id_rsa proptech@smaug.cygnusdns.com
+# Copy public key to server
+ssh-copy-id -i ssh/proptech_mpa.pub proptech@smaug.cygnusdns.com
 ```
 
-## Server Directory Structure
-
-### Main Directories
-- **Home Directory**: `/home/proptech/`
-- **Web Root**: `/home/proptech/public_html/`
-- **Main Website**: `/home/proptech/public_html/proptech.org.my/`
-- **Test Environment**: `/home/proptech/public_html/proptech.org.my/test/`
-
-### Key Files and Directories
-```
-/home/proptech/
-├── public_html/
-│   └── proptech.org.my/          # Main WordPress installation
-│       ├── wp-admin/             # WordPress admin
-│       ├── wp-content/           # Themes, plugins, uploads
-│       ├── wp-config.php         # WordPress configuration
-│       └── test/                 # Test/staging environment
-├── backup-*.tar.gz              # Server backups
-├── .ssh/                        # SSH keys
-└── logs/                        # Server logs
-```
-
-## Test Project Access
-
-### Web Access
-- **Test Site URL**: https://proptech.org.my/test/
-- **Test Admin URL**: https://proptech.org.my/test/wp-admin/
-- **Test Admin Login**: https://proptech.org.my/test/wp-admin/index.php
-
-### File System Access
-The test project is located at:
+**Fix key permissions if needed:**
 ```bash
-/home/proptech/public_html/proptech.org.my/test/
+chmod 600 ssh/proptech_mpa
 ```
 
-### Navigating to Test Project via SSH
+---
+
+## Direct Editing Workflow
+
+### Interactive Editor (Primary Method)
+
+Use this for all theme file edits:
 ```bash
-# Connect to server
-ssh proptech@smaug.cygnusdns.com
-
-# Navigate to test directory
-cd public_html/proptech.org.my/test/
-
-# List contents
-ls -la
+python3 tools/edit_live_theme.py
 ```
+
+**Available files:**
+- `front-page.php` - Homepage template
+- `header.php` - Site header
+- `footer.php` - Site footer  
+- `style.css` - Theme styles
+- `functions.php` - Theme functions
+- `page-events.php` - Events page template
+- `page-members.php` - Members page template
+- `page-partners.php` - Partners page template
+
+**Custom files:**
+- Select option `0` and enter any server path
+
+### View File Contents (Without Editing)
+
+```bash
+# View entire file
+python3 tools/view_live_file.py ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/front-page.php
+
+# View first 50 lines
+python3 tools/view_live_file.py ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/front-page.php 50
+
+# View last 20 lines  
+python3 tools/view_live_file.py ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/front-page.php -20
+```
+
+### Direct SSH Editing
+
+For quick edits or when the tool isn't available:
+
+```bash
+# 1. Connect to server
+ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+
+# 2. Navigate to theme directory
+cd ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
+
+# 3. Create manual backup (recommended)
+cp front-page.php front-page.php.backup.$(date +%Y%m%d_%H%M%S)
+
+# 4. Edit file
+nano front-page.php
+
+# 5. Save (Ctrl+O, Enter, Ctrl+X) and exit
+exit
+```
+
+### Best Practices
+
+⚠️ **Important Guidelines:**
+
+1. **Always create backups** - The interactive tool does this automatically
+2. **Test changes immediately** - Visit the live site after uploading
+3. **Work during low-traffic hours** - For major changes (evenings/weekends)
+4. **Keep editor sessions short** - Download → Edit → Upload quickly
+5. **Double-check before uploading** - Review changes in the editor
+
+### Automatic Backups
+
+Every edit creates a backup with timestamp:
+```
+filename.backup.YYYYMMDD_HHMMSS
+```
+
+**Example:**
+```
+front-page.php.backup.20251020_140530
+```
+
+**To restore from backup:**
+```bash
+ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+cd ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
+cp front-page.php.backup.20251020_140530 front-page.php
+```
+
+---
+
+## Common Editing Tasks
+
+### Edit Homepage
+```bash
+python3 tools/edit_live_theme.py
+# Select: 1. front-page.php
+```
+
+### Edit Styles
+```bash
+python3 tools/edit_live_theme.py
+# Select: 4. style.css
+```
+
+### Edit Events Page
+```bash
+python3 tools/edit_live_theme.py
+# Select: 6. page-events.php
+```
+
+### Edit Header/Footer
+```bash
+python3 tools/edit_live_theme.py
+# Select: 2. header.php or 3. footer.php
+```
+
+### Edit Custom File
+```bash
+python3 tools/edit_live_theme.py
+# Select: 0. Custom path
+# Enter: ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/your-file.php
+```
+
+---
 
 ## WordPress Management
 
 ### WP-CLI Commands
-The server has WP-CLI installed. You can manage WordPress from command line:
+
+The server has WP-CLI installed for command-line WordPress management:
 
 ```bash
-# Navigate to WordPress directory
-cd public_html/proptech.org.my/
+# SSH to server
+ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
 
-# Check WordPress status
+# Navigate to WordPress directory
+cd ~/public_html/proptech.org.my/
+
+# Check WordPress version
 wp core version
 
-# List plugins
+# List all plugins
 wp plugin list
 
-# Update WordPress
+# Activate/deactivate plugin
+wp plugin activate plugin-name
+wp plugin deactivate plugin-name
+
+# List all themes
+wp theme list
+
+# Update WordPress core
 wp core update
+
+# Clear cache
+wp cache flush
+
+# Database operations
+wp db check
+wp db optimize
 ```
 
 ### Database Access
-WordPress database credentials are in `/home/proptech/public_html/proptech.org.my/wp-config.php`
 
-## Backup Information
-
-### Available Backups
-- `backup-8.10.2025_16-49-14_proptech.tar.gz` (4.9GB) - August 2025
-- `backup-9.14.2024_05-58-54_proptech.tar.gz` (3.7GB) - September 2024
-
-### Creating New Backups
+WordPress database credentials are in:
 ```bash
-# Create a backup of the current site
-tar -czf backup-$(date +%m.%d.%Y_%H-%M-%S)_proptech.tar.gz public_html/
+~/public_html/proptech.org.my/wp-config.php
 ```
 
-## Security Notes
+**From proptech.json:**
+- Database: `proptech_wp_vpwr5`
+- User: `proptech_wp_zns32`
+- Password: `$LGMY#0DhF4QeH03`
+- Host: `localhost:3306`
 
-- The server has Wordfence security plugin installed
-- SSH keys are available in `/home/proptech/.ssh/`
-- Server has Imunify security patches applied
-- SSL certificates are managed through cPanel
+---
+
+## Server Directory Structure
+
+### Main Directories
+
+```
+/home/proptech/
+├── public_html/
+│   └── proptech.org.my/              # Main WordPress installation
+│       ├── wp-admin/                 # WordPress admin
+│       ├── wp-content/
+│       │   ├── themes/
+│       │   │   └── mpa-custom/       # Custom theme (edit here)
+│       │   ├── plugins/              # WordPress plugins
+│       │   └── uploads/              # Media files
+│       ├── wp-config.php             # WordPress configuration
+│       └── test/                     # Test/staging environment
+├── backup-*.tar.gz                   # Server backups
+├── .ssh/                             # SSH keys
+└── logs/                             # Server logs
+```
+
+### Important Paths
+
+**Theme Directory:**
+```
+~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
+```
+
+**WordPress Root:**
+```
+~/public_html/proptech.org.my/
+```
+
+**Uploads Directory:**
+```
+~/public_html/proptech.org.my/wp-content/uploads/
+```
+
+**Config File:**
+```
+~/public_html/proptech.org.my/wp-config.php
+```
+
+### Test Environment
+
+**Web Access:**
+- Test Site: https://proptech.org.my/test/
+- Test Admin: https://proptech.org.my/test/wp-admin/
+
+**File System:**
+```bash
+~/public_html/proptech.org.my/test/
+```
+
+---
+
+## Backup & Security
+
+### Available Backups
+
+Located in `/home/proptech/`:
+- `backup-8.10.2025_16-49-14_proptech.tar.gz` (4.9GB)
+- `backup-9.14.2024_05-58-54_proptech.tar.gz` (3.7GB)
+
+### Creating New Backups
+
+```bash
+# SSH to server
+ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+
+# Create full backup
+tar -czf backup-$(date +%m.%d.%Y_%H-%M-%S)_proptech.tar.gz public_html/
+
+# Backup only WordPress files (faster)
+cd ~/public_html
+tar -czf ~/backup-wp-$(date +%m.%d.%Y_%H-%M-%S).tar.gz proptech.org.my/
+
+# Backup only theme
+cd ~/public_html/proptech.org.my/wp-content/themes
+tar -czf ~/backup-theme-$(date +%m.%d.%Y_%H-%M-%S).tar.gz mpa-custom/
+```
+
+### Security Features
+
+- ✅ Wordfence security plugin installed
+- ✅ SSH key authentication enabled
+- ✅ Imunify security patches applied
+- ✅ SSL certificates managed through cPanel
+- ✅ Automatic backups before file edits
+- ✅ `.htaccess` protection on sensitive files
+
+---
 
 ## Troubleshooting
 
-### Common Issues
-1. **Permission Denied**: Check file permissions with `ls -la`
-2. **WordPress Issues**: Check error logs in `/home/proptech/logs/`
-3. **Database Connection**: Verify wp-config.php settings
+### Connection Issues
 
-### Useful Commands
+**SSH Connection Timeout:**
+```bash
+# The server may be experiencing issues
+# Try again in a few minutes or use cPanel file manager
+# Check if SSH service is running (requires server access)
+```
+
+**Permission Denied:**
+```bash
+# Fix SSH key permissions
+chmod 600 ssh/proptech_mpa
+
+# Verify key exists
+ls -la ssh/proptech_mpa
+```
+
+**Host Key Verification Failed:**
+```bash
+# Remove old host key
+ssh-keygen -R smaug.cygnusdns.com
+
+# Or connect with StrictHostKeyChecking=no
+ssh -i ssh/proptech_mpa -o StrictHostKeyChecking=no proptech@smaug.cygnusdns.com
+```
+
+### File Issues
+
+**Permission Denied on File Edit:**
+```bash
+# Check file permissions
+ls -la ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
+
+# Fix permissions if needed (on server)
+chmod 644 filename.php
+```
+
+**File Not Found:**
+```bash
+# Verify the remote path exists
+ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com "ls -la ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/"
+```
+
+### WordPress Issues
+
+**Check Error Logs:**
+```bash
+# SSH to server
+ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+
+# View recent errors
+tail -f ~/logs/error_log
+
+# View PHP errors
+tail -f ~/public_html/proptech.org.my/wp-content/debug.log
+```
+
+**Database Connection Errors:**
+```bash
+# Verify wp-config.php settings
+cat ~/public_html/proptech.org.my/wp-config.php | grep DB_
+
+# Test database connection
+wp db check
+```
+
+### Useful Server Commands
+
 ```bash
 # Check disk usage
 df -h
 
-# Check running processes
+# Check memory usage
+free -h
+
+# Check running PHP processes
 ps aux | grep php
 
-# Check Apache status
+# Check Apache status (may require sudo)
 systemctl status apache2
 
-# View recent logs
-tail -f /home/proptech/logs/error_log
+# View recent Apache logs
+tail -f ~/logs/error_log
+
+# Check file permissions
+ls -la
 ```
-
-## cPanel Access
-- **cPanel URL**: https://smaug.cygnusdns.com:2083
-- **Username**: proptech
-- **Password**: D!~EzNB$KHbE
-
-## Local Development Connection
-If you want to connect your local development environment to this server, you can use the `host_9_wp.py` script in your project root, which manages a local WordPress development server on port 8000.
 
 ---
 
-**Last Updated**: September 15, 2025
+## Alternative Access
+
+### cPanel File Manager
+
+If SSH is not available or you prefer a GUI:
+
+1. **Login to cPanel**
+   - URL: https://smaug.cygnusdns.com:2083
+   - Username: `proptech`
+   - Password: `D!~EzNB$KHbE`
+
+2. **Open File Manager**
+   - Click "File Manager" icon
+   - Navigate to `public_html/proptech.org.my/wp-content/themes/mpa-custom/`
+
+3. **Edit Files**
+   - Right-click file → "Edit"
+   - Make changes and click "Save Changes"
+   - Changes are live immediately
+
+4. **Create Backups**
+   - Right-click file → "Copy"
+   - Rename with `.backup.YYYYMMDD` suffix
+
+### WordPress Admin Dashboard
+
+For content editing (not theme files):
+
+1. Go to https://proptech.org.my/wp-admin/
+2. Login with WordPress credentials
+3. Use Appearance → Theme File Editor (if enabled)
+4. Edit content through Pages/Posts
+
+⚠️ **Note**: Theme File Editor may be disabled for security. Use the interactive tool instead.
+
+---
+
+## Emergency Procedures
+
+### If Something Breaks
+
+1. **Restore from automatic backup:**
+   ```bash
+   ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+   cd ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
+   ls -lt *.backup.* | head -5  # Find recent backups
+   cp front-page.php.backup.20251020_140530 front-page.php
+   ```
+
+2. **Check error logs:**
+   ```bash
+   tail -f ~/logs/error_log
+   ```
+
+3. **Contact hosting support:**
+   - cPanel support available through hosting provider
+   - Provide error messages and timestamps
+
+### Legacy Deployment (Fallback)
+
+If the interactive tool fails, use the old deployment method:
+
+```bash
+python3 tools/deploy_to_proptech.py
+```
+
+⚠️ **Note**: This requires maintaining local copies in `mark9_wp/` directory.
+
+---
+
+## Quick Reference
+
+### Most Common Commands
+
+```bash
+# Edit homepage
+python3 tools/edit_live_theme.py  # Select 1
+
+# View file contents
+python3 tools/view_live_file.py ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/front-page.php
+
+# SSH to server
+ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+
+# Check WordPress version
+ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com "cd ~/public_html/proptech.org.my && wp core version"
+```
+
+### File Paths Cheatsheet
+
+```bash
+# Theme files
+~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
+
+# Uploads
+~/public_html/proptech.org.my/wp-content/uploads/
+
+# Plugins  
+~/public_html/proptech.org.my/wp-content/plugins/
+
+# Config
+~/public_html/proptech.org.my/wp-config.php
+
+# Logs
+~/logs/error_log
+```
+
+---
+
+**Last Updated**: October 20, 2025  
+**Document Version**: 2.0 (Merged)  
 **Server Status**: Active (Ubuntu 20.04.6 LTS)
-**Disk Usage**: 75% (352GB/494GB used)
