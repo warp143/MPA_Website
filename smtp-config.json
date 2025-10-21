@@ -1,0 +1,27 @@
+{
+  "smtp": {
+    "display_name": "Proptech Notification",
+    "username": "notification@proptech.org.my",
+    "password": "B*005070052496uc",
+    "server": "smtp.office365.com",
+    "port": 587,
+    "encryption": "STARTTLS",
+    "enabled": true,
+    "provider": "Microsoft 365 / Office 365"
+  },
+  "notes": {
+    "purpose": "Send event registration notifications and confirmations",
+    "last_updated": "2025-10-21",
+    "usage": [
+      "Configure in WordPress via WP Mail SMTP plugin",
+      "Or manually in wp-config.php",
+      "Or programmatically using wp_mail() with SMTP override"
+    ],
+    "recommendations": [
+      "Ensure SPF/DKIM records are configured for proptech.org.my domain",
+      "Test email sending after configuration",
+      "Monitor for delivery issues"
+    ]
+  }
+}
+

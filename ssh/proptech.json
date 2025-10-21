@@ -1,0 +1,15 @@
+{
+  "server": {
+    "hostname": "smaug.cygnusdns.com",
+    "username": "proptech",
+    "key_path": "ssh/proptech_mpa"
+  },
+  "wordpress": {
+    "site_url": "https://proptech.org.my",
+    "admin_url": "https://proptech.org.my/wp-admin/",
+    "db_name": "proptech_wp_vpwr5",
+    "db_user": "proptech_wp_zns32",
+    "db_password": "$LGMY#0DhF4QeH03",
+    "db_host": "localhost:3306"
+  }
+}
