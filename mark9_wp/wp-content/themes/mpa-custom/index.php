@@ -2,7 +2,6 @@
 
 <!-- Set custom page title -->
 <script>
-document.title = 'Malaysia PropTech Association';
 </script>
 
 <main id="main" class="site-main">
@@ -217,7 +216,6 @@ document.title = 'Malaysia PropTech Association';
             initSearchFunctionality();
             initCookieBanner();
         } catch (error) {
-            console.error('Error initializing page:', error);
         }
         
         function initCookieBanner() {
@@ -278,7 +276,6 @@ document.title = 'Malaysia PropTech Association';
                     }
                 }
             } catch (error) {
-                console.error('Failed to load events for homepage:', error);
                 // Show fallback message
                 const eventsGrid = document.getElementById('homepageEventsGrid');
                 if (eventsGrid) {
@@ -339,13 +336,11 @@ document.title = 'Malaysia PropTech Association';
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
             
-            console.log('Initializing search functionality', { searchInput, searchBtn });
             
             if (searchInput && searchBtn) {
                 // Handle search button click
                 searchBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    console.log('Search button clicked');
                     performSearch();
                 });
                 
@@ -353,7 +348,6 @@ document.title = 'Malaysia PropTech Association';
                 searchInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
-                        console.log('Enter key pressed in search');
                         performSearch();
                     }
                 });
@@ -367,7 +361,6 @@ document.title = 'Malaysia PropTech Association';
                     });
                 }
             } else {
-                console.log('Search elements not found');
             }
             
             function performSearch() {
@@ -378,7 +371,6 @@ document.title = 'Malaysia PropTech Association';
                     return;
                 }
                 
-                console.log('Performing search for:', query);
                 
                 // Define searchable content
                 const searchableContent = {
@@ -432,7 +424,6 @@ document.title = 'Malaysia PropTech Association';
                     showSearchNotification(`Found ${results.length} result(s) for "${query}". Click to navigate.`, 'success');
                     
                     // Don't auto-redirect, let user click to navigate
-                    console.log('Search results:', results);
                 } else {
                     showSearchNotification(`No results found for "${query}"`, 'error');
                 }

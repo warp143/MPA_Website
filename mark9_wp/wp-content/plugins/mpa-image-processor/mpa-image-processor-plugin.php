@@ -38,6 +38,9 @@ class MPAImageProcessor {
         // Increase PHP limits for this plugin
         add_action('init', array($this, 'increase_php_limits'));
         
+        // Clean up old temp files periodically (once per hour)
+        add_action('admin_init', array($this, 'cleanup_old_temp_files'));
+        
         // WordPress upload filters
         add_filter('upload_size_limit', array($this, 'increase_upload_size_limit'));
         add_filter('wp_max_upload_size', array($this, 'increase_upload_size_limit'));
@@ -450,43 +453,34 @@ class MPAImageProcessor {
         @ini_set('memory_limit', '512M');
         
         // Add debugging
-        error_log('MPA Image Processor: AJAX request received');
-        error_log('MPA Image Processor: Current upload_max_filesize: ' . ini_get('upload_max_filesize'));
         
         try {
             check_ajax_referer('mpa_image_processor_nonce', 'nonce');
             if (!current_user_can('manage_options')) {
-                error_log('MPA Image Processor: User not authorized');
                 wp_send_json_error('Unauthorized');
                 return;
             }
         } catch (Exception $e) {
-            error_log('MPA Image Processor: Nonce check failed: ' . $e->getMessage());
             wp_send_json_error('Security check failed');
             return;
         }
         
         if (!isset($_FILES['image'])) {
-            error_log('MPA Image Processor: No image file in request');
             wp_send_json_error('No image uploaded');
             return;
         }
         
-        error_log('MPA Image Processor: Image file found: ' . $_FILES['image']['name']);
         
         $upload_dir = wp_upload_dir();
         $target_dir = $upload_dir['basedir'] . '/mpa-processor/';
-        error_log('MPA Image Processor: Target directory: ' . $target_dir);
         
         if (!file_exists($target_dir)) {
-            error_log('MPA Image Processor: Creating target directory');
             wp_mkdir_p($target_dir);
         }
         
         $file = $_FILES['image'];
         $file_name = sanitize_file_name($file['name']);
         $target_path = $target_dir . $file_name;
-        error_log('MPA Image Processor: Target path: ' . $target_path);
         
         // Check for upload errors first
         if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -504,27 +498,25 @@ class MPAImageProcessor {
                 ? $error_messages[$file['error']] 
                 : 'Unknown upload error: ' . $file['error'];
                 
-            error_log('MPA Image Processor: Upload error: ' . $error_message);
             wp_send_json_error($error_message);
         }
         
         if (move_uploaded_file($file['tmp_name'], $target_path)) {
             $image_url = $upload_dir['baseurl'] . '/mpa-processor/' . $file_name . '?v=' . time();
-            error_log('MPA Image Processor: File uploaded successfully');
-            error_log('MPA Image Processor: Generated URL: ' . $image_url);
             
             wp_send_json_success(array(
                 'image_path' => $target_path,
                 'image_url' => $image_url
             ));
         } else {
-            error_log('MPA Image Processor: Failed to move uploaded file');
             wp_send_json_error('Failed to move uploaded file to destination');
         }
     }
     
     public function remove_background_ajax() {
+        @file_put_contents(plugin_dir_path(__FILE__) . 'debug.log', date('Y-m-d H:i:s') . " - Called\n", FILE_APPEND);
         check_ajax_referer('mpa_image_processor_nonce', 'nonce');
+        @file_put_contents(plugin_dir_path(__FILE__) . "debug.log", "After nonce check\n", FILE_APPEND);
         if (!current_user_can('manage_options')) {
             wp_die('Unauthorized');
         }
@@ -532,23 +524,46 @@ class MPAImageProcessor {
         $image_path = sanitize_text_field($_POST['image_path']);
         $crop_data = isset($_POST['crop_data']) ? $_POST['crop_data'] : array();
         
-        error_log('MPA Image Processor: Processing image: ' . $image_path);
         
         // Use absolute path for Python script
-        error_log('MPA Image Processor: Using absolute path: ' . $image_path);
         
         // Call Python script for background removal
         $command = sprintf(
-            'bash -c "cd %s && source plugin_env/bin/activate && python process_image.py %s --output-dir processed --target-size 2.0" 2>&1',
+            'bash -c "cd %s && ./plugin_env/bin/python process_image.py %s --output-dir processed --target-size 2.0" 2>&1',
             escapeshellarg(plugin_dir_path(__FILE__)),
             escapeshellarg($image_path)
         );
         
-        error_log('MPA Image Processor: Command: ' . $command);
         
-        $output = shell_exec($command);
+        @file_put_contents(plugin_dir_path(__FILE__) . "debug.log", "Before shell_exec\n", FILE_APPEND);
+        @file_put_contents(plugin_dir_path(__FILE__) . "debug.log", "Command: " . $command . "\n", FILE_APPEND);
+        // Use proc_open because exec/shell_exec are disabled
+        $descriptorspec = array(
+            0 => array("pipe", "r"),  // stdin
+            1 => array("pipe", "w"),  // stdout
+            2 => array("pipe", "w")   // stderr
+        );
         
-        error_log('MPA Image Processor: Python output: ' . $output);
+        $process = proc_open($command, $descriptorspec, $pipes);
+        
+        if (is_resource($process)) {
+            fclose($pipes[0]);
+            $output = stream_get_contents($pipes[1]);
+            fclose($pipes[1]);
+            $errors = stream_get_contents($pipes[2]);
+            fclose($pipes[2]);
+            $return_code = proc_close($process);
+            
+            @file_put_contents(plugin_dir_path(__FILE__) . "debug.log", "Return code: " . $return_code . "\n", FILE_APPEND);
+            @file_put_contents(plugin_dir_path(__FILE__) . "debug.log", "Output length: " . strlen($output) . "\n", FILE_APPEND);
+            if ($errors) {
+                @file_put_contents(plugin_dir_path(__FILE__) . "debug.log", "Errors: " . $errors . "\n", FILE_APPEND);
+            }
+        } else {
+            $output = "";
+            @file_put_contents(plugin_dir_path(__FILE__) . "debug.log", "proc_open failed!\n", FILE_APPEND);
+        }
+        @file_put_contents(plugin_dir_path(__FILE__) . 'debug.log', date('Y-m-d H:i:s') . " - Output: " . substr($output, 0, 2000) . "\n\n", FILE_APPEND);
         
         if (strpos($output, '✅') !== false) {
             // The processed image is in the plugin directory
@@ -561,17 +576,13 @@ class MPAImageProcessor {
             $processed_name = $file_info['filename'] . '_cropped.png';
             $processed_path = $processed_dir . $processed_name;
             
-            error_log('MPA Image Processor: Looking for processed image at: ' . $processed_path);
-            error_log('MPA Image Processor: File exists check: ' . (file_exists($processed_path) ? 'YES' : 'NO'));
             
             if (file_exists($processed_path)) {
-                error_log('MPA Image Processor: File found! Processing complete.');
                 
                 // Generate a temporary URL for display (using plugin directory)
                 $plugin_url = plugin_dir_url(__FILE__);
                 $processed_url = $plugin_url . 'processed/' . $processed_name . '?v=' . time();
                 
-                error_log('MPA Image Processor: Generated processed URL: ' . $processed_url);
                 
                 // Force immediate response without WordPress processing
                 header('Content-Type: application/json');
@@ -649,30 +660,86 @@ class MPAImageProcessor {
     }
     
     private function cleanup_temp_files($image_path) {
-        // Clean up the processed image in plugin directory
-        if (file_exists($image_path)) {
-            unlink($image_path);
-            error_log('MPA Image Processor: Cleaned up processed image: ' . $image_path);
-        }
-        
-        // Clean up the original uploaded image
+        // Clean up ALL temporary files to prevent disk space issues
+        $plugin_dir = plugin_dir_path(__FILE__);
+        $processed_dir = $plugin_dir . "processed/";
         $upload_dir = wp_upload_dir();
-        $original_dir = $upload_dir['basedir'] . '/mpa-processor/';
+        $original_dir = $upload_dir["basedir"] . "/mpa-processor/";
         $file_name = basename($image_path);
         
         // Remove _cropped from filename to get original name
-        $original_name = str_replace('_cropped.png', '', $file_name);
-        $original_name = str_replace('_cropped.jpg', '', $original_name);
-        $original_name = str_replace('_cropped.jpeg', '', $original_name);
+        $original_name = str_replace("_cropped.png", "", $file_name);
+        $original_name = str_replace("_cropped.jpg", "", $original_name);
+        $original_name = str_replace("_cropped.jpeg", "", $original_name);
         
-        // Try different extensions for original file
-        $extensions = array('.jpeg', '.jpg', '.png');
+        // 1. Clean up the processed cropped image
+        if (file_exists($image_path)) {
+            @unlink($image_path);
+        }
+        
+        // 2. Clean up intermediate _no_bg.png file
+        $no_bg_path = $processed_dir . $original_name . "_no_bg.png";
+        if (file_exists($no_bg_path)) {
+            @unlink($no_bg_path);
+        }
+        
+        // 3. Clean up original uploaded image (all possible extensions)
+        $extensions = array(".jpeg", ".jpg", ".png", ".webp");
         foreach ($extensions as $ext) {
             $original_path = $original_dir . $original_name . $ext;
             if (file_exists($original_path)) {
-                unlink($original_path);
-                error_log('MPA Image Processor: Cleaned up original image: ' . $original_path);
-                break;
+                @unlink($original_path);
+            }
+        }
+        
+        // 4. Clean up any other temp files with this base name
+        $all_temp_files = glob($processed_dir . $original_name . "*");
+        if (is_array($all_temp_files)) {
+            foreach ($all_temp_files as $temp_file) {
+                @unlink($temp_file);
+            }
+        }
+    }
+    
+    public function cleanup_old_temp_files() {
+        // Only run once per hour to avoid performance impact
+        $last_cleanup = get_transient("mpa_last_cleanup");
+        if ($last_cleanup) {
+            return;
+        }
+        
+        // Set transient for 1 hour
+        set_transient("mpa_last_cleanup", time(), 3600);
+        
+        $plugin_dir = plugin_dir_path(__FILE__);
+        $processed_dir = $plugin_dir . "processed/";
+        $upload_dir = wp_upload_dir();
+        $temp_dir = $upload_dir["basedir"] . "/mpa-processor/";
+        
+        // Clean files older than 5 minutes from processed directory
+        $this->cleanup_old_files_in_dir($processed_dir, 300);
+        
+        // Clean files older than 5 minutes from temp upload directory
+        $this->cleanup_old_files_in_dir($temp_dir, 300);
+    }
+    
+    private function cleanup_old_files_in_dir($dir, $max_age_seconds) {
+        if (!is_dir($dir)) {
+            return;
+        }
+        
+        $files = glob($dir . "*");
+        if (!is_array($files)) {
+            return;
+        }
+        
+        $current_time = time();
+        foreach ($files as $file) {
+            if (is_file($file)) {
+                $file_age = $current_time - filemtime($file);
+                if ($file_age > $max_age_seconds) {
+                    @unlink($file);
+                }
             }
         }
     }

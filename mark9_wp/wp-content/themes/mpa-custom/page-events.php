@@ -1,9 +1,6 @@
 <?php get_header(); ?>
 
 <!-- Set custom page title -->
-<script>
-document.title = 'Events |';
-</script>
 
 <!-- Hero Section -->
 <section class="page-hero">
@@ -107,18 +104,27 @@ document.title = 'Events |';
                     $event_status = get_post_meta(get_the_ID(), '_event_status', true);
                     $event_type = get_post_meta(get_the_ID(), '_event_type', true);
                     
-                    // Automatically determine if event is past based on date
+                    // Set timezone to Malaysia
+                    date_default_timezone_set('Asia/Kuala_Lumpur');
+                    
+                    // ALWAYS determine event status based on date (ignore database status)
                     if ($event_date) {
                         $event_date_obj = DateTime::createFromFormat('Y-m-d', $event_date);
                         $today = new DateTime();
                         $today->setTime(0, 0, 0); // Set to start of day
                         
-                        // Only override status to 'past' if date has passed, preserve existing status otherwise
-                        if ($event_date_obj && $event_date_obj < $today) {
-                            $event_status = 'past';
+                        if ($event_date_obj) {
+                            // Auto-determine status based on date - ALWAYS override
+                            if ($event_date_obj < $today) {
+                                // Event is in the past
+                                $event_status = 'past';
+                            } else {
+                                // Event is today or in the future
+                                $event_status = 'upcoming';
+                            }
                         }
-                        // Don't override existing status - let WordPress custom fields handle it
                     }
+
                     
                     // Format date for display
                     $date_obj = DateTime::createFromFormat('Y-m-d', $event_date);
@@ -146,7 +152,7 @@ document.title = 'Events |';
                     // Get featured image or use placeholder
                     $featured_image = '';
                     if (has_post_thumbnail()) {
-                        $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                        $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                     } else {
                         // Check if it's a Happy Hour event and use specific placeholder
                         $event_title = get_the_title();
@@ -186,13 +192,14 @@ document.title = 'Events |';
                     );
                     ?>
                     
+                    <a href="<?php echo esc_url(get_permalink()); ?>" class="event-card-link" onclick="window.location.href=this.href; return false;">
                     <div class="event-card <?php echo esc_attr($event_status); ?>" 
                          data-category="<?php echo esc_attr(implode(' ', $data_categories)); ?>"
                          data-event-status="<?php echo esc_attr($event_status); ?>"
                          data-event-type="<?php echo esc_attr($event_type); ?>"
                          data-event-date="<?php echo esc_attr($event_date); ?>">
                         <div class="event-image">
-                            <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
+                            <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
                             <div class="event-date-badge <?php echo $event_status === 'past' ? 'past' : ''; ?>">
                                 <span class="day"><?php echo esc_html($day); ?></span>
                                 <span class="month"><?php echo esc_html($month); ?></span>
@@ -220,11 +227,11 @@ document.title = 'Events |';
                                 <div class="event-actions">
                                     <?php if ($event_status === 'upcoming') : ?>
                                         <?php if ($event_registration_url) : ?>
-                                            <a href="<?php echo esc_url($event_registration_url); ?>" class="btn-outline" target="_blank">Register</a>
+                                            <a onclick="event.stopPropagation();" href="<?php echo esc_url($event_registration_url); ?>" class="btn-outline" target="_blank">Register</a>
                                         <?php else : ?>
-                                            <button class="btn-outline">Register</button>
+                                            <button onclick="event.stopPropagation();" class="btn-outline">Register</button>
                                         <?php endif; ?>
-                                        <button class="btn-calendar" <?php echo implode(' ', array_map(function($k, $v) { return $k . '="' . $v . '"'; }, array_keys($calendar_data), $calendar_data)); ?>>
+                                        <button onclick="event.stopPropagation();" class="btn-calendar" <?php echo implode(' ', array_map(function($k, $v) { return $k . '="' . $v . '"'; }, array_keys($calendar_data), $calendar_data)); ?>>
                                             <i class="fas fa-calendar-plus"></i> Add to Calendar
                                         </button>
                                     <?php else : ?>
@@ -236,6 +243,7 @@ document.title = 'Events |';
                             </div>
                         </div>
                     </div>
+                    </a>
                     
                 <?php endwhile;
                 wp_reset_postdata();
@@ -251,6 +259,9 @@ document.title = 'Events |';
 <script>
     // Populate upcoming events from All Events section
     document.addEventListener('DOMContentLoaded', function() {
+        // Store all event cards once for filtering
+        let allStoredEventCards = [];
+        
         const upcomingEventsGrid = document.getElementById('upcomingEventsGrid');
         if (upcomingEventsGrid) {
             // Wait a bit for events to be rendered, then populate upcoming events
@@ -262,45 +273,45 @@ document.title = 'Events |';
         initCalendarSubscription();
         initViewAllEventsLink();
         initFilterTabs();
+
+        // Store cards at 100ms (before populateUpcomingEvents runs)
+        setTimeout(function() {
+            allStoredEventCards = Array.from(document.querySelectorAll(".events-grid .event-card-link"));
+            
+        }, 100);
+
+        // Apply initial filter much later (at 700ms)
+        setTimeout(function() {
+            filterEvents('upcoming');
+        }, 700);
         
+
+
         function populateUpcomingEvents() {
             // Get all event cards from the All Events section
-            const allEventCards = document.querySelectorAll('.events-grid .event-card');
+            const allEventCards = document.querySelectorAll(".events-grid .event-card-link");
             const today = new Date();
+            today.setHours(0, 0, 0, 0); // Reset to start of day
             const upcomingEvents = [];
             
             // Filter and sort upcoming events
-            allEventCards.forEach(eventCard => {
-                const dateElement = eventCard.querySelector('.event-date-badge');
-                if (dateElement) {
-                    const day = dateElement.querySelector('.day')?.textContent;
-                    const month = dateElement.querySelector('.month')?.textContent;
+            allEventCards.forEach(eventLink => {
+                const eventCard = eventLink.querySelector(".event-card");
+                if (!eventCard) return;
+                
+                // Use data-event-date attribute instead of parsing badge
+                const eventDateStr = eventCard.getAttribute("data-event-date");
+                const eventStatus = eventCard.getAttribute("data-event-status");
+                
+                if (eventDateStr && eventStatus === "upcoming") {
+                    const eventDate = new Date(eventDateStr);
                     
-                    if (day && month) {
-                        // Convert month abbreviation to date
-                        const monthMap = {
-                            'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
-                            'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
-                        };
-                        
-                        const monthNum = monthMap[month];
-                        if (monthNum !== undefined) {
-                            // Assume events are in 2025/2026 based on current date
-                            let year = today.getFullYear();
-                            if (monthNum < 6) year += 1; // Jan-May are likely next year
-                            else if (year === 2024) year = 2025; // If we're in 2024, events are in 2025
-                            
-                            const eventDate = new Date(year, monthNum, parseInt(day));
-                            
-                            // Include today's events and future events
-                            const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-                            if (eventDate >= todayStart) {
-                                upcomingEvents.push({
-                                    date: eventDate,
-                                    element: eventCard
-                                });
-                            }
-                        }
+                    // Only include future events
+                    if (eventDate >= today) {
+                        upcomingEvents.push({
+                            date: eventDate,
+                            element: eventLink
+                        });
                     }
                 }
             });
@@ -318,10 +329,11 @@ document.title = 'Events |';
                 const clonedEvent = eventObj.element.cloneNode(true);
                 
                 // Add the "featured" class for styling
-                clonedEvent.classList.add('featured');
+                const clonedCard = clonedEvent.querySelector(".event-card");
+                clonedCard.classList.add('featured');
                 
                 // Add "UPCOMING" badge
-                const eventImage = clonedEvent.querySelector('.event-image');
+                const eventImage = clonedCard.querySelector('.event-image');
                 if (eventImage && !eventImage.querySelector('.event-badge')) {
                     const upcomingBadge = document.createElement('div');
                     upcomingBadge.className = 'event-badge upcoming';
@@ -331,6 +343,7 @@ document.title = 'Events |';
                 
                 // Add to upcoming events grid
                 upcomingEventsGrid.appendChild(clonedEvent);
+
             });
             
             // Re-initialize calendar buttons for cloned events
@@ -343,6 +356,7 @@ document.title = 'Events |';
             calendarButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     
                     const eventId = this.getAttribute('data-event');
                     const eventDate = this.getAttribute('data-date');
@@ -557,12 +571,6 @@ document.title = 'Events |';
         // Initialize filter tabs functionality
         function initFilterTabs() {
             const filterTabs = document.querySelectorAll('.filter-tab');
-            const eventCards = document.querySelectorAll('.event-card');
-            
-            console.log('Found event cards:', eventCards.length);
-            eventCards.forEach(card => {
-                console.log('Card status:', card.getAttribute('data-event-status'), 'Type:', card.getAttribute('data-event-type'));
-            });
             
             filterTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
@@ -572,46 +580,73 @@ document.title = 'Events |';
                     this.classList.add('active');
                     
                     const filter = this.getAttribute('data-filter');
-                    console.log('Filter clicked:', filter);
-                    filterEvents(filter, eventCards);
+                    // Query fresh DOM each time
+                    filterEvents(filter);
                 });
             });
         }
 
-        function filterEvents(filter, eventCards) {
-            eventCards.forEach(card => {
-                const eventStatus = card.getAttribute('data-event-status');
-                const eventType = card.getAttribute('data-event-type');
-                const eventDate = card.getAttribute('data-event-date');
+        function filterEvents(filter) {
+            const grid = document.querySelector(".events-grid");
+            if (!grid) return;
+
+            // Use stored cards for filtering (with fallback)
+            let allCards = allStoredEventCards.length > 0 
+                ? allStoredEventCards 
+                : Array.from(grid.querySelectorAll(".event-card-link"));
+
+            // Prepare array for sorting visible cards
+            const sortableCards = [];
+            
+            allCards.forEach(cardLink => {
+                const eventCard = cardLink.querySelector(".event-card");
+                if (!eventCard) return;
                 
-                let showCard = false;
+                const eventStatus = eventCard.getAttribute("data-event-status");
+                const eventType = eventCard.getAttribute("data-event-type");
+                const eventDate = eventCard.getAttribute("data-event-date");
                 
-                switch(filter) {
-                    case 'upcoming':
-                        showCard = eventStatus === 'upcoming' || eventStatus === 'featured';
-                        break;
-                    case 'webinar':
-                        showCard = eventType === 'webinar';
-                        break;
-                    case 'summit':
-                        showCard = eventType === 'summit';
-                        break;
-                    case 'past':
-                        showCard = eventStatus === 'past';
-                        break;
-                    case 'all':
-                        showCard = true; // Show ALL events regardless of status
-                        break;
-                    default:
-                        showCard = true;
+                let shouldShow = false;
+                
+                // Determine visibility based on filter
+                if (filter === "upcoming") {
+                    shouldShow = (eventStatus === "upcoming" || eventStatus === "featured");
+                } else if (filter === "webinar") {
+                    shouldShow = (eventType === "webinar");
+                } else if (filter === "summit") {
+                    shouldShow = (eventType === "summit");
+                } else if (filter === "past") {
+                    shouldShow = (eventStatus === "past");
+                } else if (filter === "all") {
+                    shouldShow = true;
+                } else {
+                    shouldShow = true;
                 }
                 
-                card.style.display = showCard ? 'block' : 'none';
+                if (shouldShow) {
+                    sortableCards.push({
+                        element: cardLink,
+                        date: new Date(eventDate),
+                        status: eventStatus
+                    });
+                }
             });
             
-            // Log for debugging
-            console.log(`Filter: ${filter}, Total cards: ${eventCards.length}, Visible: ${Array.from(eventCards).filter(card => card.style.display !== 'none').length}`);
-            console.log(`Event statuses:`, Array.from(eventCards).map(card => card.getAttribute('data-event-status')));
+            // Sort cards
+            if (filter === "past" || filter === "all") {
+                // Most recent first (descending)
+                sortableCards.sort((a, b) => b.date - a.date);
+            } else {
+                // Oldest first (ascending)
+                sortableCards.sort((a, b) => a.date - b.date);
+            }
+            
+            // Clear grid and add back only visible cards in sorted order
+
+            grid.innerHTML = "";
+            sortableCards.forEach(item => {
+                grid.appendChild(item.element);
+            });
         }
     });
 </script>

@@ -72,7 +72,6 @@
 
         // Function to update privacy policy content based on language
         window.updatePrivacyPolicyContent = function(lang) {
-            console.log('updatePrivacyPolicyContent called with lang:', lang, 'on page:', window.location.pathname); // Debug
             
             let markdownFile;
             
@@ -86,27 +85,22 @@
             }
             
             // Load markdown content
-            console.log('Attempting to fetch:', markdownFile); // Debug
             fetch(markdownFile)
                 .then(response => {
-                    console.log('Fetch response status:', response.status); // Debug
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return response.text();
                 })
                 .then(content => {
-                    console.log('Content loaded successfully, length:', content.length); // Debug
                     // Convert markdown to HTML (basic conversion)
                     const htmlContent = convertMarkdownToHtml(content);
                     privacyContent.innerHTML = htmlContent;
                 })
                 .catch(error => {
-                    console.error('Error loading privacy policy content:', error);
                     privacyContent.innerHTML = '<p>Error loading privacy policy content. Please try again.</p>';
                 });
             
-            console.log('Loading markdown file:', markdownFile); // Debug
         };
 
         // Basic markdown to HTML converter
@@ -166,7 +160,6 @@
         // Fallback: try loading again after a short delay
         setTimeout(() => {
             if (!privacyContent.innerHTML || privacyContent.innerHTML.includes('Content will be loaded')) {
-                console.log('Fallback: Loading privacy policy content...');
                 updatePrivacyPolicyContent(currentLang);
             }
         }, 1000);

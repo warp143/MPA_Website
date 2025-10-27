@@ -2,7 +2,6 @@
 
 <!-- Set custom page title -->
 <script>
-document.title = 'Association |';
 </script>
 
 <!-- Hero Section -->

@@ -598,3 +598,6 @@ ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com "cd ~/public_html/proptech.
 **Last Updated**: October 20, 2025  
 **Document Version**: 2.0 (Merged)  
 **Server Status**: Active (Ubuntu 20.04.6 LTS)
+
+MPA@Secure2025#9237a935
+PropTech2025#Secure!09ba562c

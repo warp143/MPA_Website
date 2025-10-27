@@ -2,7 +2,6 @@
 
 <!-- Set custom page title -->
 <script>
-document.title = 'Members |';
 </script>
 
 <!-- Hero Section -->
@@ -33,67 +32,64 @@ document.title = 'Members |';
             <p>Diverse representation across the PropTech ecosystem organized by vertical</p>
         </div>
         <div class="categories-grid">
-            <div class="category-card plan-category">
-                <i class="fas fa-map-marked-alt"></i>
-                <h3>PLAN & CONSTRUCT</h3>
-                <p>Feasibility, land use, design, BIM/digital twins, modular, carbon/supply chain, resilience & permitting.</p>
+            <?php
+            // Get vertical categories from centralized database settings
+            $verticals = mpa_get_vertical_categories();
+            
+            // Icon mapping for each vertical
+            $icons = array(
+                'PLAN & CONSTRUCT' => 'fa-map-marked-alt',
+                'MARKET & TRANSACT' => 'fa-exchange-alt',
+                'OPERATE & MANAGE' => 'fa-cogs',
+                'REINVEST, REPORT & REGENERATE' => 'fa-recycle'
+            );
+            
+            // CSS class mapping
+            $css_classes = array(
+                'PLAN & CONSTRUCT' => 'plan-category',
+                'MARKET & TRANSACT' => 'transact-category',
+                'OPERATE & MANAGE' => 'manage-category',
+                'REINVEST, REPORT & REGENERATE' => 'plan-category'
+            );
+            
+            foreach ($verticals as $key => $vertical):
+                // Count members for this vertical (cached for 24 hours)
+                $cache_key = 'mpa_member_count_' . sanitize_key($key);
+                $count = get_transient($cache_key);
+                
+                if ($count === false) {
+                    $member_count = get_posts(array(
+                        'post_type' => 'mpa_member',
+                        'post_status' => 'publish',
+                        'meta_query' => array(
+                            array(
+                                'key' => '_member_vertical',
+                                'value' => $key
+                            )
+                        ),
+                        'fields' => 'ids',
+                        'numberposts' => -1
+                    ));
+                    $count = count($member_count);
+                    set_transient($cache_key, $count, 24 * HOUR_IN_SECONDS);
+                }
+                
+                $icon = isset($icons[$key]) ? $icons[$key] : 'fa-folder';
+                $css_class = isset($css_classes[$key]) ? $css_classes[$key] : 'plan-category';
+                $description = strtolower(implode(', ', $vertical['categories'])) . '.';
+            ?>
+            <div class="category-card <?php echo esc_attr($css_class); ?>">
+                <i class="fas <?php echo esc_attr($icon); ?>"></i>
+                <h3><?php echo esc_html($vertical['name']); ?></h3>
+                <p><?php echo esc_html(ucfirst($description)); ?></p>
                 <div class="subcategories">
-                    <span class="subcategory">Feasibility</span>
-                    <span class="subcategory">Land Use</span>
-                    <span class="subcategory">Design</span>
-                    <span class="subcategory">BIM/Digital Twins</span>
-                    <span class="subcategory">Modular</span>
-                    <span class="subcategory">Carbon/Supply Chain</span>
-                    <span class="subcategory">Resilience</span>
-                    <span class="subcategory">Permitting</span>
+                    <?php foreach ($vertical['categories'] as $category): ?>
+                        <span class="subcategory"><?php echo esc_html($category); ?></span>
+                    <?php endforeach; ?>
                 </div>
-                <div class="category-count">15+ Members</div>
+                <div class="category-count"><?php echo $count; ?>+ Members</div>
             </div>
-            <div class="category-card transact-category">
-                <i class="fas fa-exchange-alt"></i>
-                <h3>MARKET & TRANSACT</h3>
-                <p>Sales, leasing, finance, marketplaces, CRM, digital contracts, title/registry, crowdfunding/tokenized REITs.</p>
-                <div class="subcategories">
-                    <span class="subcategory">Sales</span>
-                    <span class="subcategory">Leasing</span>
-                    <span class="subcategory">Finance</span>
-                    <span class="subcategory">Marketplaces</span>
-                    <span class="subcategory">CRM</span>
-                    <span class="subcategory">Digital Contracts</span>
-                    <span class="subcategory">Title/Registry</span>
-                    <span class="subcategory">Crowdfunding/Tokenized REITs</span>
-                </div>
-                <div class="category-count">18+ Members</div>
-            </div>
-            <div class="category-card manage-category">
-                <i class="fas fa-cogs"></i>
-                <h3>OPERATE & MANAGE</h3>
-                <p>Property/facility mgmt, IoT, utilities, tenant/citizen experience, mobility integration, health/wellness, cybersecurity.</p>
-                <div class="subcategories">
-                    <span class="subcategory">Property/Facility Mgmt</span>
-                    <span class="subcategory">IoT</span>
-                    <span class="subcategory">Utilities</span>
-                    <span class="subcategory">Tenant/Citizen Experience</span>
-                    <span class="subcategory">Mobility Integration</span>
-                    <span class="subcategory">Health/Wellness</span>
-                    <span class="subcategory">Cybersecurity</span>
-                </div>
-                <div class="category-count">25+ Members</div>
-            </div>
-            <div class="category-card plan-category">
-                <i class="fas fa-recycle"></i>
-                <h3>REINVEST, REPORT & REGENERATE</h3>
-                <p>ESG & financial reporting, portfolio analytics, regeneration, recycling, circular economy, deconstruction.</p>
-                <div class="subcategories">
-                    <span class="subcategory">ESG & Financial Reporting</span>
-                    <span class="subcategory">Portfolio Analytics</span>
-                    <span class="subcategory">Regeneration</span>
-                    <span class="subcategory">Recycling</span>
-                    <span class="subcategory">Circular Economy</span>
-                    <span class="subcategory">Deconstruction</span>
-                </div>
-                <div class="category-count">10+ Members</div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -106,11 +102,70 @@ document.title = 'Members |';
             <p>Showcasing some of our most innovative and active members</p>
         </div>
         <div class="members-grid" id="featuredMembersGrid">
-            <!-- Featured members will be populated dynamically from member directory -->
+            <?php
+            // Query featured members
+            $featured_members = new WP_Query(array(
+                'post_type' => 'mpa_member',
+                'posts_per_page' => -1,
+                'post_status' => 'publish',
+                'meta_key' => '_member_featured',
+                'meta_value' => '1',
+                'orderby' => 'title',
+                'order' => 'ASC'
+            ));
+            
+            if ($featured_members->have_posts()) {
+                while ($featured_members->have_posts()) {
+                    $featured_members->the_post();
+                    $member_id = get_the_ID();
+                    $categories = get_post_meta($member_id, '_member_categories', true);
+                    $subcategory = get_post_meta($member_id, '_member_subcategory', true);
+                    $website = get_post_meta($member_id, '_member_website', true);
+                    $logo_id = get_post_thumbnail_id($member_id);
+                    $logo_url = $logo_id ? wp_get_attachment_image_url($logo_id, 'large') : '';
+                    
+                    // Use subcategory if available, otherwise fall back to categories
+                    $display_cats = $subcategory ? $subcategory : $categories;
+                    ?>
+                    <div class="member-card clickable-card" onclick="window.location.href='<?php echo get_permalink(); ?>';" style="cursor: pointer;">
+                        <div class="featured-tag">FEATURED</div>
+                        <div class="member-logo">
+                            <?php if ($logo_url): ?>
+                                <a href="<?php echo get_permalink(); ?>"><img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy"></a>
+                            <?php else: ?>
+                                <div class="member-placeholder"><?php echo esc_html(substr(get_the_title(), 0, 1)); ?></div>
+                            <?php endif; ?>
+                        </div>
+                        <h3><a href="<?php echo get_permalink(); ?>" style="color: inherit; text-decoration: none;"><?php the_title(); ?></a></h3>
+                        <?php if ($display_cats): ?>
+                        <div class="member-categories">
+                            <?php
+                            $cats_array = array_map('trim', explode(',', $display_cats));
+                            $limited_cats = array_slice($cats_array, 0, 2);
+                            foreach ($limited_cats as $cat) {
+                                echo '<span class="member-category">' . esc_html($cat) . '</span>';
+                            }
+                            ?>
+                        </div>
+                        <?php endif; ?>
+                        <p class="member-description"><?php echo wp_strip_all_tags(get_the_content()); ?></p>
+                        <div class="member-actions" onclick="event.stopPropagation();">
+                            <a href="<?php echo get_permalink(); ?>" class="btn-primary" style="margin-right: 10px;">View Profile</a>
+                            <?php if ($website): ?>
+                            <a href="<?php echo esc_url($website); ?>" class="btn-outline" target="_blank" rel="noopener">View Website</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php
+                }
+                wp_reset_postdata();
+            } else {
+                echo '<p>No featured members yet. Select members to feature in the WordPress admin.</p>';
+            }
+            ?>
         </div>
     </div>
 </section>
-
 <!-- Member Benefits -->
 <section class="member-benefits">
     <div class="container">
@@ -204,100 +259,64 @@ document.title = 'Members |';
             </div>
         </div>
         <div class="directory-grid">
-            <div class="directory-item" data-categories="crowdfunding fintech">
+            <?php
+            // Query all members dynamically
+            $members_query = new WP_Query(array(
+                'post_type' => 'mpa_member',
+                'posts_per_page' => -1,
+                'post_status' => 'publish',
+                'orderby' => 'title',
+                'order' => 'ASC'
+            ));
+            
+            if ($members_query->have_posts()) {
+                while ($members_query->have_posts()) {
+                    $members_query->the_post();
+                    $member_id = get_the_ID();
+                    $categories = get_post_meta($member_id, '_member_categories', true);
+                    $website = get_post_meta($member_id, '_member_website', true);
+                    $logo_id = get_post_thumbnail_id($member_id);
+                    $logo_url = $logo_id ? wp_get_attachment_image_url($logo_id, 'large') : '';
+                    $data_cats = strtolower(str_replace(',', ' ', str_replace(', ', ' ', $categories)));
+                    ?>
+            <div class="directory-item clickable-card" data-categories="<?php echo esc_attr($data_cats); ?>" onclick="window.location.href='<?php echo get_permalink(); ?>';" style="cursor: pointer;">
                 <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/pitchin-logo.png" alt="pitchIN">
+                    <?php if ($logo_url): ?>
+                        <a href="<?php echo get_permalink(); ?>"><img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy"></a>
+                    <?php else: ?>
+                        <div class="member-placeholder"><?php echo esc_html(substr(get_the_title(), 0, 1)); ?></div>
+                    <?php endif; ?>
                 </div>
                 <div class="member-info">
-                    <h3>pitchIN</h3>
+                    <h3><a href="<?php echo get_permalink(); ?>" style="color: inherit; text-decoration: none;"><?php the_title(); ?></a></h3>
+                    <?php if ($categories): ?>
                     <div class="member-categories">
-                        <span class="member-category">Crowdfunding</span>
-                        <span class="member-category">Fintech</span>
+                        <?php
+                        $cats_array = array_map('trim', explode(',', $categories));
+                        foreach ($cats_array as $cat) {
+                            echo '<span class="member-category">' . esc_html($cat) . '</span>';
+                        }
+                        ?>
                     </div>
-                    <p class="member-description">Crowdfunding platform for democratisation of fundraising and investing</p>
+                    <?php endif; ?>
+                    <p class="member-description"><?php echo wp_strip_all_tags(get_the_content()); ?></p>
                 </div>
-                <div class="member-actions">
-                    <a href="https://www.pitchin.my/" class="btn-outline" target="_blank">View Website</a>
+                <div class="member-actions" onclick="event.stopPropagation();">
+                    <a href="<?php echo get_permalink(); ?>" class="btn-primary" style="margin-right: 10px;">View Profile</a>
+                    <?php if ($website): ?>
+                    <a href="<?php echo esc_url($website); ?>" class="btn-outline" target="_blank" rel="noopener">View Website</a>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="directory-item" data-categories="rental-marketplace">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/homii-logo.png" alt="HOMII Management">
-                </div>
-                <div class="member-info">
-                    <h3>HOMII Management Sdn Bhd</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Rental Marketplace</span>
-                    </div>
-                    <p class="member-description">Room rental service inspired by co-living concept</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://homii.com.my/" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="contech">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/speedbrick-logo-new.png" alt="Speedbrick">
-                </div>
-                <div class="member-info">
-                    <h3>Speedbrick Sdn Bhd</h3>
-                    <div class="member-categories">
-                        <span class="member-category">ConTech</span>
-                    </div>
-                    <p class="member-description">Nuveq Mobile Access allows you to use your own smartphone as a key to access doors, facilities, and more.</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://speedbrick.com.my/" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="fintech">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/axai-logo.png" alt="Axai Digital">
-                </div>
-                <div class="member-info">
-                    <h3>Axai Digital Sdn Bhd</h3>
-                    <div class="member-categories">
-                        <span class="member-category">Fintech</span>
-                    </div>
-                    <p class="member-description">Axaipay is the digital payments and fintech business. Axaipay offers a smarter, faster and safer payment gateway solution for businesses.</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://axaipay.com/" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="iot property-management">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/icares-logo.png" alt="iCares Technology">
-                </div>
-                <div class="member-info">
-                    <h3>iCares Technology Sdn Bhd</h3>
-                    <div class="member-categories">
-                        <span class="member-category">IoT</span>
-                    </div>
-                    <p class="member-description">iCares Technology is the Malaysia's first most innovative property management platform with Smart IoT technology & designed for modern property management needs.</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://icares.com.my/" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
-            <div class="directory-item" data-categories="iot">
-                <div class="member-logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/nuveq-logo.png" alt="Nuveq">
-                </div>
-                <div class="member-info">
-                    <h3>Nuveq Sdn Bhd</h3>
-                    <div class="member-categories">
-                        <span class="member-category">IoT</span>
-                    </div>
-                    <p class="member-description">Nuveq Mobile Access allows you to use your own smartphone as a key to access doors, facilities, and more.</p>
-                </div>
-                <div class="member-actions">
-                    <a href="https://nuveq.com.my/" class="btn-outline" target="_blank">View Website</a>
-                </div>
-            </div>
+                    <?php
+                }
+                wp_reset_postdata();
+            }
+            ?>
         </div>
     </div>
 </section>
+
 
 <!-- Join CTA -->
 <section class="join-cta">
@@ -321,69 +340,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const verticalFilter = document.querySelector('.vertical-filter');
     const categoryFilter = document.querySelector('.category-filter');
     const directoryItems = document.querySelectorAll('.directory-item');
-
-    // Featured members functionality
-    const featuredMembersGrid = document.getElementById('featuredMembersGrid');
-    if (featuredMembersGrid) {
-        populateFeaturedMembers();
-    }
-    
-    function populateFeaturedMembers() {
-        // Get the first 6 member directory items
-        const firstSixMembers = Array.from(directoryItems).slice(0, 6);
-        
-        firstSixMembers.forEach(memberItem => {
-            // Clone the member item
-            const clonedMember = memberItem.cloneNode(true);
-            
-            // Convert to featured member card format
-            const memberCard = document.createElement('div');
-            memberCard.className = 'member-card';
-            
-            // Get the logo
-            const logo = clonedMember.querySelector('.member-logo img');
-            const logoDiv = document.createElement('div');
-            logoDiv.className = 'member-logo';
-            logoDiv.appendChild(logo.cloneNode(true));
-            
-            // Get the name
-            const name = clonedMember.querySelector('h3');
-            const nameH3 = document.createElement('h3');
-            nameH3.textContent = name.textContent;
-            
-            // Get the categories
-            const categories = clonedMember.querySelector('.member-categories');
-            const categoriesDiv = categories.cloneNode(true);
-            
-            // Get the description
-            const description = clonedMember.querySelector('.member-description');
-            const descriptionP = document.createElement('p');
-            descriptionP.className = 'member-description';
-            descriptionP.textContent = description.textContent;
-            
-            // Get the action button
-            const action = clonedMember.querySelector('.member-actions a');
-            const actionDiv = document.createElement('div');
-            actionDiv.className = 'member-actions';
-            actionDiv.appendChild(action.cloneNode(true));
-            
-            // Create featured tag
-            const featuredTag = document.createElement('div');
-            featuredTag.className = 'featured-tag';
-            featuredTag.textContent = 'FEATURED';
-            
-            // Assemble the member card
-            memberCard.appendChild(logoDiv);
-            memberCard.appendChild(nameH3);
-            memberCard.appendChild(categoriesDiv);
-            memberCard.appendChild(descriptionP);
-            memberCard.appendChild(actionDiv);
-            memberCard.appendChild(featuredTag);
-            
-            // Add to featured members grid
-            featuredMembersGrid.appendChild(memberCard);
-        });
-    }
 
     function filterMembers() {
         const searchTerm = searchInput.value.toLowerCase();

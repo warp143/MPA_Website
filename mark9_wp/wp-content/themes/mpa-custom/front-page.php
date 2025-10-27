@@ -2,7 +2,6 @@
 
 <!-- Set custom page title -->
 <script>
-document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
 </script>
 
 <main id="main" class="site-main">
@@ -235,7 +234,6 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
             initSearchFunctionality();
             initCookieBanner();
         } catch (error) {
-            console.error('Error initializing page:', error);
         }
         
         function initCookieBanner() {
@@ -296,7 +294,6 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
                     }
                 }
             } catch (error) {
-                console.error('Failed to load events for homepage:', error);
                 // Show fallback message
                 const eventsGrid = document.getElementById('homepageEventsGrid');
                 if (eventsGrid) {
@@ -322,7 +319,7 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
             
             card.innerHTML = `
                 <div class="event-image">
-                    <img src="${event.featured_image || '/wp-content/themes/mpa-custom/assets/placeholder-event.svg'}" alt="${event.title}">
+                    <img src="${event.featured_image || '/wp-content/themes/mpa-custom/assets/placeholder-event.svg'}" alt="${event.title}" loading="lazy">
                     <div class="event-badge upcoming">UPCOMING</div>
                     <div class="event-date-badge">
                         <span class="day">${eventDate.getDate()}</span>
@@ -357,13 +354,11 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
             
-            console.log('Initializing search functionality', { searchInput, searchBtn });
             
             if (searchInput && searchBtn) {
                 // Handle search button click
                 searchBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    console.log('Search button clicked');
                     performSearch();
                 });
                 
@@ -371,7 +366,6 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
                 searchInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
-                        console.log('Enter key pressed in search');
                         performSearch();
                     }
                 });
@@ -385,7 +379,6 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
                     });
                 }
             } else {
-                console.log('Search elements not found');
             }
             
             function performSearch() {
@@ -396,7 +389,6 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
                     return;
                 }
                 
-                console.log('Performing search for:', query);
                 
                 // Define searchable content
                 const searchableContent = {
@@ -450,7 +442,6 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
                     showSearchNotification(`Found ${results.length} result(s) for "${query}". Click to navigate.`, 'success');
                     
                     // Don't auto-redirect, let user click to navigate
-                    console.log('Search results:', results);
                 } else {
                     showSearchNotification(`No results found for "${query}"`, 'error');
                 }
@@ -538,7 +529,7 @@ document.title = '<?php echo esc_js(get_bloginfo('name')); ?>';
             
             card.innerHTML = `
                 <div class="partner-logo">
-                    <img src="${partner.logo}" alt="${partner.name}" onerror="this.style.display='none'">
+                    <img src="${partner.logo}" alt="${partner.name}" onerror="this.style.display='none'" loading="lazy">
                 </div>
                 <h3>${partner.name}</h3>
                 <p class="partner-category">${partner.category}</p>

@@ -2,7 +2,6 @@
 
 <!-- Set custom page title -->
 <script>
-document.title = 'News & Resources |';
 </script>
 
 <!-- Hero Section -->

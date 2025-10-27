@@ -1,5 +1,4 @@
 jQuery(document).ready(function($) {
-    console.log('MPA Image Processor: Script loaded');
     
     let cropper = null;
     let currentImagePath = null;
@@ -9,16 +8,13 @@ jQuery(document).ready(function($) {
     
     // Prevent multiple initialization
     if (window.mpaProcessorInitialized) {
-        console.log('MPA Image Processor: Already initialized, skipping');
         return;
     }
     window.mpaProcessorInitialized = true;
     
-    console.log('MPA Image Processor: Initializing interface');
     initInterface();
     
     function initInterface() {
-        console.log('MPA Image Processor: Setting up event handlers');
         
         // Clean up any existing handlers first
         $('#imageInput').off();
@@ -33,7 +29,6 @@ jQuery(document).ready(function($) {
         $('.modern-upload-btn, #uploadBtn').on('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('MPA Image Processor: Upload button clicked');
             document.getElementById('imageInput').click();
         });
         
@@ -42,7 +37,6 @@ jQuery(document).ready(function($) {
             if (!$(e.target).is('input') && !$(e.target).hasClass('modern-upload-btn')) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('MPA Image Processor: Upload area clicked');
                 document.getElementById('imageInput').click();
             }
         });
@@ -64,22 +58,18 @@ jQuery(document).ready(function($) {
     }
     
     function handleImageUpload(e) {
-        console.log('MPA Image Processor: File input changed, files count:', e.target.files.length);
         
         const file = e.target.files[0];
         if (file) {
-            console.log('MPA Image Processor: Processing selected file:', file.name);
             originalFileName = file.name;
             
             if (typeof mpa_ajax === 'undefined') {
-                console.error('MPA Image Processor: mpa_ajax is not defined!');
                 alert('Error: Plugin not properly loaded. Please refresh the page.');
                 return;
             }
             
             // Compress and upload
             compressImage(file, function(compressedFile) {
-                console.log('MPA Image Processor: Compressed from', (file.size / 1024 / 1024).toFixed(2) + 'MB to', (compressedFile.size / 1024 / 1024).toFixed(2) + 'MB');
                 uploadFile(compressedFile);
             });
         }
@@ -124,7 +114,6 @@ jQuery(document).ready(function($) {
     }
     
     function uploadFile(file) {
-        console.log('MPA Image Processor: uploadFile() called');
         
         $('.upload-area').html('<p>⏳ Uploading compressed file...</p>');
         
@@ -140,10 +129,8 @@ jQuery(document).ready(function($) {
             processData: false,
             contentType: false,
             success: function(response) {
-                console.log('MPA Image Processor: AJAX success response:', response);
                 if (response.success) {
                     currentImagePath = response.data.image_path;
-                    console.log('MPA Image Processor: Upload successful! Now showing crop section...');
                     showCropSection(response.data.image_url);
                 } else {
                     alert('Upload failed: ' + response.data);
@@ -151,7 +138,6 @@ jQuery(document).ready(function($) {
                 }
             },
             error: function(xhr, status, error) {
-                console.error('MPA Image Processor: AJAX error:', xhr, status, error);
                 alert('Upload failed. Error: ' + error);
                 resetInterface();
             }
@@ -159,7 +145,6 @@ jQuery(document).ready(function($) {
     }
     
     function showCropSection(imageUrl) {
-        console.log('MPA Image Processor: showCropSection() called with URL:', imageUrl);
         $('#uploadSection').hide();
         $('#cropSection').show();
         
@@ -197,7 +182,6 @@ jQuery(document).ready(function($) {
                 rotatable: false,
                 movable: false,
                 ready: function() {
-                    console.log('Cropper initialized successfully');
                     const canvasData = this.cropper.getCanvasData();
                     const initialCropBoxData = {
                         left: canvasData.left + (canvasData.width * 0.1),
@@ -382,7 +366,6 @@ jQuery(document).ready(function($) {
         
         // Set 60-second timeout for auto cleanup
         cleanupTimeout = setTimeout(function() {
-            console.log('MPA Image Processor: Auto cleanup triggered after 60 seconds');
             cleanupTempFiles();
         }, 60000); // 60 seconds
     }
@@ -398,10 +381,8 @@ jQuery(document).ready(function($) {
                     image_path: processedImagePath
                 },
                 success: function(response) {
-                    console.log('MPA Image Processor: Cleanup successful');
                 },
                 error: function() {
-                    console.log('MPA Image Processor: Cleanup failed');
                 }
             });
         }
