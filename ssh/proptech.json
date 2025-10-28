@@ -2,7 +2,7 @@
   "server": {
     "hostname": "smaug.cygnusdns.com",
     "username": "proptech",
-    "key_path": "ssh/proptech_mpa"
+    "key_path": "ssh/proptech_mpa_new"
   },
   "wordpress": {
     "site_url": "https://proptech.org.my",

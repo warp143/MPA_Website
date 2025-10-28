@@ -109,19 +109,22 @@ When prompted, enter password: `3MDm*9otf-X~`
 
 ### Method 2: SSH with Key (Recommended)
 ```bash
-# Connect using SSH key
-ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+# Connect using SSH key (generated Oct 28, 2025)
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com
 ```
+
+**SSH Key:**
+- `ssh/proptech_mpa_new` - ED25519 key (Oct 2025) ✅ Active
 
 **First time setup (if needed):**
 ```bash
 # Copy public key to server
-ssh-copy-id -i ssh/proptech_mpa.pub proptech@smaug.cygnusdns.com
+ssh-copy-id -i ssh/proptech_mpa_new.pub proptech@smaug.cygnusdns.com
 ```
 
 **Fix key permissions if needed:**
 ```bash
-chmod 600 ssh/proptech_mpa
+chmod 600 ssh/proptech_mpa_new
 ```
 
 ---
@@ -167,7 +170,7 @@ For quick edits or when the tool isn't available:
 
 ```bash
 # 1. Connect to server
-ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com
 
 # 2. Navigate to theme directory
 cd ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
@@ -497,6 +500,7 @@ If SSH is not available or you prefer a GUI:
    - Username: `proptech`
    - Password: `3MDm*9otf-X~`
 
+kmHuXpp?xJ4en9$7
 2. **Open File Manager**
    - Click "File Manager" icon
    - Navigate to `public_html/proptech.org.my/wp-content/themes/mpa-custom/`
@@ -596,5 +600,5 @@ ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com "cd ~/public_html/proptech.
 ---
 
 **Last Updated**: October 28, 2025  
-**Document Version**: 2.1 (Password Updated)  
+**Document Version**: 2.2 (Password Updated, New SSH Key Generated)  
 **Server Status**: Active (Ubuntu 20.04.6 LTS)
