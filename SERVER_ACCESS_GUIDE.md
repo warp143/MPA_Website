@@ -25,7 +25,7 @@
 - **IP Address**: 103.152.12.27
 - **OS**: Ubuntu 20.04.6 LTS
 - **Username**: proptech
-- **Password**: D!~EzNB$KHbE
+- **Password**: 3MDm*9otf-X~
 - **Disk Usage**: 75% (352GB/494GB used)
 
 ### Important URLs
@@ -105,7 +105,7 @@ Select file to edit: 1
 ```bash
 ssh proptech@smaug.cygnusdns.com
 ```
-When prompted, enter password: `D!~EzNB$KHbE`
+When prompted, enter password: `3MDm*9otf-X~`
 
 ### Method 2: SSH with Key (Recommended)
 ```bash
@@ -495,7 +495,7 @@ If SSH is not available or you prefer a GUI:
 1. **Login to cPanel**
    - URL: https://smaug.cygnusdns.com:2083
    - Username: `proptech`
-   - Password: `D!~EzNB$KHbE`
+   - Password: `3MDm*9otf-X~`
 
 2. **Open File Manager**
    - Click "File Manager" icon
@@ -595,9 +595,6 @@ ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com "cd ~/public_html/proptech.
 
 ---
 
-**Last Updated**: October 20, 2025  
-**Document Version**: 2.0 (Merged)  
+**Last Updated**: October 28, 2025  
+**Document Version**: 2.1 (Password Updated)  
 **Server Status**: Active (Ubuntu 20.04.6 LTS)
-
-MPA@Secure2025#9237a935
-PropTech2025#Secure!09ba562c
