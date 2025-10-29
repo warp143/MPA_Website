@@ -1244,6 +1244,8 @@ function mpa_event_details_callback($post) {
     $event_start_time = get_post_meta($post->ID, '_event_start_time', true);
     $event_end_time = get_post_meta($post->ID, '_event_end_time', true);
     $event_location = get_post_meta($post->ID, '_event_location', true);
+    $event_waze_url = get_post_meta($post->ID, '_event_waze_url', true);
+    $event_google_maps_url = get_post_meta($post->ID, '_event_google_maps_url', true);
     $event_price = get_post_meta($post->ID, '_event_price', true);
     $event_registration_url = get_post_meta($post->ID, '_event_registration_url', true);
     $event_status = get_post_meta($post->ID, '_event_status', true);
@@ -1285,6 +1287,24 @@ function mpa_event_details_callback($post) {
             <td>
                 <input type="text" id="event_location" name="event_location" value="<?php echo esc_attr($event_location); ?>" class="regular-text" />
                 <p class="description"><?php _e('Event location (e.g., Kuala Lumpur, Online Webinar).', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="event_waze_url"><?php _e('Waze URL', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="url" id="event_waze_url" name="event_waze_url" value="<?php echo esc_attr($event_waze_url); ?>" class="regular-text" />
+                <p class="description"><?php _e('Waze navigation link (optional).', 'mpa-custom'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="event_google_maps_url"><?php _e('Google Maps URL', 'mpa-custom'); ?></label>
+            </th>
+            <td>
+                <input type="url" id="event_google_maps_url" name="event_google_maps_url" value="<?php echo esc_attr($event_google_maps_url); ?>" class="regular-text" />
+                <p class="description"><?php _e('Google Maps link (optional).', 'mpa-custom'); ?></p>
             </td>
         </tr>
         <tr>
@@ -1365,6 +1385,8 @@ function mpa_save_event_details($post_id) {
         'event_start_time',
         'event_end_time',
         'event_location',
+        'event_waze_url',
+        'event_google_maps_url',
         'event_price',
         'event_registration_url',
         'event_status',
@@ -3041,6 +3063,7 @@ function add_registration_list_columns($columns) {
         'phone' => 'Phone',
         'company' => 'Company',
         'job_title' => 'Job Title',
+        'membership_status' => 'Membership',
         'dietary' => 'Dietary',
         'registered_date' => 'Registered'
     );
@@ -3062,7 +3085,12 @@ function show_registration_list_columns($column, $post_id) {
             if ($event_id) {
                 $event = get_post($event_id);
                 if ($event) {
+                    $event_date = get_post_meta($event_id, '_event_date', true);
+                    $date_display = $event_date ? date('M j, Y', strtotime($event_date)) : '';
                     echo '<a href="' . get_permalink($event_id) . '" target="_blank">' . esc_html($event->post_title) . '</a>';
+                    if ($date_display) {
+                        echo '<br><small style="color:#666;">' . esc_html($date_display) . '</small>';
+                    }
                 } else {
                     echo '<span style="color:#999;">Event not found</span>';
                 }
@@ -3112,6 +3140,17 @@ function show_registration_list_columns($column, $post_id) {
                     case 'vegetarian':
                         $icon = '🥗';
                         break;
+
+            case 'membership_status':
+                $membership_status = get_post_meta($post_id, '_membership_status', true);
+                if ($membership_status) {
+                    $status_label = ($membership_status === 'mpa_member') ? 'MPA Member' : 'Non-MPA Member';
+                    $badge_color = ($membership_status === 'mpa_member') ? '#007AFF' : '#999';
+                    echo '<span style="display:inline-block;padding:4px 8px;background:' . $badge_color . ';color:white;border-radius:4px;font-size:11px;font-weight:600;">' . esc_html($status_label) . '</span>';
+                } else {
+                    echo '<span style="color:#999;">—</span>';
+                }
+                break;
                     case 'vegan':
                         $icon = '🌱';
                         break;
