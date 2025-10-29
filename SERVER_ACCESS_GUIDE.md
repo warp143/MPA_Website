@@ -209,7 +209,7 @@ front-page.php.backup.20251020_140530
 
 **To restore from backup:**
 ```bash
-ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com
 cd ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
 cp front-page.php.backup.20251020_140530 front-page.php
 ```
@@ -259,7 +259,7 @@ The server has WP-CLI installed for command-line WordPress management:
 
 ```bash
 # SSH to server
-ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com
 
 # Navigate to WordPress directory
 cd ~/public_html/proptech.org.my/
@@ -371,7 +371,7 @@ Located in `/home/proptech/`:
 
 ```bash
 # SSH to server
-ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com
 
 # Create full backup
 tar -czf backup-$(date +%m.%d.%Y_%H-%M-%S)_proptech.tar.gz public_html/
@@ -410,10 +410,10 @@ tar -czf ~/backup-theme-$(date +%m.%d.%Y_%H-%M-%S).tar.gz mpa-custom/
 **Permission Denied:**
 ```bash
 # Fix SSH key permissions
-chmod 600 ssh/proptech_mpa
+chmod 600 ssh/proptech_mpa_new
 
 # Verify key exists
-ls -la ssh/proptech_mpa
+ls -la ssh/proptech_mpa_new
 ```
 
 **Host Key Verification Failed:**
@@ -422,7 +422,7 @@ ls -la ssh/proptech_mpa
 ssh-keygen -R smaug.cygnusdns.com
 
 # Or connect with StrictHostKeyChecking=no
-ssh -i ssh/proptech_mpa -o StrictHostKeyChecking=no proptech@smaug.cygnusdns.com
+ssh -i ssh/proptech_mpa_new -o StrictHostKeyChecking=no proptech@smaug.cygnusdns.com
 ```
 
 ### File Issues
@@ -439,7 +439,7 @@ chmod 644 filename.php
 **File Not Found:**
 ```bash
 # Verify the remote path exists
-ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com "ls -la ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/"
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com "ls -la ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/"
 ```
 
 ### WordPress Issues
@@ -447,7 +447,7 @@ ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com "ls -la ~/public_html/propt
 **Check Error Logs:**
 ```bash
 # SSH to server
-ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com
 
 # View recent errors
 tail -f ~/logs/error_log
@@ -534,7 +534,7 @@ For content editing (not theme files):
 
 1. **Restore from automatic backup:**
    ```bash
-   ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+   ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com
    cd ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
    ls -lt *.backup.* | head -5  # Find recent backups
    cp front-page.php.backup.20251020_140530 front-page.php
@@ -573,10 +573,10 @@ python3 tools/edit_live_theme.py  # Select 1
 python3 tools/view_live_file.py ~/public_html/proptech.org.my/wp-content/themes/mpa-custom/front-page.php
 
 # SSH to server
-ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com
 
 # Check WordPress version
-ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com "cd ~/public_html/proptech.org.my && wp core version"
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com "cd ~/public_html/proptech.org.my && wp core version"
 ```
 
 ### File Paths Cheatsheet
