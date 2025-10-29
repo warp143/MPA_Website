@@ -500,7 +500,6 @@ If SSH is not available or you prefer a GUI:
    - Username: `proptech`
    - Password: `3MDm*9otf-X~`
 
-kmHuXpp?xJ4en9$7
 2. **Open File Manager**
    - Click "File Manager" icon
    - Navigate to `public_html/proptech.org.my/wp-content/themes/mpa-custom/`
@@ -519,11 +518,13 @@ kmHuXpp?xJ4en9$7
 For content editing (not theme files):
 
 1. Go to https://proptech.org.my/wp-admin/
-2. Login with WordPress credentials
+2. Login with WordPress credentials:
+   - **Username**: `admin_amk`
+   - **Password**: `d4Hw0pMJm23zXLD2i51R3Prb`
 3. Use Appearance → Theme File Editor (if enabled)
 4. Edit content through Pages/Posts
 
-⚠️ **Note**: Theme File Editor may be disabled for security. Use the interactive tool instead.
+⚠️ **Note**: Theme File Editor is disabled for security. Use the interactive tool instead.
 
 ---
 
@@ -599,6 +600,6 @@ ssh -i ssh/proptech_mpa proptech@smaug.cygnusdns.com "cd ~/public_html/proptech.
 
 ---
 
-**Last Updated**: October 28, 2025  
-**Document Version**: 2.2 (Password Updated, New SSH Key Generated)  
+**Last Updated**: October 29, 2025  
+**Document Version**: 2.3 (WordPress admin_amk password reset)  
 **Server Status**: Active (Ubuntu 20.04.6 LTS)
