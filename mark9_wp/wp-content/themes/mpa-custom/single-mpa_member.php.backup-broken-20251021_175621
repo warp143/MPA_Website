@@ -1,0 +1,289 @@
+<?php get_header(); ?>
+
+<!-- Set custom page title -->
+<script>
+document.title = '<?php echo esc_js(get_the_title()); ?> | Members';
+</script>
+
+<!-- Member Profile Section -->
+<section class="member-profile">
+    <div class="container">
+        <?php while (have_posts()) : the_post(); ?>
+            <?php
+            // Get all member metadata
+            $website = get_post_meta(get_the_ID(), '_member_website', true);
+            $vertical = get_post_meta(get_the_ID(), '_member_vertical', true);
+            $categories = get_post_meta(get_the_ID(), '_member_categories', true);
+            $contact_name = get_post_meta(get_the_ID(), '_contact_name', true);
+            $contact_email = get_post_meta(get_the_ID(), '_contact_email', true);
+            $contact_phone = get_post_meta(get_the_ID(), '_contact_phone', true);
+            $is_featured = get_post_meta(get_the_ID(), '_member_featured', true);
+            ?>
+            
+            <div class="member-profile-header">
+                <div class="member-logo">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('large', array('alt' => get_the_title() . ' Logo')); ?>
+                    <?php else : ?>
+                        <div class="no-logo">
+                            <i class="fas fa-building" style="font-size: 60px; color: #ccc;"></i>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                
+                <div class="member-info">
+                    <h1 class="member-name"><?php the_title(); ?></h1>
+                    
+                    <?php if ($is_featured == '1') : ?>
+                        <div class="featured-badge">
+                            <i class="fas fa-star"></i> Featured Member
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if ($vertical) : ?>
+                        <div class="member-vertical">
+                            <strong>Focus Area:</strong> <?php echo esc_html($vertical); ?>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if ($categories) : ?>
+                        <div class="member-categories">
+                            <strong>Specialties:</strong>
+                            <?php
+                            $cat_array = explode(', ', $categories);
+                            foreach ($cat_array as $cat) {
+                                echo '<span class="category-tag">' . esc_html($cat) . '</span>';
+                            }
+                            ?>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if ($website) : ?>
+                        <div class="member-website">
+                            <a href="<?php echo esc_url($website); ?>" target="_blank" class="btn-primary">
+                                <i class="fas fa-globe"></i> Visit Website
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            
+            <?php if (get_the_content()) : ?>
+                <div class="member-description">
+                    <h2>About <?php the_title(); ?></h2>
+                    <div class="description-content">
+                        <?php the_content(); ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            
+            <?php if ($contact_name || $contact_email || $contact_phone) : ?>
+                <div class="member-contact">
+                    <h2>Contact Information</h2>
+                    <div class="contact-grid">
+                        <?php if ($contact_name) : ?>
+                            <div class="contact-item">
+                                <i class="fas fa-user"></i>
+                                <div>
+                                    <strong>Contact Person</strong>
+                                    <p><?php echo esc_html($contact_name); ?></p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php if ($contact_email) : ?>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email</strong>
+                                    <p><a href="mailto:<?php echo esc_attr($contact_email); ?>"><?php echo esc_html($contact_email); ?></a></p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php if ($contact_phone) : ?>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone</strong>
+                                    <p><a href="tel:<?php echo esc_attr($contact_phone); ?>"><?php echo esc_html($contact_phone); ?></a></p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            
+        <?php endwhile; ?>
+        
+        <div class="member-actions">
+            <a href="<?php echo esc_url(home_url('/members/')); ?>" class="btn-outline">
+                <i class="fas fa-arrow-left"></i> Back to Members
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+.member-profile {
+    padding: 60px 0;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.member-profile-header {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    align-items: start;
+}
+
+.member-logo img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    background: white;
+}
+
+.no-logo {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--bg-secondary);
+}
+
+.member-name {
+    margin: 0 0 15px 0;
+    font-size: 2.5rem;
+    color: var(--accent-blue);
+}
+
+.featured-badge {
+    background: var(--accent-red);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.member-vertical {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.member-categories {
+    margin-bottom: 20px;
+}
+
+.category-tag {
+    display: inline-block;
+    background: var(--accent-blue);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.member-website {
+    margin-top: 20px;
+}
+
+.member-description, .member-contact {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 2px solid var(--border-color);
+}
+
+.member-description h2, .member-contact h2 {
+    color: var(--accent-blue);
+    margin-bottom: 20px;
+    white-space: nowrap !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+}
+
+.description-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+}
+
+.contact-item i {
+    font-size: 1.2rem;
+    color: var(--accent-blue);
+    margin-top: 5px;
+}
+
+.contact-item strong {
+    display: block;
+    color: var(--accent-blue);
+    margin-bottom: 5px;
+}
+
+.contact-item p {
+    margin: 0;
+}
+
+.contact-item a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    color: var(--accent-blue);
+}
+
+.member-actions {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+    .member-profile-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .member-logo img, .no-logo {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<?php get_footer(); ?>

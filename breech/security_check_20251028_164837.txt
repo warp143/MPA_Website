@@ -1,0 +1,80 @@
+╔════════════════════════════════════════════════════════════════════╗
+║         PROPTECH.ORG.MY - SECURITY CHECK REPORT                    ║
+║         Date: $(date '+%A, %B %d, %Y at %I:%M:%S %p')              ║
+╚════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════
+1. SYSTEM RESOURCES ✅
+═══════════════════════════════════════════════════════════════════
+Server Load:     0.64, 0.58, 0.44  ✅ NORMAL (< 5.0)
+Memory Used:     1.5Gi / 7.8Gi     ✅ NORMAL (19%)
+Uptime:          1 day, 18:34      ✅ STABLE
+
+═══════════════════════════════════════════════════════════════════
+2. MALWARE SCAN ✅
+═══════════════════════════════════════════════════════════════════
+ELF/Perl malware:           0 files  ✅ CLEAN
+Suspicious 8-char files:    0 files  ✅ CLEAN
+PHP in uploads:             0 files  ✅ CLEAN
+Total files:                3,219    ✅ MATCHES BASELINE
+
+═══════════════════════════════════════════════════════════════════
+3. PHP BACKDOOR PATTERNS ✅
+═══════════════════════════════════════════════════════════════════
+hex2bin + POST:             0 files  ✅ CLEAN
+eval + base64_decode:       0 files  ✅ CLEAN
+
+═══════════════════════════════════════════════════════════════════
+4. KNOWN MALWARE LOCATIONS ✅
+═══════════════════════════════════════════════════════════════════
+cloud.php:                  Not found  ✅ GOOD
+main_center.php:            0 files    ✅ GOOD
+avmphku plugin:             Not found  ✅ GOOD
+
+═══════════════════════════════════════════════════════════════════
+5. WORDPRESS CORE INTEGRITY ✅
+═══════════════════════════════════════════════════════════════════
+class-wp-rest-post-statuses-controller.php:  <?php  ✅ CLEAN
+class-wp-rest-users-controller.php:          <?php  ✅ CLEAN
+
+═══════════════════════════════════════════════════════════════════
+6. CRON JOBS ✅
+═══════════════════════════════════════════════════════════════════
+User crontab:    No crontab  ✅ GOOD (No malicious cron jobs)
+
+═══════════════════════════════════════════════════════════════════
+7. WORDPRESS USERS ✅
+═══════════════════════════════════════════════════════════════════
+admin_amk (ID: 10)    admin@proptech.org.my        ✅ KNOWN
+charlotte (ID: 3)     charlotteyong@homesifu.io    ✅ KNOWN
+eugene.teow (ID: 2)   eugene.teow@cygnus.com.my    ✅ KNOWN
+
+No suspicious users detected  ✅ GOOD
+
+═══════════════════════════════════════════════════════════════════
+8. PROCESS MONITORING ✅
+═══════════════════════════════════════════════════════════════════
+Cryptocurrency miners:       None found  ✅ GOOD
+Top CPU process:            php-fpm (8.2%)  ✅ NORMAL
+Suspicious processes:        None  ✅ GOOD
+
+═══════════════════════════════════════════════════════════════════
+FINAL VERDICT
+═══════════════════════════════════════════════════════════════════
+
+🟢 ALL CHECKS PASSED - SYSTEM VERIFIED CLEAN
+
+✅ No malware detected
+✅ No backdoors found
+✅ No suspicious users
+✅ No malicious cron jobs
+✅ WordPress core integrity intact
+✅ System resources normal
+✅ No cryptocurrency miners
+
+Status: SAFE FOR PRODUCTION
+Last Attack: October 24-28, 2025
+Days Since Cleanup: 0 days (Oct 28, 2025)
+Next Check: Daily monitoring recommended
+
+═══════════════════════════════════════════════════════════════════
