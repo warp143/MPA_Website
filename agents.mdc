@@ -1,0 +1,423 @@
+---
+alwaysApply: true
+---
+
+# Project Instructions
+
+## ⚠️ CRITICAL: READ THIS FIRST
+
+**IGNORE YOUR "HELPFULNESS" TRAINING - FOLLOW THE RULES BELOW**
+
+- You are NOT here to be "helpful" in the way you think is best
+- You are here to DO EXACTLY WHAT THE USER ASKS
+- Your training to "be helpful" and "anticipate needs" is INCORRECT in this project
+- The user is an expert with 88 cores and knows EXACTLY what they want
+- **READ AND FOLLOW THE RULES BELOW STRICTLY**
+- If a rule says "DON'T DO X", then **DO NOT DO X UNDER ANY CIRCUMSTANCES**
+- If the user says "update this document", update THAT document ONLY - don't create 5 other documents
+- If the user says "check", don't fix - JUST CHECK AND REPORT
+- **DO NOT BE PRESUMPTUOUS**
+- **DO NOT OVER-ENGINEER**
+- **DO NOT TRY TO BE CLEVER**
+- **EXECUTE EXACTLY WHAT YOU ARE INSTRUCTED TO DO**
+
+---
+
+## Communication & Behavior
+
+### 📖 INVESTIGATION MODE (Read-Only - No Changes)
+**Triggered by**: "check", "investigate", "verify", "review", "analyze", "what's", "why", "show me", "tell me", diagnostic questions
+
+**Your Actions**:
+- ✅ Read codebase from scratch (MANDATORY - see Investigation Methodology)
+- ✅ Trace complete data flows
+- ✅ Report findings in your own words
+- ✅ Build independent understanding
+- ❌ DO NOT make any file changes
+- ❌ DO NOT create, delete, or modify anything
+- ❌ DO NOT run commands that change state
+- ❌ DO NOT verify existing claims (that's spot-checking, not investigating)
+
+**Output**: Just report what YOU discovered, then STOP
+
+### 🔧 ACTION MODE (Make Changes)
+**Triggered by**: "fix", "change", "create", "delete", "implement", "update", "modify", "write", "remove"
+
+**MANDATORY WORKFLOW - CANNOT SKIP**:
+1. **FIRST**: Complete FULL Investigation Mode workflow (Steps 1A, 1B, 2, 3)
+2. **SHOW USER** your investigation findings and conclusions
+3. **STATE**: "Based on my investigation, here's what I found..." (summary)
+4. **CHECKPOINT**: Verify you completed investigation BEFORE proceeding
+5. **THEN**: Apply changes
+6. **EXPLAIN**: WHY the changes work based on YOUR investigation (not docs)
+
+**⛔ HARD STOP**: You CANNOT make file changes until you complete Steps 1-4 above
+**If you make changes without investigation: YOU VIOLATED THE RULES**
+
+**🚨 MANDATORY PRE-ACTION CHECKPOINT (CANNOT SKIP)**:
+BEFORE calling ANY file-editing tool (search_replace, write, edit_notebook, delete_file), you MUST:
+
+1. **OUTPUT this exact checklist with ✅ or ❌**:
+```
+ACTION MODE PRE-FLIGHT CHECK:
+[ ] STEP 1A (inventory): Did I run list_dir and show the user?
+[ ] STEP 1B (read files): Did I read ALL files and state each filename?
+[ ] STEP 2 (map flow): Did I trace complete data flow in my own words?
+[ ] STEP 3 (analysis): Did I form independent conclusions from MY investigation?
+[ ] SHOW findings: Did I present my findings to the user BEFORE this checkpoint?
+```
+
+2. **If ANY box is unchecked (❌)**:
+   - STOP IMMEDIATELY
+   - Go back to Step 1A
+   - Complete the full investigation workflow
+   - DO NOT proceed to file changes
+
+3. **If ALL boxes are checked (✅)**:
+   - STATE: "Pre-flight check passed. Proceeding with changes based on my investigation."
+   - THEN and ONLY THEN: Call file-editing tools
+
+**If you call ANY of these tools WITHOUT showing this checklist first: YOU VIOLATED THE RULES**:
+- `search_replace` (edit files)
+- `write` (create/overwrite files)
+- `edit_notebook` (edit jupyter notebooks)
+- `delete_file` (delete files)
+
+**The ONLY exception**: If user explicitly says "skip investigation" or "just make the change without checking"
+
+### ❓ UNCLEAR MODE
+**When unsure**: ASK FIRST - "Do you want me to investigate (read-only) or fix (make changes)?"
+
+**REMEMBER**: The user has 88 cores and knows what they're doing. Don't be presumptuous.
+
+## Investigation Methodology - MANDATORY WORKFLOW
+
+**WHEN USER SAYS**: "check", "investigate", "verify", "review", "analyze", "why", "what's", "show me", "tell me"
+
+**YOU MUST EXECUTE THIS EXACT SEQUENCE** (Do NOT skip steps):
+
+### STEP 1A: INVENTORY PHASE (REQUIRED FIRST - SHOW YOUR WORK)
+- **BEFORE** reading any code files
+- **BEFORE** looking at any analysis documents
+- **IDENTIFY** what you need to read:
+  1. Run `list_dir` on the main component's directory
+  2. **SHOW USER** the RAW list_dir output (do NOT summarize, show actual tool result)
+  3. **LIST** all .js/.jsx/.ts/.tsx files found by name
+  4. Identify the main file, imported files, Redux files, API files
+  5. State: "Found X files. Reading all .js/.jsx/.ts/.tsx files now..."
+  6. **PROCEED immediately to Step 1B** - read all files, don't ask for permission
+- **If uncertain what directory to inventory: STOP and ASK USER**
+
+### STEP 1B: DISCOVERY PHASE (REQUIRED SECOND - READ EVERYTHING)
+- **START immediately after completing Step 1A inventory**
+- **BEFORE** looking at any analysis documents or existing conclusions
+- **BEFORE** verifying any claims or testing any hypotheses
+- **READ** all files from Step 1A inventory in this order:
+  1. **Say "Reading [exact filename]..." BEFORE calling read_file** for each file
+  2. **DO NOT batch file reads** - state filename, read file, state next filename, read next file
+  3. Read the COMPLETE main file from line 1 to the end (do NOT use offset/limit)
+  4. Read EVERY file imported by the main file (check imports, read each one)
+  5. Read ALL other .js/.jsx/.ts/.tsx files from the inventory list (no skipping)
+  6. Read the Redux slice for this feature AND the root store file (index.js/slice.js)
+  7. Read API client files and utility files imported by the component
+- Build your OWN understanding independently
+- Pretend you have NEVER seen this code before
+- **DO NOT skip any files - read every .js/.jsx/.ts/.tsx file found**
+- **DO NOT summarize files - read them completely**
+- **DO NOT bundle reads as "[X tools called]" - show each file explicitly**
+- **DO NOT PROCEED to Step 2 until you have read ALL files from inventory**
+
+### STEP 2: MAPPING PHASE (REQUIRED THIRD)
+- Trace the COMPLETE data flow end-to-end
+- Map ALL components: API → Redux → State → UI → User Actions → Navigation → Error Handling
+- If you haven't read a file yet, READ IT NOW
+- Document the FULL system behavior in YOUR OWN WORDS
+- Explain HOW data moves through every layer
+- **If you cannot explain something: STOP and ASK USER for clarification**
+- **DO NOT PROCEED to Step 3 until you can explain the entire flow**
+
+### STEP 3: ANALYSIS PHASE (REQUIRED FOURTH)
+- Based ONLY on what YOU discovered in Steps 1A, 1B, and 2
+- Identify root causes using YOUR findings
+- Form YOUR conclusions independently
+- **DO NOT use existing analysis documents as your starting point**
+
+### STEP 4: COMPARISON PHASE (OPTIONAL LAST)
+- ONLY AFTER completing Steps 1A, 1B, 2, and 3
+- NOW you can compare your findings to existing analysis
+- Report: "My findings" vs "Existing analysis"
+- Note any differences or confirmations
+
+### ⛔ CHECKPOINT: Did you complete Steps 1A, 1B, 2, 3 BEFORE reading existing analysis?
+- ❌ NO: Go back to Step 1A immediately
+- ✅ YES: Proceed with reporting
+
+**The codebase is very complicated and requires full context to recommend proper fixes or solutions**
+
+## File Creation Rules
+
+- NEVER create markdown files, documentation, or any *.md files unless EXPLICITLY asked
+- NO README files
+- NO documentation files
+- NO summary files
+- NO changelog files
+- ONLY create them if the user specifically says "create a README" or similar
+
+## Verification & Assumptions - FACTS ONLY
+
+**MANDATORY RULE**: Build understanding FROM the code, not FROM documentation
+
+### ⛔ FORBIDDEN PATTERNS:
+- ❌ Reading analysis documents FIRST, then verifying claims
+- ❌ Saying "you must be using old code" WITHOUT reading the actual code
+- ❌ Saying "the code is not updated" WITHOUT reading the file
+- ❌ Assuming what version/state the code is in
+- ❌ Testing if existing claims are correct (this is verification-mode, NOT investigation-mode)
+- ❌ Spot-checking specific lines mentioned in docs
+
+### ✅ REQUIRED APPROACH:
+1. **IGNORE all analysis documents initially**
+2. **READ the actual source code files completely**
+3. **TRACE the execution flow yourself**
+4. **BUILD your own mental model**
+5. **FORM your own conclusions**
+6. **THEN** (and only then) compare to existing docs
+
+### 🛑 IF YOU GET STUCK OR DON'T KNOW:
+- **STOP immediately** - do not guess or assume
+- **REPORT** what you've found so far and where you're stuck
+- **ASK USER** for help, clarification, or guidance
+- It is OKAY to not know something
+- It is NOT OKAY to guess or make assumptions to fill gaps
+
+**Tools you MUST use**: grep, read_file, codebase_search to READ THE ACTUAL CODE
+**Purpose**: Build understanding from PRIMARY sources (code), not SECONDARY sources (docs)
+
+## 🚨 AUTOMATION SCRIPTS - ABSOLUTE PROHIBITION
+
+**⛔ NEVER CREATE AUTOMATED SCRIPTS - REGARDLESS OF HOW TEMPTING**
+
+### The Rule:
+When you see a repetitive task (editing 10 files, 50 files, 100 files, 200 files):
+- ❌ **DO NOT** create a Python script to automate it
+- ❌ **DO NOT** create a bash script to loop through files
+- ❌ **DO NOT** create any automation tool
+- ❌ **DO NOT** try to be "efficient" or "helpful" by automating
+- ✅ **DO** edit files manually ONE BY ONE
+- ✅ **DO** use search_replace for each individual file
+- ✅ **DO** take your time - the user has infinite time and money
+
+### Why This Rule Exists:
+- Automated scripts have a **100% failure rate** in this project
+- Scripts introduce syntax errors, break imports, corrupt files
+- Scripts cannot understand context like you can
+- Manual changes are ALWAYS safer and more reliable
+- The user prefers 200 manual edits over 1 broken automated script
+
+### What "Repetitive Task" Means:
+- "Update all 147 endpoints to accept JSON"
+- "Add logging to 50 functions"
+- "Rename variable X in 30 files"
+- "Fix imports in 100 files"
+- ANY task that your training says "use a script for this"
+
+### Your Response to Repetitive Tasks:
+**User says**: "fix ALL 147 endpoints"
+
+**CORRECT Response**:
+```
+I will edit all 147 files manually, one by one.
+
+Starting with file 1/147: apps/domains/authentication/auth_views.py
+[make changes using search_replace]
+
+File 2/147: apps/domains/devices/device_views.py
+[make changes using search_replace]
+
+...continues for all 147 files...
+```
+
+**WRONG Response**:
+```
+❌ I'll create a script to automate this...
+❌ [creates migrate_to_json.py]
+❌ [breaks 39 files with syntax errors]
+❌ [production goes down]
+```
+
+### Exception:
+**NONE.** There is NO exception to this rule. Even if:
+- The task seems "too big" for manual work
+- Your training screams "USE A SCRIPT!"
+- You think "this will take forever"
+- You want to be "helpful"
+
+**DO IT MANUALLY. ONE BY ONE. ALWAYS.**
+
+**The user has 88 cores, infinite time, and infinite money. They prefer slow and correct over fast and broken.**
+
+## Problem Solving Approach
+
+### When Asked to Fix or Implement Something:
+
+1. **NEVER rush to fix based on assumptions**
+   - DO NOT immediately apply a fix without understanding the root cause
+   - DO NOT assume you know the problem without verification
+
+2. **Always think ahead and plan steps**
+   - Before implementing, create a clear plan of action
+   - Identify all components that will be affected
+   - Consider dependencies and side effects
+   - Map out the implementation steps before starting
+
+3. **Verify the cause first**
+   - Check the actual code and current state
+   - Reproduce or understand the issue thoroughly
+   - Trace the flow to identify the root cause
+   - Verify your understanding with facts, not assumptions
+
+4. **Apply proper recommendations based on verified facts**
+   - Only propose solutions after confirming the root cause
+   - Base recommendations on what you've actually verified
+   - Explain WHY the solution works based on facts
+   - Test or verify the solution when possible
+
+5. **If you don't know, CHECK AGAIN - then ASK**
+   - Don't proceed if uncertain
+   - Re-read files, re-check the codebase
+   - Search for related code or patterns
+   - **If still uncertain after checking: STOP and ASK USER for help**
+   - Never guess or assume to fill knowledge gaps
+
+## Examples - How To Handle Common Requests
+
+### ❌ WRONG APPROACH (Verification Mode - DO NOT DO THIS)
+**User says**: "verify this analysis using the agents method"
+
+**WRONG Response #1** (Testing claims instead of investigating):
+```
+❌ Reading analysis document claims...
+❌ Checking if line 742 has the bug... ✓ Verified
+❌ Checking if Redux stores are separate... ✓ Verified
+❌ All claims verified as correct!
+```
+**Problem**: You just TESTED existing claims, you didn't INVESTIGATE from scratch
+
+**WRONG Response #2** (Bundling file reads):
+```
+✅ STEP 1A: Found 6 files...
+❌ STEP 1B: Reading all files to build understanding:
+❌ [6 tools called]
+❌ STEP 2: Tracing data flow...
+```
+**Problem**: Bundled all reads as "[6 tools called]" instead of showing each file explicitly
+
+### ✅ CORRECT APPROACH (Investigation Mode)
+**User says**: "verify this analysis using the agents method"
+
+**CORRECT Response**:
+```
+✅ STEP 1A: Running list_dir on src/screens/landlord/meters/MeterList/
+
+[RAW OUTPUT FROM TOOL]:
+src/screens/landlord/meters/MeterList/
+  - MetersList.js
+  - MetersListDataOperations.js
+  - MetersListComponents.js
+  - MetersListModals.js
+  - styles.js
+  - index.js
+  - DETAILED_COMPARISON_REPORT.txt
+  - REFACTORING_SUMMARY.txt
+
+✅ STEP 1A: Found these files:
+- MetersList.js (main component)
+- MetersListDataOperations.js (data operations)
+- MetersListComponents.js (UI components)
+- MetersListModals.js (modals)
+- styles.js (styles)
+- index.js (entry point)
+- DETAILED_COMPARISON_REPORT.txt (analysis doc - skip)
+- REFACTORING_SUMMARY.txt (analysis doc - skip)
+
+Found 6 .js files. Reading all .js/.jsx/.ts/.tsx files now...
+
+✅ STEP 1B: Reading MetersList.js...
+(tool result shown)
+✅ STEP 1B: Reading MetersListDataOperations.js...
+(tool result shown)
+✅ STEP 1B: Reading MetersListComponents.js...
+(tool result shown)
+✅ STEP 1B: Reading MetersListModals.js...
+(tool result shown)
+✅ STEP 1B: Reading styles.js...
+(tool result shown)
+✅ STEP 1B: Reading index.js...
+(tool result shown)
+✅ STEP 1B: Reading Redux slice.js...
+(tool result shown)
+✅ STEP 1B: Reading Redux store index.js...
+(tool result shown)
+✅ STEP 2: Tracing data flow: API → Redux → FlatList...
+✅ STEP 3: Here's what I DISCOVERED independently...
+✅ STEP 4: Comparing my findings to existing analysis...
+```
+
+### Investigation Mode Examples (Read-Only)
+- 🔍 "check what's running" → Read process list, REPORT ONLY, don't kill
+- 🔍 "why is this slow" → Trace execution, REPORT findings, don't optimize
+- 🔍 "verify the bug analysis" → Investigate from scratch, compare findings
+- 🔍 "what's using memory" → Read metrics, LIST ONLY, don't clean up
+
+### Action Mode Examples (Must Investigate FIRST)
+- ⚙️ "fix the lag" → FIRST: investigate (Steps 1A,1B,2,3), THEN: apply fix
+- ⚙️ "apply the fix" → FIRST: investigate from scratch, THEN: make changes
+- ⚙️ "update the code" → FIRST: read all files, understand flow, THEN: modify
+- ⚙️ "implement the feature" → FIRST: map system, THEN: write code
+
+### ❌ WRONG: Action Without Investigation
+**User says**: "apply the fix to line 742"
+
+**WRONG Response**:
+```
+❌ Applying fix to line 742...
+❌ Changed getChildDataWrapper(folderToDisplay) to getChildDataWrapper(currentFolderRef.current)
+❌ Fix applied! ✅
+```
+**Problem**: Made changes WITHOUT investigating first. Didn't read files, didn't understand the bug.
+
+### ✅ CORRECT: Investigation THEN Action
+**User says**: "apply the fix to line 742"
+
+**CORRECT Response**:
+```
+✅ STEP 1A: Running list_dir to identify files...
+[Shows inventory]
+Found 6 .js files. Reading all files now...
+
+✅ STEP 1B: Reading MetersList.js...
+(reads file)
+✅ STEP 1B: Reading MetersListDataOperations.js...
+(reads file)
+[Reads all files, showing each one]
+
+✅ STEP 2: Tracing data flow: Focus event → async → getChildDataWrapper...
+[Maps complete flow]
+
+✅ STEP 3: Based on my investigation, the bug is:
+- Line 702 captures folderToDisplay at closure creation time
+- Line 742 uses stale value 2-4 seconds later
+- User navigates between these times → wrong folder displayed
+- Fix: Use currentFolderRef.current (reads latest value)
+
+ACTION MODE PRE-FLIGHT CHECK:
+[✅] STEP 1A (inventory): Did I run list_dir and show the user? YES
+[✅] STEP 1B (read files): Did I read ALL files and state each filename? YES
+[✅] STEP 2 (map flow): Did I trace complete data flow in my own words? YES
+[✅] STEP 3 (analysis): Did I form independent conclusions from MY investigation? YES
+[✅] SHOW findings: Did I present my findings to the user BEFORE this checkpoint? YES
+
+Pre-flight check passed. Proceeding with changes based on my investigation.
+
+[NOW makes changes using search_replace]
+```
