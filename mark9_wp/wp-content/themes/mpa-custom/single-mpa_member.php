@@ -149,6 +149,41 @@
     color: #1a73e8;
 }
 
+.social-media-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.social-media-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.social-media-link:hover {
+    background: #1a73e8;
+    color: white;
+    border-color: #1a73e8;
+    transform: translateY(-2px);
+}
+
+.social-media-link.facebook:hover { background: #1877f2; border-color: #1877f2; }
+.social-media-link.linkedin:hover { background: #0077b5; border-color: #0077b5; }
+.social-media-link.twitter:hover { background: #1da1f2; border-color: #1da1f2; }
+.social-media-link.instagram:hover { background: #e4405f; border-color: #e4405f; }
+.social-media-link.youtube:hover { background: #ff0000; border-color: #ff0000; }
+.social-media-link.tiktok:hover { background: #000000; border-color: #000000; }
+
 .back-button {
     display: inline-block;
     margin-top: 40px;
@@ -195,6 +230,14 @@
             $contact_email = get_post_meta(get_the_ID(), '_contact_email', true);
             $contact_phone = get_post_meta(get_the_ID(), '_contact_phone', true);
             $is_featured = get_post_meta(get_the_ID(), '_member_featured', true);
+            
+            // Social media links
+            $facebook = get_post_meta(get_the_ID(), '_member_facebook', true);
+            $linkedin = get_post_meta(get_the_ID(), '_member_linkedin', true);
+            $twitter = get_post_meta(get_the_ID(), '_member_twitter', true);
+            $instagram = get_post_meta(get_the_ID(), '_member_instagram', true);
+            $youtube = get_post_meta(get_the_ID(), '_member_youtube', true);
+            $tiktok = get_post_meta(get_the_ID(), '_member_tiktok', true);
             ?>
             
             <div class="member-header">
@@ -275,6 +318,49 @@
                                     <a href="tel:<?php echo esc_attr($contact_phone); ?>"><?php echo esc_html($contact_phone); ?></a>
                                 </div>
                             </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            
+            <?php if ($facebook || $linkedin || $twitter || $instagram || $youtube || $tiktok) : ?>
+                <div class="member-section">
+                    <h2>Connect With Us</h2>
+                    <div class="social-media-links">
+                        <?php if ($facebook) : ?>
+                            <a href="<?php echo esc_url($facebook); ?>" target="_blank" rel="noopener noreferrer" class="social-media-link facebook">
+                                <span>📘</span> Facebook
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if ($linkedin) : ?>
+                            <a href="<?php echo esc_url($linkedin); ?>" target="_blank" rel="noopener noreferrer" class="social-media-link linkedin">
+                                <span>💼</span> LinkedIn
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if ($twitter) : ?>
+                            <a href="<?php echo esc_url($twitter); ?>" target="_blank" rel="noopener noreferrer" class="social-media-link twitter">
+                                <span>🐦</span> Twitter/X
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if ($instagram) : ?>
+                            <a href="<?php echo esc_url($instagram); ?>" target="_blank" rel="noopener noreferrer" class="social-media-link instagram">
+                                <span>📷</span> Instagram
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if ($youtube) : ?>
+                            <a href="<?php echo esc_url($youtube); ?>" target="_blank" rel="noopener noreferrer" class="social-media-link youtube">
+                                <span>📺</span> YouTube
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if ($tiktok) : ?>
+                            <a href="<?php echo esc_url($tiktok); ?>" target="_blank" rel="noopener noreferrer" class="social-media-link tiktok">
+                                <span>🎵</span> TikTok
+                            </a>
                         <?php endif; ?>
                     </div>
                 </div>

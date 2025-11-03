@@ -2017,6 +2017,14 @@ function mpa_member_details_callback($post) {
     $contact_name = get_post_meta($post->ID, '_contact_name', true);
     $contact_email = get_post_meta($post->ID, '_contact_email', true);
     $contact_phone = get_post_meta($post->ID, '_contact_phone', true);
+    
+    // Social media links
+    $facebook = get_post_meta($post->ID, '_member_facebook', true);
+    $linkedin = get_post_meta($post->ID, '_member_linkedin', true);
+    $twitter = get_post_meta($post->ID, '_member_twitter', true);
+    $instagram = get_post_meta($post->ID, '_member_instagram', true);
+    $youtube = get_post_meta($post->ID, '_member_youtube', true);
+    $tiktok = get_post_meta($post->ID, '_member_tiktok', true);
     ?>
     <p>
         <label for="member_website"><strong>Website URL:</strong></label><br>
@@ -2118,6 +2126,39 @@ function mpa_member_details_callback($post) {
     </p>
     
     <hr style="margin: 20px 0;">
+    <h3>Social Media Links (Optional)</h3>
+    
+    <p>
+        <label for="member_facebook"><strong>Facebook URL:</strong></label><br>
+        <input type="url" id="member_facebook" name="member_facebook" value="<?php echo esc_attr($facebook); ?>" style="width: 100%;" placeholder="https://www.facebook.com/yourpage">
+    </p>
+    
+    <p>
+        <label for="member_linkedin"><strong>LinkedIn URL:</strong></label><br>
+        <input type="url" id="member_linkedin" name="member_linkedin" value="<?php echo esc_attr($linkedin); ?>" style="width: 100%;" placeholder="https://www.linkedin.com/company/yourcompany">
+    </p>
+    
+    <p>
+        <label for="member_twitter"><strong>Twitter/X URL:</strong></label><br>
+        <input type="url" id="member_twitter" name="member_twitter" value="<?php echo esc_attr($twitter); ?>" style="width: 100%;" placeholder="https://twitter.com/yourhandle">
+    </p>
+    
+    <p>
+        <label for="member_instagram"><strong>Instagram URL:</strong></label><br>
+        <input type="url" id="member_instagram" name="member_instagram" value="<?php echo esc_attr($instagram); ?>" style="width: 100%;" placeholder="https://www.instagram.com/yourhandle">
+    </p>
+    
+    <p>
+        <label for="member_youtube"><strong>YouTube URL:</strong></label><br>
+        <input type="url" id="member_youtube" name="member_youtube" value="<?php echo esc_attr($youtube); ?>" style="width: 100%;" placeholder="https://www.youtube.com/@yourchannel">
+    </p>
+    
+    <p>
+        <label for="member_tiktok"><strong>TikTok URL:</strong></label><br>
+        <input type="url" id="member_tiktok" name="member_tiktok" value="<?php echo esc_attr($tiktok); ?>" style="width: 100%;" placeholder="https://www.tiktok.com/@yourhandle">
+    </p>
+    
+    <hr style="margin: 20px 0;">
     
     <p>
         <label><strong>Logo Image:</strong></label><br>
@@ -2176,6 +2217,31 @@ function mpa_save_member_meta($post_id) {
 
     if (isset($_POST['contact_phone'])) {
         update_post_meta($post_id, '_contact_phone', sanitize_text_field($_POST['contact_phone']));
+    }
+    
+    // Save social media links
+    if (isset($_POST['member_facebook'])) {
+        update_post_meta($post_id, '_member_facebook', esc_url_raw($_POST['member_facebook']));
+    }
+    
+    if (isset($_POST['member_linkedin'])) {
+        update_post_meta($post_id, '_member_linkedin', esc_url_raw($_POST['member_linkedin']));
+    }
+    
+    if (isset($_POST['member_twitter'])) {
+        update_post_meta($post_id, '_member_twitter', esc_url_raw($_POST['member_twitter']));
+    }
+    
+    if (isset($_POST['member_instagram'])) {
+        update_post_meta($post_id, '_member_instagram', esc_url_raw($_POST['member_instagram']));
+    }
+    
+    if (isset($_POST['member_youtube'])) {
+        update_post_meta($post_id, '_member_youtube', esc_url_raw($_POST['member_youtube']));
+    }
+    
+    if (isset($_POST['member_tiktok'])) {
+        update_post_meta($post_id, '_member_tiktok', esc_url_raw($_POST['member_tiktok']));
     }
 }
 add_action('save_post_mpa_member', 'mpa_save_member_meta');
@@ -2428,6 +2494,19 @@ function handle_member_submission() {
     $linkedin = esc_url_raw($_POST['linkedin'] ?? '');
     $additional_info = sanitize_textarea_field($_POST['additional_info'] ?? '');
     
+    // Social media URLs (optional)
+    $facebook_url = esc_url_raw($_POST['facebook_url'] ?? '');
+    $linkedin_url = esc_url_raw($_POST['linkedin_url'] ?? '');
+    $twitter_url = esc_url_raw($_POST['twitter_url'] ?? '');
+    $instagram_url = esc_url_raw($_POST['instagram_url'] ?? '');
+    $youtube_url = esc_url_raw($_POST['youtube_url'] ?? '');
+    $tiktok_url = esc_url_raw($_POST['tiktok_url'] ?? '');
+    
+    // Use linkedin_url if provided, otherwise fall back to linkedin (for backward compatibility)
+    if (empty($linkedin) && !empty($linkedin_url)) {
+        $linkedin = $linkedin_url;
+    }
+    
     // Create pending member post
     $post_data = array(
         'post_title' => $company_name,
@@ -2443,6 +2522,11 @@ function handle_member_submission() {
             '_contact_email' => $contact_email,
             '_contact_phone' => $contact_phone,
             '_member_linkedin' => $linkedin,
+            '_member_facebook' => $facebook_url,
+            '_member_twitter' => $twitter_url,
+            '_member_instagram' => $instagram_url,
+            '_member_youtube' => $youtube_url,
+            '_member_tiktok' => $tiktok_url,
             '_additional_info' => $additional_info,
             '_submission_date' => current_time('mysql'),
             '_member_featured' => '0'
