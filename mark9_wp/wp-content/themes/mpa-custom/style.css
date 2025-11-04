@@ -4633,7 +4633,7 @@ body.light-mode .form-group textarea:focus {
     .hero {
         grid-template-columns: 1fr;
         text-align: center;
-        padding: var(--spacing-xxl) 0;
+        padding: 120px 0 var(--spacing-xxl) 0;
         gap: var(--spacing-xl);
     }
     

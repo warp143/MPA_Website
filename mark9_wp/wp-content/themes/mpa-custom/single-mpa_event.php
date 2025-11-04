@@ -46,7 +46,7 @@ get_header(); ?>
     ?>
     
     <!-- Hero Banner -->
-    <section class="event-hero" style="background: linear-gradient(135deg, #402267 0%, #5a3a7a 100%); background-size: cover; background-position: center; padding: 40px 0;">
+    <section class="event-hero" style="background: linear-gradient(135deg, #402267 0%, #5a3a7a 100%); background-size: cover; background-position: center; padding: 140px 0 40px 0;">
         <div class="container">
             <div class="event-hero-content">
                 <span class="event-status-badge <?php echo esc_attr($event_status); ?>">
@@ -468,6 +468,16 @@ get_header(); ?>
     .event-quick-info {
         flex-direction: column;
         gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .event-hero {
+        padding: 120px 0 40px 0 !important;
+    }
+    
+    .event-title-main {
+        font-size: 28px;
     }
 }
 </style>

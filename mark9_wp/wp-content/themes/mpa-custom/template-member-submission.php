@@ -8,7 +8,7 @@ get_header();
 <style>
 .submission-form-container {
     max-width: 800px;
-    margin: 60px auto;
+    margin: 140px auto 60px auto;
     padding: 40px;
     background: var(--bg-secondary);
     border-radius: 12px;
@@ -101,6 +101,13 @@ get_header();
     background: rgba(255, 59, 48, 0.2);
     color: var(--accent-red, #FF3B30);
     border: 1px solid var(--accent-red, #FF3B30);
+}
+
+@media (max-width: 768px) {
+    .submission-form-container {
+        margin: 100px auto 40px auto;
+        padding: 30px 20px;
+    }
 }
 </style>
 
