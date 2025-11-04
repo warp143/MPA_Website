@@ -36,7 +36,7 @@ $is_online_event = (stripos($event_location, 'online') !== false || stripos($eve
 /* Event Registration Page Styles */
 .registration-page {
     min-height: 100vh;
-    padding: var(--spacing-xxl) 0;
+    padding: 140px 0 var(--spacing-xxl) 0;
     background: var(--bg-primary);
 }
 
@@ -315,6 +315,20 @@ body:not(.light-mode) .form-group small {
 .success-message.show,
 .error-message.show {
     display: block;
+}
+
+/* Mobile-specific fixes - MUST come after main rules to override */
+@media (max-width: 768px) {
+    /* Reduce heading font size on mobile for better fit */
+    .registration-header h1 {
+        font-size: 2rem;
+    }
+    
+    /* Disable sticky positioning on mobile - makes event info scroll normally */
+    .event-info-section {
+        position: static !important;
+        top: auto !important;
+    }
 }
 </style>
 
