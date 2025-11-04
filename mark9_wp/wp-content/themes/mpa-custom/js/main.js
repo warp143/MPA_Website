@@ -1000,7 +1000,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 navbar.classList.remove('scrolled');
             }
         }
-    });
+    }, { passive: true });
 
     // Search Functionality - Now handled by individual page scripts
     // Removed to prevent conflicts with new search implementation

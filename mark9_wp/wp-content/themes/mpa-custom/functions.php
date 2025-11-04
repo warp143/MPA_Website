@@ -3779,4 +3779,15 @@ function mpa_clear_events_json_cache($post_id) {
 add_action("save_post", "mpa_clear_events_json_cache");
 add_action("delete_post", "mpa_clear_events_json_cache");
 
+// Disable jQuery Migrate console warnings
+function mpa_disable_jquery_migrate_warnings() {
+    if (is_admin()) {
+        // Dequeue jQuery Migrate logging in admin
+        add_action('admin_enqueue_scripts', function() {
+            wp_add_inline_script('jquery-migrate', 'jQuery.migrateMute = true;', 'before');
+        }, 20);
+    }
+}
+add_action('init', 'mpa_disable_jquery_migrate_warnings');
+
 
