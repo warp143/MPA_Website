@@ -24,6 +24,21 @@ define('MPA_THEME_DIR', get_template_directory());
 define('MPA_THEME_URI', get_template_directory_uri());
 
 /**
+ * Disable jQuery Migrate
+ * 
+ * Removes jQuery Migrate to eliminate console warnings and reduce page load.
+ */
+function mpa_remove_jquery_migrate($scripts) {
+    if (!is_admin() && isset($scripts->registered['jquery'])) {
+        $script = $scripts->registered['jquery'];
+        if ($script->deps) {
+            $script->deps = array_diff($script->deps, array('jquery-migrate'));
+        }
+    }
+}
+add_action('wp_default_scripts', 'mpa_remove_jquery_migrate');
+
+/**
  * Theme Setup
  * 
  * Sets up theme defaults and registers support for various WordPress features.
@@ -618,9 +633,23 @@ function mpa_events_default_sort($query) {
     
     // Only set default if no orderby is specified
     if (!$query->get('orderby')) {
-        $query->set('meta_key', '_event_date');
-        $query->set('orderby', 'meta_value');
-        $query->set('order', 'ASC'); // Earliest date first
+        // Sort upcoming events first (by status DESC since 'upcoming' > 'past' alphabetically)
+        // Then sort by date ASC (earliest first within each status group)
+        $query->set('meta_query', array(
+            'relation' => 'AND',
+            'status_clause' => array(
+                'key' => '_event_status',
+                'compare' => 'EXISTS'
+            ),
+            'date_clause' => array(
+                'key' => '_event_date',
+                'compare' => 'EXISTS'
+            )
+        ));
+        $query->set('orderby', array(
+            'status_clause' => 'DESC',  // 'upcoming' before 'past' (DESC because u > p)
+            'date_clause' => 'ASC'      // Earliest date first within each group
+        ));
     }
 }
 add_action('pre_get_posts', 'mpa_events_default_sort');
@@ -2017,14 +2046,6 @@ function mpa_member_details_callback($post) {
     $contact_name = get_post_meta($post->ID, '_contact_name', true);
     $contact_email = get_post_meta($post->ID, '_contact_email', true);
     $contact_phone = get_post_meta($post->ID, '_contact_phone', true);
-    
-    // Social media links
-    $facebook = get_post_meta($post->ID, '_member_facebook', true);
-    $linkedin = get_post_meta($post->ID, '_member_linkedin', true);
-    $twitter = get_post_meta($post->ID, '_member_twitter', true);
-    $instagram = get_post_meta($post->ID, '_member_instagram', true);
-    $youtube = get_post_meta($post->ID, '_member_youtube', true);
-    $tiktok = get_post_meta($post->ID, '_member_tiktok', true);
     ?>
     <p>
         <label for="member_website"><strong>Website URL:</strong></label><br>
@@ -2126,39 +2147,6 @@ function mpa_member_details_callback($post) {
     </p>
     
     <hr style="margin: 20px 0;">
-    <h3>Social Media Links (Optional)</h3>
-    
-    <p>
-        <label for="member_facebook"><strong>Facebook URL:</strong></label><br>
-        <input type="url" id="member_facebook" name="member_facebook" value="<?php echo esc_attr($facebook); ?>" style="width: 100%;" placeholder="https://www.facebook.com/yourpage">
-    </p>
-    
-    <p>
-        <label for="member_linkedin"><strong>LinkedIn URL:</strong></label><br>
-        <input type="url" id="member_linkedin" name="member_linkedin" value="<?php echo esc_attr($linkedin); ?>" style="width: 100%;" placeholder="https://www.linkedin.com/company/yourcompany">
-    </p>
-    
-    <p>
-        <label for="member_twitter"><strong>Twitter/X URL:</strong></label><br>
-        <input type="url" id="member_twitter" name="member_twitter" value="<?php echo esc_attr($twitter); ?>" style="width: 100%;" placeholder="https://twitter.com/yourhandle">
-    </p>
-    
-    <p>
-        <label for="member_instagram"><strong>Instagram URL:</strong></label><br>
-        <input type="url" id="member_instagram" name="member_instagram" value="<?php echo esc_attr($instagram); ?>" style="width: 100%;" placeholder="https://www.instagram.com/yourhandle">
-    </p>
-    
-    <p>
-        <label for="member_youtube"><strong>YouTube URL:</strong></label><br>
-        <input type="url" id="member_youtube" name="member_youtube" value="<?php echo esc_attr($youtube); ?>" style="width: 100%;" placeholder="https://www.youtube.com/@yourchannel">
-    </p>
-    
-    <p>
-        <label for="member_tiktok"><strong>TikTok URL:</strong></label><br>
-        <input type="url" id="member_tiktok" name="member_tiktok" value="<?php echo esc_attr($tiktok); ?>" style="width: 100%;" placeholder="https://www.tiktok.com/@yourhandle">
-    </p>
-    
-    <hr style="margin: 20px 0;">
     
     <p>
         <label><strong>Logo Image:</strong></label><br>
@@ -2217,31 +2205,6 @@ function mpa_save_member_meta($post_id) {
 
     if (isset($_POST['contact_phone'])) {
         update_post_meta($post_id, '_contact_phone', sanitize_text_field($_POST['contact_phone']));
-    }
-    
-    // Save social media links
-    if (isset($_POST['member_facebook'])) {
-        update_post_meta($post_id, '_member_facebook', esc_url_raw($_POST['member_facebook']));
-    }
-    
-    if (isset($_POST['member_linkedin'])) {
-        update_post_meta($post_id, '_member_linkedin', esc_url_raw($_POST['member_linkedin']));
-    }
-    
-    if (isset($_POST['member_twitter'])) {
-        update_post_meta($post_id, '_member_twitter', esc_url_raw($_POST['member_twitter']));
-    }
-    
-    if (isset($_POST['member_instagram'])) {
-        update_post_meta($post_id, '_member_instagram', esc_url_raw($_POST['member_instagram']));
-    }
-    
-    if (isset($_POST['member_youtube'])) {
-        update_post_meta($post_id, '_member_youtube', esc_url_raw($_POST['member_youtube']));
-    }
-    
-    if (isset($_POST['member_tiktok'])) {
-        update_post_meta($post_id, '_member_tiktok', esc_url_raw($_POST['member_tiktok']));
     }
 }
 add_action('save_post_mpa_member', 'mpa_save_member_meta');
@@ -2494,19 +2457,6 @@ function handle_member_submission() {
     $linkedin = esc_url_raw($_POST['linkedin'] ?? '');
     $additional_info = sanitize_textarea_field($_POST['additional_info'] ?? '');
     
-    // Social media URLs (optional)
-    $facebook_url = esc_url_raw($_POST['facebook_url'] ?? '');
-    $linkedin_url = esc_url_raw($_POST['linkedin_url'] ?? '');
-    $twitter_url = esc_url_raw($_POST['twitter_url'] ?? '');
-    $instagram_url = esc_url_raw($_POST['instagram_url'] ?? '');
-    $youtube_url = esc_url_raw($_POST['youtube_url'] ?? '');
-    $tiktok_url = esc_url_raw($_POST['tiktok_url'] ?? '');
-    
-    // Use linkedin_url if provided, otherwise fall back to linkedin (for backward compatibility)
-    if (empty($linkedin) && !empty($linkedin_url)) {
-        $linkedin = $linkedin_url;
-    }
-    
     // Create pending member post
     $post_data = array(
         'post_title' => $company_name,
@@ -2522,11 +2472,6 @@ function handle_member_submission() {
             '_contact_email' => $contact_email,
             '_contact_phone' => $contact_phone,
             '_member_linkedin' => $linkedin,
-            '_member_facebook' => $facebook_url,
-            '_member_twitter' => $twitter_url,
-            '_member_instagram' => $instagram_url,
-            '_member_youtube' => $youtube_url,
-            '_member_tiktok' => $tiktok_url,
             '_additional_info' => $additional_info,
             '_submission_date' => current_time('mysql'),
             '_member_featured' => '0'
@@ -2894,13 +2839,6 @@ function handle_event_registration() {
     $dietary = sanitize_text_field($_POST['dietary']);
     $notes = sanitize_textarea_field($_POST['notes']);
     
-    // Auto-format Malaysian phone numbers
-    // If user enters 01x (Malaysian local format), convert to +601x (international format)
-    if (preg_match('/^0\d{8,9}$/', $phone)) {
-        // Starts with 0 and has 9-10 digits total (Malaysian format)
-        $phone = '+6' . $phone;
-    }
-    
     // Validate email
     if (!is_email($email)) {
         wp_send_json_error(array('message' => 'Invalid email address'));
@@ -3108,7 +3046,7 @@ function export_event_registrations() {
     $output = fopen('php://output', 'w');
     
     // CSV headers
-    fputcsv($output, array('Registration Date', 'Event', 'Full Name', 'Email', 'Phone', 'Company', 'Job Title', 'Membership Status', 'Dietary', 'Notes'));
+    fputcsv($output, array('Registration Date', 'Event', 'Full Name', 'Email', 'Phone', 'Company', 'Job Title', 'Dietary', 'Notes'));
     
     if ($registrations->have_posts()) {
         while ($registrations->have_posts()) {
@@ -3119,15 +3057,6 @@ function export_event_registrations() {
             $event = get_post($event_id);
             $event_title = $event ? $event->post_title : 'Unknown';
             
-            // Format membership status for CSV
-            $membership_status = get_post_meta($id, '_membership_status', true);
-            $membership_label = '';
-            if ($membership_status === 'mpa_member') {
-                $membership_label = 'MPA Member';
-            } elseif ($membership_status === 'non_member') {
-                $membership_label = 'Non-MPA Member';
-            }
-            
             fputcsv($output, array(
                 get_post_meta($id, '_registered_date', true),
                 $event_title,
@@ -3136,7 +3065,6 @@ function export_event_registrations() {
                 get_post_meta($id, '_phone', true),
                 get_post_meta($id, '_company', true),
                 get_post_meta($id, '_job_title', true),
-                $membership_label,
                 get_post_meta($id, '_dietary', true),
                 get_post_meta($id, '_notes', true),
             ));
@@ -3241,6 +3169,17 @@ function show_registration_list_columns($column, $post_id) {
                     case 'vegetarian':
                         $icon = '🥗';
                         break;
+
+            case 'membership_status':
+                $membership_status = get_post_meta($post_id, '_membership_status', true);
+                if ($membership_status) {
+                    $status_label = ($membership_status === 'mpa_member') ? 'MPA Member' : 'Non-MPA Member';
+                    $badge_color = ($membership_status === 'mpa_member') ? '#007AFF' : '#999';
+                    echo '<span style="display:inline-block;padding:4px 8px;background:' . $badge_color . ';color:white;border-radius:4px;font-size:11px;font-weight:600;">' . esc_html($status_label) . '</span>';
+                } else {
+                    echo '<span style="color:#999;">—</span>';
+                }
+                break;
                     case 'vegan':
                         $icon = '🌱';
                         break;
@@ -3256,17 +3195,6 @@ function show_registration_list_columns($column, $post_id) {
                 echo $icon . ' ' . esc_html(ucfirst($dietary));
             } else {
                 echo '<span style="color:#999;">None</span>';
-            }
-            break;
-            
-        case 'membership_status':
-            $membership_status = get_post_meta($post_id, '_membership_status', true);
-            if ($membership_status) {
-                $status_label = ($membership_status === 'mpa_member') ? 'MPA Member' : 'Non-MPA Member';
-                $badge_color = ($membership_status === 'mpa_member') ? '#007AFF' : '#999';
-                echo '<span style="display:inline-block;padding:4px 8px;background:' . $badge_color . ';color:white;border-radius:4px;font-size:11px;font-weight:600;">' . esc_html($status_label) . '</span>';
-            } else {
-                echo '<span style="color:#999;">—</span>';
             }
             break;
             
@@ -3796,15 +3724,249 @@ function mpa_clear_events_json_cache($post_id) {
 add_action("save_post", "mpa_clear_events_json_cache");
 add_action("delete_post", "mpa_clear_events_json_cache");
 
-// Disable jQuery Migrate console warnings
-function mpa_disable_jquery_migrate_warnings() {
-    if (is_admin()) {
-        // Dequeue jQuery Migrate logging in admin
-        add_action('admin_enqueue_scripts', function() {
-            wp_add_inline_script('jquery-migrate', 'jQuery.migrateMute = true;', 'before');
-        }, 20);
+
+
+/**
+ * AJAX search handler for site-wide search
+ */
+function mpa_site_search_handler() {
+    $query = isset($_POST['query']) ? sanitize_text_field($_POST['query']) : '';
+    
+    if (empty($query) || strlen($query) < 2) {
+        wp_send_json_error(array('message' => 'Query too short'));
     }
+    
+    $results = array();
+    
+    // Search Events
+    $events = new WP_Query(array(
+        'post_type' => 'mpa_event',
+        'posts_per_page' => 5,
+        's' => $query,
+        'post_status' => 'publish'
+    ));
+    
+    if ($events->have_posts()) {
+        while ($events->have_posts()) {
+            $events->the_post();
+            $event_date = get_post_meta(get_the_ID(), '_event_date', true);
+            $event_status = get_post_meta(get_the_ID(), '_event_status', true);
+            
+            $results[] = array(
+                'title' => get_the_title(),
+                'url' => get_permalink(),
+                'type' => 'Event' . ($event_status ? ' (' . ucfirst($event_status) . ')' : ''),
+                'excerpt' => $event_date ? date('F j, Y', strtotime($event_date)) : ''
+            );
+        }
+        wp_reset_postdata();
+    }
+    
+    // Search Members
+    $members = new WP_Query(array(
+        'post_type' => 'mpa_member',
+        'posts_per_page' => 5,
+        's' => $query,
+        'post_status' => 'publish'
+    ));
+    
+    if ($members->have_posts()) {
+        while ($members->have_posts()) {
+            $members->the_post();
+            $company = get_post_meta(get_the_ID(), '_company_name', true);
+            
+            $results[] = array(
+                'title' => get_the_title(),
+                'url' => get_permalink(),
+                'type' => 'Member',
+                'excerpt' => $company ? $company : ''
+            );
+        }
+        wp_reset_postdata();
+    }
+    
+    // Search Pages
+    $pages = new WP_Query(array(
+        'post_type' => 'page',
+        'posts_per_page' => 3,
+        's' => $query,
+        'post_status' => 'publish'
+    ));
+    
+    if ($pages->have_posts()) {
+        while ($pages->have_posts()) {
+            $pages->the_post();
+            
+            $results[] = array(
+                'title' => get_the_title(),
+                'url' => get_permalink(),
+                'type' => 'Page',
+                'excerpt' => wp_trim_words(get_the_excerpt(), 15)
+            );
+        }
+        wp_reset_postdata();
+    }
+    
+    // Search Posts/News
+    $posts = new WP_Query(array(
+        'post_type' => 'post',
+        'posts_per_page' => 3,
+        's' => $query,
+        'post_status' => 'publish'
+    ));
+    
+    if ($posts->have_posts()) {
+        while ($posts->have_posts()) {
+            $posts->the_post();
+            
+            $results[] = array(
+                'title' => get_the_title(),
+                'url' => get_permalink(),
+                'type' => 'News/Article',
+                'excerpt' => wp_trim_words(get_the_excerpt(), 15)
+            );
+        }
+        wp_reset_postdata();
+    }
+    
+    if (empty($results)) {
+        wp_send_json_error(array('message' => 'No results found'));
+    }
+    
+    wp_send_json_success(array(
+        'results' => $results,
+        'total' => count($results)
+    ));
 }
-add_action('init', 'mpa_disable_jquery_migrate_warnings');
+
+// Register AJAX handlers (for both logged-in and non-logged-in users)
+add_action('wp_ajax_mpa_site_search', 'mpa_site_search_handler');
+add_action('wp_ajax_nopriv_mpa_site_search', 'mpa_site_search_handler');
+
+/**
+ * Add native lazy loading to images
+ * Improves initial page load by deferring off-screen images
+ */
+function mpa_add_lazy_loading($attr, $attachment = null) {
+    // Add loading='lazy' to all images except those in header/hero
+    if (!isset($attr['loading'])) {
+        $attr['loading'] = 'lazy';
+    }
+    return $attr;
+}
+add_filter('wp_get_attachment_image_attributes', 'mpa_add_lazy_loading', 10, 2);
+
+/**
+ * Add lazy loading to content images
+ */
+function mpa_add_lazy_loading_to_content($content) {
+    // Add loading='lazy' to img tags that don't already have it
+    $content = preg_replace('/<img(?![^>]*\sloading=)([^>]*)>/i', '<img loading="lazy"$1>', $content);
+    return $content;
+}
+add_filter('the_content', 'mpa_add_lazy_loading_to_content');
+add_filter('post_thumbnail_html', 'mpa_add_lazy_loading_to_content');
+// Inject Polylang language URLs into JavaScript
+function mpa_inject_polylang_urls() {
+    if (!function_exists('pll_the_languages')) {
+        return;
+    }
+    
+    $languages = pll_the_languages(array('raw' => 1));
+    $lang_urls = array();
+    
+    foreach ($languages as $lang) {
+        $lang_urls[$lang['slug']] = $lang['url'];
+    }
+    
+    ?>
+    <script>
+        window.polylangUrls = <?php echo json_encode($lang_urls); ?>;
+        window.currentPolylangLang = '<?php echo pll_current_language(); ?>';
+    </script>
+    <?php
+}
+add_action('wp_head', 'mpa_inject_polylang_urls', 1);
 
 
+
+// AGGRESSIVE FIX: Remove admin bar to prevent hoverintent errors
+remove_action('init', '_wp_admin_bar_init');
+add_filter('show_admin_bar', '__return_false');
+
+// Ensure hoverintent loads if admin bar shows
+function mpa_force_hoverintent_load() {
+    wp_enqueue_script('hoverintent');
+}
+add_action('wp_enqueue_scripts', 'mpa_force_hoverintent_load', 1);
+add_action('admin_enqueue_scripts', 'mpa_force_hoverintent_load', 1);
+
+
+
+
+// Auto-translate hero section based on current Polylang language
+function mpa_auto_translate_hero() {
+    if (!function_exists('pll_current_language')) {
+        return;
+    }
+    
+    $current_lang = pll_current_language();
+    if (!$current_lang || $current_lang === 'en') {
+        return; // No translation needed for English
+    }
+    
+    ?>
+    <script>
+    // Auto-translate hero section on page load based on Polylang language
+    (function() {
+        const lang = '<?php echo $current_lang; ?>';
+        if (!lang || lang === 'en') return;
+        
+        // Translate hero title
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle && heroTitle.hasAttribute('data-' + lang)) {
+            heroTitle.textContent = heroTitle.getAttribute('data-' + lang);
+        }
+        
+        // Translate hero subtitle  
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        if (heroSubtitle && heroSubtitle.hasAttribute('data-' + lang)) {
+            heroSubtitle.textContent = heroSubtitle.getAttribute('data-' + lang);
+        }
+        
+        // Translate search placeholder
+        const searchInput = document.querySelector('.search-input input');
+        if (searchInput && lang === 'bm') {
+            searchInput.placeholder = 'Cari acara, ahli, atau sumber...';
+        } else if (searchInput && lang === 'cn') {
+            searchInput.placeholder = '查找活动、会员或资源...';
+        }
+        
+        // Translate search button
+        const searchBtn = document.querySelector('.search-btn');
+        if (searchBtn && lang === 'bm') {
+            searchBtn.textContent = 'Cari';
+        } else if (searchBtn && lang === 'cn') {
+            searchBtn.textContent = '搜索';
+        }
+        
+        // Translate stat labels
+        const statLabels = document.querySelectorAll('.stat-label');
+        if (statLabels.length >= 4) {
+            if (lang === 'bm') {
+                statLabels[0].textContent = 'Ahli';
+                statLabels[1].textContent = 'Acara';
+                statLabels[2].textContent = 'Startups';
+                statLabels[3].textContent = 'Rakan Kongsi';
+            } else if (lang === 'cn') {
+                statLabels[0].textContent = '会员';
+                statLabels[1].textContent = '活动';
+                statLabels[2].textContent = '初创企业';
+                statLabels[3].textContent = '合作伙伴';
+            }
+        }
+    })();
+    </script>
+    <?php
+}
+add_action('wp_footer', 'mpa_auto_translate_hero', 999);

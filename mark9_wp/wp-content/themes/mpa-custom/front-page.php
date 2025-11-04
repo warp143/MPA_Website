@@ -40,32 +40,20 @@
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
-                        <span class="stat-number"><?php 
-                            $members_count = get_post_meta(get_the_ID(), '_stat_members', true);
-                            echo $members_count ?: '150+';
-                        ?></span>
-                        <span class="stat-label">Members</span>
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label" data-en="Members" data-bm="Ahli" data-cn="会员">Members</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number"><?php 
-                            $events_count = get_post_meta(get_the_ID(), '_stat_events', true);
-                            echo $events_count ?: '50+';
-                        ?></span>
-                        <span class="stat-label">Events</span>
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label" data-en="Events" data-bm="Acara" data-cn="活动">Events</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number"><?php 
-                            $startups_count = get_post_meta(get_the_ID(), '_stat_startups', true);
-                            echo $startups_count ?: '90+';
-                        ?></span>
-                        <span class="stat-label">Startups</span>
+                        <span class="stat-number">90+</span>
+                        <span class="stat-label" data-en="Startups" data-bm="Startups" data-cn="初创企业">Startups</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number"><?php 
-                            $partners_count = get_post_meta(get_the_ID(), '_stat_partners', true);
-                            echo $partners_count ?: '15+';
-                        ?></span>
-                        <span class="stat-label">Partners</span>
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label" data-en="Partners" data-bm="Rakan Kongsi" data-cn="合作伙伴">Partners</span>
                     </div>
                 </div>
             </div>
@@ -100,36 +88,45 @@
                         <div class="feature">
                             <i class="fas fa-gavel"></i>
                             <div class="feature-content">
-                                <h4>Advocacy</h4>
-                                <p>Championing digitalization and policy reform across the industry</p>
+                                <h4><?php the_field('pillar_1_title'); ?></h4>
+                                <p><?php the_field('pillar_1_desc'); ?></p>
                             </div>
                         </div>
                         <div class="feature">
                             <i class="fas fa-handshake"></i>
                             <div class="feature-content">
-                                <h4>Business Opportunities</h4>
-                                <p>Connecting members to funding, partnerships, and market access</p>
+                                <h4><?php the_field('pillar_2_title'); ?></h4>
+                                <p><?php the_field('pillar_2_desc'); ?></p>
                             </div>
                         </div>
                         <div class="feature">
                             <i class="fas fa-users"></i>
                             <div class="feature-content">
-                                <h4>Community</h4>
-                                <p>Building a vibrant, collaborative ecosystem of innovators and changemakers</p>
+                                <h4><?php the_field('pillar_3_title'); ?></h4>
+                                <p><?php the_field('pillar_3_desc'); ?></p>
                             </div>
                         </div>
                         <div class="feature">
                             <i class="fas fa-rocket"></i>
                             <div class="feature-content">
-                                <h4>Development</h4>
-                                <p>Supporting startup growth, talent acceleration, and ecosystem maturity</p>
+                                <h4><?php the_field('pillar_4_title'); ?></h4>
+                                <p><?php the_field('pillar_4_desc'); ?></p>
                             </div>
                         </div>
                         <div class="feature">
                             <i class="fas fa-graduation-cap"></i>
                             <div class="feature-content">
-                                <h4>Education</h4>
-                                <p>Equipping the industry with knowledge, tools, and future-ready skills</p>
+                                <h4><?php the_field('pillar_5_title'); ?></h4>
+                                <p><?php
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+        if ($lang === 'bm') echo 'Melengkapkan industri dengan pengetahuan, alat, dan kemahiran masa depan';
+        elseif ($lang === 'cn') echo '为行业提供知识、工具和面向未来的技能';
+        else echo 'Equipping the industry with knowledge, tools, and future-ready skills';
+    } else {
+        echo 'Equipping the industry with knowledge, tools, and future-ready skills';
+    }
+    ?></p>
                             </div>
                         </div>
                     </div>
@@ -142,7 +139,16 @@
     <section class="featured-events">
         <div class="container">
             <div class="section-header">
-                <h2>Upcoming Events</h2>
+                <h2><?php
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+        if ($lang === 'bm') echo 'Acara Akan Datang';
+        elseif ($lang === 'cn') echo '即将举行的活动';
+        else echo 'Upcoming Events';
+    } else {
+        echo 'Upcoming Events';
+    }
+    ?></h2>
                 <a href="<?php echo esc_url(home_url('/events/')); ?>" class="view-all">View all events</a>
             </div>
             <div class="events-grid" id="homepageEventsGrid">
@@ -155,8 +161,26 @@
     <section id="partners" class="partners">
         <div class="container">
             <div class="section-header">
-                <h2>Our Partners</h2>
-                <p>Strategic collaborations driving PropTech innovation in Malaysia</p>
+                <h2><?php
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+        if ($lang === 'bm') echo 'Rakan Kongsi Kami';
+        elseif ($lang === 'cn') echo '我们的合作伙伴';
+        else echo 'Our Partners';
+    } else {
+        echo 'Our Partners';
+    }
+    ?></h2>
+                <p><?php
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+        if ($lang === 'bm') echo 'Kerjasama strategik memacu inovasi PropTech di Malaysia';
+        elseif ($lang === 'cn') echo '推动马来西亚房地产科技创新的战略合作';
+        else echo 'Strategic collaborations driving PropTech innovation in Malaysia';
+    } else {
+        echo 'Strategic collaborations driving PropTech innovation in Malaysia';
+    }
+    ?></p>
             </div>
             <div class="partners-grid" id="homepagePartnersGrid">
                 <!-- Partners will be populated dynamically from partners page data -->
@@ -171,8 +195,26 @@
     <section id="membership" class="membership">
         <div class="container">
             <div class="section-header">
-                <h2>Join Our Community</h2>
-                <p>Choose the membership that fits your needs</p>
+                <h2><?php
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+        if ($lang === 'bm') echo 'Sertai Komuniti Kami';
+        elseif ($lang === 'cn') echo '加入我们的社区';
+        else echo 'Join Our Community';
+    } else {
+        echo 'Join Our Community';
+    }
+    ?></h2>
+                <p><?php
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+        if ($lang === 'bm') echo 'Pilih keahlian yang sesuai dengan keperluan anda';
+        elseif ($lang === 'cn') echo '选择符合您需求的会员资格';
+        else echo 'Choose the membership that fits your needs';
+    } else {
+        echo 'Choose the membership that fits your needs';
+    }
+    ?></p>
             </div>
             <div class="membership-cards">
                 <?php 
@@ -197,10 +239,37 @@
     <section class="newsletter">
         <div class="container">
             <div class="newsletter-content">
-                <h2>Stay Updated</h2>
-                <p>Get the latest PropTech news, events, and insights delivered to your inbox</p>
+                <h2><?php
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+        if ($lang === 'bm') echo 'Kekal Dikemas Kini';
+        elseif ($lang === 'cn') echo '保持更新';
+        else echo 'Stay Updated';
+    } else {
+        echo 'Stay Updated';
+    }
+    ?></h2>
+                <p><?php
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+        if ($lang === 'bm') echo 'Dapatkan berita, acara, dan pandangan PropTech terkini dihantar ke peti masuk anda';
+        elseif ($lang === 'cn') echo '获取最新的房地产科技新闻、活动和见解，直接发送到您的收件箱';
+        else echo 'Get the latest PropTech news, events, and insights delivered to your inbox';
+    } else {
+        echo 'Get the latest PropTech news, events, and insights delivered to your inbox';
+    }
+    ?></p>
                 <div class="newsletter-form">
-                    <input type="email" placeholder="Enter your email address">
+                    <input type="email" placeholder="<?php
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+        if ($lang === 'bm') echo 'Masukkan alamat e-mel anda';
+        elseif ($lang === 'cn') echo '输入您的电子邮件地址';
+        else echo 'Enter your email address';
+    } else {
+        echo 'Enter your email address';
+    }
+    ?>">
                     <button class="btn-primary">Subscribe</button>
                 </div>
             </div>
@@ -381,69 +450,185 @@
             } else {
             }
             
-            function performSearch() {
-                const query = searchInput.value.trim().toLowerCase();
-                
-                if (query === '') {
+            function performSearch() {const query = searchInput.value.trim();if (query === '') {
                     showSearchNotification('Please enter a search term', 'warning');
                     return;
                 }
                 
-                
-                // Define searchable content
-                const searchableContent = {
-                    events: [
-                        'startup pitch competition',
-                        'sustainability in proptech',
-                        'blockchain in real estate',
-                        'proptech investment forum',
-                        'summit',
-                        'webinar',
-                        'workshop'
-                    ],
-                    members: [
-                        'pitchin',
-                        'omeshwer',
-                        'proptech',
-                        'startup',
-                        'technology',
-                        'real estate'
-                    ],
-                    resources: [
-                        'news',
-                        'articles',
-                        'reports',
-                        'guides',
-                        'research',
-                        'insights'
-                    ]
-                };
-                
-                // Search through content
-                let results = [];
-                
-                // Search events
-                if (searchableContent.events.some(event => event.includes(query))) {
-                    results.push('events');
+                if (query.length < 2) {
+                    showSearchNotification('Please enter at least 2 characters', 'warning');
+                    return;
                 }
                 
-                // Search members
-                if (searchableContent.members.some(member => member.includes(query))) {
-                    results.push('members');
-                }
+                // Show loading state
+                searchBtn.disabled = true;
+                searchBtn.textContent = 'Searching...';
                 
-                // Search resources
-                if (searchableContent.resources.some(resource => resource.includes(query))) {
-                    results.push('resources');
-                }
-                
-                // Handle search results
-                if (results.length > 0) {
-                    showSearchNotification(`Found ${results.length} result(s) for "${query}". Click to navigate.`, 'success');
+                // Perform AJAX search
+                fetch(window.location.origin + '/wp-admin/admin-ajax.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `action=mpa_site_search&query=${encodeURIComponent(query)}`
+                })
+                .then(response => {return response.json();
+                })
+                .then(data => {if (data.data && data.data.results) {}
                     
-                    // Don't auto-redirect, let user click to navigate
+                    searchBtn.disabled = false;
+                    searchBtn.textContent = 'Search';
+                    
+                    if (data.success && data.data && data.data.results && data.data.results.length > 0) {showSearchResults(data.data.results, query);
+                    } else {showSearchNotification(`No results found for "${query}"`, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Search error details:', error);
+                    searchBtn.disabled = false;
+                    searchBtn.textContent = 'Search';
+                    showSearchNotification('Search failed. Please try again.', 'error');
+                });
+            }
+            
+            function showSearchResults(results, query) {
+                // Remove any existing results container
+                const existingResults = document.querySelector('.search-results-dropdown');
+                if (existingResults) {
+                    existingResults.remove();
+                }
+                
+                // Create results dropdown
+                const resultsContainer = document.createElement('div');
+                resultsContainer.className = 'search-results-dropdown';
+                resultsContainer.style.display = 'block';
+                resultsContainer.innerHTML = `
+                    <div class="search-results-header">
+                        <strong>Found ${results.length} result(s) for "${query}"</strong>
+                        <button class="close-results" onclick="this.closest('.search-results-dropdown').remove()">×</button>
+                    </div>
+                    <div class="search-results-list">
+                        ${results.map(result => `
+                            <a href="${result.url}" class="search-result-item">
+                                <div class="result-type">${result.type}</div>
+                                <div class="result-title">${result.title}</div>
+                                ${result.excerpt ? `<div class="result-excerpt">${result.excerpt}</div>` : ''}
+                            </a>
+                        `).join('')}
+                    </div>
+                    <div class="search-results-footer">
+                        <a href="/?s=${encodeURIComponent(query)}" class="view-all-results">
+                            View all results →
+                        </a>
+                    </div>
+                `;
+                
+                // Insert directly into hero section, not relative to search container
+                const heroSection = document.querySelector('.hero-search');
+                if (heroSection) {
+                    // Append directly to hero-search
+                    heroSection.appendChild(resultsContainer);
                 } else {
-                    showSearchNotification(`No results found for "${query}"`, 'error');
+                    // Fallback: insert after search button
+                    const searchBtn = document.getElementById('searchBtn');
+                    if (searchBtn) {
+                        searchBtn.parentNode.appendChild(resultsContainer);
+                    }
+                }
+                
+                // Add CSS for results dropdown
+                if (!document.querySelector('#search-results-styles')) {
+                    const style = document.createElement('style');
+                    style.id = 'search-results-styles';
+                    style.textContent = `
+                        .search-results-dropdown {
+                            position: relative;
+                            width: 100%;
+                            max-width: 800px;
+                            margin: 20px auto 0;
+                            background: white;
+                            border-radius: 12px;
+                            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+                            max-height: 500px;
+                            overflow: hidden;
+                            z-index: 10000;
+                            display: block !important;
+                        }
+                        .search-results-header {
+                            padding: 15px 20px;
+                            background: #f8f9fa;
+                            border-bottom: 1px solid #e9ecef;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                        }
+                        .close-results {
+                            background: none;
+                            border: none;
+                            font-size: 24px;
+                            cursor: pointer;
+                            color: #6c757d;
+                            padding: 0;
+                            width: 30px;
+                            height: 30px;
+                            line-height: 1;
+                        }
+                        .close-results:hover {
+                            color: #000;
+                        }
+                        .search-results-list {
+                            max-height: 400px;
+                            overflow-y: auto;
+                        }
+                        .search-result-item {
+                            display: block;
+                            padding: 15px 20px;
+                            border-bottom: 1px solid #e9ecef;
+                            text-decoration: none;
+                            color: inherit;
+                            transition: background 0.2s;
+                        }
+                        .search-result-item:hover {
+                            background: #f8f9fa;
+                        }
+                        .result-type {
+                            font-size: 12px;
+                            text-transform: uppercase;
+                            color: #6c757d;
+                            margin-bottom: 5px;
+                            font-weight: 600;
+                        }
+                        .result-title {
+                            font-size: 16px;
+                            font-weight: 600;
+                            color: #212529;
+                            margin-bottom: 5px;
+                        }
+                        .result-excerpt {
+                            font-size: 14px;
+                            color: #6c757d;
+                            line-height: 1.4;
+                        }
+                        .search-results-footer {
+                            padding: 15px 20px;
+                            background: #f8f9fa;
+                            border-top: 1px solid #e9ecef;
+                            text-align: center;
+                        }
+                        .view-all-results {
+                            color: #007bff;
+                            text-decoration: none;
+                            font-weight: 600;
+                        }
+                        .view-all-results:hover {
+                            text-decoration: underline;
+                        }
+                        .hero-search {
+                            position: relative;
+                            width: 100%;
+                        }
+                    `;
+                    document.head.appendChild(style);
                 }
             }
             
