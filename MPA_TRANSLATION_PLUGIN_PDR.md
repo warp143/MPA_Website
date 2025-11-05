@@ -2,21 +2,24 @@
 
 **Project:** Custom WordPress Translation Plugin for Malaysia Proptech Association Website  
 **Prepared By:** Andrew Michael Kho  
-**Date:** October 29, 2025  
+**Date:** November 4, 2025 (Updated after live server audit)  
 **Status:** Planning & Design Phase  
-**Version:** 1.0
+**Version:** 1.1  
+**Critical Finding:** 27 Chinese translations missing (Privacy Policy)
 
 ---
 
 ## 📋 Executive Summary
 
-This PDR documents the analysis, design, and implementation plan for building a custom WordPress translation management plugin for the MPA website. The current hybrid translation system is unmaintainable, inconsistent, and requires developers to edit code files for simple text changes. This custom plugin will centralize all translations in a database with an easy-to-use WordPress admin interface, eliminating the need for code changes and reducing maintenance overhead by an estimated 80%.
+This PDR documents the analysis, design, and implementation plan for building a custom WordPress translation management plugin for the MPA website. The current hybrid translation system is unmaintainable, inconsistent, and requires developers to edit code files for simple text changes. Additionally, 2 legacy plugins (Polylang and ACF) from a failed integration attempt remain active but unused, creating security and maintenance burden. This custom plugin will centralize all translations in a database with an easy-to-use WordPress admin interface, eliminating the need for code changes, removing plugin bloat, and reducing maintenance overhead by an estimated 80%.
 
 **Key Metrics:**
-- **Current System:** 105 translation keys × 3 languages = 315 translations hardcoded in JavaScript
+- **Current System:** 105 translation keys defined, but only 288 complete translations (105 EN + 105 BM + 78 CN)
+- **Missing Translations:** 27 Chinese translations (all Privacy Policy section) + ~30-50 hardcoded texts in PHP templates not using translation system
+- **Legacy Plugins:** Polylang (v3.7.4) + ACF (v6.6.2) active but unused - to be removed
 - **Maintenance Time:** ~30 minutes per translation change (find key, edit 3 languages, test, deploy)
-- **Technical Debt:** 351 lines of translation code in main.js (19% of entire file)
-- **Proposed Solution:** Database-driven plugin with admin UI (5 minutes per change, no deployment needed)
+- **Technical Debt:** 351 lines of translation code in main.js (19% of entire file) + 2 unused plugins
+- **Proposed Solution:** Remove legacy plugins + database-driven custom plugin with admin UI (5 minutes per change, no deployment needed)
 
 ---
 
@@ -30,10 +33,11 @@ The MPA website currently implements a **hybrid translation system** with two in
 **Location:** `wp-content/themes/mpa-custom/js/main.js` (Lines 214-565)
 
 **Scope:**
-- 105 unique translation keys
+- 105 unique translation keys (but only 78 have Chinese translations)
 - 3 languages: English (EN), Bahasa Malaysia (BM), Chinese (CN)
 - 351 lines of code dedicated to translations
 - Covers: Navigation, Hero sections, Events, Members, News, Partners, Footer, Privacy Policy, Cookie banners
+- **Issue:** 27 Chinese translations missing (all Privacy Policy keys)
 
 **Implementation:**
 ```javascript
@@ -112,7 +116,7 @@ GROUP BY meta_key;
 - **NO separate language versions** (no proptech-bm, proptech-cn pages)
 - All pages use single English slug with JavaScript translations
 
-### Previous Attempts
+### Previous Attempts & Legacy Plugins
 
 **Polylang Integration (FAILED):**
 Evidence from deleted files:
@@ -129,38 +133,49 @@ Evidence from deleted files:
 2. **Requires separate page for each language** → proptech-en, proptech-bm, proptech-cn
 3. **Content must be maintained in 3 places** → edit English, then manually copy/translate to BM and CN
 4. **No centralized translation** → still editing content page-by-page
-5. **Arc (ACF) integration issues** → custom fields not syncing across languages
+5. **ACF (Advanced Custom Fields) integration issues** → custom fields not syncing across languages
 
 **Result:** Abandoned Polylang, reverted to JavaScript translations
+
+**⚠️ Legacy Plugins Still Active (To Be Removed):**
+- **Polylang** (v3.7.4) - Currently active but unused, leftover from failed integration attempt
+- **Advanced Custom Fields (ACF)** (v6.6.2) - Currently active, was used with Polylang for custom field translations
+- **Both plugins will be deactivated and deleted** during custom plugin deployment
 
 ---
 
 ## 🚨 Problems with Current System
 
-### Problem 1: Inconsistent Translation Methods
+### Problem 1: Incomplete Translations
+- **Chinese translations incomplete:** Only 78 out of 105 keys translated (74% complete)
+- **Missing 27 Chinese translations:** All Privacy Policy section keys untranslated
+- **Result:** Chinese users see English text on Privacy Policy page, creating poor UX and potential legal compliance issues
+
+### Problem 2: Inconsistent Translation Methods
 - Homepage hero: Database meta fields (Method B)
 - Navigation, buttons, sections: JavaScript hardcoded (Method A)
 - Events, Members, News pages: JavaScript only (Method A)
+- **Additional issue:** ~30-50 hardcoded texts in PHP templates (e.g., "Event Calendar", "Member Categories") not using translation system at all
 - **No unified system** = confusion and maintenance nightmare
 
-### Problem 2: Maintenance Overhead
+### Problem 3: Maintenance Overhead
 
 **To Change Translation:**
 1. Open `main.js` in code editor
 2. Find translation key (search through 351 lines)
 3. Edit English version (line ~220)
 4. Edit Bahasa Malaysia version (line ~350)
-5. Edit Chinese version (line ~480)
+5. Edit Chinese version (line ~480) - **if it exists**
 6. Save file
 7. Upload to server OR deploy via Git
 8. Clear cache
 9. Test on live site
 
 **Estimated Time:** 30 minutes per translation change  
-**Risk:** Typos, syntax errors breaking JavaScript  
+**Risk:** Typos, syntax errors breaking JavaScript, forgetting to add Chinese translation  
 **Deployment:** Requires server access or deployment pipeline
 
-### Problem 3: No Single Source of Truth
+### Problem 4: No Single Source of Truth
 - Same translation exists in multiple places
 - Example: "Join MPA" appears as:
   - `'btn-join': 'Join MPA'` in main.js line 224
@@ -168,25 +183,28 @@ Evidence from deleted files:
   - Hardcoded in header.php: `<a href="...">Join MPA</a>`
 - **If you update one, you must find and update all others**
 
-### Problem 4: Content Management Bottleneck
+### Problem 5: Content Management Bottleneck
 - **Non-technical admins cannot change translations**
 - Requires developer intervention for simple text updates
 - No version control or audit trail for translation changes
 - Cannot see all translations for a key at once
+- **No visibility into which translations are missing** (discovered Chinese translations are incomplete only through manual audit)
 
-### Problem 5: Scalability Issues
+### Problem 6: Scalability Issues
 - Adding 4th language = edit 105 keys in JavaScript
 - Adding new page section = edit 3 language objects
 - Translation file grows linearly with site complexity
 - JavaScript file size: 1,818 lines (351 lines = 19% translations)
+- **Missing translations go unnoticed** - took manual audit to discover 27 missing Chinese keys
 
-### Problem 6: Testing & QA Complexity
+### Problem 7: Testing & QA Complexity
 - Must manually test all 3 languages after any change
 - Hard to verify translation completeness (missing keys)
 - No validation for missing translations (falls back to hardcoded defaults)
 - Language switching requires full page reload to apply some translations
+- **Currently 27 Chinese translations missing with no automated detection**
 
-### Problem 7: Collaboration Challenges
+### Problem 8: Collaboration Challenges
 - Translators cannot access translations directly
 - Must provide translators with JavaScript code snippets
 - Risk of breaking JavaScript syntax when non-developers edit
@@ -198,12 +216,21 @@ Evidence from deleted files:
 
 ### Solution Overview
 
-Build a custom WordPress plugin that:
-1. **Centralizes all translations** in WordPress database
-2. **Provides admin UI** for easy editing (table-based interface)
-3. **Exposes REST API** for frontend JavaScript consumption
-4. **Maintains existing frontend** translation application logic
-5. **Enables non-technical editing** via WordPress admin panel
+**Remove legacy plugins and build a clean, custom solution:**
+
+**Step 1: Remove Legacy Plugins**
+1. **Deactivate & Delete Polylang** (v3.7.4) - Failed integration attempt, no longer needed
+2. **Deactivate & Delete ACF** (v6.6.2) - Was used with Polylang, no longer needed
+3. **Clean up database** - Remove Polylang/ACF tables and options
+
+**Step 2: Build Custom MPA Translation Manager Plugin**
+1. **Centralizes all translations** in WordPress database (custom table)
+2. **Provides admin UI** for easy editing (table-based interface with all 3 languages side-by-side)
+3. **Shows missing translations** at a glance (empty cells for missing Chinese translations)
+4. **Exposes REST API** for frontend JavaScript consumption
+5. **Maintains existing frontend** translation application logic
+6. **Enables non-technical editing** via WordPress admin panel
+7. **Validates completeness** - easily identify the 27 missing Chinese translations and complete them
 
 ### Core Features
 
@@ -973,23 +1000,37 @@ class MPA_Translation_Admin {
 
 ### Phase 2: Migration (Week 2)
 
-**Day 1-2: Data Migration**
-- [x] Extract current translations from main.js
-- [x] Create migration script
-- [x] Import all 105 translation keys × 3 languages
-- [x] Verify data integrity
+**Day 1: Plugin Cleanup**
+- [ ] **Deactivate Polylang plugin** (v3.7.4)
+- [ ] **Deactivate ACF plugin** (v6.6.2)
+- [ ] Export Polylang data (if any needed for reference)
+- [ ] **Delete both plugins** from wp-content/plugins/
+- [ ] Clean up Polylang database tables (wp_polylang_*)
+- [ ] Clean up ACF database tables (wp_postmeta ACF entries)
+- [ ] Verify site still functions without plugins
 
-**Day 3-4: Frontend Integration**
-- [x] Update main.js to use REST API
-- [x] Implement caching strategy
-- [x] Add fallback mechanisms
-- [x] Test translation switching
+**Day 2-3: Data Migration**
+- [ ] Extract current translations from main.js (288 translations)
+- [ ] Create migration script
+- [ ] Import all 105 translation keys × 2 languages (EN + BM complete)
+- [ ] Import 78 Chinese translations (27 missing)
+- [ ] **Engage translator to complete 27 missing Chinese Privacy Policy translations**
+- [ ] Import completed Chinese translations
+- [ ] Verify data integrity and translation completeness (315 total)
+
+**Day 4: Frontend Integration**
+- [ ] Update main.js to use REST API
+- [ ] Implement caching strategy (localStorage)
+- [ ] Add fallback mechanisms
+- [ ] Test translation switching
+- [ ] Remove old 351-line hardcoded translations object
 
 **Day 5: Testing**
-- [x] Test all 3 languages on all pages
-- [x] Verify translation completeness
-- [x] Check performance (API response time)
-- [x] Test cache expiry and refresh
+- [ ] Test all 3 languages on all pages
+- [ ] Verify translation completeness (all 315 translations)
+- [ ] Check performance (API response time < 200ms)
+- [ ] Test cache expiry and refresh
+- [ ] Verify no errors after plugin removal
 
 ### Phase 3: Advanced Features (Week 3)
 
@@ -1014,28 +1055,36 @@ class MPA_Translation_Admin {
 ### Phase 4: Deployment (Week 4)
 
 **Day 1: Staging Deployment**
-- [x] Deploy to test environment
-- [x] Import production translations
-- [x] Full QA testing
-- [x] Performance testing
+- [ ] Deploy to test environment
+- [ ] Remove Polylang & ACF from staging
+- [ ] Import production translations
+- [ ] Full QA testing
+- [ ] Performance testing
 
 **Day 2: Production Deployment**
-- [x] Backup live site
-- [x] Deploy plugin to production
-- [x] Run migration script
-- [x] Verify all translations working
+- [ ] **Backup live site** (full backup including database)
+- [ ] **Deactivate Polylang & ACF** on production
+- [ ] Deploy MPA Translation Manager plugin to production
+- [ ] Activate custom plugin
+- [ ] Run migration script (import 315 translations)
+- [ ] Verify all translations working
 
 **Day 3: Cleanup**
-- [x] Remove hardcoded translations from main.js
-- [x] Update theme files to use API
-- [x] Delete old translation code
-- [x] Clear caches
+- [ ] **Delete Polylang plugin** (wp-content/plugins/polylang)
+- [ ] **Delete ACF plugin** (wp-content/plugins/advanced-custom-fields)
+- [ ] Clean up Polylang database tables
+- [ ] Clean up ACF database entries
+- [ ] Remove hardcoded translations from main.js (351 lines)
+- [ ] Update theme files to use API
+- [ ] Clear all caches (browser, WordPress, server)
 
 **Day 4-5: Monitoring**
-- [x] Monitor error logs
-- [x] Check API performance
-- [x] Gather user feedback
-- [x] Fix any issues
+- [ ] Monitor error logs (check for Polylang/ACF errors)
+- [ ] Check API performance
+- [ ] Verify no missing translations
+- [ ] Test all 3 languages across all pages
+- [ ] Gather user feedback
+- [ ] Fix any issues
 
 ---
 
@@ -1118,12 +1167,41 @@ class MPA_Translation_Admin {
 ## 🚀 Migration Strategy
 
 ### Pre-Migration Checklist
-- ✅ Backup live site (files + database)
-- ✅ Test plugin on staging environment
-- ✅ Verify all 105 translation keys mapped correctly
-- ✅ Create rollback plan
+- [ ] Backup live site (files + database)
+- [ ] Export Polylang data (if any) for reference
+- [ ] Export ACF field configurations (if needed)
+- [ ] Test custom plugin on staging environment
+- [ ] Complete 27 missing Chinese translations
+- [ ] Verify all 315 translations ready (105 keys × 3 languages)
+- [ ] Create rollback plan
 
 ### Migration Steps
+
+**Step 0: Remove Legacy Plugins**
+```bash
+# SSH to live server
+ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com
+
+# Navigate to WordPress directory
+cd ~/public_html/proptech.org.my
+
+# Check current plugins
+wp plugin list
+
+# Deactivate Polylang
+wp plugin deactivate polylang
+
+# Deactivate ACF
+wp plugin deactivate advanced-custom-fields
+
+# Verify site still works (test in browser)
+# Then delete plugins
+wp plugin delete polylang
+wp plugin delete advanced-custom-fields
+
+# Verify plugins removed
+wp plugin list
+```
 
 **Step 1: Extract Current Translations**
 ```javascript
@@ -1344,31 +1422,47 @@ async function selectLanguage(lang) {
 
 The MPA Translation Manager plugin solves the critical problem of unmaintainable hardcoded translations by:
 
-1. **Centralizing** all 105 translation keys in a database
-2. **Simplifying** management through a WordPress admin UI
-3. **Eliminating** the need for code changes and deployments
-4. **Empowering** non-technical admins to manage content
-5. **Reducing** maintenance time by 83% (30 min → 5 min per change)
+1. **Removing legacy plugins** - Deactivate & delete failed Polylang (v3.7.4) and ACF (v6.6.2) plugins
+2. **Centralizing** all 105 translation keys in a clean custom database (currently 288/315 translations exist)
+3. **Revealing** the 27 missing Chinese translations through visual table interface
+4. **Simplifying** management through a WordPress admin UI
+5. **Eliminating** the need for code changes and deployments
+6. **Empowering** non-technical admins to manage content
+7. **Reducing** maintenance time by 83% (30 min → 5 min per change)
+8. **Validating** translation completeness to prevent missing translations in the future
 
 ### Recommendation
 
 **Proceed with plugin development immediately.**
 
-The current hybrid system is unsustainable and creates technical debt. The ROI is positive within 18 months, and the benefits extend far beyond time savings:
+The current hybrid system is unsustainable and creates technical debt. **Critical issues:** 
+1. **27 Chinese translations missing** (Privacy Policy section) - Chinese-speaking users cannot access important legal information
+2. **2 unused plugins** (Polylang + ACF) consuming resources and creating security/maintenance burden
+3. **351 lines of unmaintainable hardcoded JavaScript** translations
 
+The ROI is positive within 18 months, and the benefits extend far beyond time savings:
+
+- ✅ **Remove plugin bloat** - Delete Polylang & ACF (reduces attack surface, improves performance)
+- ✅ **Complete missing translations** - Identify and fill the 27 missing Chinese keys
+- ✅ **Legal compliance** - Ensure Privacy Policy available in all languages
 - ✅ Better user experience (faster content updates)
 - ✅ Improved collaboration (translators have direct access)
 - ✅ Reduced errors (no code editing required)
 - ✅ Future-proof (easy to add languages)
 - ✅ Professional (centralized management)
+- ✅ **Translation validation** - Prevent incomplete translations in the future
 
 ### Next Steps
 
 1. **Approve this PDR** and allocate development resources
-2. **Create GitHub repository** for plugin development
-3. **Set up staging environment** for testing
-4. **Begin Phase 1 development** (Week 1: Core plugin)
-5. **Schedule migration** to production (Week 4)
+2. **Engage Chinese translator** to complete the 27 missing Privacy Policy translations
+3. **Create GitHub repository** for plugin development
+4. **Set up staging environment** for testing
+5. **Begin Phase 1 development** (Week 1: Core plugin)
+6. **Week 2: Remove Polylang & ACF** - Clean up legacy failed plugins
+7. **Migrate with complete translations** - all 315 translations (105 keys × 3 languages)
+8. **Schedule production deployment** (Week 4)
+9. **Monitor and optimize** after migration
 
 ---
 
@@ -1386,9 +1480,11 @@ The current hybrid system is unsustainable and creates technical debt. The ROI i
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** October 29, 2025  
+**Document Version:** 1.1 (Updated after live server audit)  
+**Last Updated:** November 4, 2025  
 **Status:** Approved for Development  
+**Critical Finding:** 27 Chinese translations missing (Privacy Policy section)  
+**Translation Status:** 288/315 complete (91% - EN 100%, BM 100%, CN 74%)  
 **Estimated Completion:** November 26, 2025 (4 weeks)
 
 ---

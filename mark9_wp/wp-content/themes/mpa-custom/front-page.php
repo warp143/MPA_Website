@@ -10,50 +10,38 @@
         <div class="hero-content">
             <div class="hero-left">
                 <div class="hero-text-group">
-                    <h1 class="hero-title" 
-                        data-en="<?php echo esc_attr(get_post_meta(get_the_ID(), '_hero_title', true) ?: 'For The Future of A Sustainable Property Market'); ?>"
-                        data-bm="<?php echo esc_attr(get_post_meta(get_the_ID(), '_hero_title_bm', true) ?: 'Untuk Masa Depan Pasaran Hartanah yang Mampan'); ?>"
-                        data-cn="<?php echo esc_attr(get_post_meta(get_the_ID(), '_hero_title_cn', true) ?: '为可持续房地产市场的未来'); ?>">
-                        <?php 
-                        $hero_title = get_post_meta(get_the_ID(), '_hero_title', true);
-                        echo $hero_title ?: 'For The Future of A Sustainable Property Market';
-                        ?>
+                    <h1 class="hero-title" data-translate="hero-title">
+                        <?php the_field('hero-title'); ?>
                     </h1>
-                    <p class="hero-subtitle"
-                        data-en="<?php echo esc_attr(get_post_meta(get_the_ID(), '_hero_subtitle', true) ?: 'Leading The Digital Transformation of the Property Industry in Malaysia through innovation, collaboration, and sustainable growth. Building a strong community with integrity, inclusivity, and equality.'); ?>"
-                        data-bm="<?php echo esc_attr(get_post_meta(get_the_ID(), '_hero_subtitle_bm', true) ?: 'Memimpin Transformasi Digital Industri Hartanah di Malaysia melalui inovasi, kerjasama, dan pertumbuhan mampan. Membina komuniti yang kuat dengan integriti, inklusiviti, dan kesaksamaan.'); ?>"
-                        data-cn="<?php echo esc_attr(get_post_meta(get_the_ID(), '_hero_subtitle_cn', true) ?: '通过创新、协作和可持续增长，引领马来西亚房地产行业的数字化转型。以诚信、包容性和平等性建立强大社区。'); ?>">
-                        <?php 
-                        $hero_subtitle = get_post_meta(get_the_ID(), '_hero_subtitle', true);
-                        echo $hero_subtitle ?: 'Leading The Digital Transformation of the Property Industry in Malaysia through innovation, collaboration, and sustainable growth. Building a strong community with integrity, inclusivity, and equality.';
-                        ?>
+                    <p class="hero-subtitle" data-translate="hero-subtitle">
+                        <?php the_field('hero-subtitle'); ?>
                     </p>
                 </div>
                 <div class="hero-search">
                     <div class="search-container">
                         <div class="search-input">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Find events, members, or resources...">
+                            <input type="text" id="searchInput" placeholder="<?php echo esc_attr(get_field('search-placeholder')); ?>" data-translate="search-placeholder">
                         </div>
-                        <button class="search-btn" id="searchBtn">Search</button>
+                        <button class="search-btn" id="searchBtn" data-translate="search-btn"><?php the_field('search-btn'); ?></button>
                     </div>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
                         <span class="stat-number">150+</span>
-                        <span class="stat-label" data-en="Members" data-bm="Ahli" data-cn="会员">Members</span>
+                        <span class="stat-label" data-translate="stat-members"><?php the_field('stat-members'); ?></span>
                     </div>
                     <div class="stat">
                         <span class="stat-number">50+</span>
-                        <span class="stat-label" data-en="Events" data-bm="Acara" data-cn="活动">Events</span>
+                        <span class="stat-label" data-translate="stat-events"><?php the_field('stat-events'); ?></span>
                     </div>
                     <div class="stat">
                         <span class="stat-number">90+</span>
-                        <span class="stat-label" data-en="Startups" data-bm="Startups" data-cn="初创企业">Startups</span>
+                        <span class="stat-label" data-translate="stat-startups"><?php the_field('stat-startups'); ?></span>
                     </div>
                     <div class="stat">
                         <span class="stat-number">15+</span>
-                        <span class="stat-label" data-en="Partners" data-bm="Rakan Kongsi" data-cn="合作伙伴">Partners</span>
+                        <span class="stat-label" data-translate="stat-partners"><?php the_field('stat-partners'); ?></span>
                     </div>
                 </div>
             </div>
@@ -73,16 +61,16 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2>For The Future of A Sustainable Property Market</h2>
-                    <p class="tie-paragraph">Malaysia Proptech Association Leads The Digital Transformation of the Built Environment in Malaysia and beyond, through innovation, collaboration, and sustainable growth. Building a strong community with integrity, inclusivity, and equality.</p>
-                    <p>The Malaysia PropTech Association (MPA) is the driving force behind Malaysia's digital transformation in the built environment. We unite startups, scale-ups, corporates, investors, and government stakeholders to shape a smarter, more inclusive property ecosystem.</p>
-                    <p>Our mission is to accelerate innovation, foster collaboration, and empower a new generation of tech-driven leaders in the built environment!</p>
-                    <p>We believe that transformation must be rooted in integrity, inclusivity, and shared progress.</p>
-                    <p class="highlight-text">Together, we're shaping the built environment of the future!</p>
+                    <h2 data-translate="about-heading"><?php the_field('about-heading'); ?></h2>
+                    <p class="tie-paragraph" data-translate="about-intro"><?php the_field('about-intro'); ?></p>
+                    <p data-translate="about-mpa-desc"><?php the_field('about-mpa-desc'); ?></p>
+                    <p data-translate="about-mission"><?php the_field('about-mission'); ?></p>
+                    <p data-translate="about-belief"><?php the_field('about-belief'); ?></p>
+                    <p class="highlight-text" data-translate="about-cta"><?php the_field('about-cta'); ?></p>
                 </div>
                 
                 <div class="about-right">
-                    <p class="strategic-anchors">MPA's work is guided by five Strategic Anchors, the pillars that define our purpose and drive our outcomes!</p>
+                    <p class="strategic-anchors" data-translate="strategic-anchors-heading"><?php the_field('strategic-anchors-heading'); ?></p>
                     
                     <div class="about-features">
                         <div class="feature">
@@ -117,16 +105,7 @@
                             <i class="fas fa-graduation-cap"></i>
                             <div class="feature-content">
                                 <h4><?php the_field('pillar_5_title'); ?></h4>
-                                <p><?php
-    if (function_exists('pll_current_language')) {
-        $lang = pll_current_language();
-        if ($lang === 'bm') echo 'Melengkapkan industri dengan pengetahuan, alat, dan kemahiran masa depan';
-        elseif ($lang === 'cn') echo '为行业提供知识、工具和面向未来的技能';
-        else echo 'Equipping the industry with knowledge, tools, and future-ready skills';
-    } else {
-        echo 'Equipping the industry with knowledge, tools, and future-ready skills';
-    }
-    ?></p>
+                                <p><?php the_field('pillar_5_desc'); ?></p>
                             </div>
                         </div>
                     </div>
@@ -139,17 +118,8 @@
     <section class="featured-events">
         <div class="container">
             <div class="section-header">
-                <h2><?php
-    if (function_exists('pll_current_language')) {
-        $lang = pll_current_language();
-        if ($lang === 'bm') echo 'Acara Akan Datang';
-        elseif ($lang === 'cn') echo '即将举行的活动';
-        else echo 'Upcoming Events';
-    } else {
-        echo 'Upcoming Events';
-    }
-    ?></h2>
-                <a href="<?php echo esc_url(home_url('/events/')); ?>" class="view-all">View all events</a>
+                <h2 data-translate="events-title"><?php the_field('events-title'); ?></h2>
+                <a href="<?php echo esc_url(home_url('/events/')); ?>" class="view-all" data-translate="view-all-events"><?php the_field('view-all-events'); ?></a>
             </div>
             <div class="events-grid" id="homepageEventsGrid">
                 <!-- Events will be populated dynamically from events page data -->
@@ -161,32 +131,14 @@
     <section id="partners" class="partners">
         <div class="container">
             <div class="section-header">
-                <h2><?php
-    if (function_exists('pll_current_language')) {
-        $lang = pll_current_language();
-        if ($lang === 'bm') echo 'Rakan Kongsi Kami';
-        elseif ($lang === 'cn') echo '我们的合作伙伴';
-        else echo 'Our Partners';
-    } else {
-        echo 'Our Partners';
-    }
-    ?></h2>
-                <p><?php
-    if (function_exists('pll_current_language')) {
-        $lang = pll_current_language();
-        if ($lang === 'bm') echo 'Kerjasama strategik memacu inovasi PropTech di Malaysia';
-        elseif ($lang === 'cn') echo '推动马来西亚房地产科技创新的战略合作';
-        else echo 'Strategic collaborations driving PropTech innovation in Malaysia';
-    } else {
-        echo 'Strategic collaborations driving PropTech innovation in Malaysia';
-    }
-    ?></p>
+                <h2 data-translate="partners-title"><?php the_field('partners-title'); ?></h2>
+                <p data-translate="partners-subtitle"><?php the_field('partners-subtitle'); ?></p>
             </div>
             <div class="partners-grid" id="homepagePartnersGrid">
                 <!-- Partners will be populated dynamically from partners page data -->
             </div>
             <div class="partners-cta">
-                <a href="<?php echo esc_url(home_url('/partners/')); ?>" class="btn-outline">View All Partners</a>
+                <a href="<?php echo esc_url(home_url('/partners/')); ?>" class="btn-outline" data-translate="view-all-partners"><?php the_field('view-all-partners'); ?></a>
             </div>
         </div>
     </section>
@@ -195,26 +147,8 @@
     <section id="membership" class="membership">
         <div class="container">
             <div class="section-header">
-                <h2><?php
-    if (function_exists('pll_current_language')) {
-        $lang = pll_current_language();
-        if ($lang === 'bm') echo 'Sertai Komuniti Kami';
-        elseif ($lang === 'cn') echo '加入我们的社区';
-        else echo 'Join Our Community';
-    } else {
-        echo 'Join Our Community';
-    }
-    ?></h2>
-                <p><?php
-    if (function_exists('pll_current_language')) {
-        $lang = pll_current_language();
-        if ($lang === 'bm') echo 'Pilih keahlian yang sesuai dengan keperluan anda';
-        elseif ($lang === 'cn') echo '选择符合您需求的会员资格';
-        else echo 'Choose the membership that fits your needs';
-    } else {
-        echo 'Choose the membership that fits your needs';
-    }
-    ?></p>
+                <h2 data-translate="community-title"><?php the_field('community-title'); ?></h2>
+                <p data-translate="community-subtitle"><?php the_field('community-subtitle'); ?></p>
             </div>
             <div class="membership-cards">
                 <?php 

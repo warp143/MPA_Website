@@ -24,6 +24,46 @@ define('MPA_THEME_DIR', get_template_directory());
 define('MPA_THEME_URI', get_template_directory_uri());
 
 /**
+ * Custom fallback for ACF fields (temporary until custom plugin ready)
+ * Replaces removed Advanced Custom Fields plugin
+ */
+if (!function_exists('the_field')) {
+    function the_field($key) {
+        $pillars = array(
+            'pillar_1_title' => 'Advokasi',
+            'pillar_1_desc' => 'Memperjuangkan digitalisasi dan pembaharuan dasar merentasi industri',
+            'pillar_2_title' => 'Peluang Perniagaan',
+            'pillar_2_desc' => 'Menghubungkan ahli kepada pembiayaan, perkongsian, dan akses pasaran',
+            'pillar_3_title' => 'Komuniti',
+            'pillar_3_desc' => 'Membina ekosistem kolaboratif yang bersemangat dengan inovator dan pengubah',
+            'pillar_4_title' => 'Pengetahuan',
+            'pillar_4_desc' => 'Mengadakan program latihan, bengkel, dan perkongsian kepakaran',
+            'pillar_5_title' => 'Advokasi Dasar',
+            'pillar_5_desc' => 'Membentuk rangka kerja peraturan untuk PropTech di Malaysia'
+        );
+        echo isset($pillars[$key]) ? $pillars[$key] : '';
+    }
+}
+
+if (!function_exists('get_field')) {
+    function get_field($key) {
+        $pillars = array(
+            'pillar_1_title' => 'Advokasi',
+            'pillar_1_desc' => 'Memperjuangkan digitalisasi dan pembaharuan dasar merentasi industri',
+            'pillar_2_title' => 'Peluang Perniagaan',
+            'pillar_2_desc' => 'Menghubungkan ahli kepada pembiayaan, perkongsian, dan akses pasaran',
+            'pillar_3_title' => 'Komuniti',
+            'pillar_3_desc' => 'Membina ekosistem kolaboratif yang bersemangat dengan inovator dan pengubah',
+            'pillar_4_title' => 'Pengetahuan',
+            'pillar_4_desc' => 'Mengadakan program latihan, bengkel, dan perkongsian kepakaran',
+            'pillar_5_title' => 'Advokasi Dasar',
+            'pillar_5_desc' => 'Membentuk rangka kerja peraturan untuk PropTech di Malaysia'
+        );
+        return isset($pillars[$key]) ? $pillars[$key] : '';
+    }
+}
+
+/**
  * Disable jQuery Migrate
  * 
  * Removes jQuery Migrate to eliminate console warnings and reduce page load.
@@ -52,6 +92,26 @@ function mpa_custom_setup() {
     
     // Let WordPress manage the document title
     add_theme_support('title-tag');
+    
+    // Translate page title based on language cookie
+    add_filter('document_title_parts', 'mpa_translate_page_title');
+    function mpa_translate_page_title($title) {
+        $translated_title = get_field('page-title');
+        if ($translated_title) {
+            $title['title'] = $translated_title;
+        }
+        return $title;
+    }
+    
+    // Translate page title in head tag
+    add_filter('wp_title', 'mpa_translate_wp_title', 10, 2);
+    function mpa_translate_wp_title($title, $sep) {
+        $translated_title = get_field('page-title');
+        if ($translated_title) {
+            return $translated_title . ' ' . $sep . ' ' . get_bloginfo('name');
+        }
+        return $title;
+    }
     
     // Enable support for Post Thumbnails on posts and pages
     add_theme_support('post-thumbnails');
@@ -157,6 +217,11 @@ add_action('after_setup_theme', 'mpa_custom_content_width', 0);
  * Customize the document title to include site name
  */
 function mpa_custom_document_title_parts($title) {
+    // Override with translated title if available
+    $translated_title = get_field('page-title');
+    if ($translated_title && is_front_page()) {
+        $title['title'] = $translated_title;
+    }
     // Set the site name
     $title['site'] = 'Malaysia Proptech Association';
     return $title;
@@ -3970,3 +4035,14 @@ function mpa_auto_translate_hero() {
     <?php
 }
 add_action('wp_footer', 'mpa_auto_translate_hero', 999);
+
+// Load MPA Translation frontend loader
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script(
+        'mpa-trans-frontend',
+        '/wp-content/plugins/mpa-translation-manager/assets/js/frontend-loader.js',
+        [],
+        '1.0.0',
+        false  // Load in header before main.js
+    );
+}, 5);

@@ -256,7 +256,18 @@ p {
     margin-bottom: var(--spacing-md);
 }
 
-/* Buttons */
+/* Prevent default link underlines globally */
+a {
+    text-decoration: none;
+}
+
+/* Event Card Links - Simple and Working */
+.event-card-link {
+    display: block;
+    text-decoration: none !important;
+    color: inherit;
+}
+
 .btn-primary, .btn-secondary, .btn-outline {
     padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: var(--border-radius-md);
@@ -7738,18 +7749,59 @@ div.member-categories {
 }
 
 /* Search result hover effects */
+.search-result:hover {
     pointer-events: auto;
 }
 
 /* Event Card Links - Simple and Working */
 .event-card-link {
     display: block;
-    text-decoration: none;
+    text-decoration: none !important;
     color: inherit;
 }
 
 .event-card-link:hover {
-    text-decoration: none;
+    text-decoration: none !important;
+}
+
+/* Prevent underlines on all children inside event card links - AGGRESSIVE FIX */
+.event-card-link,
+.event-card-link *,
+.event-card-link p,
+.event-card-link h1,
+.event-card-link h2,
+.event-card-link h3,
+.event-card-link h4,
+.event-card-link h5,
+.event-card-link h6,
+.event-card-link span,
+.event-card-link div {
+    text-decoration: none !important;
+}
+
+.event-card-link:hover,
+.event-card-link:hover *,
+.event-card-link:hover p,
+.event-card-link:hover h1,
+.event-card-link:hover h2,
+.event-card-link:hover h3,
+.event-card-link:hover h4,
+.event-card-link:hover h5,
+.event-card-link:hover h6,
+.event-card-link:hover span,
+.event-card-link:hover div {
+    text-decoration: none !important;
+}
+
+/* Force no underline on visited links too */
+.event-card-link:visited,
+.event-card-link:visited * {
+    text-decoration: none !important;
+}
+
+.event-card-link:active,
+.event-card-link:active * {
+    text-decoration: none !important;
 }
 
 /* Event Hero Redesign - Responsive */
@@ -8070,3 +8122,4 @@ body.light-mode .event-share-card {
     object-fit: contain !important;
     border-radius: 0 !important;
 }
+

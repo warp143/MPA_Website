@@ -22,6 +22,8 @@ get_header(); ?>
         }
         $event_status = get_post_meta(get_the_ID(), '_event_status', true);
         $event_type = get_post_meta(get_the_ID(), '_event_type', true);
+        $speaker_profile = get_post_meta(get_the_ID(), '_speaker_profile', true);
+        $speaker_website = get_post_meta(get_the_ID(), '_speaker_website', true);
         
         // Format date and time
         $date_obj = DateTime::createFromFormat('Y-m-d', $event_date);
@@ -162,6 +164,27 @@ get_header(); ?>
                                 <p class="event-price-display"><?php echo esc_html($event_price); ?></p>
                             </div>
                         </div>
+                        
+                        <?php if ($speaker_profile || $speaker_website) : ?>
+                        <div class="info-item">
+                            <i class="fas fa-user-tie"></i>
+                            <div>
+                                <strong>Speaker</strong>
+                                <div class="speaker-links" style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
+                                    <?php if ($speaker_profile) : ?>
+                                    <a href="<?php echo esc_url($speaker_profile); ?>" target="_blank" class="speaker-link" style="display: inline-flex; align-items: center; gap: 8px; color: var(--accent-blue); text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.3s;">
+                                        <i class="fas fa-id-card"></i> View Profile
+                                    </a>
+                                    <?php endif; ?>
+                                    <?php if ($speaker_website) : ?>
+                                    <a href="<?php echo esc_url($speaker_website); ?>" target="_blank" class="speaker-link" style="display: inline-flex; align-items: center; gap: 8px; color: var(--accent-blue); text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.3s;">
+                                        <i class="fas fa-globe"></i> Website
+                                    </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                         
                         <?php if ($event_status === 'upcoming' && $event_registration_url) : ?>
                         <div class="event-sidebar-cta">
@@ -453,6 +476,16 @@ get_header(); ?>
 .share-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.speaker-link:hover {
+    color: var(--primary-purple) !important;
+    transform: translateX(3px);
+}
+
+.speaker-link i {
+    font-size: 16px;
+    opacity: 0.8;
 }
 
 /* Responsive */
