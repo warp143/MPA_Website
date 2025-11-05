@@ -561,6 +561,65 @@ python3 tools/deploy_to_proptech.py
 
 ---
 
+## Hide/Show Sign In Button
+
+### Current Status: HIDDEN (as of Nov 5, 2025)
+
+The Sign In button is currently hidden on the website but not deleted. The code is still in place and can be easily re-enabled.
+
+### To HIDE the Sign In button:
+
+1. **Edit header.php**:
+   - Line 69 (desktop): Add class `sign-in-hidden`
+   - Line 117 (mobile): Add class `sign-in-hidden`
+
+```php
+<!-- Desktop (Line 69) -->
+<a href="<?php echo esc_url(home_url('/signin/')); ?>" class="btn-secondary desktop-only sign-in-hidden" ...>
+
+<!-- Mobile (Line 117) -->
+<a href="<?php echo esc_url(home_url('/signin/')); ?>" class="btn-secondary mobile-only sign-in-hidden" ...>
+```
+
+2. **Ensure style.css has the CSS rule** (already added):
+```css
+/* HIDE SIGN IN BUTTON - To re-enable, remove "sign-in-hidden" class from header.php */
+.sign-in-hidden {
+    display: none !important;
+}
+```
+
+3. **Deploy to live server**:
+```bash
+cd mark9_wp/wp-content/themes/mpa-custom
+scp -i ~/Documents/GitHub/MPA_Website/ssh/proptech_mpa_new header.php proptech@smaug.cygnusdns.com:~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
+scp -i ~/Documents/GitHub/MPA_Website/ssh/proptech_mpa_new style.css proptech@smaug.cygnusdns.com:~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
+```
+
+### To SHOW the Sign In button (re-enable):
+
+1. **Edit header.php**:
+   - Line 69 (desktop): Remove `sign-in-hidden` class
+   - Line 117 (mobile): Remove `sign-in-hidden` class
+
+```php
+<!-- Desktop (Line 69) - REMOVE sign-in-hidden -->
+<a href="<?php echo esc_url(home_url('/signin/')); ?>" class="btn-secondary desktop-only" ...>
+
+<!-- Mobile (Line 117) - REMOVE sign-in-hidden -->
+<a href="<?php echo esc_url(home_url('/signin/')); ?>" class="btn-secondary mobile-only" ...>
+```
+
+2. **Deploy to live server**:
+```bash
+cd mark9_wp/wp-content/themes/mpa-custom
+scp -i ~/Documents/GitHub/MPA_Website/ssh/proptech_mpa_new header.php proptech@smaug.cygnusdns.com:~/public_html/proptech.org.my/wp-content/themes/mpa-custom/
+```
+
+**Note**: The CSS rule can stay in style.css - it only affects elements with the `sign-in-hidden` class.
+
+---
+
 ## Quick Reference
 
 ### Most Common Commands
@@ -600,6 +659,6 @@ ssh -i ssh/proptech_mpa_new proptech@smaug.cygnusdns.com "cd ~/public_html/propt
 
 ---
 
-**Last Updated**: October 29, 2025  
-**Document Version**: 2.3 (WordPress admin_amk password reset)  
+**Last Updated**: November 5, 2025  
+**Document Version**: 2.4 (Added Sign In button hide/show instructions)  
 **Server Status**: Active (Ubuntu 20.04.6 LTS)

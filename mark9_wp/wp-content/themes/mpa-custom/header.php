@@ -66,7 +66,7 @@
                         </button>
                     </div>
                 </div>
-                <a href="<?php echo esc_url(home_url('/signin/')); ?>" class="btn-secondary desktop-only" data-translate="btn-signin"><?php the_field('btn-signin'); ?></a>
+                <a href="<?php echo esc_url(home_url('/signin/')); ?>" class="btn-secondary desktop-only sign-in-hidden" data-translate="btn-signin"><?php the_field('btn-signin'); ?></a>
                 <a href="http://118.107.202.35/Register/RegisterPage" class="btn-primary desktop-only" data-translate="btn-join"><?php the_field('btn-join'); ?></a>
                 <button class="mobile-menu-toggle hamburger" id="mobileMenuToggle" aria-label="Toggle mobile menu">
                     <span class="hamburger-line"></span>
@@ -114,7 +114,7 @@
                 </div>
             </div>
             
-            <a href="<?php echo esc_url(home_url('/signin/')); ?>" class="btn-secondary mobile-only" data-translate="btn-signin"><?php the_field('btn-signin'); ?></a>
+            <a href="<?php echo esc_url(home_url('/signin/')); ?>" class="btn-secondary mobile-only sign-in-hidden" data-translate="btn-signin"><?php the_field('btn-signin'); ?></a>
             <a href="http://118.107.202.35/Register/RegisterPage" class="btn-primary mobile-only" data-translate="btn-join"><?php the_field('btn-join'); ?></a>
         </nav>
     </div>

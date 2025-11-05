@@ -167,23 +167,34 @@ As a [positioning], [Company] is currently [current status] and [expansion plans
         </div>
 
         <div class="form-group">
-            <label>Vertical / Focus Area <span class="required">*</span></label>
-            <select name="vertical" required>
-                <option value="">Select Vertical</option>
-                <option value="PLAN & CONSTRUCT">PLAN & CONSTRUCT</option>
-                <option value="MARKET & TRANSACT">MARKET & TRANSACT</option>
-                <option value="OPERATE & MANAGE">OPERATE & MANAGE</option>
-                <option value="REINVEST, REPORT & REGENERATE">REINVEST, REPORT & REGENERATE</option>
-            </select>
-            <small>Select the main category that best describes your business</small>
-        </div>
-
-        <div class="form-group">
-            <label>Categories / Tags <span class="required">*</span></label>
-            <small style="display:block;margin-bottom:10px;">Select all that apply (categories will appear based on your selected vertical)</small>
-            <div id="categoriesContainer" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
-                <p style="grid-column:1/-1;color:var(--text-muted);font-style:italic;">Please select a Vertical above first</p>
-            </div>
+            <label>Vertical & Categories <span class="required">*</span></label>
+            <small style="display:block;margin-bottom:15px;">Select the primary vertical and any relevant categories from any section</small>
+            
+            <?php 
+            $all_verticals = mpa_get_vertical_categories();
+            foreach ($all_verticals as $vertical_key => $vertical_data): 
+            ?>
+                <div class="vertical-section" style="margin-bottom:25px;padding:20px;background:var(--bg-tertiary);border-radius:8px;border:1px solid var(--glass-border);">
+                    <div style="margin-bottom:15px;">
+                        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:16px;font-weight:600;color:var(--accent-blue);">
+                            <input type="radio" name="vertical" value="<?php echo esc_attr($vertical_key); ?>" required style="cursor:pointer;width:18px;height:18px;">
+                            📊 <?php echo esc_html($vertical_data['name']); ?>
+                        </label>
+                        <small style="margin-left:28px;color:var(--text-muted);font-size:13px;">Select as primary vertical</small>
+                    </div>
+                    
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;padding-left:28px;">
+                        <?php foreach ($vertical_data['categories'] as $category): ?>
+                            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px;border:1px solid var(--glass-border);border-radius:4px;background:var(--bg-secondary);transition:all 0.2s;">
+                                <input type="checkbox" name="categories[]" value="<?php echo esc_attr($category); ?>" data-vertical="<?php echo esc_attr($vertical_key); ?>" style="cursor:pointer;">
+                                <span style="font-size:14px;"><?php echo esc_html($category); ?></span>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            
+            <small style="color:var(--text-muted);font-style:italic;">Select ONE primary vertical (radio button), then select ANY relevant categories from any section (checkboxes can be cross-vertical)</small>
         </div>
 
         <div class="form-group">
@@ -243,26 +254,8 @@ As a [positioning], [Company] is currently [current status] and [expansion plans
 </div>
 
 <script>
-// Category options based on vertical (loaded from centralized database settings)
-const verticalCategories = <?php echo json_encode(array_map(function($v) { return $v['categories']; }, mpa_get_vertical_categories())); ?>;
-
-// Update categories when vertical changes
-document.querySelector('select[name="vertical"]').addEventListener('change', function() {
-    const vertical = this.value;
-    const container = document.getElementById('categoriesContainer');
-    
-    if (!vertical) {
-        container.innerHTML = '<p style="grid-column:1/-1;color:var(--text-muted);font-style:italic;">Please select a Vertical above first</p>';
-        return;
-    }
-    
-    const categories = verticalCategories[vertical] || [];
-    container.innerHTML = categories.map(cat => `
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px;border:1px solid var(--glass-border);border-radius:4px;background:var(--bg-tertiary);transition:all 0.2s;">
-            <input type="checkbox" name="categories[]" value="${cat}" style="cursor:pointer;"> ${cat}
-        </label>
-    `).join('');
-});
+// All categories are always enabled - cross-vertical selection allowed
+// No need to disable categories based on vertical selection
 
 // Auto-add https:// to website field
 document.getElementById('company_website').addEventListener('blur', function() {

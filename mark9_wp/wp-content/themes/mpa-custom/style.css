@@ -8123,3 +8123,8 @@ body.light-mode .event-share-card {
     border-radius: 0 !important;
 }
 
+/* HIDE SIGN IN BUTTON - To re-enable, remove "sign-in-hidden" class from header.php */
+.sign-in-hidden {
+    display: none !important;
+}
+
