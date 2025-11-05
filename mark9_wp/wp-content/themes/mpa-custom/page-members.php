@@ -141,8 +141,7 @@
                         <div class="member-categories">
                             <?php
                             $cats_array = array_map('trim', explode(',', $display_cats));
-                            $limited_cats = array_slice($cats_array, 0, 2);
-                            foreach ($limited_cats as $cat) {
+                            foreach ($cats_array as $cat) {
                                 echo '<span class="member-category">' . esc_html($cat) . '</span>';
                             }
                             ?>
