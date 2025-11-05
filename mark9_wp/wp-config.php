@@ -20,6 +20,8 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
+define('WP_CACHE', true);
+define( 'WPCACHEHOME', '/Users/amk/Documents/GitHub/MPA_Website/mark9_wp/wp-content/plugins/wp-super-cache.disabled/' );
 define( 'DB_NAME', 'mark9_wp' );
 
 /** Database username */

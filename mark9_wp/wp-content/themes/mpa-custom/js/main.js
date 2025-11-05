@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const footerDesc = document.querySelector('.footer-section p');
         const footerLinks = document.querySelectorAll('.footer-section h4');
         const footerCopyright = document.querySelector('.footer-bottom p');
-        if (footerDesc) footerDesc.textContent = t['footer-mpa-desc'];
+        // if (footerDesc) footerDesc.textContent = t['footer-mpa-desc']; // Removed - using HTML content
         if (footerCopyright) footerCopyright.textContent = t['footer-copyright'];
 
         // Privacy Policy translations

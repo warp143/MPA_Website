@@ -4046,3 +4046,98 @@ add_action('wp_enqueue_scripts', function() {
         false  // Load in header before main.js
     );
 }, 5);
+
+// ============================================
+// FOOTER SETTINGS - Editable in WordPress Admin
+// ============================================
+
+// Add admin menu for footer settings
+add_action('admin_menu', 'mpa_footer_settings_menu');
+function mpa_footer_settings_menu() {
+    add_menu_page(
+        'Footer Settings',
+        'Footer Settings',
+        'manage_options',
+        'mpa-footer-settings',
+        'mpa_footer_settings_page',
+        'dashicons-admin-generic',
+        30
+    );
+}
+
+// Admin page HTML
+function mpa_footer_settings_page() {
+    // Save settings
+    if (isset($_POST['mpa_footer_save'])) {
+        check_admin_referer('mpa_footer_settings');
+        
+        update_option('mpa_linkedin_url', sanitize_text_field($_POST['mpa_linkedin_url']));
+        update_option('mpa_twitter_url', sanitize_text_field($_POST['mpa_twitter_url']));
+        update_option('mpa_facebook_url', sanitize_text_field($_POST['mpa_facebook_url']));
+        update_option('mpa_instagram_url', sanitize_text_field($_POST['mpa_instagram_url']));
+        update_option('mpa_youtube_url', sanitize_text_field($_POST['mpa_youtube_url']));
+        update_option('mpa_contact_email', sanitize_email($_POST['mpa_contact_email']));
+        update_option('mpa_contact_phone', sanitize_text_field($_POST['mpa_contact_phone']));
+        update_option('mpa_contact_address', sanitize_textarea_field($_POST['mpa_contact_address']));
+        
+        echo '<div class="notice notice-success"><p>Settings saved!</p></div>';
+    }
+    
+    // Get current values
+    $linkedin = get_option('mpa_linkedin_url', 'https://linkedin.com/company/malaysia-proptech-association');
+    $twitter = get_option('mpa_twitter_url', 'https://twitter.com/MalaysiaPropTech');
+    $facebook = get_option('mpa_facebook_url', 'https://facebook.com/MalaysiaPropTechAssociation');
+    $instagram = get_option('mpa_instagram_url', 'https://instagram.com/malaysiaproptech');
+    $youtube = get_option('mpa_youtube_url', 'https://youtube.com/@MalaysiaPropTech');
+    $email = get_option('mpa_contact_email', 'info@proptech.org.my');
+    $phone = get_option('mpa_contact_phone', '+60 11 322 44 56');
+    $address = get_option('mpa_contact_address', '53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor');
+    
+    ?>
+    <div class="wrap">
+        <h1>Footer Settings</h1>
+        <form method="post" action="">
+            <?php wp_nonce_field('mpa_footer_settings'); ?>
+            
+            <h2>Social Media Links</h2>
+            <table class="form-table">
+                <tr>
+                    <th><label for="mpa_linkedin_url">LinkedIn URL</label></th>
+                    <td><input type="url" id="mpa_linkedin_url" name="mpa_linkedin_url" value="<?php echo esc_attr($linkedin); ?>" class="regular-text"></td>
+                </tr>
+                <tr>
+                    <th><label for="mpa_facebook_url">Facebook URL</label></th>
+                    <td><input type="url" id="mpa_facebook_url" name="mpa_facebook_url" value="<?php echo esc_attr($facebook); ?>" class="regular-text"></td>
+                </tr>
+                <tr>
+                    <th><label for="mpa_youtube_url">YouTube URL</label></th>
+                    <td><input type="url" id="mpa_youtube_url" name="mpa_youtube_url" value="<?php echo esc_attr($youtube); ?>" class="regular-text"></td>
+                </tr>
+                <tr>
+                    <th><label for="mpa_instagram_url">Instagram URL</label></th>
+                    <td><input type="url" id="mpa_instagram_url" name="mpa_instagram_url" value="<?php echo esc_attr($instagram); ?>" class="regular-text"></td>
+                </tr>
+                <tr>
+                    <th><label for="mpa_twitter_url">Twitter URL</label></th>
+                    <td><input type="url" id="mpa_twitter_url" name="mpa_twitter_url" value="<?php echo esc_attr($twitter); ?>" class="regular-text"></td>
+                </tr>
+                    <th><label for="mpa_contact_email">Email</label></th>
+                    <td><input type="email" id="mpa_contact_email" name="mpa_contact_email" value="<?php echo esc_attr($email); ?>" class="regular-text"></td>
+                </tr>
+                <tr>
+                    <th><label for="mpa_contact_phone">Phone</label></th>
+                    <td><input type="text" id="mpa_contact_phone" name="mpa_contact_phone" value="<?php echo esc_attr($phone); ?>" class="regular-text"></td>
+                </tr>
+                <tr>
+                    <th><label for="mpa_contact_address">Address</label></th>
+                    <td><textarea id="mpa_contact_address" name="mpa_contact_address" rows="3" class="large-text"><?php echo esc_textarea($address); ?></textarea></td>
+                </tr>
+            </table>
+            
+            <p class="submit">
+                <input type="submit" name="mpa_footer_save" class="button button-primary" value="Save Settings">
+            </p>
+        </form>
+    </div>
+    <?php
+}

@@ -6,10 +6,21 @@
                     <h3>MPA</h3>
                     <p>Malaysia's leading PropTech community driving innovation in real estate technology.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <?php if (get_option('mpa_linkedin_url')): ?>
+                            <a href="<?php echo esc_url(get_option('mpa_linkedin_url')); ?>" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <?php endif; ?>
+                        <?php if (get_option('mpa_facebook_url')): ?>
+                            <a href="<?php echo esc_url(get_option('mpa_facebook_url')); ?>" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <?php endif; ?>
+                        <?php if (get_option('mpa_youtube_url')): ?>
+                            <a href="<?php echo esc_url(get_option('mpa_youtube_url')); ?>" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <?php endif; ?>
+                        <?php if (get_option('mpa_instagram_url')): ?>
+                            <a href="<?php echo esc_url(get_option('mpa_instagram_url')); ?>" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <?php endif; ?>
+                        <?php if (get_option('mpa_twitter_url')): ?>
+                            <a href="<?php echo esc_url(get_option('mpa_twitter_url')); ?>" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -25,9 +36,15 @@
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <ul>
-                        <li><i class="fas fa-envelope"></i> info@proptech.org.my</li>
-                        <li><i class="fas fa-phone"></i> +60 11 322 44 56</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 53A, Jalan Kenari 21, Bandar Puchong Jaya, 47100 Puchong, Selangor</li>
+                        <?php if (get_option('mpa_contact_email')): ?>
+                            <li><i class="fas fa-envelope"></i> <a href="mailto:<?php echo esc_attr(get_option('mpa_contact_email')); ?>"><?php echo esc_html(get_option('mpa_contact_email')); ?></a></li>
+                        <?php endif; ?>
+                        <?php if (get_option('mpa_contact_phone')): ?>
+                            <li><i class="fas fa-phone"></i> <a href="tel:<?php echo esc_attr(str_replace(' ', '', get_option('mpa_contact_phone'))); ?>"><?php echo esc_html(get_option('mpa_contact_phone')); ?></a></li>
+                        <?php endif; ?>
+                        <?php if (get_option('mpa_contact_address')): ?>
+                            <li><i class="fas fa-map-marker-alt"></i> <?php echo esc_html(get_option('mpa_contact_address')); ?></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
