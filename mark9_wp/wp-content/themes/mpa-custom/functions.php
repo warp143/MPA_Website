@@ -3091,7 +3091,7 @@ add_action('admin_footer', 'add_export_registrations_button');
 
 // Handle CSV export
 function export_event_registrations() {
-    if (!current_user_can('manage_options')) {
+    if (!current_user_can('manage_options') && !current_user_can('edit_posts')) {
         wp_die('Unauthorized');
     }
     
