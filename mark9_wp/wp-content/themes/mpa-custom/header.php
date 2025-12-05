@@ -42,11 +42,11 @@
                 <a href="<?php echo esc_url(home_url('/partners/')); ?>" class="nav-link" data-translate="nav-partners"><?php the_field('nav-partners'); ?></a>
             </div>
             <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle">
+                <button class="theme-toggle desktop-only" id="themeToggle">
                     <span class="theme-icon">🌙</span>
                     <span class="auto-indicator" id="autoIndicator" title="Auto mode active">🔄</span>
                 </button>
-                <div class="language-dropdown">
+                <div class="language-dropdown desktop-only">
                     <button class="language-toggle" id="languageToggle">
                         <span class="current-language">EN</span>
                         <i class="fas fa-chevron-down"></i>
@@ -105,12 +105,20 @@
                 <span data-translate="nav-partners"><?php the_field('nav-partners'); ?></span>
             </a>
             
-            <div class="mobile-language-selector">
-                <span class="mobile-language-label">Language:</span>
-                <div class="mobile-language-options">
-                    <button class="mobile-language-option active" data-lang="en">EN</button>
-                    <button class="mobile-language-option" data-lang="bm">BM</button>
-                    <button class="mobile-language-option" data-lang="cn">CN</button>
+            <div class="mobile-menu-controls">
+                <div class="mobile-theme-toggle-wrapper">
+                    <button class="theme-toggle mobile-only" id="mobileThemeToggle" onclick="if(window.cycleTheme){window.cycleTheme();}return false;">
+                        <span class="theme-icon">🌙</span>
+                        <span class="auto-indicator" id="mobileAutoIndicator" title="Auto mode active">🔄</span>
+                    </button>
+                </div>
+                <div class="mobile-language-selector">
+                    <span class="mobile-language-label">Language:</span>
+                    <div class="mobile-language-options">
+                        <button class="mobile-language-option active" data-lang="en">EN</button>
+                        <button class="mobile-language-option" data-lang="bm">BM</button>
+                        <button class="mobile-language-option" data-lang="cn">CN</button>
+                    </div>
                 </div>
             </div>
             

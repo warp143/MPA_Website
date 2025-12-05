@@ -1,8 +1,19 @@
 // Modern Liquid MPA Website JavaScript
+alert('MAIN.JS LOADED - If you see this, script is working');
+console.log('[DEBUG] ========================================');
+console.log('[DEBUG] main.js FILE LOADED - Mobile theme buttons version');
+console.log('[DEBUG] Timestamp:', new Date().toISOString());
+console.log('[DEBUG] ========================================');
 
 // Theme Management
 let currentTheme = localStorage.getItem('theme') || 'auto';
 let isAutoMode = currentTheme === 'auto';
+
+// Immediate test - check if buttons exist right now
+setTimeout(function() {
+    console.log('[DEBUG] Immediate check - looking for buttons...');
+    // Mobile theme toggle button is now handled in main DOMContentLoaded section
+}, 100);
 
 function getAutoTheme() {
     const now = new Date();
@@ -34,6 +45,11 @@ function applyTheme(theme) {
         }
     }
     
+    // Update mobile theme buttons
+    if (window.updateMobileThemeButton) {
+        window.updateMobileThemeButton();
+    }
+    
     // Update logo based on theme
     updateLogoForTheme(theme);
 }
@@ -62,12 +78,65 @@ function checkAndUpdateTheme() {
 window.checkAndUpdateTheme = checkAndUpdateTheme;
 
 function setTheme(theme) {
+    // Ensure we're setting a valid theme
+    if (theme !== 'light' && theme !== 'dark' && theme !== 'auto') {
+        return;
+    }
+    
     currentTheme = theme;
     isAutoMode = theme === 'auto';
     localStorage.setItem('theme', theme);
+    
+    // Force immediate theme application
+    if (theme === 'light') {
+        document.body.classList.add('light-mode');
+    } else if (theme === 'dark') {
+        document.body.classList.remove('light-mode');
+    } else {
+        // Auto mode - use checkAndUpdateTheme
     checkAndUpdateTheme();
     updateAutoIndicator(theme);
+        return;
+    }
+    
+    // Update theme icon and indicators
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle?.querySelector('.theme-icon');
+    if (themeIcon) {
+        themeIcon.textContent = theme === 'light' ? '☀️' : '🌙';
+    }
+    
+    // Update mobile theme button icon
+    const mobileBtn = document.getElementById('mobileThemeToggle');
+    const mobileIcon = mobileBtn?.querySelector('.theme-icon');
+    if (mobileIcon) {
+        if (theme === 'auto') {
+            // In auto mode, show the current effective theme
+            const effectiveTheme = isAutoMode ? getAutoTheme() : (document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            mobileIcon.textContent = effectiveTheme === 'light' ? '☀️' : '🌙';
+        } else {
+            mobileIcon.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+    }
+    const mobileIndicator = document.getElementById('mobileAutoIndicator');
+    if (mobileIndicator) {
+        mobileIndicator.style.display = (theme === 'auto') ? 'inline' : 'none';
+    }
+    
+    // Update mobile theme buttons
+    if (window.updateMobileThemeButton) {
+        window.updateMobileThemeButton();
+    }
+    
+    // Update logo
+    updateLogoForTheme(theme);
+    
+    // Update auto indicator
+    updateAutoIndicator(theme);
 }
+
+// Expose setTheme globally
+window.setTheme = setTheme;
 
 function cycleTheme() {
     const themes = ['auto', 'light', 'dark'];
@@ -81,19 +150,20 @@ function cycleTheme() {
 window.cycleTheme = cycleTheme;
 
 function updateThemeIcon(theme) {
-    const themeIcon = document.querySelector('.theme-icon');
-    if (themeIcon) {
+    const themeIcons = document.querySelectorAll('.theme-icon');
+    themeIcons.forEach(themeIcon => {
         if (theme === 'light') {
             themeIcon.textContent = '☀️';
         } else {
             themeIcon.textContent = '🌙';
         }
-    }
+    });
 }
 
 function updateAutoIndicator(savedTheme) {
     const autoIndicator = document.getElementById('autoIndicator');
     const themeToggle = document.getElementById('themeToggle');
+    
     if (autoIndicator && themeToggle) {
         if (savedTheme === 'auto') {
             autoIndicator.classList.remove('hidden');
@@ -104,6 +174,7 @@ function updateAutoIndicator(savedTheme) {
         }
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if all required elements exist
@@ -129,15 +200,35 @@ document.addEventListener('DOMContentLoaded', function() {
         themeToggle.classList.add('auto-hidden');
     }
     
-    // Theme toggle functionality
+    // Theme toggle functionality (desktop)
     if (themeToggle) {
         themeToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             cycleTheme();
         });
-    } else {
     }
+    
+    // Mobile theme toggle - SIMPLEST POSSIBLE
+    setInterval(function() {
+        const btn = document.getElementById('mobileThemeToggle');
+        if (btn && !btn.dataset.handlerAttached) {
+            btn.dataset.handlerAttached = 'true';
+            btn.onclick = function() {
+                window.cycleTheme();
+                return false;
+            };
+        }
+    }, 200);
+    
+    // Mobile menu container
+    const mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
+    
+    // Initial update - multiple attempts to ensure it runs
+    updateMobileThemeButton();
+    setTimeout(updateMobileThemeButton, 100);
+    setTimeout(updateMobileThemeButton, 300);
+    setTimeout(updateMobileThemeButton, 500);
     
     // Check for system theme changes
     if (window.matchMedia) {
@@ -150,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     // Mobile Menu Management
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
+    // mobileDropdownMenu already defined above for theme toggle handler
 
     function toggleMobileMenu() {
         if (!mobileDropdownMenu) return;
@@ -619,6 +710,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Mobile theme option click handlers - EXACTLY LIKE LANGUAGE BUTTONS
+    // Mobile theme toggle is now handled with single button (mobileThemeToggle) above
+
     // Smooth Scrolling for Navigation Links (only for same-page links)
     const navLinks = document.querySelectorAll('.nav-link');
     
@@ -649,18 +743,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close menu when clicking outside
+    // Close menu when clicking outside - runs AFTER theme button handler
     document.addEventListener('click', function(e) {
+        // Don't close menu if clicking on theme buttons or language options inside menu
+        const isThemeOption = e.target.closest('#mobileThemeToggle') ||
+                              e.target.closest('.mobile-theme-toggle-wrapper');
+        const isLanguageOption = e.target.closest('.mobile-language-option');
+        const isMobileControl = e.target.closest('.mobile-menu-controls');
+        
+        // If clicking on mobile theme options, don't close menu
+        if (isThemeOption) {
+            return;
+        }
+        
         if (mobileDropdownMenu && mobileDropdownMenu.classList.contains('active') && 
             !mobileDropdownMenu.contains(e.target) && 
-            mobileMenuToggle && !mobileMenuToggle.contains(e.target)) {
+            mobileMenuToggle && !mobileMenuToggle.contains(e.target) &&
+            !isLanguageOption && !isMobileControl) {
             closeMobileMenu();
         }
         
         if (languageDropdown && !languageDropdown.contains(e.target)) {
             languageDropdown.classList.remove('active');
         }
-    });
+    }, false); // BUBBLE PHASE - runs after capture phase handlers
 
     // Close menu on escape key
     document.addEventListener('keydown', function(e) {

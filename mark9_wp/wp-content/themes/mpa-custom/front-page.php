@@ -45,13 +45,14 @@
                     </div>
                 </div>
             </div>
-        <div class="hero-image">
-            <div class="image-container">
-                <?php if (has_post_thumbnail()) : ?>
-                    <?php the_post_thumbnail('large', array('alt' => 'Malaysia Proptech Association - Kuala Lumpur Skyline')); ?>
-                <?php else : ?>
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/mpa-intro.jpg" alt="Malaysia Proptech Association - Kuala Lumpur Skyline">
-                <?php endif; ?>
+            <div class="hero-image">
+                <div class="image-container">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('large', array('alt' => 'Malaysia Proptech Association - Kuala Lumpur Skyline')); ?>
+                    <?php else : ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/mpa-intro.jpg" alt="Malaysia Proptech Association - Kuala Lumpur Skyline">
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </section>
