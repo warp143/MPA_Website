@@ -107,7 +107,7 @@
             
             <div class="mobile-menu-controls">
                 <div class="mobile-theme-toggle-wrapper">
-                    <button class="theme-toggle mobile-only" id="mobileThemeToggle" onclick="if(window.cycleTheme){window.cycleTheme();}return false;">
+                    <button class="theme-toggle mobile-only" id="mobileThemeToggle" onclick="if(window.cycleTheme){window.cycleTheme();setTimeout(function(){const btn=document.getElementById('mobileThemeToggle');const icon=btn?.querySelector('.theme-icon');if(icon){const isLight=document.body.classList.contains('light-mode');icon.textContent=isLight?'☀️':'🌙';}const ind=document.getElementById('mobileAutoIndicator');if(ind){const saved=localStorage.getItem('theme');ind.style.display=(saved==='auto')?'inline':'none';}},200);}return false;">
                         <span class="theme-icon">🌙</span>
                         <span class="auto-indicator" id="mobileAutoIndicator" title="Auto mode active">🔄</span>
                     </button>

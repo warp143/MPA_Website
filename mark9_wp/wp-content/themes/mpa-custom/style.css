@@ -868,10 +868,11 @@ body.light-mode .language-toggle:hover {
     border-radius: var(--border-radius-md);
     cursor: pointer;
     transition: var(--transition-normal);
-    display: flex;
+    display: flex !important;
+    flex-direction: row !important;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
     color: var(--text-primary);
     font-size: 1rem;
     font-weight: 500;
@@ -891,11 +892,16 @@ body.light-mode .language-toggle:hover {
 
 .mobile-theme-toggle-wrapper .theme-toggle .theme-icon {
     font-size: 1.2rem;
+    display: inline-block !important;
+    line-height: 1;
 }
 
 .mobile-theme-toggle-wrapper .theme-toggle .auto-indicator {
     font-size: 0.9rem;
     opacity: 0.7;
+    display: none;
+    line-height: 1;
+    margin-left: var(--spacing-xs);
 }
 
 .mobile-language-selector {

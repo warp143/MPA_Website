@@ -241,55 +241,102 @@ def main():
     parser = argparse.ArgumentParser(description="Scan and quarantine WP backdoor patterns")
     parser.add_argument("--wp-root", required=True, help="Path to WordPress root (contains wp-content)")
     parser.add_argument("--breech-dir", default="breech", help="Path to breech directory for reports/quarantine")
+    parser.add_argument("--log-file", default=None, help="Path to log file (default: ~/backdoor_sentry.log or breech/backdoor_sentry.log)")
     parser.add_argument("--neutralize", action="store_true", help="Comment out suspicious lines in-place")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
 
     wp_root = Path(os.path.expanduser(args.wp_root)).resolve()
     if not (wp_root / "wp-content").exists():
-        print("ERROR: wp-root does not look like a WordPress root", file=sys.stderr)
+        error_msg = "ERROR: wp-root does not look like a WordPress root"
+        print(error_msg, file=sys.stderr)
         return 2
 
     breech_dir = Path(args.breech_dir).resolve()
     quarantine_base = breech_dir / "quarantine" / dt.datetime.now().strftime("%Y%m%d_%H%M%S")
     report_dir = breech_dir / "backdoor_sentry_reports"
+    
+    # Determine log file path
+    if args.log_file:
+        log_file = Path(os.path.expanduser(args.log_file))
+    else:
+        # Try home directory first, fallback to breech directory
+        home_log = Path.home() / "backdoor_sentry.log"
+        if home_log.parent.exists() and os.access(home_log.parent, os.W_OK):
+            log_file = home_log
+        else:
+            log_file = breech_dir / "backdoor_sentry.log"
+    
+    ensure_dir(log_file.parent)
+
+    def log_write(message: str, level: str = "INFO"):
+        """Write to log file with timestamp."""
+        ts = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log_entry = f"[{ts}] [{level}] {message}\n"
+        try:
+            with open(log_file, "a", encoding="utf-8") as f:
+                f.write(log_entry)
+        except Exception as e:
+            # If logging fails, at least try to print to stderr
+            print(f"WARN: Failed to write to log file {log_file}: {e}", file=sys.stderr)
 
     def vlog(message: str):
         if args.verbose:
             ts = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             print(f"[{ts}] {message}")
 
-    findings = find_suspicious_files(wp_root)
-    if not findings:
-        vlog("No suspicious files found.")
-        return 0
+    # Log scan start
+    log_write(f"Scan started - WordPress root: {wp_root}")
+    vlog(f"Scanning WordPress installation at {wp_root}")
 
-    quarantined = []
-    changed = {}
-    for f in findings:
-        rel = relpath_under(wp_root, f)
-        qdst = quarantine_base / rel
-        ensure_dir(qdst.parent)
-        try:
-            shutil.copy2(f, qdst)
-            quarantined.append(f)
-        except Exception as e:
-            if args.verbose:
-                print(f"WARN: Failed to copy to quarantine: {f}: {e}")
+    try:
+        findings = find_suspicious_files(wp_root)
+        
+        if not findings:
+            log_write("Scan completed - No suspicious files found", "INFO")
+            vlog("No suspicious files found.")
+            return 0
 
-        if args.neutralize:
-            c = comment_out_matches(f)
-            if c:
-                changed[str(f)] = c
+        log_write(f"Scan found {len(findings)} suspicious file(s)", "ALERT")
+        vlog(f"Found {len(findings)} suspicious file(s)")
+
+        quarantined = []
+        changed = {}
+        for f in findings:
+            rel = relpath_under(wp_root, f)
+            qdst = quarantine_base / rel
+            ensure_dir(qdst.parent)
+            try:
+                shutil.copy2(f, qdst)
+                quarantined.append(f)
+                log_write(f"Quarantined: {rel}", "ALERT")
+            except Exception as e:
+                error_msg = f"Failed to copy to quarantine: {f}: {e}"
+                log_write(error_msg, "ERROR")
                 if args.verbose:
-                    print(f"Neutralized {c} line(s) in {rel}")
+                    print(f"WARN: {error_msg}")
 
-    ensure_dir(report_dir)
-    report_path = write_report(report_dir, wp_root, findings, quarantined, changed)
-    vlog(f"Report: {report_path}")
-    vlog(f"Quarantined: {len(quarantined)} file(s)")
+            if args.neutralize:
+                c = comment_out_matches(f)
+                if c:
+                    changed[str(f)] = c
+                    log_write(f"Neutralized {c} line(s) in {rel}", "ALERT")
+                    if args.verbose:
+                        print(f"Neutralized {c} line(s) in {rel}")
 
-    return 1
+        ensure_dir(report_dir)
+        report_path = write_report(report_dir, wp_root, findings, quarantined, changed)
+        log_write(f"Report written: {report_path}", "INFO")
+        log_write(f"Scan completed - {len(quarantined)} file(s) quarantined, {len(changed)} file(s) neutralized", "ALERT")
+        vlog(f"Report: {report_path}")
+        vlog(f"Quarantined: {len(quarantined)} file(s)")
+
+        return 1
+    except Exception as e:
+        error_msg = f"Scan error: {e}"
+        log_write(error_msg, "ERROR")
+        print(error_msg, file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":

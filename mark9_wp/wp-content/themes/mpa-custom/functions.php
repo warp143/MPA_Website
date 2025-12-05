@@ -269,8 +269,8 @@ function mpa_custom_scripts() {
     // Enqueue main stylesheet
     wp_enqueue_style('mpa-custom-style', get_stylesheet_uri(), array(), MPA_THEME_VERSION);
     
-    // Enqueue main JavaScript
-    wp_enqueue_script('mpa-custom-main', get_template_directory_uri() . '/js/main.js', array(), MPA_THEME_VERSION, true);
+    // Enqueue main JavaScript - add filemtime to bust cache
+    wp_enqueue_script('mpa-custom-main', get_template_directory_uri() . '/js/main.js', array(), filemtime(get_template_directory() . '/js/main.js'), true);
     
     // Enqueue navigation JavaScript
     wp_enqueue_script('mpa-custom-navigation', get_template_directory_uri() . '/js/navigation.js', array(), MPA_THEME_VERSION, true);

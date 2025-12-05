@@ -45,6 +45,18 @@ function applyTheme(theme) {
         }
     }
     
+    // Update mobile theme button icon DIRECTLY
+    const mobileBtn = document.getElementById('mobileThemeToggle');
+    const mobileIcon = mobileBtn?.querySelector('.theme-icon');
+    if (mobileIcon) {
+        mobileIcon.textContent = theme === 'light' ? '☀️' : '🌙';
+    }
+    const mobileIndicator = document.getElementById('mobileAutoIndicator');
+    if (mobileIndicator) {
+        const savedTheme = localStorage.getItem('theme');
+        mobileIndicator.style.display = (savedTheme === 'auto') ? 'inline' : 'none';
+    }
+    
     // Update mobile theme buttons
     if (window.updateMobileThemeButton) {
         window.updateMobileThemeButton();
@@ -89,30 +101,32 @@ function setTheme(theme) {
     
     // Force immediate theme application
     if (theme === 'light') {
-        document.body.classList.add('light-mode');
+        applyTheme('light');
     } else if (theme === 'dark') {
-        document.body.classList.remove('light-mode');
+        applyTheme('dark');
     } else {
         // Auto mode - use checkAndUpdateTheme
-    checkAndUpdateTheme();
-    updateAutoIndicator(theme);
-        return;
+        checkAndUpdateTheme();
     }
     
-    // Update theme icon and indicators
+    // Update theme icon and indicators (for ALL modes including auto)
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle?.querySelector('.theme-icon');
     if (themeIcon) {
-        themeIcon.textContent = theme === 'light' ? '☀️' : '🌙';
+        if (theme === 'auto') {
+            const effectiveTheme = getAutoTheme();
+            themeIcon.textContent = effectiveTheme === 'light' ? '☀️' : '🌙';
+        } else {
+            themeIcon.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
     }
     
-    // Update mobile theme button icon
+    // Update mobile theme button icon (for ALL modes including auto)
     const mobileBtn = document.getElementById('mobileThemeToggle');
     const mobileIcon = mobileBtn?.querySelector('.theme-icon');
     if (mobileIcon) {
         if (theme === 'auto') {
-            // In auto mode, show the current effective theme
-            const effectiveTheme = isAutoMode ? getAutoTheme() : (document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            const effectiveTheme = getAutoTheme();
             mobileIcon.textContent = effectiveTheme === 'light' ? '☀️' : '🌙';
         } else {
             mobileIcon.textContent = theme === 'light' ? '☀️' : '🌙';
@@ -122,6 +136,26 @@ function setTheme(theme) {
     if (mobileIndicator) {
         mobileIndicator.style.display = (theme === 'auto') ? 'inline' : 'none';
     }
+    
+    // Force update after delay to ensure DOM is ready
+    setTimeout(function() {
+        const btn = document.getElementById('mobileThemeToggle');
+        const icon = btn?.querySelector('.theme-icon');
+        if (icon) {
+            if (theme === 'auto') {
+                const effectiveTheme = getAutoTheme();
+                icon.textContent = effectiveTheme === 'light' ? '☀️' : '🌙';
+            } else {
+                const isLight = document.body.classList.contains('light-mode');
+                icon.textContent = isLight ? '☀️' : '🌙';
+            }
+        }
+        const ind = document.getElementById('mobileAutoIndicator');
+        if (ind) {
+            const savedTheme = localStorage.getItem('theme');
+            ind.style.display = (savedTheme === 'auto') ? 'inline' : 'none';
+        }
+    }, 100);
     
     // Update mobile theme buttons
     if (window.updateMobileThemeButton) {
@@ -198,6 +232,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle && currentTheme !== 'auto') {
         themeToggle.classList.add('auto-hidden');
+    }
+    
+    // Initialize mobile auto indicator visibility
+    const mobileIndicator = document.getElementById('mobileAutoIndicator');
+    if (mobileIndicator) {
+        const savedTheme = localStorage.getItem('theme');
+        mobileIndicator.style.display = (savedTheme === 'auto') ? 'inline' : 'none';
     }
     
     // Theme toggle functionality (desktop)
