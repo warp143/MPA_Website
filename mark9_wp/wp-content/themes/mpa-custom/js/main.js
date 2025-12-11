@@ -1,19 +1,10 @@
 // Modern Liquid MPA Website JavaScript
-alert('MAIN.JS LOADED - If you see this, script is working');
-console.log('[DEBUG] ========================================');
-console.log('[DEBUG] main.js FILE LOADED - Mobile theme buttons version');
-console.log('[DEBUG] Timestamp:', new Date().toISOString());
-console.log('[DEBUG] ========================================');
 
 // Theme Management
 let currentTheme = localStorage.getItem('theme') || 'auto';
 let isAutoMode = currentTheme === 'auto';
 
-// Immediate test - check if buttons exist right now
-setTimeout(function() {
-    console.log('[DEBUG] Immediate check - looking for buttons...');
-    // Mobile theme toggle button is now handled in main DOMContentLoaded section
-}, 100);
+// Mobile theme toggle button is now handled in main DOMContentLoaded section
 
 function getAutoTheme() {
     const now = new Date();
@@ -264,12 +255,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Mobile menu container
     const mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
-    
-    // Initial update - multiple attempts to ensure it runs
-    updateMobileThemeButton();
-    setTimeout(updateMobileThemeButton, 100);
-    setTimeout(updateMobileThemeButton, 300);
-    setTimeout(updateMobileThemeButton, 500);
     
     // Check for system theme changes
     if (window.matchMedia) {
@@ -1636,7 +1621,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Add a small delay to ensure all DOM elements are fully loaded
     setTimeout(async () => {
-        await selectLanguage(savedLanguage);
+        if (window.selectLanguage) {
+            await window.selectLanguage(savedLanguage);
+        }
     }, 100);
 });
 
