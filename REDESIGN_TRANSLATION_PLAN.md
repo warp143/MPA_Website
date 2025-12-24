@@ -48,5 +48,30 @@ Instead of managing a "dictionary" of keys, we will treat each translation as **
 4. **Zero Cost**: Achieves everything Polylang Pro does using native code.
 
 ---
-**Status**: Planning (Clean Slate)  
-**Version**: 2.0 (Total Redesign)
+
+## 🟢 Progress Update (Current Status)
+
+### ✅ Completed
+1. **Core Plugin (`mpa-multi-lang`)**: **DEPLOYED & ACTIVE**
+   - Custom Taxonomy `mpa_language` registered.
+   - Rewrite Rules `/ms/` and `/zh/` are active and working.
+   - Admin Metabox is live: You can link EN/MS/ZH posts via Post ID.
+2. **Frontend Engine**:
+   - `[mpa_lang_switcher]` shortcode created and integrated into Header/Mobile Menu.
+   - `hreflang` tags auto-injected for SEO.
+   - Root URL routing (`/ms/`, `/zh/`) fixed and verified.
+3. **Sync Engine**:
+   - **Active:** Featured Images and Page Templates now auto-sync between linked posts.
+4. **Homepage Translation**:
+   - **Done:** Created `ms-home` and `zh-home` Shadow Pages.
+   - **Done:** Implemented translation dictionary in `front-page.php`.
+   - **Verified:** `/ms/` and `/zh/` load the correct content.
+
+### 🚧 Needs to be done next
+1. **Translate Inner Pages**:
+   - We need to create MS and ZH versions for "About", "Members", "Events", etc.
+   - Link them to the English versions using the new Admin Box.
+2. **Template Updates**:
+   - If other page templates (like `page.php`) have hardcoded English text, they need the same `front-page.php` dictionary treatment.
+3. **Events Custom Field**:
+   - Decide if Events generally need full translation or just titles.
