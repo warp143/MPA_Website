@@ -3059,7 +3059,7 @@ function export_event_registrations() {
     $output = fopen('php://output', 'w');
     
     // CSV headers
-    fputcsv($output, array('Registration Date', 'Event', 'Full Name', 'Email', 'Phone', 'Company', 'Job Title', 'Dietary', 'Notes'));
+    fputcsv($output, array('Attendee Name', 'Event', 'Email', 'Phone', 'Company', 'Job Title', 'Membership', 'Dietary', 'Registered', 'Notes'));
     
     if ($registrations->have_posts()) {
         while ($registrations->have_posts()) {
@@ -3070,15 +3070,20 @@ function export_event_registrations() {
             $event = get_post($event_id);
             $event_title = $event ? $event->post_title : 'Unknown';
             
+            // Format Membership Status
+            $membership_status = get_post_meta($id, '_membership_status', true);
+            $membership_display = ($membership_status === 'mpa_member') ? 'MPA Member' : 'Non-MPA Member';
+            
             fputcsv($output, array(
-                get_post_meta($id, '_registered_date', true),
-                $event_title,
                 get_post_meta($id, '_full_name', true),
+                $event_title,
                 get_post_meta($id, '_email', true),
                 get_post_meta($id, '_phone', true),
                 get_post_meta($id, '_company', true),
                 get_post_meta($id, '_job_title', true),
+                $membership_display,
                 get_post_meta($id, '_dietary', true),
+                get_post_meta($id, '_registered_date', true),
                 get_post_meta($id, '_notes', true),
             ));
         }
@@ -3173,6 +3178,17 @@ function show_registration_list_columns($column, $post_id) {
             }
             break;
             
+        case 'membership_status':
+            $membership_status = get_post_meta($post_id, '_membership_status', true);
+            if ($membership_status) {
+                $status_label = ($membership_status === 'mpa_member') ? 'MPA Member' : 'Non-MPA Member';
+                $badge_color = ($membership_status === 'mpa_member') ? '#007AFF' : '#999';
+                echo '<span style="display:inline-block;padding:4px 8px;background:' . $badge_color . ';color:white;border-radius:4px;font-size:11px;font-weight:600;">' . esc_html($status_label) . '</span>';
+            } else {
+                echo '<span style="color:#999;">—</span>';
+            }
+            break;
+
         case 'dietary':
             $dietary = get_post_meta($post_id, '_dietary', true);
             if ($dietary) {
@@ -3182,17 +3198,6 @@ function show_registration_list_columns($column, $post_id) {
                     case 'vegetarian':
                         $icon = '🥗';
                         break;
-
-            case 'membership_status':
-                $membership_status = get_post_meta($post_id, '_membership_status', true);
-                if ($membership_status) {
-                    $status_label = ($membership_status === 'mpa_member') ? 'MPA Member' : 'Non-MPA Member';
-                    $badge_color = ($membership_status === 'mpa_member') ? '#007AFF' : '#999';
-                    echo '<span style="display:inline-block;padding:4px 8px;background:' . $badge_color . ';color:white;border-radius:4px;font-size:11px;font-weight:600;">' . esc_html($status_label) . '</span>';
-                } else {
-                    echo '<span style="color:#999;">—</span>';
-                }
-                break;
                     case 'vegan':
                         $icon = '🌱';
                         break;
