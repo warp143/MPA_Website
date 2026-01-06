@@ -42,7 +42,7 @@
                 <a href="<?php echo esc_url(home_url('/partners/')); ?>" class="nav-link">Partners</a>
             </div>
             <div class="nav-actions">
-                <div class="desktop-only">
+                <div class="desktop-only" id="desktop-lang-switcher-wrapper">
                     <?php echo do_shortcode('[mpa_lang_switcher]'); ?>
                 </div>
                 <button class="theme-toggle desktop-only" id="themeToggle">
@@ -89,10 +89,10 @@
             </a>
             
             <div class="mobile-menu-controls">
-                <div class="mobile-language-selector">
+                <!-- <div class="mobile-language-selector">
                     <span class="mobile-language-label">Language</span>
-                    <?php echo do_shortcode('[mpa_lang_switcher]'); ?>
-                </div>
+                    <?php // echo do_shortcode('[mpa_lang_switcher]'); ?>
+                </div> -->
                 <div class="mobile-theme-toggle-wrapper">
                     <button class="theme-toggle mobile-only" id="mobileThemeToggle">
                         <span class="theme-icon">🌙</span>

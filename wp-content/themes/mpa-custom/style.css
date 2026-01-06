@@ -8602,3 +8602,7 @@ body.light-mode .event-share-card {
     padding-left: var(--spacing-xs);
     border-color: var(--accent-blue);
 }
+
+/* FIX: Hide ghost language switchers */
+body .mpa-lang-switcher { display: none !important; }
+#desktop-lang-switcher-wrapper .mpa-lang-switcher { display: inline-block !important; }
